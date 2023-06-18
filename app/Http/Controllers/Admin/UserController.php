@@ -1,0 +1,214 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\Region;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\VehicleMake;
+use App\Models\VehicleModel;
+use App\Models\VehicleType;
+use App\Services\CarService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+class UserController extends Controller
+{
+    public function users()
+    {
+        $users = User::whereHasRole(['user','customer'])->paginate(100);
+        $title = "All users";
+        return view('admin.user.list', compact('users','title'));
+    }
+
+    public function riders()
+    {
+        $users = User::whereHasRole(['rider'])->paginate(100);
+        $title = "Riders List";
+        return view('admin.user.list', compact('users','title'));
+    }
+
+    public function index()
+    {
+        $users = User::withTrashed()->whereHasRole(['user','admin','receptionist','accountant'])->paginate(100);
+        $title = "All users";
+        return view('admin.user.list', compact('users','title'));
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $rides = [];
+        return view('admin.user.show', compact('user','rides'));
+    }
+
+    public function create(Request $request)
+    {
+        $role = $request->get('role') ?? 'rider';
+        $car_models = [];
+        $car_makes = [];
+        $car_types = [];
+        if($role == 'driver'){
+            $car_makes = VehicleMake::all();
+            $car_types = VehicleType::all();
+            $car_models = VehicleModel::where('make_id', $car_makes?->first()?->id)->get();
+        }
+        $regions = Region::select('name','id')->get();
+        $departments = Role::where('name','!=','superadmin')->get();
+        return view('admin.user.create', compact('departments','car_types','regions','role','car_makes','car_models'));
+    }
+
+    public function edit($id)
+    {
+        $departments = Role::where('name','!=','superadmin')->get();
+        $user = User::findOrFail($id);
+
+        $car_models = [];
+        $car_makes = [];
+        $car_types = [];
+        $regions = Region::select('name','id')->get();
+
+        if($user->hasRole('driver')){
+            $car_makes = VehicleMake::all();
+            $car_types = VehicleType::all();
+            if($user->car->model){
+                $car_models = VehicleModel::where('name', $user?->car?->model)->get();
+            }else{
+                $car_models = VehicleModel::where('name', $car_makes?->first()?->id)->get();
+            }
+        }
+
+        return view('admin.user.edit', compact('departments','regions','user','car_types','car_models','car_makes'));
+    }
+
+    public function store(Request $request, CarService $carService)
+    {
+        $rules = [
+            'first_name' => 'string|min:1|max:255|required',
+            'last_name' => 'nullable',
+            'phone' => 'string|min:1|max:255|required|unique:users',
+            'email' => 'string|min:1|max:255|required|unique:users|email',
+            'role' => 'required',
+            'gender' => 'nullable',
+            'region_id' => 'nullable',
+            'avatar' => 'nullable',
+            'password' => 'required',
+        ];
+        $data = $request->validate($rules);
+        $data['password'] = Hash::make($data['password']);
+        $user = User::create($data);
+
+        $user->addRole($data['role']);
+
+        if($data['role'] == 'driver'){
+            $request_data = $this->getCarData($user, $request);
+
+            $carService->createOrUpdate(null, $request_data);
+
+        }
+
+
+        return redirect()->back()->with('success',ucfirst($data['role']).' successfully created');
+    }
+
+    public function update(Request $request, $id, CarService $carService)
+    {
+        $rules = [
+            'first_name' => 'string|min:1|max:255|required',
+            'last_name' => 'nullable',
+            'phone' => 'string|min:1|max:255|required|unique:users,phone,'.$id,
+            'email' => 'string|min:1|max:255|required|unique:users,email,'.$id,
+            'gender' => 'nullable',
+            'region_id' => 'nullable',
+            'avatar' => 'nullable',
+            'password' => 'nullable',
+        ];
+        $data = $request->validate($rules);
+        if($request->input('password')){
+            $data['password'] = Hash::make($data['pass']);
+        }
+
+        $user = User::findOrFail($id);
+
+        $user->update($data);
+
+//        if($data['department'] != $user->role()){
+//            $user->detachRole($user->role());
+//
+//            $user->attachRole($data['department']);
+//        }
+
+        if($user->hasRole('driver')){
+            $request_data = $this->getCarData($user, $request);
+
+            $carService->createOrUpdate($user?->car, $request_data);
+
+        }
+
+        return back()->with('success','User successfully updated');
+    }
+
+    public function deleted()
+    {
+        $users = User::onlyTrashed()->paginate(100);
+        $title = "Deleted accounts";
+        return view('admin.user.trashed', compact('users', 'title'));
+    }
+
+
+
+    public function updateStatus($id, $status): RedirectResponse
+    {
+        $user = User::findOrFail($id);
+
+        $user->status = $status;
+        $user->save();
+        return redirect()->back()->with('success','Status successfully updated');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('success', "User successfully deactivated");
+    }
+    public function forceDelete($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->forceDelete();
+        return redirect()->back()->with('success', "User Deleted");
+    }
+
+    public function restoreDelete($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+
+        $user->restore();
+
+        $user = User::withTrashed()->findOrFail($id);
+
+        return redirect()->back()->with('success', "User activated");
+    }
+
+    /**
+     * @param $user
+     * @param Request $request
+     * @return array
+     */
+
+
+    private function getCarData($user, Request $request): array
+    {
+        $request['driver_id'] = $user->id;
+
+
+        $request['make'] = $request->get('vehicle_make');
+        $request['type'] = $request->get('vehicle_type');
+
+
+        return $request->only(['make', 'type', 'driver_id','door', 'year', 'color', 'model', 'vehicle_no', 'image', 'gear', 'title']);
+    }
+}

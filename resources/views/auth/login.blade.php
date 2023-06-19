@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="{{ env('APP_NAME') }}">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
+    <link rel="shortcut icon" href="{{ settings('favicon') }}">
     <!-- Page Title  -->
-    <title>Login | {{ env('APP_NAME') }} Dashboard </title>
+    <title>Login | {{ settings('site_name', env('APP_NAME')) }} Dashboard </title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/dashlite.css?ver=3.1.1') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/css/theme.css?ver=3.1.1') }}">
@@ -27,7 +27,7 @@
                 <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
                     <div class="brand-logo pb-4 text-center">
                         <a href="#" class="logo-link">
-                            <img height="150" src="/icon/logo_md.png" />
+                            <img height="150" src="{{ asset('default/logo.png') }}" />
 {{--                            <h3 style="font-weight: bolder" class="text-capitalize">{{ env('APP_NAME') }}</h3>--}}
                             {{--                            <img class="logo-light logo-img logo-img-lg" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">--}}
                             {{--                            <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">--}}

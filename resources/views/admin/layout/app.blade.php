@@ -57,8 +57,8 @@
                     <a href="#" class="nk-nav-compact nk-quick-nav-icon d-none d-xl-inline-flex" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                 </div>
                 <div class="nk-sidebar-brand">
-                    <a href="/admin/dashboard" class="logo-link nk-sidebar-logo">
-                        <img class="logo-light logo-img" src="/icon/logo_md.png"  alt="logo">
+                    <a href="{{ route('admin.dashboard') }}" class="logo-link nk-sidebar-logo">
+                        <img class="logo-light logo-img" src="{{ asset('default/logo.png') }}"  alt="logo">
                         <img class="logo-dark logo-img" src="/icon/logo_md.png" alt="logo-dark">
                     </a>
                 </div>

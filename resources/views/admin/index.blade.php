@@ -123,10 +123,10 @@
                                         </div>
                                         <div class="nk-sale-data-group align-center justify-between gy-3 gx-5">
                                             <div class="nk-sale-data">
-                                                <span class="amount">$82,944.60</span>
+                                                <span class="amount">$0</span>
                                             </div>
                                             <div class="nk-sale-data">
-                                                <span class="amount sm">2 <small>Total rides</small></span>
+                                                <span class="amount sm">0 <small>Total rides</small></span>
                                             </div>
                                         </div>
                                         <div class="nk-sales-ck large pt-4">

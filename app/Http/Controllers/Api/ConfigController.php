@@ -55,4 +55,13 @@ class ConfigController extends Controller
         $data = CancellationReason::where('is_active', true)->where('user_type','rider')->get();
         return $this->successResponse('Rider cancellation reasons', $data);
     }
+
+    public function getSettings(): JsonResponse
+    {
+        $data['country_id'] = settings('country_id');
+        $data['country_code'] = settings('country_code','+1');
+        $data['country'] = settings('country','United state');
+        $data['app_name'] = settings('site_name');
+        return $this->successResponse('config settings', $data);
+    }
 }

@@ -45,6 +45,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'password',
         'address',
         'country_code',
+        'country',
         'city',
         'region_id',
 

@@ -30,6 +30,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::post('user', [AuthController::class, 'user']);
 
+        Route::post('verify/phone', [AuthController::class, 'verifyPhone']);
+
         Route::post('forgot/pass', [AuthController::class, 'forgotPass']);
         Route::post('check/phone', [AuthController::class, 'checkPhone']);
         Route::post('forgot/pass/verify', [AuthController::class, 'verifyResetCode']);

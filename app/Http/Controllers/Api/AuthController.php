@@ -30,7 +30,10 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum', ['except' => ['login','delete','checkPhone','testSendBlue','loginUser','forgotPass','sendVerifyEmail','verifyResetCode','resetPass','locations','register']]);
+        $this->middleware('auth:sanctum', ['except' => ['login','delete','checkPhone','testSendBlue',
+            'loginUser','forgotPass','sendVerifyEmail','verifyResetCode','resetPass',
+            'verifyPhone',
+            'locations','register']]);
     }
 
 
@@ -159,7 +162,7 @@ class AuthController extends Controller
         // return $this->respondWithToken($token);
     }
 
-    public function user(Request $request)
+    public function user(Request $request): JsonResponse
     {
         $user = User::withCount(['washes'])->where('id', auth()->id())->first();
 
@@ -171,6 +174,28 @@ class AuthController extends Controller
         $data['user'] = new UserCollection($user);
 
         return  $this->successResponse('user',$data);
+    }
+
+    public function verifyPhone(Request $request): JsonResponse
+    {
+        $phone = $request['phone'];
+        $code = $request['code'];
+        if(!$phone){
+            return $this->errorResponse('Something went wrong, we cant, find your phone number');
+        }
+        if(!$code){
+            return $this->errorResponse('Invalid or expired code, please try again');
+        }
+        $user = User::where('phone', $phone)->first();
+
+        $data['message'] = 'Phone verified';
+        if($user){
+            $data['user_exist'] = true;
+        }else {
+            $data['user_exist'] = false;
+        }
+
+        return $this->successResponse('verify code response',$data);
     }
 
 

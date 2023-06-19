@@ -53,6 +53,8 @@ class AdminController extends Controller
                 if($country){
                     $data['country_code'] = $country->dial_code;
                     $data['country'] = $country->name;
+                    $data['dial_min'] = $country->dial_min_length;
+                    $data['dial_max'] = $country->dial_max_length;
                 }
             }
             settings($data);

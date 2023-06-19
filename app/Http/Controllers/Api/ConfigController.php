@@ -62,6 +62,8 @@ class ConfigController extends Controller
         $data['country_code'] = settings('country_code','+1');
         $data['country'] = settings('country','United state');
         $data['app_name'] = settings('site_name');
+        $data['dial_min'] = settings('dial_min');
+        $data['dial_max'] = settings('dial_max');
         return $this->successResponse('config settings', $data);
     }
 }

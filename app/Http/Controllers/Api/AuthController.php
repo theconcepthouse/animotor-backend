@@ -197,14 +197,19 @@ class AuthController extends Controller
         }
         $user = User::where('phone', $phone)->first();
 
-        $data['message'] = 'Phone verified';
+        $data['message'] = 'Phone successfully verified';
+
         if($user){
+            $data = $user;
+
+            $data['token'] = $user->createToken($user->email)->plainTextToken;
+
             $data['user_exist'] = true;
         }else {
             $data['user_exist'] = false;
         }
 
-        return $this->successResponse('verify code response',$data);
+        return $this->successResponse($data['message'],$data);
     }
 
 

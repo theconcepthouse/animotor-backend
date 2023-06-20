@@ -6,6 +6,7 @@ use App\Models\Withdraw;
 use App\Notifications\EmailVerify;
 use App\Notifications\PasswordReset;
 use App\Notifications\PasswordReseted;
+use App\Services\CarService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -39,7 +40,7 @@ class AuthController extends Controller
 
 
 
-    public function register(Request $request): JsonResponse
+    public function register(Request $request, CarService $carService): JsonResponse
     {
 
         $request->validate([
@@ -48,12 +49,13 @@ class AuthController extends Controller
 
             'phone' => 'required|min:3|unique:users',
             'country_code' => 'required',
+            'country' => 'required',
             'email' => 'required|max:50|email|unique:users',
-            'password'  => 'required|min:6',
+//            'password'  => 'required|min:6',
             'role'  => 'required',
-            'referral'  => 'nullable',
+//            'referral'  => 'nullable',
             'avatar'  => 'nullable',
-            'repeat_password' => 'required|same:password',
+//            'repeat_password' => 'required|same:password',
         ]);
 
         try {
@@ -61,23 +63,30 @@ class AuthController extends Controller
 
             $data = $request->all();
             $role = Role::where('name', $request['role'])->first();
-            $data['password'] = bcrypt($data['password']);
+            $data['password'] = bcrypt($data['phone']);
             $user = User::create($data);
 
-            $user->attachRole($role);
+            $user->addRole($role);
             // login user
 
 //            $user->notify(new EmailVerify($user));
 //
 //            $user->must_verify_email = true;
 
+            $dt['user'] = $user;
+            $dt['token'] = $user->createToken($request->email)->plainTextToken;
+
             $deleted_user = User::onlyTrashed()->where('email',$user->email.'__')->first();
 
             $deleted_user?->forceDelete();
 
+            if($request['role'] == 'driver'){
+                $carService->createOrUpdate(null, ['driver_id' => $user->id]);
+            }
+
             DB::commit();
 
-            return $this->successResponse('Successful', $user);
+            return $this->successResponse('Information successfully saved', $dt);
         } catch (Exception $e) {
             DB::rollback();
             return $this->errorResponse($e->getMessage(), 500);

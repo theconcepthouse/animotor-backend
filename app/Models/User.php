@@ -20,12 +20,14 @@ use Illuminate\Notifications\Notifiable;
 use Laratrust\Contracts\LaratrustUser;
 
 use Laratrust\Traits\HasRolesAndPermissions;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements LaratrustUser, Wallet
 {
 
     use HasRolesAndPermissions;
     use HasWallet;
+    use HasApiTokens;
     use HasFactory, Notifiable, SoftDeletes;
 
 

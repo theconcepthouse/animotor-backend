@@ -14,8 +14,11 @@ class DriverController extends Controller
 
     public function vehicleUpdate(Request $request, CarService $carService): JsonResponse
     {
-        $data = $this->vehicleData($request);
         $userId = auth()->user()->id;
+
+        $request['driver_id'] = $userId;
+
+        $data = $this->vehicleData($request);
 
         $user = User::find($userId);
         $carService->createOrUpdate($user->car, $data);

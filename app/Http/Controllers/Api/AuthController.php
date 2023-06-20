@@ -73,8 +73,8 @@ class AuthController extends Controller
 //
 //            $user->must_verify_email = true;
 
-            $dt['user'] = $user;
-            $dt['token'] = $user->createToken($request->email)->plainTextToken;
+            $user['token'] = $user->createToken($request->email)->plainTextToken;
+
 
             $deleted_user = User::onlyTrashed()->where('email',$user->email.'__')->first();
 
@@ -86,7 +86,7 @@ class AuthController extends Controller
 
             DB::commit();
 
-            return $this->successResponse('Information successfully saved', $dt);
+            return $this->successResponse('Information successfully saved', $user);
         } catch (Exception $e) {
             DB::rollback();
             return $this->errorResponse($e->getMessage(), 500);

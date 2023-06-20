@@ -201,7 +201,6 @@ class AuthController extends Controller
 
         if($user){
             $data = $user;
-
             $data['token'] = $user->createToken($user->email)->plainTextToken;
 
             $data['user_exist'] = true;

@@ -197,7 +197,6 @@ class AuthController extends Controller
         }
         $user = User::where('phone', $phone)->first();
 
-        $data['message'] = 'Phone successfully verified';
 
         if($user){
             $data = $user;
@@ -207,6 +206,8 @@ class AuthController extends Controller
         }else {
             $data['user_exist'] = false;
         }
+        $data['message'] = 'Phone successfully verified';
+
 
         return $this->successResponse($data['message'],$data);
     }

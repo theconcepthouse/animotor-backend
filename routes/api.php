@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 
 use App\Http\Controllers\Api\ConfigController;
+use App\Http\Controllers\Api\DriverController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::post('user', [AuthController::class, 'user']);
 
+        Route::post('user/update', [AuthController::class, 'update']);
+
         Route::post('verify/phone', [AuthController::class, 'verifyPhone']);
 
         Route::post('forgot/pass', [AuthController::class, 'forgotPass']);
@@ -37,6 +40,11 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('forgot/pass/verify', [AuthController::class, 'verifyResetCode']);
         Route::post('reset/pass', [AuthController::class, 'resetPass']);
         Route::post('send/email/verify', [AuthController::class, 'sendVerifyEmail']);
+    });
+
+
+    Route::group(['prefix' => 'driver','middleware' => ['auth:sanctum']], function ($router) {
+        Route::post('car/update', [DriverController::class, 'vehicleUpdate']);
     });
 
     Route::group(['prefix' => 'config'], function () {

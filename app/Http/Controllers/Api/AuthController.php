@@ -219,7 +219,7 @@ class AuthController extends Controller
         $user = user::find(auth()->user()->id);
         $user->update($data);
 
-        return $this->userRes();
+        return $this->successResponse('Account updated', $user);
     }
 
 
@@ -512,15 +512,14 @@ class AuthController extends Controller
         $data = $request->validate($rules);
         return $data;
     }
-    protected function updateData(Request $request)
+    protected function updateData(Request $request): array
     {
         $rules = [
-            'full_name' => 'nullable',
-            'lat' => 'nullable',
-            'lng' => 'nullable',
+            'first_name' => 'nullable',
+            'last_name' => 'nullable',
+            'region_id' => 'nullable',
             'address' => 'nullable',
-            'city' => 'nullable',
-            'house_no' => 'nullable',
+            'avatar' => 'nullable',
         ];
         return $request->validate($rules);
     }

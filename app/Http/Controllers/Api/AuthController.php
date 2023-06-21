@@ -173,7 +173,7 @@ class AuthController extends Controller
 
     public function user(Request $request): JsonResponse
     {
-        $user = User::find('id', auth()->id());
+        $user = User::find(auth()->id());
 
         if($request->has('push_token')){
             $user->push_token = $request['push_token'];

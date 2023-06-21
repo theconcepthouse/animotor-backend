@@ -16,6 +16,7 @@ class DriverDocument extends Model
         'file',
         'status',
         'comment',
+        'is_approved',
         'expiry_date',
     ];
 

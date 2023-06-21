@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Illuminate\Support\Collection;
 use Laratrust\Contracts\LaratrustUser;
 
 use Laratrust\Traits\HasRolesAndPermissions;
@@ -69,6 +70,8 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     protected $with = ['documents','car'];
 
+    protected $appends = ['unapproved_documents','name'];
+
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class,'region_id');
@@ -84,9 +87,6 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->hasOne(Car::class,'driver_id');
     }
 
-
-    protected $appends = ['name'];
-
     /**
      * The attributes that should be cast.
      *
@@ -97,18 +97,6 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     public function role(){
         return $this->getRoles()[0];
     }
-
-
-
-
-//    public function pendingWashes(): HasMany
-//    {
-//        return $this->hasMany(Wash::class,'washer_id')->where('completed',0);
-//    }
-
-
-
-
 
     public function getAvatarAttribute($value) {
         if(!$this->attributes['avatar']) {
@@ -121,6 +109,14 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     public function getNameAttribute() {
         return $this->title.' '.$this->first_name." ".$this->last_name;
+    }
+
+    public function getUnapprovedDocumentsAttribute(): int
+    {
+        if($this->hasRole('driver')){
+            return $this->documents()->where('is_approved',0)->count();
+        }
+        return 0;
     }
 
 //    public function getPhoneAttribute($value) {

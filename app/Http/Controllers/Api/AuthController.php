@@ -7,6 +7,7 @@ use App\Notifications\EmailVerify;
 use App\Notifications\PasswordReset;
 use App\Notifications\PasswordReseted;
 use App\Services\CarService;
+use App\Services\DriverDocumentService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -40,7 +41,7 @@ class AuthController extends Controller
 
 
 
-    public function register(Request $request, CarService $carService): JsonResponse
+    public function register(Request $request, CarService $carService, DriverDocumentService $driverDocumentService): JsonResponse
     {
 
         $request->validate([
@@ -73,7 +74,6 @@ class AuthController extends Controller
 //
 //            $user->must_verify_email = true;
 
-            $user['token'] = $user->createToken($request->email)->plainTextToken;
 
 
             $deleted_user = User::onlyTrashed()->where('email',$user->email.'__')->first();
@@ -82,7 +82,15 @@ class AuthController extends Controller
 
             if($request['role'] == 'driver'){
                 $carService->createOrUpdate(null, ['driver_id' => $user->id]);
+
+                $driverDocumentService->createRequired($user);
+
+                $user = User::find($user->id);
+
             }
+
+            $user['token'] = $user->createToken($request->email)->plainTextToken;
+
 
             DB::commit();
 
@@ -171,7 +179,7 @@ class AuthController extends Controller
         // return $this->respondWithToken($token);
     }
 
-    public function user(Request $request): JsonResponse
+    public function user(Request $request, DriverDocumentService $driverDocumentService): JsonResponse
     {
         $user = User::find(auth()->id());
 
@@ -179,6 +187,15 @@ class AuthController extends Controller
             $user->push_token = $request['push_token'];
             $user->save();
         }
+
+        if($user->hasRole('driver') && count($user->documents) < 1){
+            $driverDocumentService->createRequired($user);
+
+            $user = User::find(auth()->id());
+
+        }
+
+
 
         return  $this->successResponse('user details',$user);
     }

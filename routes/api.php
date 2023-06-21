@@ -45,6 +45,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
     Route::group(['prefix' => 'driver','middleware' => ['auth:sanctum']], function ($router) {
         Route::post('car/update', [DriverController::class, 'vehicleUpdate']);
+        Route::post('update/document', [DriverController::class, 'vehicleUpdateDocument']);
     });
 
     Route::group(['prefix' => 'config'], function () {

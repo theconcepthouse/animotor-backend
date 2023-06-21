@@ -173,16 +173,14 @@ class AuthController extends Controller
 
     public function user(Request $request): JsonResponse
     {
-        $user = User::withCount(['washes'])->where('id', auth()->id())->first();
+        $user = User::find('id', auth()->id());
 
         if($request->has('push_token')){
             $user->push_token = $request['push_token'];
             $user->save();
         }
 
-        $data['user'] = new UserCollection($user);
-
-        return  $this->successResponse('user',$data);
+        return  $this->successResponse('user details',$user);
     }
 
     public function verifyPhone(Request $request): JsonResponse

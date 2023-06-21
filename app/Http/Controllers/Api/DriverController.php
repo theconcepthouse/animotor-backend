@@ -39,6 +39,9 @@ class DriverController extends Controller
         $driver_document = DriverDocument::find($request['id']);
         $file = $imageService->uploadImage($request['file'], 'drivers_document/'.$id);
         $driver_document->file = $file;
+        if($file){
+            $driver_document->status = "uploaded & awaiting approval";
+        }
         $driver_document->save();
         return $this->successResponse('Driver document uploaded', $driver_document);
     }

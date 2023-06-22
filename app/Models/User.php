@@ -118,6 +118,13 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         }
         return 0;
     }
+    public function getMessingDocumentsAttribute(): int
+    {
+        if($this->hasRole('driver')){
+            return $this->documents()->where('is_approved',0)->count();
+        }
+        return 0;
+    }
 
 //    public function getPhoneAttribute($value) {
 //        if (str_starts_with($value, "+")) {

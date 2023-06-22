@@ -232,7 +232,12 @@ class AuthController extends Controller
     {
         $data = $this->updateData($request);
         $user = user::find(auth()->user()->id);
-        $user->update($data);
+        if($request->has('car_status')){
+            $user->status = 'pending';
+            $user->save();
+        }else{
+            $user->update($data);
+        }
 
         return $this->successResponse('Account updated', $user);
     }

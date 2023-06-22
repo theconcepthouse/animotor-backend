@@ -233,7 +233,7 @@ class AuthController extends Controller
         $data = $this->updateData($request);
         $user = user::find(auth()->user()->id);
         if($request->has('car_status')){
-            $user->status = 'pending';
+            $user->status = 'pending_approval';
             $user->save();
         }else{
             $user->update($data);

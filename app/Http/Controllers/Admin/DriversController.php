@@ -22,6 +22,10 @@ class DriversController extends Controller
                 $title = " Drivers with negative balance ";
 
                 $drivers = User::whereHasRole(['driver'])->where('status', 'active')->latest()->paginate(500);
+            }else if($status == 'unapproved'){
+                $title = " Drivers with negative balance ";
+
+                $drivers = User::whereHasRole(['driver'])->whereIn('status', ['unapproved','blocked','pending'])->latest()->paginate(500);
             }else{
 
                 $title = $status." Drivers ";

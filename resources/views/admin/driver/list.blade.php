@@ -45,9 +45,10 @@
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
+                                                    <th>Status</th>
                                                     <th>Car Type</th>
                                                     <th>Document </th>
-                                                    <th>Status</th>
+                                                    <th>Verification </th>
                                                     <th>Action</th>
                                                 </tr>
 
@@ -60,20 +61,31 @@
                                                         <td>{{ $item?->name }}</td>
                                                         <td>{{ $item->email }}</td>
                                                         <td>{{ $item->phone }}</td>
+                                                        <td>
+                                                            <a data-bs-toggle="modal" href="#update{{ $item->id }}">
+                                                                @if($item->status == 'approved')
+                                                                    <span class="badge badge-dim bg-success">Approved</span>
+                                                                @else
+                                                                    <span class="badge badge-dim bg-danger">{{ $item->status }}</span>
+                                                                @endif
+                                                            </a>
+                                                        </td>
                                                         <td>{{ $item?->car?->type }}</td>
                                                         <td>
                                                             <a href="{{ route('admin.driver.documents', ['id' => $item->id]) }}" class="btn btn-outline-primary">
                                                                 <i class="icon ni ni-book"></i>
                                                             </a>
                                                         </td>
-                                                        <td>
-                                                            @if($item->status == 'approved')
-                                                                <span class="badge badge-dim bg-success">Approved</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">{{ $item->status }}</span>
-                                                            @endif
-                                                        </td>
 
+                                                        <td>
+                                                            <a href="{{ route('admin.driver.documents', ['id' => $item->id]) }}">
+                                                                @if($item->unapproved_documents < 1)
+                                                                    <span class="badge badge-dim bg-success">Approved</span>
+                                                                @else
+                                                                    <span class="badge badge-dim bg-danger">{{$item->unapproved_documents }} pending</span>
+                                                                @endif
+                                                            </a>
+                                                        </td>
 
                                                         <td>
                                                             <div class="d-flex">
@@ -101,3 +113,52 @@
 
 
 @endsection
+
+@foreach($drivers as $item)
+<div class="modal fade" role="dialog" id="update{{ $item->id }}">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-md">
+                <h5 class="title">Update status</h5>
+                <form action="{{ route('admin.user.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method("PATCH")
+                    @if ($errors->any())
+
+                        <div class="alert alert-danger">
+
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="row gy-4 pt-4">
+
+
+                        <input name="id" value="{{ $item->id }}" type="hidden">
+
+                        @include('admin.partials.form.select_array', ['attributes' => 'required', 'id' => $item->id,'colSize' => 'col-md-12', 'fieldName' => 'status','value' => $item->status, 'title' => 'Status','options' => ['unapproved','pending','blocked','approved']])
+
+                        @include('admin.partials.form.textarea', [ 'colSize' => 'col-md-12',  'fieldName' => 'comment','value' => $item?->comment, 'title' => 'Comment / Message'])
+
+                    </div>
+
+
+
+
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-lg btn-primary">Update </button>
+                    </div>
+                </form>
+
+
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div>
+@endforeach

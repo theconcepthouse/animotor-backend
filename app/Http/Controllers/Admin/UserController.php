@@ -117,11 +117,13 @@ class UserController extends Controller
     public function update(Request $request, $id, CarService $carService)
     {
         $rules = [
-            'first_name' => 'string|min:1|max:255|required',
+            'first_name' => 'nullable',
             'last_name' => 'nullable',
-            'phone' => 'string|min:1|max:255|required|unique:users,phone,'.$id,
-            'email' => 'string|min:1|max:255|required|unique:users,email,'.$id,
+            'phone' => 'nullable|unique:users,phone,'.$id,
+            'email' => 'nullable|unique:users,email,'.$id,
             'gender' => 'nullable',
+            'status' => 'nullable',
+            'comment' => 'nullable',
             'region_id' => 'nullable',
             'avatar' => 'nullable',
             'password' => 'nullable',
@@ -141,7 +143,7 @@ class UserController extends Controller
 //            $user->attachRole($data['department']);
 //        }
 
-        if($user->hasRole('driver')){
+        if($user->hasRole('driver') && $request->has('title')){
             $request_data = $this->getCarData($user, $request);
 
             $carService->createOrUpdate($user?->car, $request_data);

@@ -128,10 +128,10 @@
                                 </a>
                                 <ul class="nk-menu-sub">
                                     <li class="nk-menu-item">
-                                        <a href="{{ route('admin.drivers.index',['status' => 'approved']) }}" class="nk-menu-link"><span class="nk-menu-text">Approved</span></a>
+                                        <a href="{{ route('admin.drivers.index',['status' => 'approved']) }}" class="nk-menu-link"><span class="nk-menu-text">Active</span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="{{ route('admin.drivers.index',['status' => 'unapproved']) }}" class="nk-menu-link"><span class="nk-menu-text">Unapproved</span></a>
+                                        <a href="{{ route('admin.drivers.index',['status' => 'unapproved']) }}" class="nk-menu-link"><span class="nk-menu-text">Inactive</span></a>
                                     </li>
 
                                     <li class="nk-menu-item">

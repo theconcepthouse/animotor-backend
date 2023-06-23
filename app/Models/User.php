@@ -127,6 +127,23 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return 'Account '.$status;
     }
 
+//    public function getCommentAttribute() {
+//        if(strlen($this->comment) > 3){
+//            return $this->comment;
+//        }
+//        $status = $this->status;
+//        if($status == 'pending'){
+//            return "Your account is pending approval, you will be notified once approved";
+//        }
+//        if($status == 'unapproved'){
+//            return "Account unapproved";
+//        }
+//        if($status == 'blocked'){
+//            return "Account Blocked";
+//        }
+//        return 'Account '.$status;
+//    }
+
     public function getUnapprovedDocumentsAttribute(): int
     {
         if($this->hasRole('driver')){

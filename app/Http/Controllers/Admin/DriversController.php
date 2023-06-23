@@ -61,7 +61,15 @@ class DriversController extends Controller
             'document_id' => 'required',
         ]);
 
-        $driverDocumentService->createOrUpdate($request['document_id'], $request['driver_id'], $request['status'], $request['expiry_date'], $request['file'], $request['comment']);
+        if($request->has('status')){
+            $status = $request->get('status');
+
+            if($status == 'approved'){
+                $request['is_approved'] = true;
+            }
+        }
+
+        $driverDocumentService->createOrUpdate($request['document_id'], $request['driver_id'], $request['status'], $request['expiry_date'], $request['file'], $request['comment'], $request['is_approved']);
 
         return redirect()->back()->with('success','Document update');
     }

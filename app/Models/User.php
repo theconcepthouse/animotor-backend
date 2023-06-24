@@ -104,7 +104,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         if(!$this->attributes['avatar']) {
             $colors = ['E91E63', '9C27B0', '673AB7', '3F51B5', '0D47A1', '01579B', '00BCD4', '009688', '33691E', '1B5E20', '33691E', '827717', 'E65100',  'E65100', '3E2723', 'F44336', '212121'];
             $background = $colors[strlen($this->first_name)%count($colors)];
-            return "https://ui-avatars.com/api/?size=256&background=".$background."&color=fff&name=".urlencode($this->full_name);
+            return "https://ui-avatars.com/api/?size=256&background=".$background."&color=fff&name=".urlencode($this->first_name);
         }
         return $this->attributes['avatar'];
     }

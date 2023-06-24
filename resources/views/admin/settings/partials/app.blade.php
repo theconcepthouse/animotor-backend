@@ -31,6 +31,16 @@
                 </fiv>
             </div>
 
+            <div class="col-md-6">
+                <fiv class="row">
+
+                    @include('admin.partials.form.text', ['attributes' => 'required', 'value' => settings('term_url'), 'colSize' => 'col-md-12', 'fieldName' => 'term_url','title' => 'Terms & condition link'])
+                    @include('admin.partials.form.text', ['attributes' => 'required', 'value' => settings('privacy_url'), 'colSize' => 'col-md-12 mt-3', 'fieldName' => 'privacy_url','title' => 'Privacy link'])
+                    @include('admin.partials.form.text', ['colSize' => 'col-md-12 mt-3', 'value' => settings('about_url'), 'fieldName' => 'about_url','title' => 'About us link'])
+
+                </fiv>
+            </div>
+
         </div>
 
         <div class="row g-3">

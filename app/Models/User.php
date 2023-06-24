@@ -72,7 +72,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     protected $with = ['documents','car'];
 
-    protected $appends = ['unapproved_documents','name','status_text'];
+    protected $appends = ['unapproved_documents','name','status_text','account_balance'];
 
     public function region(): BelongsTo
     {
@@ -111,6 +111,11 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     public function getNameAttribute() {
         return $this->title.' '.$this->first_name." ".$this->last_name;
+    }
+
+    public function getAccountBalanceAttribute(): int
+    {
+        return 100;
     }
 
     public function getStatusTextAttribute() {

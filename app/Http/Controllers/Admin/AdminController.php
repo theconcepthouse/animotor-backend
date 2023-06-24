@@ -42,21 +42,25 @@ class AdminController extends Controller
         return view('admin.settings', compact('data', 'countries','active'));
     }
 
-   public function storeSettings(Request $request): RedirectResponse
+   public function storeSettings(Request $request)
    {
+
         $data = $request->except('active_setting');
         if($request->get('active_setting') == 'smtp'){
             $this->storeSmtp($request);
         }else{
-            if($request->get('country_id') != settings('country_id')){
-                $country = Country::findOrFail($request->get('country_id'));
-                if($country){
-                    $data['country_code'] = $country->dial_code;
-                    $data['country'] = $country->name;
-                    $data['dial_min'] = $country->dial_min_length;
-                    $data['dial_max'] = $country->dial_max_length;
+            if($request->has('country_id')){
+                if($request->get('country_id') != settings('country_id')){
+                    $country = Country::findOrFail($request->get('country_id'));
+                    if($country){
+                        $data['country_code'] = $country->dial_code;
+                        $data['country'] = $country->name;
+                        $data['dial_min'] = $country->dial_min_length;
+                        $data['dial_max'] = $country->dial_max_length;
+                    }
                 }
             }
+
             settings($data);
         }
 

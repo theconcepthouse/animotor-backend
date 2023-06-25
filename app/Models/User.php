@@ -8,7 +8,7 @@ use Bavix\Wallet\Traits\HasWallet;
 use Carbon\Carbon;
 
 
-
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -30,6 +30,8 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     use HasWallet;
     use HasApiTokens;
     use HasFactory, Notifiable, SoftDeletes;
+    use HasUuids;
+
 
 
 
@@ -44,6 +46,9 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'avatar',
         'email',
         'phone',
+        'is_online',
+        'map_lat',
+        'map_lng',
         'email_verified_at',
         'password',
         'comment',
@@ -54,10 +59,11 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'city',
         'region_id',
 
+
     ];
 
     protected $casts = [
-
+        'is_online' => 'bool'
     ];
 
     /**

@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {
-            $table->id();
+//            $table->id();
+            $table->uuid('id')->primary();
+
             $table->string('name');
             $table->boolean('is_required')->default(0);
             $table->boolean('has_expiry_date')->default(0);

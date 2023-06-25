@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cancellation_reasons', function (Blueprint $table) {
-            $table->id();
+//            $table->id();
+            $table->uuid('id')->primary();
+
             $table->string('user_type');
             $table->string('reason');
             $table->boolean('is_active');

@@ -3309,7 +3309,7 @@
     "currency_decimals": "2",
     "flag": "NG.png",
     "minLength": 10,
-    "maxLength": 11
+    "maxLength": 10
 },
 {
     "capital": "Alofi",

@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('banks', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
+//            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->uuid('user_id');
             $table->string('bank_name')->nullable();
             $table->string('holder_name')->nullable();
             $table->string('account_number')->nullable();

@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('vehicle_models', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('make_id');
+//            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->uuid('make_id');
             $table->string('name');
             $table->boolean('is_active')->default(true);
             $table->timestamps();

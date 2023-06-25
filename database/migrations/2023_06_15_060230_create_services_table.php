@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('region_id');
+//            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->uuid('region_id');
             $table->string('name');
             $table->string('image')->nullable();
             $table->integer('capacity');

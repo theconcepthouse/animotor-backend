@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('driver_documents', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('driver_id');
-            $table->unsignedBigInteger('document_id');
+//            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->uuid('driver_id');
+            $table->uuid('document_id');
             $table->string('file')->nullable();
             $table->string('status')->nullable();
             $table->text('comment')->nullable();

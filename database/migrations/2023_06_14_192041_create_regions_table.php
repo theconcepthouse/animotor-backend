@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('regions', function (Blueprint $table) {
-            $table->id();
+//            $table->id();
+            $table->uuid('id')->primary();
+
             $table->string('name');
             $table->string('currency_code')->nullable();
             $table->string('currency_symbol')->nullable();

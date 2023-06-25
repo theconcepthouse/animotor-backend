@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('complaints', function (Blueprint $table) {
-            $table->id();
+//            $table->id();
+            $table->uuid('id')->primary();
+
             $table->string('subject');
-            $table->unsignedBigInteger('ride_id');
+            $table->uuid('ride_id');
             $table->text('complain')->nullable();
             $table->string('by')->default('rider');
             $table->string('status')->default('pending');

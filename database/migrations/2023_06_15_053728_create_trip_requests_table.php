@@ -14,10 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('trip_requests', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('region_id');
-            $table->unsignedBigInteger('driver_id');
-            $table->unsignedBigInteger('customer_id');
+//            $table->id();
+            $table->uuid('id')->primary();
+
+            $table->uuid('region_id');
+            $table->uuid('driver_id');
+            $table->uuid('customer_id');
             $table->boolean('is_scheduled')->default(0);
             $table->decimal('fee',10,2)->default(0);
             $table->string('reference')->nullable();

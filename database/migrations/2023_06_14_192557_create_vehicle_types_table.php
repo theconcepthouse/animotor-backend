@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('vehicle_types', function (Blueprint $table) {
-            $table->id();
+//            $table->id();
+            $table->uuid('id')->primary();
+
             $table->string('name');
             $table->string('icon')->nullable();
             $table->boolean('is_active')->default(1);

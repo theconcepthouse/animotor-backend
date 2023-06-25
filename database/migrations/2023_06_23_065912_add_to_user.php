@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('comment')->nullable();
+            $table->boolean('is_online')->after('status')->default(false);
+            $table->decimal('map_lat', 10, 7)->after('status')->nullable();
+            $table->decimal('map_lng', 10, 7)->after('status')->nullable();
         });
     }
 

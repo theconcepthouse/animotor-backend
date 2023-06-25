@@ -9,6 +9,7 @@ use App\Models\Region;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
+use App\Services\Firebase\FirebaseOTPService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -67,6 +68,14 @@ class ConfigController extends Controller
         $data['about_url'] = settings('about_url');
         $data['dial_min'] = (int)settings('dial_min');
         $data['dial_max'] = (int)settings('dial_max');
+        $data['otp_provider'] = (int)settings('otp_provider','firebase');
         return $this->successResponse('config settings', $data);
+    }
+
+
+    public function checkFB(Request $request, FirebaseOTPService $firebaseOTPService){
+        $phone = $request->get('phone');
+        $res = $firebaseOTPService->sendOTP($phone);
+        return $this->successResponse('OTP RES', $res);
     }
 }

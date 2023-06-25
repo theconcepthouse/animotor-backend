@@ -57,6 +57,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::get('vehicle/makes', [ConfigController::class, 'getVehicleMakes']);
         Route::get('vehicle/models/{id}', [ConfigController::class, 'getVehicleModels']);
         Route::get('vehicle/types', [ConfigController::class, 'getVehicleTypes']);
+
+        Route::post('check/firebase', [ConfigController::class, 'checkFB']);
     });
 
 });

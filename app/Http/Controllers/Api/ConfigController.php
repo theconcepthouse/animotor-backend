@@ -68,7 +68,7 @@ class ConfigController extends Controller
         $data['about_url'] = settings('about_url');
         $data['dial_min'] = (int)settings('dial_min');
         $data['dial_max'] = (int)settings('dial_max');
-        $data['otp_provider'] = (int)settings('otp_provider','firebase');
+        $data['otp_provider'] = settings('otp_provider','firebase');
         return $this->successResponse('config settings', $data);
     }
 

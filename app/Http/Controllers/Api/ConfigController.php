@@ -6,10 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\CancellationReason;
 use App\Models\Country;
 use App\Models\Region;
+use App\Models\User;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
 use App\Services\Firebase\FirebaseOTPService;
+use App\Services\Firebase\FirestoreService;
+
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -73,9 +76,15 @@ class ConfigController extends Controller
     }
 
 
-    public function checkFB(Request $request, FirebaseOTPService $firebaseOTPService){
+    public function checkFB(Request $request, FirestoreService $firestoreService){
         $phone = $request->get('phone');
-        $res = $firebaseOTPService->sendOTP($phone);
-        return $this->successResponse('OTP RES', $res);
+        $user = User::wherePhone($phone)->first();
+        if($user){
+            $data = $firestoreService->updateDriver($user);
+            return $this->successResponse('firestore', $data);
+        }else{
+            $this->errorResponse('error');
+        }
+
     }
 }

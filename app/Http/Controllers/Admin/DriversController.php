@@ -69,7 +69,7 @@ class DriversController extends Controller
             }
         }
 
-        $driverDocumentService->createOrUpdate($request['document_id'], $request['driver_id'], $request['status'], $request['expiry_date'], $request['file'], $request['comment'], $request['is_approved']);
+       return $driverDocumentService->createOrUpdate($request['document_id'], $request['driver_id'], $request['status'], $request['expiry_date'], $request['file'], $request['comment'], $request['is_approved']);
 
         return redirect()->back()->with('success','Document update');
     }

@@ -19,31 +19,28 @@ class FirestoreService
             'name' => $user_data->name,
             'id' => $user_data->id,
             'is_online' => $user_data->is_online,
+            'full_phone' => $user_data->full_phone,
             'status' => $user_data->status,
+            'unapproved_documents' => $user_data->unapproved_documents,
+//            'map_lat' => $user_data->map_lat,
+//            'map_lng' => $user_data->map_lng,
+            'region_id' => $user_data->region_id,
+            'account_balance' => $user_data->account_balance,
+            'avatar' => $user_data->avatar,
+
             'title' => $user_data->car?->title,
-            'map_lat' => $user_data->map_lat,
-            'map_lng' => $user_data->map_lng,
-            'slug' => $user_data->car?->slug,
-            'location_id' => $user_data->region_id,
             'model' => $user_data->car?->model,
             'make' => $user_data->car?->make,
             'color' => $user_data->car?->color,
-            'vehicle_type' => $user_data->car?->type,
+            'type' => $user_data->car?->type,
+            'year' => $user_data->car?->year,
+            'gear' => $user_data->car?->year,
             'vehicle_no' => $user_data->car?->vehicle_no,
-            'avatar' => $user_data->avatar,
         ];
 
 //        $documentRef->set($data);
 
-        $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
-
-//        $firestoreClient->addDocument('drivers', [
-//            'firstName' => 'Jeff',
-//        ], 'myOptionalUniqueID0123456789');
-
-        $collections = $firestoreClient->listDocuments('drivers');
-
-        return $collections;
+        return $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
     }
 
 }

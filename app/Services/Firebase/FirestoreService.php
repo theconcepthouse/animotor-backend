@@ -34,7 +34,7 @@ class FirestoreService
             'color' => $user_data->car?->color,
             'type' => $user_data->car?->type,
             'year' => $user_data->car?->year,
-            'gear' => $user_data->car?->year,
+            'gear' => $user_data->car?->gear,
             'vehicle_no' => $user_data->car?->vehicle_no,
         ];
 

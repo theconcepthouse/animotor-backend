@@ -25,7 +25,7 @@ class DriverDocumentService
 
     public function createOrUpdate($document_id, $driver_id, ?string $status, ?string $expiryDate, ?string $file, ?string $comment, ?bool $is_approved)
     {
-       return $driverDocument = DriverDocument::where('document_id', $document_id)->where('driver_id', $driver_id)->first();
+       $driverDocument = DriverDocument::where('document_id', $document_id)->where('driver_id', $driver_id)->first();
 
         if ($driverDocument) {
             $driverDocument->status = $status ?? $driverDocument->status;

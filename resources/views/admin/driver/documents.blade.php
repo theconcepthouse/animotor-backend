@@ -146,7 +146,7 @@
 
                             @include('admin.partials.form.text', ['attributes' => 'disabled', 'colSize' => 'col-md-12', 'fieldName' => 'name','value' => $item?->document?->name, 'title' => 'Document name'])
 
-                            <input name="document_id" value="{{ $item->id }}" type="hidden">
+                            <input name="document_id" value="{{ $item->document_id }}" type="hidden">
                             <input name="driver_id" value="{{ $driver->id }}" type="hidden">
 
                             @include('admin.partials.image-upload',['field' => 'file', 'image' => $item->file,'id' => 'file'.$item->id,'title' => 'Document'])

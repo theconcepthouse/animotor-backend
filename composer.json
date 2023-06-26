@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1.0",
         "bavix/laravel-wallet": "^9.6",
+        "bensontrent/firestore-php": "^3.1",
         "guzzlehttp/guzzle": "^7.2",
         "kreait/firebase-php": "^7.4",
         "kreait/laravel-firebase": "^5.2",

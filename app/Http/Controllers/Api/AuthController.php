@@ -229,17 +229,23 @@ class AuthController extends Controller
     }
 
 
-    public function update(Request $request): JsonResponse
+    public function update(Request $request, FirestoreService $firestoreService): JsonResponse
     {
         $data = $this->updateData($request);
         $user = user::find(auth()->user()->id);
         $message = "Account updated";
         if($request->has('car_status')){
-            $user->status = 'pending';
-            $user->save();
-            $message = "Document successfully updated";
+            if($user->unapproved_documents > 0){
+                $user->status = 'pending';
+                $user->save();
+                $message = "Document successfully updated";
+            }
         }else{
             $user->update($data);
+        }
+
+        if($user->hasRole('driver')){
+            $firestoreService->updateDriver($user);
         }
 
         return $this->successResponse($message, $user);

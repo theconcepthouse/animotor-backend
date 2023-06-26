@@ -35,10 +35,7 @@ class FirestoreService
 
 //        $documentRef->set($data);
 
-        $collections = $firestoreClient->listDocuments('drivers', [
-            'pageSize' => 1,
-            'pageToken' => 'nextpagetoken'
-        ]);
+        $collections = $firestoreClient->listDocuments('drivers');
 
         return $collections;
     }

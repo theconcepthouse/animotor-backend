@@ -2,6 +2,8 @@
 
 namespace App\Services\Firebase;
 
+use Kreait\Laravel\Firebase\Facades\Firebase;
+
 class FirestoreService
 {
     public function updateDriver($user_data)
@@ -25,12 +27,17 @@ class FirestoreService
             'avatar' => $user_data->avatar,
         ];
 
-        $firestore = app('firebase.firestore')
+//        $firestore = app('firebase.firestore')
+//            ->database()
+//            ->collection('drivers')
+//            ->document($user_data->id);
+
+        $document = Firebase::firestore()
             ->database()
             ->collection('drivers')
             ->document($user_data->id);
 
-        return $firestore->set($data);
+        return $document->set($data);
     }
 
 }

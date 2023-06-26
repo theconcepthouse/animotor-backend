@@ -9,7 +9,7 @@ class FirestoreService
 
     public function updateDriver($user_data)
     {
-        $firestoreClient = new FirestoreClient(env("FIREBASE_PROJECT_ID"), env("FIREBASE_API_KEY"),
+        $firestoreClient = new FirestoreClient(env("FIREBASE_PROJECT_ID"), "AIzaSyCxyiF3q_1wfZQ0uTIprvxov9zjWBObuhM",
             [ 'database' => '(default)']);
 
 //        $documentRef = $firestore->collection('drivers')->document($user_data->id);

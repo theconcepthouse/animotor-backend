@@ -35,9 +35,11 @@ class FirestoreService
 
 //        $documentRef->set($data);
 
-        $firestoreClient->addDocument('drivers', [
-            'firstName' => 'Jeff',
-        ], 'myOptionalUniqueID0123456789');
+        $firestoreClient->setDocument("drivers", $user_data->id, $data);
+
+//        $firestoreClient->addDocument('drivers', [
+//            'firstName' => 'Jeff',
+//        ], 'myOptionalUniqueID0123456789');
 
         $collections = $firestoreClient->listDocuments('drivers');
 

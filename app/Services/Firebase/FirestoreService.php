@@ -32,12 +32,21 @@ class FirestoreService
 //            ->collection('drivers')
 //            ->document($user_data->id);
 
-        $document = Firebase::firestore()
+//        $document = Firebase::firestore()
+//            ->database()
+//            ->collection('drivers')
+//            ->document($user_data->id);
+
+        $data = app('firebase.firestore')
             ->database()
             ->collection('drivers')
-            ->document($user_data->id);
+            ->documents();
 
-        return $document->set($data);
+        if ($data->isEmpty()) {
+            return collect();
+        }
+
+        return collect($data->rows());
     }
 
 }

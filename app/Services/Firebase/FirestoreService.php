@@ -12,7 +12,7 @@ class FirestoreService
         $firestoreClient = new FirestoreClient(env("FIREBASE_PROJECT_ID"), "AIzaSyCxyiF3q_1wfZQ0uTIprvxov9zjWBObuhM",
             [ 'database' => '(default)']);
 
-//        $documentRef = $firestore->collection('drivers')->document($user_data->id);
+        $documentRef = $firestoreClient->collection('drivers')->document($user_data->id);
 
         $data = [
             'email' => $user_data->email,
@@ -34,6 +34,10 @@ class FirestoreService
         ];
 
 //        $documentRef->set($data);
+
+        $firestoreClient->addDocument('drivers', [
+            'firstName' => 'Jeff',
+        ], 'myOptionalUniqueID0123456789');
 
         $collections = $firestoreClient->listDocuments('drivers');
 

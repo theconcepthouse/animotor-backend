@@ -54,7 +54,7 @@ class DriversController extends Controller
         return view('admin.driver.documents',compact('missing_documents','driver','title','data'));
     }
 
-    public function updateDocument(Request $request, DriverDocumentService $driverDocumentService): RedirectResponse
+    public function updateDocument(Request $request, DriverDocumentService $driverDocumentService)
     {
         $request->validate([
             'driver_id' => 'required',

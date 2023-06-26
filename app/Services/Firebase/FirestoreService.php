@@ -35,7 +35,7 @@ class FirestoreService
 
 //        $documentRef->set($data);
 
-        $firestoreClient->setDocument("drivers", $user_data->id, $data);
+        $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
 
 //        $firestoreClient->addDocument('drivers', [
 //            'firstName' => 'Jeff',

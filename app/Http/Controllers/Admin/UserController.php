@@ -167,6 +167,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
+        if($status == 'approved' && $user->unapproved_documents > 0){
+            return redirect()->back()->with('failure','Approve all document to approve driver');
+        }
         $user->status = $status;
         $user->save();
         $firestoreService->updateDriver($user);

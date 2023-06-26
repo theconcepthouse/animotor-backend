@@ -31,6 +31,9 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::post('user', [AuthController::class, 'user']);
 
+        Route::post('update/online', [AuthController::class, 'setOnline']);
+
+
         Route::post('user/update', [AuthController::class, 'update']);
 
         Route::post('verify/phone', [AuthController::class, 'verifyPhone']);

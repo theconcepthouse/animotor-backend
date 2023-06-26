@@ -8,6 +8,7 @@ use App\Notifications\PasswordReset;
 use App\Notifications\PasswordReseted;
 use App\Services\CarService;
 use App\Services\DriverDocumentService;
+use App\Services\Firebase\FirestoreService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -246,12 +247,13 @@ class AuthController extends Controller
 
 
 
-    public function setOnline(Request $request): JsonResponse
+    public function setOnline(Request $request, FirestoreService $firestoreService): JsonResponse
     {
+        $status = (bool)$request['status'];
         $user = user::find(auth()->user()->id);
-        $user->is_online = !$user->is_online;
+        $user->is_online = $status;
         $user->save();
-
+        $firestoreService->updateDriver($user);
         return $this->successResponse('status updated',$user);
     }
 

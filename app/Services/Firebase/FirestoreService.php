@@ -2,19 +2,25 @@
 
 namespace App\Services\Firebase;
 
-use Kreait\Laravel\Firebase\Facades\Firebase;
+use MrShan0\PHPFirestore\FirestoreClient;
 
 class FirestoreService
 {
+
     public function updateDriver($user_data)
     {
+        $firestoreClient = new FirestoreClient(env("FIREBASE_PROJECT_ID"), env("FIREBASE_API_KEY"),
+            [ 'database' => '(default)']);
+
+//        $documentRef = $firestore->collection('drivers')->document($user_data->id);
+
         $data = [
             'email' => $user_data->email,
             'name' => $user_data->name,
             'id' => $user_data->id,
             'is_online' => $user_data->is_online,
             'status' => $user_data->status,
-            'title' => $user_data?->car?->title,
+            'title' => $user_data->car?->title,
             'map_lat' => $user_data->map_lat,
             'map_lng' => $user_data->map_lng,
             'slug' => $user_data->car?->slug,
@@ -27,23 +33,14 @@ class FirestoreService
             'avatar' => $user_data->avatar,
         ];
 
-//        $firestore = app('firebase.firestore')
-//            ->database()
-//            ->collection('drivers')
-//            ->document($user_data->id);
+//        $documentRef->set($data);
 
-//        $document = Firebase::firestore()
-//            ->database()
-//            ->collection('drivers')
-//            ->document($user_data->id);
+        $collections = $firestoreClient->listDocuments('drivers', [
+            'pageSize' => 1,
+            'pageToken' => 'nextpagetoken'
+        ]);
 
-        $data = Firebase::firestore()->database()->collection('drivers')->documents();
-
-        if ($data->isEmpty()) {
-            return collect();
-        }
-
-        return collect($data->rows());
+        return $collections;
     }
 
 }

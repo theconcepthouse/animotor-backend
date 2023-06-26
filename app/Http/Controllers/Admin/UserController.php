@@ -11,6 +11,7 @@ use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
 use App\Services\CarService;
+use App\Services\Firebase\FirestoreService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -162,12 +163,13 @@ class UserController extends Controller
 
 
 
-    public function updateStatus($id, $status): RedirectResponse
+    public function updateStatus($id, $status, FirestoreService $firestoreService): RedirectResponse
     {
         $user = User::findOrFail($id);
 
         $user->status = $status;
         $user->save();
+        $firestoreService->updateDriver($user);
         return redirect()->back()->with('success','Status successfully updated');
     }
 

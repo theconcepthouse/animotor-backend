@@ -63,7 +63,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::get('pending', [TripRequestController::class, 'myActiveRide']);
         Route::post('update/status', [TripRequestController::class, 'updateStatus']);
         Route::post('update/booking', [TripRequestController::class, 'update']);
-
+        Route::post('share/feedback', [TripRequestController::class, 'shareFeedback']);
 
         //DRIVER
         Route::post('accept', [TripRequestController::class, 'acceptRide']);

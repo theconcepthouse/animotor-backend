@@ -322,6 +322,8 @@ class TripRequestController extends Controller
             $trip->car_id = $car->id;
             $trip->save();
 
+            $trip = TripRequest::findOrFail($id);
+
             $firestoreService->updateTripRequest($trip);
 
             return $this->successResponse('trip', $trip);

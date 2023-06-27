@@ -92,8 +92,24 @@ class FirestoreService
             'grand_total' => $trip_data->grand_total,
             'service_id' => $trip_data->service_id,
             'ride_type' => $trip_data->ride_type,
-//            'commission' => $trip_data->commission,
         ];
+
+        if($trip_data->driver){
+            $extra = [
+                'driver_avatar' => $trip_data?->driver?->avatar,
+                'driver_name' => $trip_data?->driver?->name,
+                'driver_phone' => $trip_data?->driver?->full_phone,
+                'car_title' => $trip_data?->driver?->car?->title,
+                'car_vehicle_no' => $trip_data?->driver?->car?->vehicle_no,
+                'car_year' => $trip_data?->driver?->car?->year,
+                'car_model' => $trip_data?->driver?->car?->model,
+                'car_type' => $trip_data?->service?->name,
+                'car_color' => $trip_data?->driver?->car?->color,
+            ];
+
+
+            $data = array_merge($data, $extra);
+        }
 
         $firestoreClient->updateDocument("rideRequests/".$trip_data->id, $data);
 

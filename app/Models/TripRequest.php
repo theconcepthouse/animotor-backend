@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TripRequest extends Model
 {
@@ -60,6 +61,18 @@ class TripRequest extends Model
     ];
 
     protected $appends = ['started_at_val','end_at_val','created_at_val','started_date'];
+
+    protected $with = ['service'];
+
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    public function driver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'driver_id');
+    }
 
     public function getStartedAtValAttribute(): string
     {

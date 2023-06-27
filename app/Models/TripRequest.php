@@ -86,12 +86,12 @@ class TripRequest extends Model
     }
     public function getEndAtValAttribute(): string
     {
-        $started_at = Carbon::parse($this->started_at);
-        return $started_at->format('H:i:s');
+        $end_at = Carbon::parse($this->end_at);
+        return $end_at->format('H:i:s');
     }
     public function getCreatedAtValAttribute(): string
     {
-        $started_at = Carbon::parse($this->started_at);
-        return $started_at->format('H:i:s');
+        $created_at = Carbon::parse($this->created_at);
+        return $created_at->format('H:i:s');
     }
 }

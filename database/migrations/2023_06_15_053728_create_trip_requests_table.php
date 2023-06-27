@@ -14,38 +14,52 @@ return new class extends Migration
     public function up()
     {
         Schema::create('trip_requests', function (Blueprint $table) {
-//            $table->id();
             $table->uuid('id')->primary();
 
             $table->uuid('region_id');
-            $table->uuid('driver_id');
+            $table->uuid('service_id');
+            $table->uuid('driver_id')->nullable();
             $table->uuid('customer_id');
+            $table->uuid('car_id')->nullable();
+
+
             $table->boolean('is_scheduled')->default(0);
+
             $table->decimal('fee',10,2)->default(0);
             $table->string('reference')->nullable();
 
+            $table->string('ride_type')->nullable();
+
             $table->string('origin')->nullable();
             $table->string('destination')->nullable();
+
             $table->string('status')->default('pending');
+
             $table->string('payment_status')->default('unpaid');
             $table->string('payment_method')->nullable();
-            $table->string('origin_lat')->nullable();
-            $table->string('origin_lng')->nullable();
-            $table->string('destination_lat')->nullable();
-            $table->string('destination_lng')->nullable();
+
+
+            $table->decimal('origin_lat', 10, 7)->nullable();
+            $table->decimal('origin_lng', 10, 7)->nullable();
+            $table->decimal('destination_lat', 10, 7)->nullable();
+            $table->decimal('destination_lng', 10, 7)->nullable();
 
             $table->dateTime('started_at')->default(null);
             $table->dateTime('end_at')->default(null);
 
-            $table->string('current_lat')->nullable();
-            $table->string('current_lng')->nullable();
+            $table->decimal('current_lat', 10, 7)->nullable();
+            $table->decimal('current_lng', 10, 7)->nullable();
+
             $table->bigInteger('distance')->nullable();
             $table->string('distance_text')->nullable();
+
             $table->bigInteger('duration')->nullable();
             $table->string('duration_text')->nullable();
-            $table->bigInteger('car_id');
+
             $table->boolean('completed')->default(0);
             $table->boolean('cancelled')->default(0);
+            $table->string('cancellation_reason')->nullable();
+            $table->string('cancelled_by')->nullable();
 
             $table->integer('rating')->default(0);
             $table->integer('driver_rating')->default(0);
@@ -62,8 +76,8 @@ return new class extends Migration
             $table->decimal('tax',12,2)->default(0);
             $table->decimal('grand_total',12,2)->default(0);
 
-            $table->unsignedBigInteger('service_id')->default(1);
-
+            $table->decimal('driver_earn',12,2)->default(0);
+            $table->decimal('commission',12,2)->default(0);
 
             $table->timestamps();
 

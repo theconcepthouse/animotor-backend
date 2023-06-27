@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CancellationReason;
 use App\Models\Country;
 use App\Models\Region;
+use App\Models\TripRequest;
 use App\Models\User;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
@@ -72,18 +73,28 @@ class ConfigController extends Controller
         $data['dial_min'] = (int)settings('dial_min');
         $data['dial_max'] = (int)settings('dial_max');
         $data['otp_provider'] = settings('otp_provider','firebase');
+        $data['unsupported_region_msg'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
+
         return $this->successResponse('config settings', $data);
     }
 
 
     public function checkFB(Request $request, FirestoreService $firestoreService){
-        $phone = $request->get('phone');
-        $user = User::wherePhone($phone)->first();
-        if($user){
-            $data = $firestoreService->updateDriver($user);
-            return $this->successResponse('firestore', $data);
-        }else{
-            $this->errorResponse('error');
+        try {
+            $id = $request->get('trip');
+            $trip = TripRequest::findOrFail($id);
+            if($trip){
+                $data = $firestoreService->deleteTrip($trip);
+                if($data['status']){
+                    return $this->successResponse($data['message'], $data);
+                }else{
+                    return $this->errorResponse($data['message']);
+                }
+            }else{
+                $this->errorResponse('error');
+            }
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage());
         }
 
     }

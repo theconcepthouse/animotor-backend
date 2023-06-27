@@ -32,6 +32,12 @@ return new class extends Migration
             $table->string('status')->default('unapproved');
             $table->string('address')->nullable();
             $table->string('city')->nullable();
+
+            $table->string('comment')->nullable();
+            $table->boolean('is_online')->default(false);
+            $table->decimal('map_lat', 10, 7)->nullable();
+            $table->decimal('map_lng', 10, 7)->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

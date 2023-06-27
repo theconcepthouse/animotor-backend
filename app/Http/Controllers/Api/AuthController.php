@@ -196,8 +196,6 @@ class AuthController extends Controller
 
         }
 
-
-
         return  $this->successResponse('user details',$user);
     }
 
@@ -212,7 +210,6 @@ class AuthController extends Controller
             return $this->errorResponse('Invalid or expired code, please try again');
         }
         $user = User::where('phone', $phone)->first();
-
 
         if($user){
             $data = $user;

@@ -31,10 +31,41 @@ class Service extends Model
         'commission',
         'cancellation_fee',
         'payment_methods',
+        'types',
+        'tax',
     ];
+
+    protected $appends = ['types_value'];
 
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);
+    }
+    public function getTypesValueAttribute(): array
+    {
+        $types = $this->types;
+        return explode(',', $types);
+    }
+
+    public function discounted($fee): float|int
+    {
+        if($this->discount > 0){
+            $discount = $this->discount;
+            $discounted = ($discount / 100) * $fee;
+            return $fee - $discounted;
+        }
+        return $fee;
+    }
+
+    public function commission($fee): float|int
+    {
+        if($this->commission > 0){
+            if($this->commission_type == 'fixed'){
+                return $this->commission;
+            }
+            $commission = $this->commission;
+            return ($commission / 100) * $fee;
+        }
+        return 0;
     }
 }

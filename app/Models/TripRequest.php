@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,5 +52,33 @@ class TripRequest extends Model
         'tax',
         'grand_total',
         'service_id',
+        'ride_type',
+        'driver_earn',
+        'commission',
+        'cancellation_reason',
+        'cancelled_by',
     ];
+
+    protected $appends = ['started_at_val','end_at_val','created_at_val','started_date'];
+
+    public function getStartedAtValAttribute(): string
+    {
+        $started_at = Carbon::parse($this->started_at);
+        return $started_at->format('H:i:s');
+    }
+    public function getStartedDateAttribute(): string
+    {
+        $started_at = Carbon::parse($this->started_at);
+        return $started_at->format('Y-m-d');
+    }
+    public function getEndAtValAttribute(): string
+    {
+        $started_at = Carbon::parse($this->started_at);
+        return $started_at->format('H:i:s');
+    }
+    public function getCreatedAtValAttribute(): string
+    {
+        $started_at = Carbon::parse($this->started_at);
+        return $started_at->format('H:i:s');
+    }
 }

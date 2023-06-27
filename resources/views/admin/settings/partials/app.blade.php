@@ -28,6 +28,12 @@
 
                     @include('admin.partials.form.textarea', ['colSize' => 'col-md-12 mt-3 mb-3', 'value' => settings('site_description'), 'fieldName' => 'site_description','title' => 'Site Description'])
 
+                    <h4 class="title nk-block-title">App Custom Messages</h4>
+                    <p>Configure app custom messages here.</p>
+
+                    @include('admin.partials.form.text', ['colSize' => 'col-md-12 mt-3', 'value' => settings('unsupported_region_msg', config('app.messages.unsupported_region_msg')), 'fieldName' => 'unsupported_region_msg','title' => 'Unsupported region'])
+
+
                 </fiv>
             </div>
 

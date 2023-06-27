@@ -3,7 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use App\Models\TripRequest;
+
+use App\Models\User;
+use App\Services\DistanceService;
+use App\Services\Firebase\FirestoreService;
+use App\Services\TripRequestService;
+use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -16,13 +24,112 @@ class TripRequestController extends Controller
         return response()->json(['data' => $tripRequests], 200);
     }
 
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function getServices(Request $request):JsonResponse
+    {
+        $user = User::find(auth()->id());
+        if(!$user->region_id){
+            return $this->errorResponse('We cant identify your pickup location');
+        }
+
+        $region_id = $user->region_id;
+
+        $request->validate([
+            'type' => 'required',
+        ]);
+
+        $type = $request['type'];
+
+        $tripRequests =  Service::where('types', 'LIKE', '%'.$type.'%')
+            ->where('region_id', $region_id)->get();
+
+        return response()->json(['data' => $tripRequests], 200);
+    }
+
+    public function myActiveRide(): JsonResponse
+    {
+        $user = auth()->user();
+        if($user->hasRole('driver')){
+            $trip = TripRequest::whereCancelled(0)
+                ->where('driver_feedback', 0)
+                ->where('region_id', auth()->user()->region_id)
+                ->latest()->first();
+        }else{
+            $trip = TripRequest::where('customer_id',$user->id)
+                ->whereCancelled(0)->where('rider_feedback', 0)
+                ->latest()->first();
+        }
+
+        return $this->successResponse('pending Trip', $trip);
+    }
+
+    public function store(Request $request, TripRequestService $tripRequestService,
+                          DistanceService $distanceService,
+                          FirestoreService $firestoreService): JsonResponse
     {
         try {
 
+            $user = User::find(auth()->id());
+
+            $request['customer_id'] = $user->id;
+
+            $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
+            if(!$region){
+                return $this->errorResponse('Your pickup address is not supported by our service');
+            }
+
+            $request['region_id'] = $region->id;
+
             $data = $this->validateTripRequest($request);
 
+            $service = Service::find($data['service_id']);
+
+            if(!$service){
+                return $this->errorResponse('Invalid booking service');
+            }
+
+            $distance = $distanceService->getDistance($data['origin_lat'], $data['origin_lng'], $data['destination_lat'], $data['destination_lng']);
+
+            if(!$distance){
+                return $this->errorResponse('wrong location');
+            }
+
+
+            $data['distance'] = $distance['distance']['value'] / 1000;
+            $data['distance_text'] = $distance['distance']['text'];
+
+            $data['distance_price'] = $data['distance'] * $service->distance_price;
+
+
+            $data['duration'] = $distance['duration']['value'] / 60;
+            $data['duration_text'] = $distance['duration']['text'];
+
+            $data['time_price'] = $data['duration'] * $service->time_price;
+
+            $data['base_price'] = $service->price;
+
+            $data['fee'] = $data['time_price'] + $data['distance_price'] + $service->price;
+
+            $tax_percent = ($service->tax / 100);
+
+            $data['tax'] = ($data['fee'] * $tax_percent);
+
+            $grand_total = $data['fee'] + $data['tax'];
+
+            $data['discount'] = $service->discount;
+            $data['grand_total'] = $service->discounted($grand_total);
+
+            $data['commission'] = $service->commission($data['grand_total']);
+
+            $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-'.date('Ymd-Hm').'-'.mt_rand(100000,9999999);
+
             $tripRequest = TripRequest::create($data);
+
+            if($tripRequest){
+                $tripRequest = TripRequest::find($tripRequest->id);
+                if($tripRequest){
+                    $firestoreService->updateTripRequest($tripRequest);
+                }
+            }
 
             return $this->successResponse('success', $tripRequest);
 
@@ -34,20 +141,238 @@ class TripRequestController extends Controller
     }
 
 
-    public function update(Request $request, TripRequest $tripRequest)
+    public function update(Request $request, $id, FirestoreService $firestoreService): JsonResponse
     {
         try {
             $validatedData = $this->validateTripRequest($request);
 
+            $tripRequest = TripRequest::findOrFail($id);
+
             $tripRequest->update($validatedData);
 
-            return response()->json(['data' => $tripRequest], 200);
+            $firestoreService->updateTripRequest($tripRequest);
+
+            return $this->successResponse('trip updated', $tripRequest);
+
+
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 400);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+    public function updateStatus(Request $request, FirestoreService $firestoreService): JsonResponse
+    {
+        try {
+            $trip = TripRequest::find($request['id']);
+            $driver = User::find($trip->driver_id);
+            $trip->status = $request['status'];
+
+            if($request['status'] == 'cancelled_by_driver' || $request['status'] == 'cancelled_by_booker'){
+                $trip->cancelled = true;
+                $trip->cancelled_by = $request['status'];
+                $trip->cancellation_reason = $request['cancellation_reason'];
+            }
+            if($request['status'] == 'started_trip'){
+                $trip->started_at = Carbon::now();
+            }
+
+            if($request['status'] == 'cash_received' || $request['status'] == 'trip_completed'){
+//            $order->payment_method = "cash";
+                if($request['status'] == 'cash_received'){
+                    $trip->payment_status = "paid";
+                }
+
+                if($request['driver_lat'] && $request['driver_lng']){
+
+                    $driver->map_lat = $request['driver_lat'];
+
+                    $driver->map_lng = $request['driver_lng'];
+
+                    $driver->save();
+                }else{
+                    return $this->errorResponse($request);
+                }
+
+                $service = Service::find($trip->service_id);
+
+                $trip->status = "awaiting_feedback";
+
+                $trip->end_at = Carbon::now();
+//            $order->completed = true;
+                $distance = $this->getDistance($trip->origin_lat,$trip->origin_lng, $driver->map_lat, $driver->map_lng);
+
+                if(isset($distance['distance'])) {
+                    $dist = $distance['distance']['value'] / 1000;
+                    $trip->distance = $dist > 0 ? $dist : 1;
+                    $trip->distance_text = $distance['distance']['text'];
+
+                }else{
+                    $trip->distance = 0;
+                    $trip->distance_text = "0 km";
+                }
+
+
+                $trip->distance_price = $trip->distance * $service->distance_price;
+
+
+                $ride_time = now()->diffInMinutes($trip->started_at);
+
+                $trip->duration = $ride_time > 0 ? $ride_time : 1;
+                $trip->duration_text = "$trip->duration mins";
+
+                $trip->time_price = $service->time_price * $trip->duration;
+
+                $trip->fee = $trip->time_price + $trip->distance_price + $service->price;
+
+                $tax_percent =  ($service->tax / 100);
+
+
+                $trip->tax = ($trip->fee * $tax_percent);
+
+                $trip->grand_total = $service->discounted($trip->fee + $trip->tax);
+
+//            $driver = User::find($trip->driver_id);
+
+                $trip->commission = $service->commission($trip->grand_total);
+
+                if($trip->payment_method == "wallet"){
+                    $user = User::find($trip->customer_id);
+
+
+                    if($user){
+
+                        $user->forceWithdraw($trip->grand_total, ['description' => 'Ride wallet pay']);
+
+                        $driver_earn = $trip->grand_total - $trip->commission;
+
+                        $driver->deposit($driver_earn,['description' => 'Ride earn']);
+                    }
+
+                }else{
+
+                    $driver_fee = $trip->commission;
+
+                    $driver->forceWithdraw($driver_fee, ['description' => 'Commission for ride'.$trip->reference]);
+
+                }
+
+                $trip->save();
+
+            }
+
+            $trip->save();
+
+            $firestoreService->updateTripRequest($trip);
+
+            return $this->successResponse('order', $trip);
+
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 500);
+        }
+
+    }
+
+    public function updateCurrentPosition(Request $request, FirestoreService $firestoreService): JsonResponse
+    {
+        try {
+            $trip = TripRequest::find($request['id']);
+            $trip->current_lat = $request['current_lng'];
+            $trip->current_lng = $request['current_lat'];
+            $trip->save();
+
+            $firestoreService->updateTripRequest($trip);
+            return $this->successResponse('Trip', $trip);
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 500);
+        }
+
+    }
+
+    public function acceptRide(Request $request, FirestoreService $firestoreService): JsonResponse
+    {
+        $v = request()->header('X-App-Version') ?? 0;
+
+//        if($v < env('VERSION')){
+//            return response()->json(['status'=>0,'message' => __('Please update your app')], 404);
+//        }
+
+        try {
+            $user = User::find(auth()->id());
+
+            $request->validate([
+                'id' => 'required',
+            ]);
+
+
+            $id = $request['id'];
+
+            $trip = TripRequest::findOrFail($id);
+
+            $car = $user->car;
+
+            if(!$user->hasRole('driver') || !$car){
+                return $this->errorResponse('Sorry only approved drivers can accept rides');
+            }
+
+            $trip->status = 'driver_accepted';
+            $trip->driver_id = $user->id;
+            $trip->car_id = $car->id;
+            $trip->save();
+
+            $firestoreService->updateTripRequest($trip);
+
+            return $this->successResponse('trip', $trip);
+
+
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 500);
+        }
+
+    }
+
+
+    public function shareFeedback(Request $request, FirestoreService $firestoreService): JsonResponse
+    {
+        try {
+            $request->validate([
+                'trip_id' => 'required',
+                'rating' => 'required',
+                'user' => 'required',
+                'rating_comment' => 'nullable',
+            ]);
+
+
+            $trip = TripRequest::find($request['trip_id']);
+
+            if ($trip) {
+                $trip->rating = $request['rating'];
+                $trip->rating_comment = $request['rating_comment'] ?? "";
+
+                if ($request['user'] == "driver") {
+                    $trip->driver_feedback = 1;
+                    $trip->completed = 1;
+                    $trip->status = "awaiting_feedback";
+
+
+                } else {
+                    $trip->rider_feedback = 1;
+                }
+
+                $trip->save();
+            }else{
+                return $this->errorResponse('Cant find trip');
+            }
+
+            return $this->successResponse('Feedback submitted', $trip);
+        }
+        catch (\Exception $e) {
+                return $this->errorResponse($e->getMessage(), 500);
+            }
+    }
+
 
     public function destroy(TripRequest $tripRequest)
     {
@@ -60,47 +385,56 @@ class TripRequestController extends Controller
         }
     }
 
-    private function validateTripRequest(Request $request)
+    private function validateTripRequest(Request $request): array
     {
         return $request->validate([
             'region_id' => 'required',
-            'driver_id' => 'required',
             'customer_id' => 'required',
-            'fee' => 'required',
-            'reference' => 'required',
+
+            'fee' => 'nullable',
+
             'origin' => 'required',
             'destination' => 'required',
-            'status' => 'required',
-            'payment_status' => 'required',
-            'payment_method' => 'required',
+            'payment_status' => 'nullable',
+            'payment_method' => 'nullable',
             'origin_lat' => 'required',
             'origin_lng' => 'required',
-            'destination_lat' => 'required',
-            'destination_lng' => 'required',
-            'started_at' => 'required',
-            'end_at' => 'required',
-            'current_lat' => 'required',
-            'current_lng' => 'required',
-            'distance' => 'required',
-            'distance_text' => 'required',
-            'duration' => 'required',
-            'duration_text' => 'required',
-            'car_id' => 'required',
-            'completed' => 'required',
-            'cancelled' => 'required',
-            'rating' => 'required',
-            'driver_rating' => 'required',
-            'rating_comment' => 'required',
-            'driver_rating_comment' => 'required',
-            'driver_feedback' => 'required',
-            'rider_feedback' => 'required',
-            'base_price' => 'required',
-            'time_price' => 'required',
-            'distance_price' => 'required',
-            'discount' => 'required',
-            'tax' => 'required',
-            'grand_total' => 'required',
+            'destination_lat' => 'nullable',
+            'destination_lng' => 'nullable',
+            'started_at' => 'nullable',
+            'end_at' => 'nullable',
+
+            'current_lat' => 'nullable',
+            'current_lng' => 'nullable',
+
+            'distance' => 'nullable',
+            'distance_text' => 'nullable',
+            'duration' => 'nullable',
+            'duration_text' => 'nullable',
+
+            'car_id' => 'nullable',
+
+            'completed' => 'nullable',
+            'cancelled' => 'nullable',
+
+            'rating' => 'nullable',
+            'driver_rating' => 'nullable',
+            'rating_comment' => 'nullable',
+            'driver_rating_comment' => 'nullable',
+            'driver_feedback' => 'nullable',
+            'rider_feedback' => 'nullable',
+
+            'base_price' => 'nullable',
+            'time_price' => 'nullable',
+            'distance_price' => 'nullable',
+            'discount' => 'nullable',
+            'tax' => 'nullable',
+            'grand_total' => 'nullable',
+
             'service_id' => 'required',
+            'ride_type' => 'required',
+            'commission' => 'nullable',
+            'driver_earn' => 'nullable',
         ]);
     }
 }

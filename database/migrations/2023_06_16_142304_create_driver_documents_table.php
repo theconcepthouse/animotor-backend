@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->uuid('driver_id');
             $table->uuid('document_id');
+            $table->boolean('is_approved')->default(0);
             $table->string('file')->nullable();
             $table->string('status')->nullable();
             $table->text('comment')->nullable();

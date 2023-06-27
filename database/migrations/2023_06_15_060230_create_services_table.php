@@ -26,6 +26,8 @@ return new class extends Migration
             $table->integer('min_fare')->default(0);
             $table->integer('min_distance')->default(0);
 
+            $table->decimal('tax')->default(7.5);
+
             $table->decimal('price');
             $table->decimal('distance_price')->default(0);
             $table->decimal('time_price')->default(0);
@@ -38,6 +40,8 @@ return new class extends Migration
             $table->string('commission_type')->default('percentage');
             $table->decimal('commission')->default(10);
             $table->boolean('is_active')->default(true);
+
+            $table->string('types')->default('instant');
 
             $table->timestamps();
             $table->foreign('region_id')->references('id')->on('regions')

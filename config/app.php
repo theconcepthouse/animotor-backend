@@ -143,6 +143,10 @@ return [
         // 'store'  => 'redis',
     ],
 
+    'messages' => [
+        'unsupported_region_msg' => "We dont cover this region yet. But its possible you are not even here"
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -194,9 +198,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-
-        Kreait\Laravel\Firebase\ServiceProvider::class
 
     ],
 

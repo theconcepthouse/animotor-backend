@@ -357,13 +357,12 @@ class TripRequestController extends Controller
                     $trip->driver_feedback = 1;
                     $trip->completed = 1;
                     $trip->status = "awaiting_feedback";
-
-
                 } else {
                     $trip->rider_feedback = 1;
                 }
 
                 $trip->save();
+                $firestoreService->updateTripRequest($trip);
             }else{
                 return $this->errorResponse('Cant find trip');
             }

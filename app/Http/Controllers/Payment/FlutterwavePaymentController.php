@@ -44,7 +44,8 @@ class FlutterwavePaymentController extends Controller
 
         $payment_link = Flutterwave::render('standard', $payload);
 
-        return $payment_link;
+        return $this->successResponse('payment link',['paymentUrl' => $payment_link]);
+
     }
 
     /**

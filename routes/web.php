@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\Payment\PaystackPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +32,10 @@ Auth::routes();
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+
+Route::group(['prefix' => 'payment'], function(){
+    Route::any('/{gateway}/pay', [PaymentController::class,'payment_initialize']);
+});
+
+Route::any('/paystack/callback', [PaystackPaymentController::class, 'callback']);

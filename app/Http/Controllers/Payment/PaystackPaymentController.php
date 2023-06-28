@@ -4,61 +4,43 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-use Unicodeveloper\Paystack\Paystack;
+use Paystack;
 
 class PaystackPaymentController extends Controller
 {
-    public function index(Request $request)
+
+    public function generatePaymentUrl(Request $request)
     {
+        try {
 
-        $user = User::find($request->user_id);
-        $currency = $user?->region?->currency_symbol ?? 'NGN';
+            $user = User::findOrFail($request->user_id);
 
-        $paystack = new Paystack();
+            $paymentData = array(
+                'amount' => round($request->amount * 100),
+                'email' => $user->email, // Get the email from the request
+                'reference' => Paystack::genTranxRef(),
+                'description' => "Wallet funding",
+                'metadata' => [
+                    'user_id' => $user->id, // Include the user ID in the metadata
+                ],
+//                'currency' => $user?->region?->currency_symbol ?? 'NGN',
+            );
 
-        $paymentData = [
-            'amount' => round($request->amount * 100),
-            'email' => $user->email,
-            'reference' => uniqid(),
-            'currency' => $currency,
-        ];
+            $paymentUrl = Paystack::getAuthorizationUrl($paymentData);
 
-        // Create a payment authorization
-        $paymentAuthorization = $paystack->getAuthorizationUrl()->create($paymentData);
-
-        // Retrieve the payment URL
-        $paymentUrl = $paymentAuthorization->getAuthorizationUrl();
-
-        return response()->json(['paymentUrl' => $paymentUrl]);
-
-
-//        $user = User::find($request->user_id);
-//        $request->email = $user->email;
-//        $currency = $user?->region?->currency_symbol ?? 'NGN';
-//        $request->currency = $currency;
-//
-//        $request->amount = round($request->amount * 100);
-//
-//
-//        $request->reference = Paystack::genTranxRef();
-//
-//
-//        return Paystack::getAuthorizationUrl()->redirectNow();
+            return response()->json(['paymentUrl' => $paymentUrl]);
+        }
+        catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
-    public function paystackNewCallback()
-    {
-        Paystack::getCallbackData();
-    }
 
-    /**
-     * Obtain Paystack payment information
-     * @return void
-     */
-    public function return()
+    public function callback()
     {
         // Now you have the payment details,
         // you can store the authorization_code in your db to allow for recurrent subscriptions
@@ -68,6 +50,7 @@ class PaystackPaymentController extends Controller
             $payment = Paystack::getPaymentData();
             $payment_details = json_encode($payment);
             if (!empty($payment['data']) && $payment['data']['status'] == 'success') {
+                return $payment_details;
                 return ( new PaymentController )->payment_success($payment_details);
             }
             else{

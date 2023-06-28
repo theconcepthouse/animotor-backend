@@ -15,17 +15,17 @@ class PaymentController extends Controller
 {
 
     public function payment_initialize(Request $request, $gateway){
-        session()->put('redirect_to', $request->redirect_to);
-        session()->put('amount', $request->amount);
-        session()->put('payment_method', $request->payment_method);
-        session()->put('payment_type', $request->payment_type);
-        session()->put('user_id', $request->user_id);
-
-        session()->put('transactionId', $request->transactionId ?? null);
+//        session()->put('redirect_to', $request->redirect_to);
+//        session()->put('amount', $request->amount);
+//        session()->put('payment_method', $request->payment_method);
+//        session()->put('payment_type', $request->payment_type);
+//        session()->put('user_id', $request->user_id);
+//
+//        session()->put('transactionId', $request->transactionId ?? null);
 
 
         if ($gateway == 'paystack') {
-            return ( new PaystackPaymentController )->index($request);
+            return ( new PaystackPaymentController )->generatePaymentUrl($request);
         }
 //        elseif($gateway == 'paypal'){
 //            return ( new PaypalPaymentController )->index();

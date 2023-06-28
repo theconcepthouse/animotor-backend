@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Service;
 use App\Models\Withdraw;
 use App\Notifications\EmailVerify;
 use App\Notifications\PasswordReset;
@@ -212,6 +213,16 @@ class AuthController extends Controller
         $user = User::where('phone', $phone)->first();
 
         if($user){
+
+            if($user->hasRole('driver')){
+                if(!$user->service){
+                    $user->service_id = Service::select('id')->first()?->id ?? null;
+                    $user->save();
+
+                    $user = User::find($user->id);
+                }
+            }
+
             $data = $user;
             $data['token'] = $user->createToken($user->email)->plainTextToken;
 

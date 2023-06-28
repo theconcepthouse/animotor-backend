@@ -58,6 +58,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'country',
         'city',
         'region_id',
+        'service_id',
 
 
     ];
@@ -76,13 +77,18 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'remember_token',
     ];
 
-    protected $with = ['documents','car','region'];
+    protected $with = ['documents','car','region','service'];
 
     protected $appends = ['unapproved_documents','name','status_text','account_balance','full_phone'];
 
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class,'region_id');
+    }
+
+    public function service(): BelongsTo
+    {
+        return $this->belongsTo(Service::class,'service_id')->select('id', 'name');
     }
 
     public function documents(): HasMany

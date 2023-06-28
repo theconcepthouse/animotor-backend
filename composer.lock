@@ -4,8 +4,67 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "749bdd9ef914820293638ac534b06ea9",
+    "content-hash": "01e5f23a7cd99db851ed352b865344ab",
     "packages": [
+        {
+            "name": "abraham-flutterwave/laravel-payment",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bajoski34/Laravel.git",
+                "reference": "4df5821cc25693a76cf157cb559fe8c530e0882a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bajoski34/Laravel/zipball/4df5821cc25693a76cf157cb559fe8c530e0882a",
+                "reference": "4df5821cc25693a76cf157cb559fe8c530e0882a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/support": "^v8.83 || ^9.39 || ^10.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.2",
+                "nunomaduro/phpinsights": "^2.6",
+                "orchestra/testbench": "^7.11",
+                "pestphp/pest": "^1.22"
+            },
+            "type": "laravel-library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Flutterwave\\Payments\\Providers\\FlutterwaveServiceProvider"
+                    ],
+                    "aliases": {
+                        "Flutterwave": "Flutterwave\\Payments\\Facades\\Flutterwave"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Flutterwave\\Payments\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Flutterwave Developers",
+                    "email": "developers@flutterwavego.com",
+                    "homepage": "https://flutterwave.com/ng/"
+                }
+            ],
+            "description": "The Official Flutterwave Package for Laravel.",
+            "support": {
+                "issues": "https://github.com/bajoski34/Laravel/issues",
+                "source": "https://github.com/bajoski34/Laravel/tree/1.0.2"
+            },
+            "time": "2023-05-28T21:25:27+00:00"
+        },
         {
             "name": "bavix/laravel-wallet",
             "version": "9.6.2",

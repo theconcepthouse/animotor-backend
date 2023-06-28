@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Payment\FlutterwavePaymentController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Payment\PaystackPaymentController;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +44,4 @@ Route::group(['prefix' => 'payment'], function(){
 });
 
 Route::any('/paystack/callback', [PaystackPaymentController::class, 'callback']);
+Route::any('/flutterwave/payment/callback', [FlutterwavePaymentController::class, 'callback']);

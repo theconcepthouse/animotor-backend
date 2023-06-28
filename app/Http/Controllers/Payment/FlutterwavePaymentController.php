@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
-use App\Models\CombinedOrder;
+
 use App\Models\User;
 use Exception;
+use Flutterwave\Payments\Facades\Flutterwave;
 use Illuminate\Http\Request;
-use Rave as Flutterwave;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class FlutterwavePaymentController extends Controller
 {
@@ -25,59 +27,49 @@ class FlutterwavePaymentController extends Controller
         }
     }
 
-    public function initialize($amount)
-    {
-        //This generates a payment reference
-        $reference = Flutterwave::generateReference();
-        $user = User::find(session('user_id'));
+    public function generatePaymentUrl(Request $request){
+        $user = User::findOrFail($request->user_id);
 
-        // Enter the details of the payment
-        $data = [
-            'payment_options' => 'card,banktransfer',
-            'amount' => $amount,
-            'email' => $user->email,
-            'tx_ref' => $reference,
-            'currency' => env('FLW_PAYMENT_CURRENCY_CODE'),
-            'redirect_url' => route('flutterwave.callback'),
-            'customer' => [
-                'email' => $user->email,
-                "phone_number" => $user->phone,
-                "name" => $user->name
+        $payload = [
+            "tx_ref" => Flutterwave::generateTransactionReference(),
+            "amount" => $request->amount,
+            "currency" => "NGN",
+            "customer" => [
+                "email" => $user->email
             ],
-
-            "customizations" => [
-                "title" => 'Payment',
-                "description" => ""
+            "meta" => [
+                "user_id" => $user->id
             ]
         ];
 
-        $payment = Flutterwave::initializePayment($data);
+        $payment_link = Flutterwave::render('standard', $payload);
 
-        if ($payment['status'] !== 'success') {
-            return ( new PaymentController )->payment_failed();
-        }
-
-        return redirect($payment['data']['link']);
+        return $payment_link;
     }
 
     /**
      * Obtain Rave callback information
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function callback()
     {
         $status = request()->status;
 
+        $transactionID = request()->transaction_id;
+
+        $data = Flutterwave::verifyTransaction($transactionID);
+
         //if payment is successful
-        if ($status ==  'successful') {
-            $transactionID = Flutterwave::getTransactionIDFromCallback();
-            $data = Flutterwave::verifyTransaction($transactionID);
+        if ($data['data']) {
 
             try{
                 $payment = $data['data'];
 
+                $user_id = $data['data']['meta']['user_id'];
+                $amount = $payment['amount'];
+
                 if($payment['status'] == "successful"){
-                    return ( new PaymentController )->payment_success($payment);
+                    return ( new PaymentController )->payment_success($payment, $user_id, $amount);
                 }else{
                     return ( new PaymentController )->payment_failed();
                 }
@@ -86,13 +78,6 @@ class FlutterwavePaymentController extends Controller
                 return ( new PaymentController )->payment_failed();
             }
         }
-        elseif ($status ==  'cancelled'){
-            //Put desired action/code after transaction has been cancelled here
-            $redirect_to = session('redirect_to')."?".session('payment_type')."=failed&order_code=".session('order_code')."&payment_method=".session('payment_method');
-            return redirect($redirect_to);
-        }
-        //Put desired action/code after transaction has failed here
-        $redirect_to = session('redirect_to')."?".session('payment_type')."=failed&order_code=".session('order_code')."&payment_method=".session('payment_method');
-        return redirect($redirect_to);
+        return ( new PaymentController )->payment_failed();
     }
 }

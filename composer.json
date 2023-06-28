@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1.0",
+        "abraham-flutterwave/laravel-payment": "^1.0",
         "bavix/laravel-wallet": "^9.6",
         "bensontrent/firestore-php": "^3.1",
         "guzzlehttp/guzzle": "^7.2",

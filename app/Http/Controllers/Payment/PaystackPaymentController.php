@@ -42,21 +42,18 @@ class PaystackPaymentController extends Controller
 
     public function callback()
     {
-        // Now you have the payment details,
-        // you can store the authorization_code in your db to allow for recurrent subscriptions
-        // you can then redirect or do whatever you want
-
         try{
             $payment = Paystack::getPaymentData();
             if (!empty($payment['data']) && $payment['data']['status'] == 'success') {
-                return ( new PaymentController )->payment_success($payment['data']);
+                $amount = $payment['data']['amount'] / 100;
+                $user_id = $payment['data']['metadata']['user_id'];
+                return ( new PaymentController )->payment_success($payment['data'], $user_id, $amount);
             }
             else{
                 return ( new PaymentController )->payment_failed();
             }
         }
         catch(\Exception $e){
-            return $e->getMessage();
             return ( new PaymentController )->payment_failed();
         }
     }

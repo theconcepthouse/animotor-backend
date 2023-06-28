@@ -22,7 +22,7 @@ class PaymentController extends Controller
         }
 
         elseif ($gateway == 'flutterwave') {
-            return ( new FlutterwavePaymentController )->index();
+            return ( new FlutterwavePaymentController )->generatePaymentUrl($request);
         }
 //        elseif ($gateway == 'paytm') {
 //            return ( new PaytmPaymentController )->index();
@@ -47,13 +47,13 @@ class PaymentController extends Controller
 //        }
     }
 
-    public function payment_success($paymentData = null)
+    public function payment_success($paymentData, $user_id, $amount)
     {
         $walletService = new WalletService();
-        $metaData = $paymentData['metadata'];
-        $user = User::findOrFail($metaData['user_id']);
 
-        $amt = $paymentData['amount'] / 100;
+        $user = User::findOrFail($user_id);
+
+        $amt = $amount;
 
         $walletService->fundWallet($user, $amt);
 

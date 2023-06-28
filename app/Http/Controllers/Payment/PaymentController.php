@@ -62,8 +62,15 @@ class PaymentController extends Controller
 //        }
     }
 
-    public function payment_success($payment_details = null)
+    public function payment_success($paymentData = null)
     {
+        $metaData = $paymentData['metadata'];
+        $user = User::findOrFail($metaData->id);
+
+        return [
+            'user' => $user,
+            'data' => $paymentData,
+        ];
         if (session('payment_type') == 'cart_payment') {
 
             $order = CombinedOrder::where('code',session('order_code'))->first();

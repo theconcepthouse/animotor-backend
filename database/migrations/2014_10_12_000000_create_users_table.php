@@ -18,6 +18,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->uuid('region_id')->nullable();
+            $table->uuid('service_id')->nullable();
 //            $table->unsignedBigInteger('region_id')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

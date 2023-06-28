@@ -122,7 +122,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     }
 
     public function getNameAttribute() {
-        return $this->title.' '.$this->first_name." ".$this->last_name;
+        return $this->first_name." ".$this->last_name;
     }
     public function getFullPhoneAttribute(): string
     {

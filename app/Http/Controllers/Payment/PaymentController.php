@@ -13,7 +13,9 @@ use App\Models\User;
 class PaymentController extends Controller
 {
 
-    public function payment_initialize(Request $request, $gateway){
+    public function payment_initialize(Request $request){
+
+        $gateway = $request->get('payment_method');
 
         if ($gateway == 'paystack') {
             return ( new PaystackPaymentController )->generatePaymentUrl($request);

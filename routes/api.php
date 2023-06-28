@@ -73,7 +73,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
     });
 
     Route::group(['prefix' => 'payment'], function(){
-        Route::any('/{gateway}/pay', [PaymentController::class,'payment_initialize']);
+        Route::any('/init/pay', [PaymentController::class,'payment_initialize']);
     });
 
 

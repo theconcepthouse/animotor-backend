@@ -50,7 +50,7 @@ class PaystackPaymentController extends Controller
             $payment = Paystack::getPaymentData();
             $payment_details = json_encode($payment);
             if (!empty($payment['data']) && $payment['data']['status'] == 'success') {
-                return $payment['data'];
+//                return $payment['data'];
                 return ( new PaymentController )->payment_success($payment['data']);
             }
             else{

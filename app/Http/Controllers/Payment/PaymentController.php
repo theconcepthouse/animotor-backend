@@ -63,11 +63,12 @@ class PaymentController extends Controller
     public function payment_success($paymentData = null)
     {
         $metaData = $paymentData['metadata'];
-        $user = User::findOrFail($metaData->id);
+        $user = User::findOrFail($metaData->user_id);
 
         return [
             'user' => $user,
-            'data' => $paymentData,
+//            'data' => $paymentData,
+            'amount' => $paymentData['amount'] / 100,
         ];
         if (session('payment_type') == 'cart_payment') {
 

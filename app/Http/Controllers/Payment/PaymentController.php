@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Payment;
 
-use App\Addons\Multivendor\Http\Controllers\Seller\SellerPackageController;
-use App\Http\Controllers\Api\OrderController;
+
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\CombinedOrder;
 use App\Models\User;
-use Auth;
+
 
 class PaymentController extends Controller
 {

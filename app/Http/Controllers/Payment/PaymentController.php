@@ -45,8 +45,9 @@ class PaymentController extends Controller
 //        }
     }
 
-    public function payment_success($paymentData = null, WalletService $walletService)
+    public function payment_success($paymentData = null)
     {
+        $walletService = new WalletService();
         $metaData = $paymentData['metadata'];
         $user = User::findOrFail($metaData['user_id']);
 

@@ -32,7 +32,7 @@ class PaystackPaymentController extends Controller
 
             $paymentUrl = Paystack::getAuthorizationUrl($paymentData);
 
-            return response()->json(['paymentUrl' => $paymentUrl]);
+            return $this->successResponse('payment link',['paymentUrl' => $paymentUrl->url]);
         }
         catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

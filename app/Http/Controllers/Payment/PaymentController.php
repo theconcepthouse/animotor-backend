@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Controller;
+use App\Services\WalletService;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -13,27 +14,11 @@ class PaymentController extends Controller
 {
 
     public function payment_initialize(Request $request, $gateway){
-//        session()->put('redirect_to', $request->redirect_to);
-//        session()->put('amount', $request->amount);
-//        session()->put('payment_method', $request->payment_method);
-//        session()->put('payment_type', $request->payment_type);
-//        session()->put('user_id', $request->user_id);
-//
-//        session()->put('transactionId', $request->transactionId ?? null);
-
 
         if ($gateway == 'paystack') {
             return ( new PaystackPaymentController )->generatePaymentUrl($request);
         }
-//        elseif($gateway == 'paypal'){
-//            return ( new PaypalPaymentController )->index();
-//        }
-//        elseif ($gateway == 'stripe') {
-//            return ( new StripePaymentController )->index();
-//        }
-//        elseif ($gateway == 'sslcommerz') {
-//            return ( new SSLCommerzPaymentController )->index();
-//        }
+
         elseif ($gateway == 'flutterwave') {
             return ( new FlutterwavePaymentController )->index();
         }
@@ -60,70 +45,32 @@ class PaymentController extends Controller
 //        }
     }
 
-    public function payment_success($paymentData = null)
+    public function payment_success($paymentData = null, WalletService $walletService)
     {
         $metaData = $paymentData['metadata'];
         $user = User::findOrFail($metaData['user_id']);
 
-        return [
-            'user' => $user,
-//            'data' => $paymentData,
-            'amount' => $paymentData['amount'] / 100,
-        ];
-        if (session('payment_type') == 'cart_payment') {
+        $amt = $paymentData['amount'] / 100;
 
-            $order = CombinedOrder::where('code',session('order_code'))->first();
+        $walletService->fundWallet($user, $amt);
 
-            (new OrderController)->paymentDone($order, session('payment_method'), json_encode($payment_details));
 
-        }elseif (session('payment_type') == 'wallet_payment') {
+        return redirect()->route('payment.success');
+    }
 
-            $payment_data['amount'] = session('amount');
-            $payment_data['user_id'] = session('user_id');
-            $payment_data['payment_method'] = session('payment_method');
-
-            $payment_data['transactionId'] = session('transactionId');
-            $payment_data['receipt'] = session('receipt');
-
-            (new WalletController)->wallet_payment_done($payment_data, json_encode($payment_details));
-
-        }elseif(session('payment_type') == 'seller_package_payment'){
-
-            (new SellerPackageController)->purchase_payment_done(session('seller_package_id'), session('payment_method'), json_encode($payment_details));
-
-            if(!Auth::check()){
-                Auth::login(User::find(session('user_id')));
-            }
-
-            return redirect()->route('seller.dashboard');
-        }
-
-        $redirect_to = session('redirect_to')."?";
-        $redirect_to .= session('payment_type')."=success";
-        $redirect_to .= "&payment_method=".session('payment_method');
-        $redirect_to .= session('payment_type') == 'cart_payment' ? "&order_code=".session('order_code') : "";
-
-        $this->clear_session();
-
-        return redirect($redirect_to);
+    public function paymentDone(){
+        return view('payment.success');
     }
 
     public function payment_failed()
     {
+        return redirect()->route('payment.failed');
 
-        if(session('payment_type') == 'seller_package_payment'){
-            flash(translate('Package purchasing failed'))->error();
-            return redirect()->route('seller.dashboard');
-        }
+    }
+    public function paymentFailed()
+    {
+        return view('payment.failed');
 
-        $redirect_to = session('redirect_to')."?";
-        $redirect_to .= session('payment_type')."=failed";
-        $redirect_to .= "&payment_method=".session('payment_method');
-        $redirect_to .= session('payment_type') == 'cart_payment' ? "&order_code=".session('order_code') : "";
-
-        $this->clear_session();
-
-        return redirect($redirect_to);
     }
 
     private function clear_session()

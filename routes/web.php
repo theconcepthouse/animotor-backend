@@ -36,6 +36,10 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
 
 Route::group(['prefix' => 'payment'], function(){
     Route::any('/{gateway}/pay', [PaymentController::class,'payment_initialize']);
+
+    Route::any('/success', [PaymentController::class,'paymentDone'])->name('payment.success');
+
+    Route::any('/failed', [PaymentController::class,'paymentFailed'])->name('payment.failed');
 });
 
 Route::any('/paystack/callback', [PaystackPaymentController::class, 'callback']);

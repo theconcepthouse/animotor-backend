@@ -73,16 +73,4 @@ class PaymentController extends Controller
 
     }
 
-    private function clear_session()
-    {
-        session()->forget('redirect_to');
-        session()->forget('amount');
-        session()->forget('payment_method');
-        session()->forget('payment_type');
-        session()->forget('user_id');
-        session()->forget('order_code');
-        session()->forget('transactionId');
-        session()->forget('receipt');
-        session()->forget('seller_package_id');
-    }
 }

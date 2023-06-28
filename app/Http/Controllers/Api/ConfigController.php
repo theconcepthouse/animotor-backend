@@ -14,6 +14,7 @@ use App\Models\VehicleType;
 use App\Services\Firebase\FirebaseOTPService;
 use App\Services\Firebase\FirestoreService;
 
+use App\Services\WalletService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -99,20 +100,26 @@ class ConfigController extends Controller
         return $data;
     }
 
-    public function checkFB(Request $request, FirestoreService $firestoreService){
+    public function checkFB(Request $request, WalletService $walletService){
         try {
-            $id = $request->get('trip');
-            $trip = TripRequest::findOrFail($id);
-            if($trip){
-                $data = $firestoreService->deleteTrip($trip);
-                if($data['status']){
-                    return $this->successResponse($data['message'], $data);
-                }else{
-                    return $this->errorResponse($data['message']);
-                }
-            }else{
-                $this->errorResponse('error');
-            }
+//            $id = $request->get('trip');
+//            $trip = TripRequest::findOrFail($id);
+//            if($trip){
+//                $data = $firestoreService->deleteTrip($trip);
+//                if($data['status']){
+//                    return $this->successResponse($data['message'], $data);
+//                }else{
+//                    return $this->errorResponse($data['message']);
+//                }
+//            }else{
+//                $this->errorResponse('error');
+//            }
+
+            $user = User::findOrFail($request['user_id']);
+
+            $walletService->fundWallet($user, $request['amount']);
+
+            return $user->balance;
         }catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }

@@ -147,6 +147,8 @@ return [
         'unsupported_region_msg' => "We dont cover this region yet. But its possible you are not even here"
     ],
 
+    'payment_methods' => ['paystack','flutterwave','paypal'],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -185,6 +187,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
 
         /*
          * Package Service Providers...

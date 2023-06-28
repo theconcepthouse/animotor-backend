@@ -24,6 +24,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link  {{ $active == 'app' ? 'active' : '' }}" data-bs-toggle="tab" href="#app"><em class="icon ni ni-mobile"></em><span>Mobile App setting </span></a>
                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link  {{ $active == 'payment-methods' ? 'active' : '' }}" data-bs-toggle="tab" href="#payment-methods"><em class="icon ni ni-money"></em><span>Payment Methods </span></a>
+                                </li>
+
+
 {{--                                <li class="nav-item">--}}
 {{--                                    <a class="nav-link" data-bs-toggle="tab" href="#email"><em class="icon ni ni-mail-fill"></em><span>Email settings </span> </a>--}}
 {{--                                </li>--}}
@@ -38,6 +43,10 @@
                                 </div><!--tab pan -->
                                 <div class="tab-pane  {{ $active == 'app' ? 'active' : '' }}" id="app">
                                     @include('admin.settings.partials.app')
+
+                                </div> <!-- .tab-pane -->
+                                <div class="tab-pane  {{ $active == 'payment-methods' ? 'active' : '' }}" id="payment-methods">
+                                    @include('admin.settings.partials.payment-methods')
 
                                 </div> <!-- .tab-pane -->
                                 <div class="tab-pane" id="email">

@@ -63,6 +63,10 @@ class ConfigController extends Controller
 
     public function getSettings(): JsonResponse
     {
+
+        $data['payment_methods'] =  $this->getActiveMethods();
+
+
         $data['country_id'] = settings('country_id');
         $data['country_code'] = settings('country_code','+1');
         $data['country'] = settings('country','United state');
@@ -79,6 +83,21 @@ class ConfigController extends Controller
         return $this->successResponse('config settings', $data);
     }
 
+    private function getActiveMethods(): array
+    {
+        $active_methods =  json_decode(settings('active_methods'), true);
+
+        $data = [];
+        foreach ($active_methods as $item){
+            $data[] = [
+                'name' => $item,
+                'link' => 'http://'.$item,
+                'logo' => asset("default/payment_methods/$item-logo.png")
+            ];
+        }
+
+        return $data;
+    }
 
     public function checkFB(Request $request, FirestoreService $firestoreService){
         try {

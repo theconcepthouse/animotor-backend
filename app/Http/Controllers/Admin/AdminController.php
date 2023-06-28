@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Appointment;
 
 use App\Models\Country;
-use App\Models\Doctor;
 
-use App\Models\OtherPayment;
-use App\Models\Subscriber;
+
 use App\Models\User;
 
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class AdminController extends Controller
 {
@@ -39,14 +37,31 @@ class AdminController extends Controller
        $data = [];
        $active = $request->get('active') ?? 'general';
        $countries = Country::where('is_active',true)->get();
-        return view('admin.settings', compact('data', 'countries','active'));
+       $active_methods =  json_decode(settings('active_methods'), true);
+        return view('admin.settings', compact('data', 'countries','active','active_methods'));
     }
 
    public function storeSettings(Request $request)
    {
 
+
+
         $data = $request->except('active_setting');
-        if($request->get('active_setting') == 'smtp'){
+
+       if($request->has('active_methods')){
+           $dt['active_methods']  = json_encode($request->get('active_methods'));
+
+           foreach ($request->get('active_methods') as $item){
+
+               $this->setEnvironmentValue(strtoupper($item)."_PUBLIC_KEY", $request[strtoupper($item)."_PUBLIC_KEY"]);
+               $this->setEnvironmentValue(strtoupper($item)."_SECRET_KEY", $request[strtoupper($item)."_SECRET_KEY"]);
+           }
+
+           settings($dt);
+
+           Artisan::call('config:clear');
+
+       }elseif($request->get('active_setting') == 'smtp'){
             $this->storeSmtp($request);
         }else{
             if($request->has('country_id')){

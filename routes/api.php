@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ConfigController;
 use App\Http\Controllers\Api\DriverController;
 use App\Http\Controllers\Api\TripRequestController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Payment\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('services', [TripRequestController::class, 'getServices']);
         Route::post('book', [TripRequestController::class, 'store']);
         Route::get('pending', [TripRequestController::class, 'myActiveRide']);
+        Route::get('history', [TripRequestController::class, 'tripHistory']);
         Route::post('update/status', [TripRequestController::class, 'updateStatus']);
         Route::post('update/booking', [TripRequestController::class, 'update']);
         Route::post('share/feedback', [TripRequestController::class, 'shareFeedback']);
@@ -69,6 +71,11 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('accept', [TripRequestController::class, 'acceptRide']);
 
     });
+
+    Route::group(['prefix' => 'payment'], function(){
+        Route::any('/{gateway}/pay', [PaymentController::class,'payment_initialize']);
+    });
+
 
     Route::group(['prefix' => 'config'], function () {
         Route::get('settings', [ConfigController::class, 'getSettings']);

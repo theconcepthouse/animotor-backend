@@ -46,7 +46,7 @@ class UserController extends Controller
         if($page_number){
             $transactions = $user->transactions()->latest()->paginate(100);
         }else{
-            $transactions = $user->transactions()->latest()->paginate(10);
+            $transactions = $user->transactions()->latest()->paginate(4);
         }
         return $this->successResponse('transactions', $transactions);
     }

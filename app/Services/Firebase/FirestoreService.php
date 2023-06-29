@@ -93,6 +93,8 @@ class FirestoreService
             'service_id' => $trip_data->service_id,
             'ride_type' => $trip_data->ride_type,
 
+            'currency' => $trip_data->currency,
+
             'customer_avatar' => $trip_data?->customer?->avatar,
             'customer_phone' => $trip_data?->customer?->full_phone,
         ];

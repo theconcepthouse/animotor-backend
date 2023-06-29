@@ -102,7 +102,7 @@ class TripRequest extends Model
 
     public function getCurrencyAttribute(): ?string
     {
-        return $this->region()?->currency_code;
+        return $this->region?->currency_code;
     }
 
 }

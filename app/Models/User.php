@@ -127,9 +127,9 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->country_code.$this->phone;
     }
 
-    public function getAccountBalanceAttribute(): int
+    public function getAccountBalanceAttribute()
     {
-        return 100;
+        return $this->wallet()->first()->balance;
     }
 
     public function getStatusTextAttribute() {

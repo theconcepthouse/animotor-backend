@@ -129,7 +129,12 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     public function getAccountBalanceAttribute()
     {
-        return $this->wallet()->first()->balance;
+        $wallet = $this->wallet()->first();
+        if($wallet){
+            return $wallet?->balance ?? 0;
+        }else{
+            return 0;
+        }
     }
 
     public function getStatusTextAttribute() {

@@ -60,7 +60,7 @@ class TripRequest extends Model
         'cancelled_by',
     ];
 
-    protected $appends = ['started_at_val','end_at_val','created_at_val','started_date','currency'];
+    protected $appends = ['started_at_val','end_at_val','created_at_val','started_date','currency','created_date'];
 
     protected $with = ['service','region'];
 
@@ -83,6 +83,11 @@ class TripRequest extends Model
     {
         $started_at = Carbon::parse($this->started_at);
         return $started_at->format('Y-m-d');
+    }
+    public function getCreatedDateAttribute(): string
+    {
+        $created_at = Carbon::parse($this->created_at);
+        return $created_at->format('Y-m-d H:i:s');
     }
     public function getEndAtValAttribute(): string
     {

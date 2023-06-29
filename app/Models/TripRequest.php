@@ -62,7 +62,7 @@ class TripRequest extends Model
 
     protected $appends = ['started_at_val','end_at_val','created_at_val','started_date'];
 
-    protected $with = ['service'];
+    protected $with = ['service','region'];
 
     public function service(): BelongsTo
     {
@@ -93,5 +93,10 @@ class TripRequest extends Model
     {
         $created_at = Carbon::parse($this->created_at);
         return $created_at->format('H:i:s');
+    }
+
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class,'region_id')->select('id', 'name','currency_code');
     }
 }

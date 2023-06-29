@@ -60,6 +60,13 @@ class TripRequest extends Model
         'cancelled_by',
     ];
 
+    protected $casts = [
+        'destination_lat' => 'decimal:8',
+        'destination_lng' => 'decimal:8',
+        'origin_lat' => 'decimal:8',
+        'origin_lng' => 'decimal:8',
+    ];
+
     protected $appends = ['started_at_val','end_at_val','created_at_val','started_date','currency','created_date'];
 
     protected $with = ['service','region'];

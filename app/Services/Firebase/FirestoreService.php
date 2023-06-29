@@ -2,6 +2,7 @@
 
 namespace App\Services\Firebase;
 
+use MrShan0\PHPFirestore\Fields\FirestoreGeoPoint;
 use MrShan0\PHPFirestore\FirestoreClient;
 
 class FirestoreService
@@ -63,10 +64,10 @@ class FirestoreService
             'destination' => $trip_data->destination,
             'payment_status' => $trip_data->payment_status,
             'payment_method' => $trip_data->payment_method,
-            'origin_lat' => $trip_data->origin_lat,
-            'origin_lng' => $trip_data->origin_lng,
-            'destination_lat' => $trip_data->destination_lat,
-            'destination_lng' => $trip_data->destination_lng,
+            'origin_lat' => new FirestoreGeoPoint($trip_data->origin_lat),
+            'origin_lng' => new FirestoreGeoPoint($trip_data->origin_lng),
+            'destination_lat' => new FirestoreGeoPoint($trip_data->destination_lat),
+            'destination_lng' => new FirestoreGeoPoint($trip_data->destination_lng),
             'started_at' => $trip_data->started_at_val,
             'end_at' => $trip_data->end_at_val,
             'current_lat' => $trip_data->current_lat,

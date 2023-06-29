@@ -60,7 +60,7 @@ class TripRequest extends Model
         'cancelled_by',
     ];
 
-    protected $appends = ['started_at_val','end_at_val','created_at_val','started_date'];
+    protected $appends = ['started_at_val','end_at_val','created_at_val','started_date','currency'];
 
     protected $with = ['service','region'];
 
@@ -99,4 +99,10 @@ class TripRequest extends Model
     {
         return $this->belongsTo(Region::class,'region_id')->select('id', 'name','currency_code');
     }
+
+    public function getCurrencyAttribute(): ?string
+    {
+        return $this->region()?->currency_code;
+    }
+
 }

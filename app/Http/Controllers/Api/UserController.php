@@ -38,4 +38,16 @@ class UserController extends Controller
 
         return $this->successResponse('updated lat & lng', $user);
     }
+
+    public function getTransactions(Request $request): JsonResponse
+    {
+        $page_number = $request->has('page');
+        $user = User::find(auth()->id());
+        if($page_number){
+            $transactions = $user->transactions()->latest()->paginate(100);
+        }else{
+            $transactions = $user->transactions()->latest()->paginate(10);
+        }
+        return $this->successResponse('transactions', $transactions);
+    }
 }

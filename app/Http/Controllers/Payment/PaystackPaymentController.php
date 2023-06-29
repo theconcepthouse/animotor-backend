@@ -43,11 +43,13 @@ class PaystackPaymentController extends Controller
     public function callback()
     {
         try{
+            $description = "Wallet funding via paystack";
+            $method = "Paystack";
             $payment = Paystack::getPaymentData();
             if (!empty($payment['data']) && $payment['data']['status'] == 'success') {
                 $amount = $payment['data']['amount'] / 100;
                 $user_id = $payment['data']['metadata']['user_id'];
-                return ( new PaymentController )->payment_success($payment['data'], $user_id, $amount);
+                return ( new PaymentController )->payment_success($payment['data'], $user_id, $amount, $description, $method);
             }
             else{
                 return ( new PaymentController )->payment_failed();

@@ -117,7 +117,7 @@ class ConfigController extends Controller
 
             $user = User::findOrFail($request['user_id']);
 
-            $walletService->fundWallet($user, $request['amount']);
+            $walletService->fundWallet($user, $request['amount'], 'Wallet fund testing','paystack');
 
             return $user->balance;
         }catch (\Exception $e) {

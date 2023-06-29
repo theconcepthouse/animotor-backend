@@ -55,7 +55,7 @@ class FlutterwavePaymentController extends Controller
     public function callback()
     {
         $status = request()->status;
-
+        $method = 'flutterwave';
         $transactionID = request()->transaction_id;
 
         $data = Flutterwave::verifyTransaction($transactionID);
@@ -68,9 +68,9 @@ class FlutterwavePaymentController extends Controller
 
                 $user_id = $data['data']['meta']['user_id'];
                 $amount = $payment['amount'];
-
+                $description = "Wallet funding via flutterwave";
                 if($payment['status'] == "successful"){
-                    return ( new PaymentController )->payment_success($payment, $user_id, $amount);
+                    return ( new PaymentController )->payment_success($payment, $user_id, $amount, $description, $method);
                 }else{
                     return ( new PaymentController )->payment_failed();
                 }

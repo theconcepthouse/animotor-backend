@@ -47,7 +47,7 @@ class PaymentController extends Controller
 //        }
     }
 
-    public function payment_success($paymentData, $user_id, $amount)
+    public function payment_success($paymentData, $user_id, $amount, $description = null, $method = null)
     {
         $walletService = new WalletService();
 
@@ -55,7 +55,7 @@ class PaymentController extends Controller
 
         $amt = $amount;
 
-        $walletService->fundWallet($user, $amt);
+        $walletService->fundWallet($user, $amt, $description, $method);
 
 
         return redirect()->route('payment.success');

@@ -74,6 +74,11 @@ class TripRequest extends Model
         return $this->belongsTo(User::class, 'driver_id');
     }
 
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'customer_id');
+    }
+
     public function getStartedAtValAttribute(): string
     {
         $started_at = Carbon::parse($this->started_at);

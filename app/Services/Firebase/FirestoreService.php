@@ -92,6 +92,9 @@ class FirestoreService
             'grand_total' => $trip_data->grand_total,
             'service_id' => $trip_data->service_id,
             'ride_type' => $trip_data->ride_type,
+
+            'customer_avatar' => $trip_data?->customer?->avatar,
+            'customer_phone' => $trip_data?->customer?->full_phone,
         ];
 
         if($trip_data->driver){

@@ -72,13 +72,24 @@ class UserController extends Controller
 
         $data = $query->latest()->paginate($paginationLimit);
 
+        $meta = [
+            'total_earned_wk' => $data->whereBetween('started_at', [$startOfWeek, $endOfWeek])->sum('driver_earn'),
+
+            'total_earned_today' => $data->whereDate('started_at', $today)->sum('driver_earn'),
+        ];
+
         $data = (object) [
             'data' => $data,
+            'meta' => $meta,
+        ];
+
+//        $data = (object) [
+//            'data' => $data,
 //            'meta' => [
 //                'total_earned_wk' => $total_earned_wk,
 //                'total_earned_today' => $total_earned_today,
 //            ],
-        ];
+//        ];
 
         return response()->json($data);
     }

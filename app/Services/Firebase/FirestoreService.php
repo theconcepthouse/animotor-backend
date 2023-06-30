@@ -46,7 +46,9 @@ class FirestoreService
 
 //        $documentRef->set($data);
 
-        return $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
+        if(!env('APP_DEBUG')){
+            return $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
+        }
     }
 
     public function updateTripRequest($trip_data): void
@@ -117,13 +119,20 @@ class FirestoreService
             $data = array_merge($data, $extra);
         }
 
-        $firestoreClient->updateDocument("rideRequests/".$trip_data->id, $data);
+        if(!env('APP_DEBUG')) {
+            $firestoreClient->updateDocument("rideRequests/" . $trip_data->id, $data);
+        }
 
     }
 
     public function deleteTrip($trip): array
     {
+
         try {
+            if(env('APP_DEBUG')){
+                $data['status'] = false;
+                $data['message'] ="you are in dev mood";
+            }
             $collection = 'rideRequests/'.$trip->id;
 
             $data['response'] = $this->firestoreClient->deleteDocument($collection);

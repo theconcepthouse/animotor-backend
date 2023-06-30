@@ -193,7 +193,7 @@ class TripRequestController extends Controller
 
                     $driver->save();
                 }else{
-                    return $this->errorResponse($request);
+                    return $this->errorResponse('Cant complete this ride');
                 }
 
                 $service = Service::find($trip->service_id);
@@ -238,6 +238,10 @@ class TripRequestController extends Controller
 
                 $trip->commission = $service->commission($trip->grand_total);
 
+                $driver_earn = $trip->grand_total - $trip->commission;
+
+                $trip->driver_earn = $driver_earn;
+
                 if($trip->payment_method == "wallet"){
                     $user = User::find($trip->customer_id);
 
@@ -245,8 +249,6 @@ class TripRequestController extends Controller
                     if($user){
 
                         $user->forceWithdraw($trip->grand_total, ['description' => 'Ride wallet pay']);
-
-                        $driver_earn = $trip->grand_total - $trip->commission;
 
                         $driver->deposit($driver_earn,['description' => 'Ride earn']);
                     }

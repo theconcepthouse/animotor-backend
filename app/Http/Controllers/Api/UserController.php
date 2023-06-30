@@ -60,9 +60,9 @@ class UserController extends Controller
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
-        $query = TripRequest::select('driver_id', 'completed', 'driver_earn', 'started_at')
+        $query = TripRequest::select('driver_id', 'completed', 'driver_earn', 'started_at');
 //            ->where('driver_id', $user_id)
-            ->where('completed', true);
+//            ->where('completed', true);
 
         $total_earned_today = $query->whereDate('started_at', $today)->sum('driver_earn');
 

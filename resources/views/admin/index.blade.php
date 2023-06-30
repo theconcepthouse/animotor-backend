@@ -31,7 +31,7 @@
                                                         </div>
                                                         <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                                             <div class="nk-sale-data">
-                                                                <span class="amount"> 0</span>
+                                                                <span class="amount"> {{ $approved_drivers_count }}</span>
                                                                 <a class="font-weight-semi-bold fs--1 text-nowrap" href="{{ route('admin.drivers.index',['status' => 'approved']) }}">see all<span class="icon ni ni-arrow-right ml-1" data-fa-transform="down-1"></span></a>
                                                             </div>
                                                         </div>
@@ -48,7 +48,7 @@
                                                         </div>
                                                         <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                                             <div class="nk-sale-data">
-                                                                <span class="amount text-danger"> 0</span>
+                                                                <span class="amount text-danger"> {{ $un_approved_drivers_count }}</span>
                                                                 <a class="font-weight-semi-bold fs--1 text-nowrap" href="{{ route('admin.drivers.index',['status' => 'unapproved']) }}">see all<span class="icon ni ni-arrow-right ml-1" data-fa-transform="down-1"></span></a>
                                                             </div>
                                                         </div>
@@ -65,7 +65,7 @@
                                                         </div>
                                                         <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                                             <div class="nk-sale-data">
-                                                                <span class="amount text-primary"> 0</span>
+                                                                <span class="amount text-primary"> {{ $riders_count }}</span>
                                                                 <a class="font-weight-semi-bold fs--1 text-nowrap" href="{{ route('admin.riders') }}">see all<span class="icon ni ni-arrow-right ml-1" data-fa-transform="down-1"></span></a>
                                                             </div>
                                                         </div>
@@ -77,13 +77,13 @@
                                                     <div class="card-inner">
                                                         <div class="card-title-group align-start mb-2">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total rides</h6>
+                                                                <h6 class="title">Total Trips</h6>
                                                             </div>
                                                         </div>
                                                         <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                                             <div class="nk-sale-data">
-                                                                <span class="amount text-warning"> 0</span>
-                                                                <a class="font-weight-semi-bold fs--1 text-nowrap" href="{{ route('admin.riders') }}">see all<span class="icon ni ni-arrow-right ml-1" data-fa-transform="down-1"></span></a>
+                                                                <span class="amount text-warning"> {{ $ride_counts }}</span>
+                                                                <a class="font-weight-semi-bold fs--1 text-nowrap" href="{{ route('admin.trips.index','all') }}">see all<span class="icon ni ni-arrow-right ml-1" data-fa-transform="down-1"></span></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -99,7 +99,7 @@
                                                         </div>
                                                         <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
                                                             <div class="nk-sale-data">
-                                                                <span class="amount text-warning"> 0</span>
+                                                                <span class="amount text-warning"> {{ $total_complains }}</span>
                                                                 <a class="font-weight-semi-bold fs--1 text-nowrap" href="{{ route('admin.complains.index') }}">see all<span class="icon ni ni-arrow-right ml-1" data-fa-transform="down-1"></span></a>
                                                             </div>
                                                         </div>
@@ -117,16 +117,13 @@
                                         <div class="card-title-group align-start gx-3 mb-3">
                                             <div class="card-title">
                                                 <h6 class="title">Rides Overview</h6>
-                                                <p>This month rides overview. <a href="{{ route('admin.trips.index',['status'=>'completed']) }}">See all rides</a></p>
+                                                <p>This month rides overview. <a href="{{ route('admin.trips.index',['status'=>'all']) }}">See all rides</a></p>
                                             </div>
 
                                         </div>
                                         <div class="nk-sale-data-group align-center justify-between gy-3 gx-5">
                                             <div class="nk-sale-data">
-                                                <span class="amount">$0</span>
-                                            </div>
-                                            <div class="nk-sale-data">
-                                                <span class="amount sm">0 <small>Total rides</small></span>
+                                                <span class="amount sm">{{ $ride_counts }} <small>Total rides</small></span>
                                             </div>
                                         </div>
                                         <div class="nk-sales-ck large pt-4">
@@ -210,11 +207,11 @@
                                             </div>
                                         </div>
                                         @endforeach
-                                        @if(count($riders) < 1)
+                                        @if(count($drivers) < 1)
                                             <div class="card-inner card-inner-md">
                                                 <div class="user-card">
                                                     <div class="user-info">
-                                                        <span class="lead-text">No riders yet</span>
+                                                        <span class="lead-text">No drivers yet</span>
 
                                                     </div>
                                                 </div>
@@ -298,205 +295,41 @@
                                                 <div class="nk-tb-col"><span>Order No.</span></div>
                                                 <div class="nk-tb-col tb-col-sm"><span>Customer</span></div>
                                                 <div class="nk-tb-col tb-col-md"><span>Date</span></div>
-                                                <div class="nk-tb-col tb-col-lg"><span>Ref</span></div>
                                                 <div class="nk-tb-col"><span>Amount</span></div>
                                                 <div class="nk-tb-col"><span class="d-none d-sm-inline">Status</span></div>
                                                 <div class="nk-tb-col"><span>&nbsp;</span></div>
                                             </div>
+                                            @foreach($rides as $item)
                                             <div class="nk-tb-item">
                                                 <div class="nk-tb-col">
-                                                    <span class="tb-lead"><a href="#">#95954</a></span>
+                                                    <span class="tb-lead"><a href="#">#{{ $item->reference }}</a></span>
                                                 </div>
                                                 <div class="nk-tb-col tb-col-sm">
                                                     <div class="user-card">
                                                         <div class="user-avatar user-avatar-sm bg-purple">
-                                                            <span>AB</span>
+                                                            <img src="{{ $item->customer->avatar }}" />
                                                         </div>
                                                         <div class="user-name">
-                                                            <span class="tb-lead">Abu Bin Ishtiyak</span>
+                                                            <span class="tb-lead">{{ $item->customer->name }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="nk-tb-col tb-col-md">
-                                                    <span class="tb-sub">02/11/2020</span>
+                                                    <span class="tb-sub">{{ $item->created_at->format('Y-m-d H:i:s') }}</span>
                                                 </div>
-                                                <div class="nk-tb-col tb-col-lg">
-                                                    <span class="tb-sub text-primary">SUB-2309232</span>
+
+                                                <div class="nk-tb-col">
+                                                    <span class="tb-sub tb-amount">{{ $item->grand_total }}</span>
                                                 </div>
                                                 <div class="nk-tb-col">
-                                                    <span class="tb-sub tb-amount">4,596.75 <span>USD</span></span>
+                                                    <span>{{ $item->status }}</span>
                                                 </div>
                                                 <div class="nk-tb-col">
-                                                    <span class="badge badge-dot badge-dot-xs bg-success">Paid</span>
-                                                </div>
-                                                <div class="nk-tb-col nk-tb-col-action">
-                                                    <div class="dropdown">
-                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
-                                                            <ul class="link-list-plain">
-                                                                <li><a href="#">View</a></li>
-                                                                <li><a href="#">Invoice</a></li>
-                                                                <li><a href="#">Print</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                    <a href="{{ route('admin.trip.show', $item->id) }}">View</a>
                                                 </div>
                                             </div>
-                                            <div class="nk-tb-item">
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-lead"><a href="#">#95850</a></span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-sm">
-                                                    <div class="user-card">
-                                                        <div class="user-avatar user-avatar-sm bg-azure">
-                                                            <span>DE</span>
-                                                        </div>
-                                                        <div class="user-name">
-                                                            <span class="tb-lead">Desiree Edwards</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-md">
-                                                    <span class="tb-sub">02/02/2020</span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-lg">
-                                                    <span class="tb-sub text-primary">SUB-2309154</span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-sub tb-amount">596.75 <span>USD</span></span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="badge badge-dot badge-dot-xs bg-danger">Canceled</span>
-                                                </div>
-                                                <div class="nk-tb-col nk-tb-col-action">
-                                                    <div class="dropdown">
-                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
-                                                            <ul class="link-list-plain">
-                                                                <li><a href="#">View</a></li>
-                                                                <li><a href="#">Remove</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="nk-tb-item">
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-lead"><a href="#">#95812</a></span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-sm">
-                                                    <div class="user-card">
-                                                        <div class="user-avatar user-avatar-sm bg-warning">
-                                                            <img src="./images/avatar/b-sm.jpg" alt="">
-                                                        </div>
-                                                        <div class="user-name">
-                                                            <span class="tb-lead">Blanca Schultz</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-md">
-                                                    <span class="tb-sub">02/01/2020</span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-lg">
-                                                    <span class="tb-sub text-primary">SUB-2309143</span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-sub tb-amount">199.99 <span>USD</span></span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="badge badge-dot badge-dot-xs bg-success">Paid</span>
-                                                </div>
-                                                <div class="nk-tb-col nk-tb-col-action">
-                                                    <div class="dropdown">
-                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
-                                                            <ul class="link-list-plain">
-                                                                <li><a href="#">View</a></li>
-                                                                <li><a href="#">Invoice</a></li>
-                                                                <li><a href="#">Print</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="nk-tb-item">
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-lead"><a href="#">#95256</a></span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-sm">
-                                                    <div class="user-card">
-                                                        <div class="user-avatar user-avatar-sm bg-purple">
-                                                            <span>NL</span>
-                                                        </div>
-                                                        <div class="user-name">
-                                                            <span class="tb-lead">Naomi Lawrence</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-md">
-                                                    <span class="tb-sub">01/29/2020</span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-lg">
-                                                    <span class="tb-sub text-primary">SUB-2305684</span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-sub tb-amount">1099.99 <span>USD</span></span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="badge badge-dot badge-dot-xs bg-success">Paid</span>
-                                                </div>
-                                                <div class="nk-tb-col nk-tb-col-action">
-                                                    <div class="dropdown">
-                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
-                                                            <ul class="link-list-plain">
-                                                                <li><a href="#">View</a></li>
-                                                                <li><a href="#">Invoice</a></li>
-                                                                <li><a href="#">Print</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="nk-tb-item">
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-lead"><a href="#">#95135</a></span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-sm">
-                                                    <div class="user-card">
-                                                        <div class="user-avatar user-avatar-sm bg-success">
-                                                            <span>CH</span>
-                                                        </div>
-                                                        <div class="user-name">
-                                                            <span class="tb-lead">Cassandra Hogan</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-md">
-                                                    <span class="tb-sub">01/29/2020</span>
-                                                </div>
-                                                <div class="nk-tb-col tb-col-lg">
-                                                    <span class="tb-sub text-primary">SUB-2305564</span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="tb-sub tb-amount">1099.99 <span>USD</span></span>
-                                                </div>
-                                                <div class="nk-tb-col">
-                                                    <span class="badge badge-dot badge-dot-xs bg-warning">Due</span>
-                                                </div>
-                                                <div class="nk-tb-col nk-tb-col-action">
-                                                    <div class="dropdown">
-                                                        <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
-                                                            <ul class="link-list-plain">
-                                                                <li><a href="#">View</a></li>
-                                                                <li><a href="#">Invoice</a></li>
-                                                                <li><a href="#">Notify</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @endforeach
+
                                         </div>
                                     </div>
                                     <div class="card-inner-sm border-top text-center d-sm-none">

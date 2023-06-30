@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::resource('cancellation_reasons', CancellationReasonController::class);
 
     Route::get('trips/{status}', [TripRequestController::class,'index'])->name('trips.index');
+    Route::get('trip/{id}', [TripRequestController::class,'show'])->name('trip.show');
     Route::get('drivers/{status}', [DriversController::class,'index'])->name('drivers.index');
     Route::get('driver/{id}/documents', [DriversController::class,'documents'])->name('driver.documents');
     Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');

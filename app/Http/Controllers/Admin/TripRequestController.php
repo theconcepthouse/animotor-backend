@@ -10,15 +10,31 @@ class TripRequestController extends Controller
 {
     public function index($status)
     {
-        if(!in_array($status,['pending','completed','cancelled','scheduled'])){
-            $title = "Trip requests";
-            $data = TripRequest::paginate(100);
+        $title = $status. " Trip requests";
+
+        if($status == 'pending'){
+            $data = TripRequest::where('completed', false)->where('cancelled',false)->paginate(100);
+        } elseif($status == 'completed'){
+            $data = TripRequest::where('completed', true)->paginate(100);
+        }elseif($status == 'cancelled'){
+            $data = TripRequest::where('cancelled', true)->paginate(100);
+        }elseif($status == 'scheduled'){
+            $data = TripRequest::where('scheduled', true)->paginate(100);
         }else{
-            $title = $status. " Trip requests";
-            $data = TripRequest::where('status', $status)->paginate(100);
+
+            $title = "All Trip requests";
+
+            $data = TripRequest::paginate(100);
         }
 
 
+
+
         return view('admin.trips.list', compact('data','title'));
+    }
+
+    public function show($id){
+        $trip = TripRequest::findOrFail($id);
+        return view('admin.trips.show', compact('trip'));
     }
 }

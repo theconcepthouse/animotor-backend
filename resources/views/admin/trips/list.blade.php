@@ -47,14 +47,18 @@
                                                 <thead>
 
                                                 <tr>
+                                                    <th>S/N</th>
+                                                    <th>View</th>
+                                                    <th>Service Area</th>
                                                     <th>Reference</th>
+                                                    <th>Ride type</th>
                                                     <th>Date</th>
                                                     <th>Rider Name</th>
                                                     <th>Driver Name</th>
                                                     <th>Trip Status</th>
+                                                    <th>Service type</th>
                                                     <th>Payment Status</th>
                                                     <th>Payment Method</th>
-                                                    <th>Action</th>
                                                 </tr>
 
                                                 </thead>

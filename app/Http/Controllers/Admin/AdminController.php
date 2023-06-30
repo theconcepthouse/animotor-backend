@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\Complaint;
 use App\Models\Country;
 
 
+use App\Models\TripRequest;
 use App\Models\User;
 
 use Carbon\Carbon;
@@ -20,8 +22,18 @@ class AdminController extends Controller
     {
         $users = User::whereHasRole(['user','customer'])->latest()->paginate(10);
         $riders = User::whereHasRole(['rider'])->latest()->paginate(5);
+        $riders_count = User::whereHasRole(['rider'])->count();
+        $total_complains = Complaint::count();
+        $ride_counts = TripRequest::count();
+        $rides = TripRequest::select('customer_id','reference','created_at','grand_total','status','id')->latest()->paginate(5);
         $drivers = User::whereHasRole(['driver'])->latest()->paginate(5);
-        return view('admin.index', compact('users','riders','drivers'));
+        $approved_drivers_count = User::whereHasRole(['driver'])->where('status','approved')->count();
+        $un_approved_drivers_count = User::whereHasRole(['driver'])->where('status','!=','active')->count();
+        return view('admin.index', compact(
+            'users','riders','drivers','rides',
+            'riders','ride_counts','riders_count','total_complains',
+            'un_approved_drivers_count','approved_drivers_count'
+        ));
     }
 
     public function admins()

@@ -45,7 +45,7 @@
     </style>
 </head>
 
-<body class="nk-body bg-lighter npc-general has-sidebar ">
+<body class="nk-body bg-lighter npc-general has-sidebar dark-mode">
 <div class="nk-app-root">
     <!-- main @s -->
     <div class="nk-main ">

@@ -91,6 +91,13 @@ class TripRequest extends Model
         $started_at = Carbon::parse($this->started_at);
         return $started_at->format('H:i:s');
     }
+    public function getRideTYpeAttribute($val): string
+    {
+        if($val == 'instant'){
+            return "Instant Ride";
+        }
+        return $val;
+    }
     public function getStartedDateAttribute(): string
     {
         $started_at = Carbon::parse($this->started_at);

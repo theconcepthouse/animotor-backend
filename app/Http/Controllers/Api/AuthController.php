@@ -121,7 +121,7 @@ class AuthController extends Controller
         }else {
             $data['user_exist'] = false;
         }
-        $data['auto_verify_code'] = mt_rand(1000,9999);
+        $data['auto_verify_code'] = mt_rand(100000,999999);
         return $this->successResponse('check phone response', $data);
     }
 

@@ -24,7 +24,7 @@ class FirestoreService
             'email' => $user_data->email,
             'name' => $user_data->name,
             'id' => $user_data->id,
-            'is_online' => $user_data->is_online,
+            'is_online' => boolval($user_data->is_online),
             'full_phone' => $user_data->full_phone,
             'status' => $user_data->status,
             'unapproved_documents' => $user_data->unapproved_documents,

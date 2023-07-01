@@ -168,22 +168,17 @@
                         <div class="row gy-4 pt-4">
 
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','value' => $item->name, 'title' => 'Rental name'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'value' => $item->name, 'fieldName' => 'name','title' => 'Rental name'])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_required', 'value' => $item->is_required, 'title' => 'Is Required','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-'])
-
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'has_expiry_date', 'value' => $item->has_expiry_date, 'title' => 'Has expiry date','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-'])
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'status', 'value' => $item->status, 'title' => 'Status','options' => '
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6','value' => $item->is_active, 'fieldName' => 'is_active', 'title' => 'Status','options' => '
     <option value="1">Active</option>
     <option value="0">Disabled</option>
 '])
+                            @include('admin.partials.form.text', ['attributes' => 'required','type' => 'number','colSize' => 'col-md-6', 'value' => $item->period, 'fieldName' => 'period','title' => 'Period in minutes'])
+
+                            @include('admin.partials.form.textarea', [ 'colSize' => 'col-md-12', 'value' => $item->description, 'fieldName' => 'description','title' => 'Description'])
+
                         </div>
 
                         <div class="form-group mt-3">

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\RegionController;
+use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TripRequestController;
@@ -52,6 +53,9 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::resource('countries', CountriesController::class);
     Route::resource('complains', ComplaintsController::class);
     Route::resource('documents', DocumentController::class);
+
+    Route::resource('rental', RentalController::class);
+
     Route::resource('regions', RegionController::class);
     Route::resource('cancellation_reasons', CancellationReasonController::class);
 

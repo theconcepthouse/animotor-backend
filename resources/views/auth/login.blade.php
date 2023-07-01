@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Softnio">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{{ env('APP_NAME') }}">
+    <meta name="description" content="{{ settings('site_name') }}">
     <!-- Fav Icon  -->
     <link rel="shortcut icon" href="{{ settings('favicon') }}">
     <!-- Page Title  -->
@@ -27,7 +27,7 @@
                 <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
                     <div class="brand-logo pb-4 text-center">
                         <a href="#" class="logo-link">
-                            <img height="150" src="{{ asset('default/logo.png') }}" />
+                            <img height="150" src="{{ settings('light_logo',asset('default/logo.png')) }}" />
 {{--                            <h3 style="font-weight: bolder" class="text-capitalize">{{ env('APP_NAME') }}</h3>--}}
                             {{--                            <img class="logo-light logo-img logo-img-lg" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">--}}
                             {{--                            <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">--}}

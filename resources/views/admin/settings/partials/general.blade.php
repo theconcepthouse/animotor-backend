@@ -43,7 +43,7 @@
 
 
                 @include('admin.partials.image-upload',['field' => 'light_logo', 'image' => settings('light_logo'), 'id' => 'light_logo','title' => 'Light mode logo'])
-                @include('admin.partials.image-upload',['field' => 'dark_logo',  'image' => settings('light_logo'), 'id' => 'dark_logo','title' => 'Dark mode logo'])
+                @include('admin.partials.image-upload',['field' => 'dark_logo',  'image' => settings('dark_logo'), 'id' => 'dark_logo','title' => 'Dark mode logo'])
                 @include('admin.partials.image-upload',['field' => 'favicon',  'image' => settings('favicon'), 'id' => 'favicon','title' => 'Favicon'])
 
             </div>

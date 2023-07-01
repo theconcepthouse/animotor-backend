@@ -377,7 +377,7 @@
             <div class="nk-footer">
                 <div class="container-fluid">
                     <div class="nk-footer-wrap">
-                        <div class="nk-footer-copyright"> &copy; 2023 {{ env('APP_NAME') }}
+                        <div class="nk-footer-copyright"> &copy; 2023 {{ settings('site_name', env('APP_NAME')) }}
                         </div>
 
                     </div>

@@ -172,7 +172,7 @@
 
     @foreach($data as $item)
     <div class="modal fade" role="dialog" id="update{{ $item->id }}">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
@@ -195,22 +195,29 @@
                         <div class="row gy-4 pt-4">
 
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','value' => $item->name, 'title' => 'Document name'])
+                            @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'value' => $item->region_id ,'colSize' => 'col-md-6', 'fieldName' => 'region_id',  'id' => $item->id, 'title' => 'Service Region','options' => $regions])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'value' => $item->name, 'fieldName' => 'name','title' => 'Service name'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'capacity', 'value' => $item->capacity, 'title' => 'Capacity'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'price', 'value' => $item->price, 'title' => 'Base Fare'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'min_fare', 'value' => $item->min_fare,'title' => 'Minimum Fare'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'min_distance','value' => $item->min_distance, 'title' => 'Minimum Distance'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'distance_price', 'value' => $item->distance_price, 'title' => 'Price per distance'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'time_price', 'value' => $item->time_price, 'title' => 'Price per minutes'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'wait_time_limit', 'value' => $item->wait_time_limit, 'title' => 'Free waiting time(in minutes)'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'wait_price', 'value' => $item->wait_price, 'title' => 'Price Per minute wait'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'cancellation_fee', 'value' => $item->cancellation_fee, 'title' => 'Cancellation fee'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'fieldName' => 'payment_methods', 'value' => $item->payment_methods, 'title' => 'Payment methods'])
+                            @include('admin.partials.form.select_array', ['attributes' => 'required', 'fieldName' => 'commission_type', 'value' => $item->commission_type, 'title' => 'Commission Type', 'options' => ['flat','percentage']])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'commission', 'value' => $item->commission, 'title' => 'Commission'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'discount', 'value' => $item->discount, 'title' => 'Discount (in %)'])
 
-
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_required', 'value' => $item->is_required, 'title' => 'Is Required','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'value' => $item->is_active, 'title' => 'Status','options' => '
+<option value="1">Active</option>
+<option value="0">Disabled</option>
 '])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'has_expiry_date', 'value' => $item->has_expiry_date, 'title' => 'Has expiry date','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-'])
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'status', 'value' => $item->status, 'title' => 'Status','options' => '
-    <option value="1">Active</option>
-    <option value="0">Disabled</option>
-'])
+                            @include('admin.partials.image-upload',['field' => 'image','id' => 'image', 'image' => $item->image,'title' => 'Image'])
+
                         </div>
 
                         <div class="form-group mt-3">

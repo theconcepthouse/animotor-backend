@@ -8,7 +8,7 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">{{ env('APP_NAME') }} dashboard</h3>
+                                <h3 class="nk-block-title page-title">{{ settings('site_name', env('APP_NAME')) }} dashboard</h3>
 
                             </div><!-- .nk-block-head-content -->
 

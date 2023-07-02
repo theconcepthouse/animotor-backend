@@ -30,7 +30,7 @@
 
                 </h5>
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" {{ in_array($item, $active_methods) ? 'checked' : '' }} name="active_methods[]" value="{{ $item }}" class="custom-control-input" id="{{ $item }}-enable">
+                    <input type="checkbox" {{ is_array($active_methods) && in_array($item, $active_methods) ? 'checked' : '' }}  name="active_methods[]" value="{{ $item }}" class="custom-control-input" id="{{ $item }}-enable">
                                             <label class="custom-control-label" for="{{ $item }}-enable">Enable method</label>
                 </div>
                 <div class="row mt-2">

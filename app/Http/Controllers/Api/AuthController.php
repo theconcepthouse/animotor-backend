@@ -252,7 +252,7 @@ class AuthController extends Controller
         }else{
 
             if($request->has('file')){
-                $data['avatar'] = $imageService->uploadImage($request['avatar_url'], 'avatar/'.$user->id);
+                $data['avatar'] = $imageService->uploadImage($request['file'], 'avatar/'.$user->id);
             }
 
             $user->update($data);

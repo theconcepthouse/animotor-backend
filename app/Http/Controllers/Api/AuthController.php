@@ -564,6 +564,7 @@ class AuthController extends Controller
             'region_id' => 'nullable',
             'address' => 'nullable',
             'avatar' => 'nullable',
+            'file' => 'nullable',
         ];
         return $request->validate($rules);
     }

@@ -10,6 +10,7 @@ use App\Notifications\PasswordReseted;
 use App\Services\CarService;
 use App\Services\DriverDocumentService;
 use App\Services\Firebase\FirestoreService;
+use App\Services\ImageService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -237,7 +238,7 @@ class AuthController extends Controller
     }
 
 
-    public function update(Request $request, FirestoreService $firestoreService): JsonResponse
+    public function update(Request $request, FirestoreService $firestoreService, ImageService $imageService): JsonResponse
     {
         $data = $this->updateData($request);
         $user = user::find(auth()->user()->id);
@@ -249,6 +250,11 @@ class AuthController extends Controller
                 $message = "Document successfully updated";
             }
         }else{
+
+            if($request->has('file')){
+                $data['avatar'] = $imageService->uploadImage($request['avatar_url'], 'avatar/'.$user->id);
+            }
+
             $user->update($data);
         }
 

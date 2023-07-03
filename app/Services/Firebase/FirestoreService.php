@@ -16,40 +16,6 @@ class FirestoreService
             [ 'database' => '(default)']);
     }
 
-    public function updateDriver($user_data)
-    {
-        $firestoreClient = $this->firestoreClient;
-
-        $data = [
-            'email' => $user_data->email,
-            'name' => $user_data->name,
-            'id' => $user_data->id,
-            'is_online' => boolval($user_data->is_online),
-            'full_phone' => $user_data->full_phone,
-            'status' => $user_data->status,
-            'unapproved_documents' => $user_data->unapproved_documents,
-//            'map_lat' => $user_data->map_lat,
-//            'map_lng' => $user_data->map_lng,
-            'region_id' => $user_data->region_id,
-            'account_balance' => $user_data->account_balance,
-            'avatar' => $user_data->avatar,
-
-            'title' => $user_data->car?->title,
-            'model' => $user_data->car?->model,
-            'make' => $user_data->car?->make,
-            'color' => $user_data->car?->color,
-            'type' => $user_data->car?->type,
-            'year' => $user_data->car?->year,
-            'gear' => $user_data->car?->gear,
-            'vehicle_no' => $user_data->car?->vehicle_no,
-        ];
-
-//        $documentRef->set($data);
-
-        if(!env('APP_DEBUG')){
-            return $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
-        }
-    }
 
     public function updateTripRequest($trip_data): void
     {
@@ -147,5 +113,69 @@ class FirestoreService
         }
 
     }
+
+    public function updateUser($user_data){
+        if(env('APP_DEBUG')) {
+            return null;
+        }
+        if($user_data->hasRole('driver')){
+            return $this->updateDriver($user_data);
+        }else{
+            return $this->updateRider($user_data);
+        }
+    }
+
+    private function updateDriver($user_data)
+    {
+        $firestoreClient = $this->firestoreClient;
+
+        $data = [
+            'email' => $user_data->email,
+            'name' => $user_data->name,
+            'id' => $user_data->id,
+            'is_online' => boolval($user_data->is_online),
+            'full_phone' => $user_data->full_phone,
+            'status' => $user_data->status,
+            'unapproved_documents' => $user_data->unapproved_documents,
+//            'map_lat' => $user_data->map_lat,
+//            'map_lng' => $user_data->map_lng,
+            'region_id' => $user_data->region_id,
+            'account_balance' => $user_data->account_balance,
+            'avatar' => $user_data->avatar,
+
+            'title' => $user_data->car?->title,
+            'model' => $user_data->car?->model,
+            'make' => $user_data->car?->make,
+            'color' => $user_data->car?->color,
+            'type' => $user_data->car?->type,
+            'year' => $user_data->car?->year,
+            'gear' => $user_data->car?->gear,
+            'vehicle_no' => $user_data->car?->vehicle_no,
+        ];
+
+        return $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
+
+    }
+
+    private function updateRider($user_data)
+    {
+        $firestoreClient = $this->firestoreClient;
+
+        $data = [
+            'email' => $user_data->email,
+            'name' => $user_data->name,
+            'id' => $user_data->id,
+            'is_online' => boolval($user_data->is_online),
+            'full_phone' => $user_data->full_phone,
+            'status' => $user_data->status,
+            'region_id' => $user_data->region_id,
+            'account_balance' => $user_data->account_balance,
+            'avatar' => $user_data->avatar,
+        ];
+
+        return $firestoreClient->updateDocument("riders/".$user_data->id, $data);
+
+    }
+
 
 }

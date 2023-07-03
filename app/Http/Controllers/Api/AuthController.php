@@ -259,7 +259,7 @@ class AuthController extends Controller
         }
 
         if($user->hasRole('driver')){
-            $firestoreService->updateDriver($user);
+            $firestoreService->updateUser($user);
         }
 
         return $this->successResponse($message, $user);
@@ -273,7 +273,7 @@ class AuthController extends Controller
         $user = user::find(auth()->user()->id);
         $user->is_online = $status;
         $user->save();
-        $firestoreService->updateDriver($user);
+        $firestoreService->updateUser($user);
         return $this->successResponse('status updated',$user);
     }
 

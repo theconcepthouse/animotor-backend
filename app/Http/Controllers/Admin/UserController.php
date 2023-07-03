@@ -172,7 +172,7 @@ class UserController extends Controller
         }
         $user->status = $status;
         $user->save();
-        $firestoreService->updateDriver($user);
+        $firestoreService->updateUser($user);
         return redirect()->back()->with('success','Status successfully updated');
     }
 

@@ -24,7 +24,7 @@ class TripRequestController extends Controller
         return response()->json(['data' => $tripRequests], 200);
     }
 
-    public function getServices(Request $request):JsonResponse
+    public function getServices(Request $request, DistanceService $distanceService):JsonResponse
     {
         $user = User::find(auth()->id());
         if(!$user->region_id){
@@ -37,12 +37,43 @@ class TripRequestController extends Controller
             'type' => 'required',
         ]);
 
+        $d_lat = $request['destination_lat'];
+        $d_lng = $request['destination_lng'];
+        $o_lng = $request['origin_lng'];
+        $o_lat = $request['origin_lat'];
+
         $type = $request['type'];
 
-        $tripRequests =  Service::where('types', 'LIKE', '%'.$type.'%')
+        $service_types =  Service::where('types', 'LIKE', '%'.$type.'%')
             ->where('region_id', $region_id)->get();
 
-        return response()->json(['data' => $tripRequests], 200);
+        foreach ($service_types as $type) {
+            $d_km = $distanceService->getDistance($o_lat, $o_lng, $d_lat, $d_lng);
+            if (isset($d_km['distance'])) {
+                $type->distance_m = $d_km['distance']['value'];
+                $type->duration = (number_format($d_km['duration']['value'] / 60)) . ' minutes';
+                $type->distance_price = ($d_km['distance']['value'] / 1000) * $type->price;
+
+                $type->arrived_at = Carbon::now()->addMinutes(ceil($d_km['duration']['value'] / 60))->format('H:i');
+
+                $type->time_price = $type->price * ($d_km['duration']['value'] / 60);
+
+                $type->fee = $type->time_price + $type->distance_price;
+
+                $tax_percent = 0.075;
+
+                $type->tax = ($type->fee * $tax_percent);
+
+                $type->grand_total = $type->fee + $type->tax;
+
+                $type->discounted_fee = $type->discounted($type->grand_total);
+            } else {
+                return response()->json(['error' => 'Distance is not set'], 400);
+            }
+        }
+
+
+        return response()->json(['data' => $service_types], 200);
     }
 
     public function myActiveRide(): JsonResponse

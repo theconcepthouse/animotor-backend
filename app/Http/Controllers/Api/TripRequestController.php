@@ -201,10 +201,14 @@ class TripRequestController extends Controller
             $driver = User::find($trip->driver_id);
             $trip->status = $request['status'];
 
+
+
             if($request['status'] == 'cancelled_by_driver' || $request['status'] == 'cancelled_by_booker'){
                 $trip->cancelled = true;
                 $trip->cancelled_by = $request['status'];
                 $trip->cancellation_reason = $request['cancellation_reason'];
+
+                $firestoreService->deleteTrip($trip);
             }
             if($request['status'] == 'started_trip'){
                 $trip->started_at = Carbon::now();
@@ -298,7 +302,9 @@ class TripRequestController extends Controller
 
             $trip->save();
 
-            $firestoreService->updateTripRequest($trip);
+            if(!$trip->cancelled){
+                $firestoreService->updateTripRequest($trip);
+            }
 
             return $this->successResponse('order', $trip);
 

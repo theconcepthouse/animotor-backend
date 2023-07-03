@@ -28,8 +28,10 @@ class UserController extends Controller
 
         $region = $regionService->getRegionByLatLng($lat, $lng);
 
-        if(!$region){
-            return $this->errorResponse($address.' is not supported by our service');
+        if($region){
+            $error_data['title'] = $address.' is not supported by our service';
+            $error_data['message'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
+            return $this->errorResponse($error_data);
         }
 
         $user->update([

@@ -43,4 +43,17 @@ class DistanceService
         return $earth_radius * $c;
     }
 
+    public function getFormattedAddress($lat, $lng)
+    {
+        try {
+            $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".$lat.",".$lng."&key=".config('app.MAP_API_KEY');
+            $response = Http::get($url);
+            $data = $response->json();
+            return $data['results'][0]['formatted_address'] ?? null;
+        } catch (\Exception $e) {
+            // Handle exception if needed
+            return null;
+        }
+    }
+
 }

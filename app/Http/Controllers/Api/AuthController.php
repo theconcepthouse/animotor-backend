@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use SendinBlue\Client\ApiException;
 
 
 class AuthController extends Controller

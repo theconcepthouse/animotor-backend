@@ -20,9 +20,7 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('city')->nullable();
 
-            if (Schema::hasForeign('cars', 'cars_driver_id_foreign')) {
-                $table->dropForeign(['driver_id']);
-            }
+
         });
     }
 

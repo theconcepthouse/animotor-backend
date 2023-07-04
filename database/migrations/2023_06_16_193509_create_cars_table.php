@@ -27,9 +27,7 @@ return new class extends Migration
             $table->string('vehicle_no')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
-            $table->foreign('driver_id')->references('id')->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+
         });
     }
 

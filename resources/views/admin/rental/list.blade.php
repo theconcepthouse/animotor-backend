@@ -125,7 +125,12 @@
 
                         <div class="row gy-4 pt-4">
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'title','title' => 'Car Title'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','title' => 'Rental Title'])
+
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status','options' => '
+<option value="1">Active</option>
+<option value="0">Disabled</option>
+'])
 
                             @include('admin.partials.form.text', ['attributes' => 'required','type' => 'number','colSize' => 'col-md-6', 'fieldName' => 'min_days','title' => 'Min days'])
                             @include('admin.partials.form.text', ['attributes' => 'required','type' => 'number','colSize' => 'col-md-6', 'fieldName' => 'max_days','title' => 'Max days'])

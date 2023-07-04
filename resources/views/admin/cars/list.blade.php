@@ -19,7 +19,7 @@
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em><span>Add New</span></a>
+                                                        <a class="btn btn-primary" href="{{ route('admin.cars.create') }}"><em class="icon ni ni-plus"></em><span>Add New</span></a>
                                                     </li>
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
                                                         <a class="btn btn-icon btn-primary"  data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em></a>
@@ -41,11 +41,14 @@
                                             <table class="datatable-init-export nowrap table" data-export-title="Export">
                                                 <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Price / Day</th>
-                                                    <th>Min days</th>
-                                                    <th>Max days</th>
-                                                    <th>Status</th>
+                                                    <th>Image</th>
+                                                    <th>Title</th>
+                                                    <th>Make</th>
+                                                    <th>Is Available</th>
+                                                    <th>Model</th>
+                                                    <th>Type</th>
+                                                    <th>Vehicle no</th>
+                                                    <th>Year</th>
                                                     <th>Action</th>
                                                 </tr>
 
@@ -53,18 +56,22 @@
                                                 <tbody>
                                                 @foreach($data as $item)
                                                     <tr>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->price_per_day }}</td>
-                                                        <td>{{ $item->min_days }}</td>
-                                                        <td>{{ $item->max_days }}</td>
-
                                                         <td>
-                                                            @if($item->is_active)
-                                                                <span class="badge badge-dim bg-success">active</span>
+                                                            <img src="{{ $item->image }}" height="30" />
+                                                        </td>
+                                                        <td>{{ $item->title }}</td>
+                                                        <td>{{ $item->make }}</td>
+                                                        <td>
+                                                            @if($item->is_available)
+                                                                <span class="badge badge-dim bg-success">Yes</span>
                                                             @else
-                                                                <span class="badge badge-dim bg-danger">disabled</span>
+                                                                <span class="badge badge-dim bg-danger">No</span>
                                                             @endif
                                                         </td>
+                                                        <td>{{ $item->model }}</td>
+                                                        <td>{{ $item->type }}</td>
+                                                        <td>{{ $item->vehicle_no }}</td>
+                                                        <td>{{ $item->year }}</td>
 
 
                                                         <td>
@@ -75,7 +82,7 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-end" style="">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a  data-bs-toggle="modal" href="#update{{ $item->id }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
+                                                                                <li><a href="{{ route('admin.cars.edit',$item->id) }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -125,8 +132,13 @@
 
                         <div class="row gy-4 pt-4">
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'title','title' => 'Car Title'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','title' => 'Rental name'])
 
+
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status','options' => '
+    <option value="1">Active</option>
+    <option value="0">Disabled</option>
+'])
                             @include('admin.partials.form.text', ['attributes' => 'required','type' => 'number','colSize' => 'col-md-6', 'fieldName' => 'min_days','title' => 'Min days'])
                             @include('admin.partials.form.text', ['attributes' => 'required','type' => 'number','colSize' => 'col-md-6', 'fieldName' => 'max_days','title' => 'Max days'])
 

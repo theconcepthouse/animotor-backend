@@ -2,7 +2,9 @@
 
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CancellationReasonController;
+use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\ComplaintsController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\DocumentController;
@@ -54,12 +56,15 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::resource('complains', ComplaintsController::class);
     Route::resource('documents', DocumentController::class);
 
+    Route::resource('cars', CarController::class);
+
     Route::resource('rental', RentalController::class);
 
     Route::resource('regions', RegionController::class);
     Route::resource('cancellation_reasons', CancellationReasonController::class);
 
     Route::get('trips/{status}', [TripRequestController::class,'index'])->name('trips.index');
+    Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
     Route::get('trip/{id}', [TripRequestController::class,'show'])->name('trip.show');
     Route::get('drivers/{status}', [DriversController::class,'index'])->name('drivers.index');
     Route::get('driver/{id}/documents', [DriversController::class,'documents'])->name('driver.documents');

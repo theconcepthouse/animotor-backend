@@ -48,7 +48,9 @@ class RentalController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'period' => 'required',
+            'min_days' => 'required',
+            'max_days' => 'required',
+            'price_per_day' => 'required',
             'description' => 'nullable',
             'is_active' => 'required',
         ];

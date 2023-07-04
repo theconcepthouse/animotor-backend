@@ -189,9 +189,41 @@
 
                             <li class="nk-menu-item">
                                 <a href="{{ route('admin.rental.index') }}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-file-docs"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-view-x2"></em></span>
                                     <span class="nk-menu-text">Rental packages</span>
                                 </a>
+                            </li><!-- .nk-menu-item -->
+
+                            <li class="nk-menu-item">
+                                <a href="{{ route('admin.cars.index') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-layout-fill"></em></span>
+                                    <span class="nk-menu-text">Cars</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+
+                            <li class="nk-menu-item has-sub">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                    <span class="nk-menu-text">Car Bookings</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('admin.bookings.index',['status' => 'all']) }}" class="nk-menu-link"><span class="nk-menu-text">All rentals</span></a>
+                                    </li>
+
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('admin.bookings.index',['status' => 'completed']) }}" class="nk-menu-link"><span class="nk-menu-text">Completed</span></a>
+                                    </li>
+
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('admin.bookings.index', ['status' => 'pending']) }}" class="nk-menu-link"><span class="nk-menu-text">Pending</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('admin.bookings.index', ['status' => 'cancelled']) }}" class="nk-menu-link"><span class="nk-menu-text">Cancelled</span></a>
+                                    </li>
+
+                                </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
 
 
@@ -201,7 +233,10 @@
                                     <span class="nk-menu-text">Configurations</span>
                                 </a>
                                 <ul class="nk-menu-sub">
+                                    <li class="nk-menu-item"><a href="{{ route('admin.roles.index') }}" class="nk-menu-link"><span class="nk-menu-text">Booking types</span></a></li>
+
                                     <li class="nk-menu-item"><a href="{{ route('admin.roles.index') }}" class="nk-menu-link"><span class="nk-menu-text">User roles</span></a></li>
+
 {{--                                    <li class="nk-menu-item"><a href="{{ route('admin.regions.index') }}" class="nk-menu-link"><span class="nk-menu-text">Service regions</span></a></li>--}}
                                     <li class="nk-menu-item"><a href="{{ route('admin.vehicle_types.index') }}" class="nk-menu-link"><span class="nk-menu-text">Vehicle types</span></a></li>
                                     <li class="nk-menu-item"><a href="{{ route('admin.vehicle_makes.index') }}" class="nk-menu-link"><span class="nk-menu-text">Vehicle makes</span></a></li>

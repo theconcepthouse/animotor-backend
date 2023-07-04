@@ -11,22 +11,28 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h4 class="nk-block-title">{{ $title }}</h4>
+                                        <h4 class="nk-block-title text-capitalize">{{ $title }}</h4>
                                     </div>
                                     <div class="nk-block-head-content">
                                         <div class="toggle-wrap nk-block-tools-toggle">
                                             <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
-                                                    <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" href="{{ route('admin.regions.create') }}"><em class="icon ni ni-plus"></em><span>Add New Area</span></a>
-                                                    </li>
-                                                    <li class="nk-block-tools-opt d-block d-sm-none">
-                                                        <a class="btn btn-icon btn-primary" href="{{ route('admin.regions.create') }}"><em class="icon ni ni-plus"></em></a>
+                                                    <li>
+                                                        <div class="drodown">
+                                                            <a href="#" class="dropdown-toggle btn btn-white btn-dim btn-outline-light" data-bs-toggle="dropdown"><em class="d-none d-sm-inline icon ni ni-filter-alt"></em><span>Filtered By</span><em class="dd-indc icon ni ni-chevron-right"></em></a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <ul class="link-list-opt no-bdr">
+                                                                    <li><a href="#"><span>Completed</span></a></li>
+                                                                    <li><a href="#"><span>Pending</span></a></li>
+                                                                    <li><a href="#"><span>Scheduled</span></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </div><!-- .toggle-wrap -->
+                                        </div>
                                     </div><!-- .nk-block-head-content -->
 
                                 </div>
@@ -39,36 +45,26 @@
                                         <div class="datatable-wrap- my-3">
                                             <table class="datatable-init-export nowrap table" data-export-title="Export">
                                                 <thead>
+
                                                 <tr>
                                                     <th>S/N</th>
-                                                    <th>Name</th>
-                                                    <th>Timezone</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>View</th>
+                                                    <th>Service Area</th>
+                                                    <th>Reference</th>
+                                                    <th>Ride type</th>
+                                                    <th>Date</th>
+                                                    <th>Rider Name</th>
+                                                    <th>Driver Name</th>
+                                                    <th>Trip Status</th>
+                                                    <th>Service type</th>
+                                                    <th>Payment Status</th>
+                                                    <th>Payment Method</th>
                                                 </tr>
 
                                                 </thead>
                                                 <tbody>
                                                 @foreach($data as $item)
-                                                    <tr>
-                                                        <td>{{ $loop->index + 1 }}</td>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->timezone }}</td>
-
-
-                                                        <td>
-                                                            @if($item->is_active)
-                                                                <span class="badge badge-dim bg-success">Active</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">Inactive</span>
-                                                            @endif
-                                                        </td>
-
-                                                        <td>
-
-                                                        </td>
-
-                                                    </tr>
+                                                    @include('admin.partials.table.rides-table', ['item' => $item])
                                                 @endforeach
                                                 </tbody>
                                             </table>

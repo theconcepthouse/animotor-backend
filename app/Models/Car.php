@@ -23,6 +23,13 @@ class Car extends Model
         'gear',
         'door',
         'vehicle_no',
+        'region_id',
+
+        'rental_packages',
         'image',
+
+        'country',
+        'state',
+        'city',
     ];
 }

@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('rentals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('period')->comment('period in minutes');
+            $table->decimal('price_per_day');
+            $table->integer('max_days')->default(10);
+            $table->integer('min_days')->default(1);
             $table->boolean('is_active')->default(true);
             $table->text('description')->nullable();
             $table->timestamps();

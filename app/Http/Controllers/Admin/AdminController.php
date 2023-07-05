@@ -54,9 +54,15 @@ class AdminController extends Controller
         return view('admin.settings', compact('data', 'countries','active','active_methods'));
     }
 
+    public function ServicesSettings(){
+        $title = "Services";
+        return view('admin.settings.booking_services', compact('title'));
+    }
+
    public function storeSettings(Request $request)
    {
-
+//
+//       return $request->all();
 
 
         $data = $request->except('active_setting');
@@ -91,6 +97,10 @@ class AdminController extends Controller
 
             settings($data);
         }
+
+       if($request->get('active_setting') == 'back'){
+           return redirect()->back()->with('success','Settings successfully updated');
+       }
 
         return redirect()->route('admin.settings',['active' => $request->get('active_setting') ?? 'general'])->with('success','Settings successfully updated');
 

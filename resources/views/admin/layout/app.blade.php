@@ -99,6 +99,8 @@
                             </li><!-- .nk-menu-item -->
 
 
+                            @if(settings('enable_instant_ride') == 'yes')
+
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-tranx"></em></span>
@@ -119,8 +121,7 @@
                                     </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
-
-
+                            @endif
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
@@ -187,6 +188,7 @@
                                 </a>
                             </li><!-- .nk-menu-item -->
 
+                            @if(settings('enable_rental') == 'yes')
                             <li class="nk-menu-item">
                                 <a href="{{ route('admin.rental.index') }}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-view-x2"></em></span>
@@ -200,6 +202,7 @@
                                     <span class="nk-menu-text">Cars</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
+
 
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -225,7 +228,7 @@
 
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
-
+                            @endif
 
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
@@ -233,7 +236,7 @@
                                     <span class="nk-menu-text">Configurations</span>
                                 </a>
                                 <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item"><a href="{{ route('admin.roles.index') }}" class="nk-menu-link"><span class="nk-menu-text">Booking types</span></a></li>
+                                    <li class="nk-menu-item"><a href="{{ route('admin.settings.services') }}" class="nk-menu-link"><span class="nk-menu-text">Booking types</span></a></li>
 
                                     <li class="nk-menu-item"><a href="{{ route('admin.roles.index') }}" class="nk-menu-link"><span class="nk-menu-text">User roles</span></a></li>
 
@@ -263,14 +266,14 @@
 {{--                            </li><!-- .nk-menu-item -->--}}
 
 
-
+                            @if(settings('enable_instant_ride') == 'yes')
                             <li class="nk-menu-item">
                                 <a href="{{ route('admin.services.index') }}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-invest"></em></span>
                                     <span class="nk-menu-text">Services & Fees</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
-
+                            @endif
 
                             <!--                                <li class="nk-menu-item">-->
                             <!--                                    <a href="html/crm/support.html" class="nk-menu-link">-->

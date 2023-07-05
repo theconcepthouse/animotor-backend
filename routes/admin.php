@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::get('/user/admins', [AdminController::class, 'admins'])->name('user.admins');
 
     Route::get('settings', [AdminController::class, 'settings'])->name('settings');
+    Route::get('settings/services', [AdminController::class, 'ServicesSettings'])->name('settings.services');
     Route::post('setting/store', [AdminController::class, 'storeSettings'])->name('setting.store');
 
     Route::get('users', [UserController::class, 'users'])->name('users');

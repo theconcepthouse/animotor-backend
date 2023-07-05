@@ -10,6 +10,7 @@ use App\Services\RegionService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -94,5 +95,33 @@ class UserController extends Controller
 //        ];
 
         return response()->json($data);
+    }
+
+
+
+    public function getLats(Request $request){
+        $city = $request->get('city');
+        // Retrieve the latitude and longitude range for the given city
+        $response = Http::get("https://maps.googleapis.com/maps/api/geocode/json", [
+            'address' => $city,
+            'key' => env('API_KEY'),
+        ]);
+
+        $data = $response->json();
+
+        // Extract the latitude and longitude bounds from the API response
+        $bounds = $data['results'][0]['geometry']['bounds'];
+
+        $latitudeRange = [
+            'min' => $bounds['southwest']['lat'],
+            'max' => $bounds['northeast']['lat'],
+        ];
+
+        $longitudeRange = [
+            'min' => $bounds['southwest']['lng'],
+            'max' => $bounds['northeast']['lng'],
+        ];
+
+        return $bounds;
     }
 }

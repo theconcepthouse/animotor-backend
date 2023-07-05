@@ -15,6 +15,7 @@ use App\Services\Firebase\FirestoreService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
@@ -218,4 +219,6 @@ class UserController extends Controller
 
         return $request->only(['make', 'type', 'driver_id','door', 'year', 'color', 'model', 'vehicle_no', 'image', 'gear', 'title']);
     }
+
+
 }

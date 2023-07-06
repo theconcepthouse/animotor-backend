@@ -89,7 +89,7 @@ class BookingController extends Controller
         $data =  Car::all();
 
 
-        return $this->successResponse('available cars', $data);
+        return $this->successResponse('available cars', []);
     }
 
     public function myActiveRide(): JsonResponse

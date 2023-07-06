@@ -21,6 +21,10 @@ Route::get('/', function () {
     return redirect()->route('admin.dashboard');
 });
 
+Route::get('/home', function () {
+    return redirect()->route('admin.dashboard');
+});
+
 //Route::get('/make/admin', [App\Http\Controllers\HomeController::class, 'makeAdmin']);
 
 

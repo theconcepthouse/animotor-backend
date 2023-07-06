@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 
+use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\ConfigController;
 use App\Http\Controllers\Api\DriverController;
 use App\Http\Controllers\Api\TripRequestController;
@@ -74,6 +75,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
     });
 
+
+
     Route::group(['prefix' => 'payment'], function(){
         Route::any('/init/pay', [PaymentController::class,'payment_initialize']);
     });
@@ -92,6 +95,22 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('check/firebase', [ConfigController::class, 'checkFB']);
 
         Route::post('get/lats', [UserController::class, 'getLats']);
+    });
+
+
+    Route::group(['prefix' => 'booking','middleware' => ['auth:sanctum']], function () {
+        Route::post('cars', [BookingController::class, 'getCars']);
+
+        Route::post('book', [TripRequestController::class, 'store']);
+        Route::get('pending', [TripRequestController::class, 'myActiveRide']);
+        Route::get('history', [TripRequestController::class, 'tripHistory']);
+        Route::post('update/status', [TripRequestController::class, 'updateStatus']);
+        Route::post('update/booking', [TripRequestController::class, 'update']);
+        Route::post('share/feedback', [TripRequestController::class, 'shareFeedback']);
+
+        //DRIVER
+        Route::post('accept', [TripRequestController::class, 'acceptRide']);
+
     });
 
 });

@@ -31,5 +31,6 @@ class Car extends Model
         'country',
         'state',
         'city',
+        'price_per_day',
     ];
 }

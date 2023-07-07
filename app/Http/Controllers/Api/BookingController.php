@@ -92,6 +92,10 @@ class BookingController extends Controller
             $data = Car::all();
         }
 
+        foreach ($data as $item){
+            $item->booking = $request->all();
+        }
+
 
         return $this->successResponse('available cars', $data);
     }

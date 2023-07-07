@@ -88,6 +88,7 @@ class AdminController extends Controller
                     $country = Country::findOrFail($request->get('country_id'));
                     if($country){
                         $data['country_code'] = $country->dial_code;
+                        $data['currency'] = $country->currency_symbol;
                         $data['country'] = $country->name;
                         $data['dial_min'] = $country->dial_min_length;
                         $data['dial_max'] = $country->dial_max_length;

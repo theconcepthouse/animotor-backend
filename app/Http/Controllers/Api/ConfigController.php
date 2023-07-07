@@ -78,7 +78,7 @@ class ConfigController extends Controller
         $data['about_url'] = settings('about_url');
         $data['dial_min'] = (int)settings('dial_min');
         $data['dial_max'] = (int)settings('dial_max');
-        $data['currency'] = (int)settings('currency','$');
+        $data['currency'] = settings('currency','$');
         $data['otp_provider'] = settings('otp_provider','firebase');
         $data['unsupported_region_msg'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
 

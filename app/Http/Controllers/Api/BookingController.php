@@ -86,10 +86,14 @@ class BookingController extends Controller
         $drop_off_time = $request['drop_off_time'];
         $drop_off_date = $request['drop_off_date'];
 
-        $data =  Car::all();
+        $data =  [];
+
+        if($drop_off_date == '2023-08-31'){
+            $data = Car::all();
+        }
 
 
-        return $this->successResponse('available cars', []);
+        return $this->successResponse('available cars', $data);
     }
 
     public function myActiveRide(): JsonResponse

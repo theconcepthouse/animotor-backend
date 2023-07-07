@@ -97,6 +97,10 @@ class BookingController extends Controller
             $data = Car::all();
         }
 
+        if($diffInDays < 2){
+            return $this->errorResponse('Your drop off date cant be same as pickup');
+        }
+
         $booking = [
             "pick_up_lat" => "instant",
             "pick_up_lng" => "sss",

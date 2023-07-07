@@ -108,8 +108,21 @@ class BookingController extends Controller
             "drop_off_time" => $drop_off_time
         ];
 
+
         foreach ($data as $item){
             $booking['price_in_days'] =  $item->price_per_day * $diffInDays;
+            $booking['grand_total'] =  $item->price_per_day * $diffInDays;
+
+            $tax = ($item->price_per_day * $diffInDays) * 0.075;
+
+            $price = [
+                ['name' => 'Price', 'val' => $item->price_per_day],
+                ['name' => 'Tax', 'val' => $tax],
+                ['name' => 'Total', 'val' => ($item->price_per_day * $diffInDays)],
+                ['name' => 'Grand total', 'val' => ($item->price_per_day * $diffInDays) + $tax],
+            ];
+
+            $item->price = $price;
             $item->booking = $booking;
         }
 

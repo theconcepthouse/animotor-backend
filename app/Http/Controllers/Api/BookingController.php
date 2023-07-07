@@ -110,10 +110,13 @@ class BookingController extends Controller
 
 
         foreach ($data as $item){
-            $booking['price_in_days'] =  $item->price_per_day * $diffInDays;
-            $booking['grand_total'] =  $item->price_per_day * $diffInDays;
 
             $tax = ($item->price_per_day * $diffInDays) * 0.075;
+
+
+            $booking['price_in_days'] =  $item->price_per_day * $diffInDays;
+            $booking['grand_total'] =  ($item->price_per_day * $diffInDays) + $tax;
+
 
             $price = [
                 ['name' => 'Price', 'val' => $item->price_per_day],

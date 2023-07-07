@@ -88,12 +88,29 @@ class BookingController extends Controller
 
         $data =  [];
 
+        $startDate = Carbon::parse($pick_up_date);
+        $endDate = Carbon::parse($drop_off_date);
+
+        $diffInDays = $endDate->diffInDays($startDate);
+
         if($drop_off_date == '2023-08-31'){
             $data = Car::all();
         }
 
+        $booking = [
+            "pick_up_lat" => "instant",
+            "pick_up_lng" => "sss",
+            "days" => $diffInDays,
+            "pick_location" => $pick_location,
+            "pick_up_time" => $pick_up_time,
+            "pick_up_date" => $pick_up_date,
+            "drop_off_date" => $drop_off_date,
+            "drop_off_time" => $drop_off_time
+        ];
+
         foreach ($data as $item){
-            $item->booking = $request->all();
+            $booking['price_in_days'] =  $item->price_per_day * $diffInDays;
+            $item->booking = $booking;
         }
 
 

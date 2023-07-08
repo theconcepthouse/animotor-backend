@@ -474,25 +474,17 @@ class BookingController extends Controller
             }
     }
 
-    public function tripHistory(): JsonResponse
+    public function bookingHistory(): JsonResponse
     {
         $is_driver = auth()->user()->hasRole('driver');
-        $msg = 'Riders completed trips';
+        $msg = 'Customers completed bookings';
         if($is_driver){
             $msg = 'Drivers completed trips';
-            $trips = TripRequest::where('driver_id', auth()->id())
-                ->where(function ($query) {
-                    $query->where('completed', true)
-                        ->orWhere('cancelled', true);
-                })->latest()->paginate(100);
+            $bookings = [];
         }else{
-            $trips = TripRequest::where('customer_id', auth()->id())
-                ->where(function ($query) {
-                    $query->where('completed', true)
-                        ->orWhere('cancelled', true);
-                })->latest()->paginate(100);
+            $bookings = Booking::where('customer_id', auth()->id())->latest()->paginate(100);
         }
-        return $this->successResponse($msg, $trips);
+        return $this->successResponse($msg, $bookings);
 
     }
 

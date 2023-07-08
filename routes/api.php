@@ -103,7 +103,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::post('book', [BookingController::class, 'store']);
         Route::get('pending', [TripRequestController::class, 'myActiveRide']);
-        Route::get('history', [TripRequestController::class, 'tripHistory']);
+        Route::get('history', [BookingController::class, 'bookingHistory']);
         Route::post('update/status', [TripRequestController::class, 'updateStatus']);
         Route::post('update/booking', [TripRequestController::class, 'update']);
         Route::post('share/feedback', [TripRequestController::class, 'shareFeedback']);

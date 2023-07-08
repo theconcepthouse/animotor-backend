@@ -58,6 +58,6 @@ class Booking extends Model
 
     public function car(): HasOne
     {
-        return $this->hasOne(Car::class, 'car_id');
+        return $this->hasOne(Car::class,'id','car_id');
     }
 }

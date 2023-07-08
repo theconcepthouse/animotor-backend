@@ -162,7 +162,6 @@ class BookingController extends Controller
 
             $user = User::find(auth()->id());
 
-            $request['customer_id'] = $user->id;
 
             $data = $request->validate([
                 'pick_up_lat' => 'required',
@@ -175,11 +174,13 @@ class BookingController extends Controller
                 'drop_off_date' => 'required',
             ]);
 
+            $data['customer_id'] = $user->id;
+
             $car = Car::findOrFail($data['car_id']);
 
-            if(!$car->is_available){
-                return $this->errorResponse('Sorry this car is not available for booking', 422);
-            }
+//            if(!$car->is_available){
+//                return $this->errorResponse('Sorry this car is not available for booking', 422);
+//            }
 
 
             $pick_up_date = $request['pick_up_date'];

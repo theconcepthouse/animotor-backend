@@ -69,7 +69,8 @@ class ConfigController extends Controller
 
 
         $data['country_id'] = settings('country_id');
-        $data['has_rental'] = "yes";
+        $data['has_rental'] = settings('enable_rental', 'yes');
+        $data['has_instant_ride'] = settings('enable_instant_ride', 'yes');
         $data['country_code'] = settings('country_code','+1');
         $data['country'] = settings('country','United state');
         $data['app_name'] = settings('site_name');

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Booking extends Model
 {
@@ -51,4 +53,9 @@ class Booking extends Model
         'cancellation_reason',
         'cancelled_by',
     ];
+
+    public function car(): HasOne
+    {
+        return $this->hasOne(Car::class, 'car_id');
+    }
 }

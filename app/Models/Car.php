@@ -24,6 +24,7 @@ class Car extends Model
         'door',
         'vehicle_no',
         'region_id',
+        'is_available',
 
         'rental_packages',
         'image',

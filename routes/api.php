@@ -101,7 +101,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
     Route::group(['prefix' => 'booking','middleware' => ['auth:sanctum']], function () {
         Route::post('cars', [BookingController::class, 'getCars']);
 
-        Route::post('book', [TripRequestController::class, 'store']);
+        Route::post('book', [BookingController::class, 'store']);
         Route::get('pending', [TripRequestController::class, 'myActiveRide']);
         Route::get('history', [TripRequestController::class, 'tripHistory']);
         Route::post('update/status', [TripRequestController::class, 'updateStatus']);

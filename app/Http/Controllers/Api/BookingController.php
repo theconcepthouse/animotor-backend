@@ -154,16 +154,13 @@ class BookingController extends Controller
         return $this->successResponse('pending Trip', $trip);
     }
 
-    public function store(Request $request, TripRequestService $tripRequestService,
-                          DistanceService $distanceService,
-                          FirestoreService $firestoreService): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         try {
 
             $user = User::find(auth()->id());
 
             $request['customer_id'] = $user->id;
-
 
             $data = $request->validate([
                 'pick_up_lat' => 'required',
@@ -178,10 +175,11 @@ class BookingController extends Controller
 
             $car = Car::findOrFail($data['car_id']);
 
-            $pick_up_lat = $request['pick_up_lat'];
-            $pick_up_lng = $request['pick_up_lng'];
-            $pick_location = $request['pick_location'];
-            $pick_up_time = $request['pick_up_time'];
+            if(!$car->is_available){
+                return $this->errorResponse('Sorry this car is not available for booking', 422);
+            }
+
+
             $pick_up_date = $request['pick_up_date'];
             $drop_off_time = $request['drop_off_time'];
             $drop_off_date = $request['drop_off_date'];
@@ -190,10 +188,6 @@ class BookingController extends Controller
             $endDate = Carbon::parse($drop_off_date);
 
             $diffInDays = $endDate->diffInDays($startDate);
-
-            if($drop_off_date == '2023-08-31'){
-                $data = Car::all();
-            }
 
             if($diffInDays < 2){
                 return $this->errorResponse('Your drop off date cant be same as pickup', 422);
@@ -205,9 +199,27 @@ class BookingController extends Controller
             $data['fee'] =  $car->price_per_day * $diffInDays;
             $data['grand_total'] =  $data['fee'] + $tax;
 
+
+            if($user->account_balance < $data['grand_total']){
+                return $this->errorResponse('Your drop off date cant be same as pickup', 422);
+            }
+
             $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-CAR-'.date('Hm').'-'.mt_rand(100,999);
 
+            $data['payment_method'] = 'wallet';
+
+            $data['payment_status'] = 'paid';
+
             $booking = Booking::create($data);
+
+            if($booking){
+
+                $user->forceWithdraw($booking->grand_total, ['description' => 'Car booking wallet pay']);
+
+                $car->is_available = false;
+
+                $car->save();
+            }
 
             return $this->successResponse('success', $booking);
 

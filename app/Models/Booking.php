@@ -54,6 +54,8 @@ class Booking extends Model
         'cancelled_by',
     ];
 
+    protected  $with = ['car'];
+
     public function car(): HasOne
     {
         return $this->hasOne(Car::class, 'car_id');

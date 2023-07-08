@@ -109,6 +109,8 @@ class BookingController extends Controller
             "pick_up_time" => $pick_up_time,
             "pick_up_date" => $pick_up_date,
             "drop_off_date" => $drop_off_date,
+            "pick_up_lat" => $pick_up_lat,
+            "pick_up_lng" => $pick_up_lng,
             "drop_off_time" => $drop_off_time
         ];
 

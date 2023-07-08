@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Car;
 use App\Models\Rental;
 use App\Models\Service;
@@ -103,8 +104,6 @@ class BookingController extends Controller
         }
 
         $booking = [
-            "pick_up_lat" => "instant",
-            "pick_up_lng" => "sss",
             "days" => $diffInDays,
             "pick_location" => $pick_location,
             "pick_up_time" => $pick_up_time,
@@ -165,66 +164,52 @@ class BookingController extends Controller
 
             $request['customer_id'] = $user->id;
 
-            $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
-            if(!$region){
-                return $this->errorResponse('Your pickup address is not supported by our service');
+
+            $data = $request->validate([
+                'pick_up_lat' => 'required',
+                'car_id' => 'required',
+                'pick_up_lng' => 'required',
+                'pick_location' => 'required',
+                'pick_up_time' => 'required',
+                'pick_up_date' => 'required',
+                'drop_off_time' => 'required',
+                'drop_off_date' => 'required',
+            ]);
+
+            $car = Car::findOrFail($data['car_id']);
+
+            $pick_up_lat = $request['pick_up_lat'];
+            $pick_up_lng = $request['pick_up_lng'];
+            $pick_location = $request['pick_location'];
+            $pick_up_time = $request['pick_up_time'];
+            $pick_up_date = $request['pick_up_date'];
+            $drop_off_time = $request['drop_off_time'];
+            $drop_off_date = $request['drop_off_date'];
+
+            $startDate = Carbon::parse($pick_up_date);
+            $endDate = Carbon::parse($drop_off_date);
+
+            $diffInDays = $endDate->diffInDays($startDate);
+
+            if($drop_off_date == '2023-08-31'){
+                $data = Car::all();
             }
 
-            $request['region_id'] = $region->id;
-
-            $data = $this->validateTripRequest($request);
-
-            $service = Service::find($data['service_id']);
-
-            if(!$service){
-                return $this->errorResponse('Invalid booking service');
+            if($diffInDays < 2){
+                return $this->errorResponse('Your drop off date cant be same as pickup', 422);
             }
 
-            $distance = $distanceService->getDistance($data['origin_lat'], $data['origin_lng'], $data['destination_lat'], $data['destination_lng']);
-
-            if(!$distance){
-                return $this->errorResponse('wrong location');
-            }
+            $tax = ($car->price_per_day * $diffInDays) * 0.075;
 
 
-            $data['distance'] = $distance['distance']['value'] / 1000;
-            $data['distance_text'] = $distance['distance']['text'];
+            $data['fee'] =  $car->price_per_day * $diffInDays;
+            $data['grand_total'] =  $data['fee'] + $tax;
 
-            $data['distance_price'] = $data['distance'] * $service->distance_price;
+            $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-CAR-'.date('Hm').'-'.mt_rand(100,999);
 
+            $booking = Booking::create($data);
 
-            $data['duration'] = $distance['duration']['value'] / 60;
-            $data['duration_text'] = $distance['duration']['text'];
-
-            $data['time_price'] = $data['duration'] * $service->time_price;
-
-            $data['base_price'] = $service->price;
-
-            $data['fee'] = $data['time_price'] + $data['distance_price'] + $service->price;
-
-            $tax_percent = ($service->tax / 100);
-
-            $data['tax'] = ($data['fee'] * $tax_percent);
-
-            $grand_total = $data['fee'] + $data['tax'];
-
-            $data['discount'] = $service->discount;
-            $data['grand_total'] = $service->discounted($grand_total);
-
-            $data['commission'] = $service->commission($data['grand_total']);
-
-            $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-'.date('Ymd-Hm').'-'.mt_rand(100000,9999999);
-
-            $tripRequest = TripRequest::create($data);
-
-            if($tripRequest){
-                $tripRequest = TripRequest::find($tripRequest->id);
-                if($tripRequest){
-                    $firestoreService->updateTripRequest($tripRequest);
-                }
-            }
-
-            return $this->successResponse('success', $tripRequest);
+            return $this->successResponse('success', $booking);
 
         } catch (ValidationException $e) {
             return $this->errorResponse($e->errors(), 400);

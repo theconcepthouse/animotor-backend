@@ -18,6 +18,8 @@ return new class extends Migration
             $table->uuid('driver_id');
             $table->string('title')->nullable();
             $table->string('make')->nullable();
+            $table->boolean('is_available')->default(true);
+            $table->decimal('price_per_day')->default(10);
             $table->string('model')->nullable();
             $table->string('type')->nullable();
             $table->string('year')->nullable();
@@ -26,6 +28,7 @@ return new class extends Migration
             $table->integer('door')->nullable();
             $table->string('vehicle_no')->nullable();
             $table->string('image')->nullable();
+
             $table->timestamps();
 
         });

@@ -67,4 +67,13 @@ class Car extends Model
             ['icon' => asset('icon/car/year.png'), 'item' => "Year : ". $this->year],
         ];
     }
+
+    public function getImageAttribute($value): string
+    {
+        if(!$value) {
+            return asset('default/404.png');
+        }
+        return $value;
+    }
+
 }

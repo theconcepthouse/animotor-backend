@@ -87,16 +87,12 @@ class BookingController extends Controller
         $drop_off_time = $request['drop_off_time'];
         $drop_off_date = $request['drop_off_date'];
 
-        $data =  [];
-
         $startDate = Carbon::parse($pick_up_date);
         $endDate = Carbon::parse($drop_off_date);
 
         $diffInDays = $endDate->diffInDays($startDate);
 
-        if($drop_off_date == '2023-08-31'){
-            $data = Car::all();
-        }
+        $data = Car::all();
 
 
         if($diffInDays < 2){

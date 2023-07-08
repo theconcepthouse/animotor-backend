@@ -79,7 +79,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     protected $with = ['documents','car','region','service'];
 
-    protected $appends = ['unapproved_documents','name','status_text','account_balance','full_phone','currency'];
+    protected $appends = ['unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
 
     public function region(): BelongsTo
     {
@@ -130,6 +130,11 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     public function getFullPhoneAttribute(): string
     {
         return $this->country_code.$this->phone;
+    }
+
+   public function getLatestTransactionsAttribute()
+    {
+        return $this->transactions()->latest()->limit(5)->get();
     }
 
     public function getAccountBalanceAttribute()

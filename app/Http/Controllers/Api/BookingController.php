@@ -223,7 +223,7 @@ class BookingController extends Controller
                 $car->save();
             }
 
-            return $this->successResponse('success', $booking);
+            return $this->successResponse('your booking request successfully completed', $booking);
 
         } catch (ValidationException $e) {
             return $this->errorResponse($e->errors(), 400);

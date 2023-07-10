@@ -11,7 +11,7 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h4 class="nk-block-title text-capitalize">{{ $title }}</h4>
+                                        <h4 class="nk-block-title text-capitalize-">{{ $title }}</h4>
                                     </div>
                                     <div class="nk-block-head-content">
                                         <div class="toggle-wrap nk-block-tools-toggle">
@@ -51,7 +51,7 @@
                                                     <th>View</th>
                                                     <th>Service Area</th>
                                                     <th>Reference</th>
-                                                    <th>Date</th>
+                                                    <th>Pick up Date</th>
                                                     <th>Period</th>
                                                     <th>Customer Name</th>
                                                     <th>Booking Status</th>

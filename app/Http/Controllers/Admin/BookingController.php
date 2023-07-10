@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -20,7 +21,7 @@ class BookingController extends Controller
             $data = Booking::where('cancelled', true)->paginate(100);
         }else{
 
-            $title = "All Booking requests";
+            $title = "All bookings requests";
 
             $data = Booking::paginate(100);
         }
@@ -31,5 +32,18 @@ class BookingController extends Controller
     public function show($id){
         $booking = Booking::findOrFail($id);
         return view('admin.bookings.show', compact('booking'));
+    }
+
+    public function updateStatus(Request $request, $id): RedirectResponse
+    {
+
+        $booking = Booking::findOrFail($id);
+        $booking->status = $request->input('status');
+        $booking->comment = $request->input('comment');
+        $booking->picked = $request->input('picked');
+
+        $booking->save();
+
+        return redirect()->back()->with('success','Status updated');
     }
 }

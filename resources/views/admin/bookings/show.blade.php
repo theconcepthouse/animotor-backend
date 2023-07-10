@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                             <div class="nk-block-head-content">
-                                <a href="{{ url()->previous() }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                <a href="{{ route('admin.bookings.index',['status' => 'all']) }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
                                 <a href="{{ url()->previous() }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                             </div>
                         </div>
@@ -39,6 +39,38 @@
                                                 </div>
                                             </div>
                                         </div><!-- .card-inner -->
+                                        <div class="card-inner">
+                                            <div class="overline-title-alt mb-2"> Booking status</div>
+                                            <div class="profile-balance">
+                                                <div class="profile-balance-group gx-4">
+                                                    <div class="profile-balance-sub">
+                                                        <div class="profile-balance-amount">
+                                                            <form action="{{ route('admin.bookings.update_status', $booking->id) }}" method="POST" enctype="multipart/form-data">
+                                                                @csrf
+                                                            <div class="row">
+
+                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12', 'value' => $booking->status,'fieldName' => 'status','title' => 'Status','options' => ['pending','approved','completed']])
+                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3', 'value' => $booking->picked,'fieldName' => 'picked','title' => 'Vehicle picked','options' => ['yes','no']])
+
+                                                                @include('admin.partials.form.textarea', ['colSize' => 'col-md-12 mt-3 mb-3', 'value' => $booking->comment, 'fieldName' => 'comment','title' => 'Status comment'])
+
+
+                                                                <div class="form-group mt-3">
+                                                                    <button type="submit" class="btn btn-lg btn-primary">Update  </button>
+                                                                </div>
+
+                                                            </div>
+                                                            </form>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- .card-inner -->
+
+
                                         <div class="card-inner">
                                             <div class="overline-title-alt mb-2"> Pickup location</div>
                                             <div class="profile-balance">

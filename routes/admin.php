@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
 
     Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
     Route::get('bookings/show/{id}', [BookingController::class,'show'])->name('bookings.show');
+    Route::post('bookings/update_status/{id}', [BookingController::class,'updateStatus'])->name('bookings.update_status');
 
 
     Route::group(['prefix' => 'api'], function() {

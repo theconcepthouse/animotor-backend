@@ -53,6 +53,8 @@ class Booking extends Model
         'commission',
         'cancellation_reason',
         'cancelled_by',
+        'comment',
+        'picked',
     ];
 
     protected  $with = ['car'];

@@ -29,7 +29,7 @@ class UserController extends Controller
     public function riders()
     {
         $users = User::whereHasRole(['rider'])->paginate(100);
-        $title = "Riders List";
+        $title = "Customers list";
         return view('admin.user.list', compact('users','title'));
     }
 

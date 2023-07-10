@@ -51,12 +51,10 @@
                                                     <th>View</th>
                                                     <th>Service Area</th>
                                                     <th>Reference</th>
-                                                    <th>Ride type</th>
                                                     <th>Date</th>
-                                                    <th>Rider Name</th>
-                                                    <th>Driver Name</th>
-                                                    <th>Trip Status</th>
-                                                    <th>Service type</th>
+                                                    <th>Period</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Booking Status</th>
                                                     <th>Payment Status</th>
                                                     <th>Payment Method</th>
                                                 </tr>
@@ -64,7 +62,7 @@
                                                 </thead>
                                                 <tbody>
                                                 @foreach($data as $item)
-                                                    @include('admin.partials.table.rides-table', ['item' => $item])
+                                                    @include('admin.partials.table.bookings-table', ['item' => $item])
                                                 @endforeach
                                                 </tbody>
                                             </table>

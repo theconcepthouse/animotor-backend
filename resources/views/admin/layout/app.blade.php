@@ -101,7 +101,7 @@
 
                             @if(settings('enable_instant_ride') == 'yes')
 
-                            <li class="nk-menu-item has-sub">
+                                <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
                                     <span class="nk-menu-icon"><em class="icon ni ni-tranx"></em></span>
                                     <span class="nk-menu-text">Trips</span>
@@ -121,38 +121,40 @@
                                     </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
-                            @endif
-                            <li class="nk-menu-item has-sub">
-                                <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
-                                    <span class="nk-menu-text">Drivers</span>
-                                </a>
-                                <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a href="{{ route('admin.drivers.index',['status' => 'approved']) }}" class="nk-menu-link"><span class="nk-menu-text">Active</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="{{ route('admin.drivers.index',['status' => 'unapproved']) }}" class="nk-menu-link"><span class="nk-menu-text">Inactive</span></a>
-                                    </li>
 
-                                    <li class="nk-menu-item">
-                                        <a href="{{ route('admin.drivers.index', ['status' => 'online']) }}" class="nk-menu-link"><span class="nk-menu-text">Online</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="html/crm/organizations.html" class="nk-menu-link"><span class="nk-menu-text">Withdrawal requests</span></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a href="{{ route('admin.drivers.index', ['status' => 'negative_balance']) }}" class="nk-menu-link"><span class="nk-menu-text">Negative balance</span></a>
-                                    </li>
-                                </ul><!-- .nk-menu-sub -->
-                            </li><!-- .nk-menu-item -->
+                                <li class="nk-menu-item has-sub">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                                        <span class="nk-menu-text">Drivers</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('admin.drivers.index',['status' => 'approved']) }}" class="nk-menu-link"><span class="nk-menu-text">Active</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('admin.drivers.index',['status' => 'unapproved']) }}" class="nk-menu-link"><span class="nk-menu-text">Inactive</span></a>
+                                        </li>
+
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('admin.drivers.index', ['status' => 'online']) }}" class="nk-menu-link"><span class="nk-menu-text">Online</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="html/crm/organizations.html" class="nk-menu-link"><span class="nk-menu-text">Withdrawal requests</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('admin.drivers.index', ['status' => 'negative_balance']) }}" class="nk-menu-link"><span class="nk-menu-text">Negative balance</span></a>
+                                        </li>
+                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+
+                            @endif
 
 
 
                             <li class="nk-menu-item">
                                 <a href="{{ route('admin.riders') }}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-user-list-fill"></em></span>
-                                    <span class="nk-menu-text">Riders</span>
+                                    <span class="nk-menu-text">Customers</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
 

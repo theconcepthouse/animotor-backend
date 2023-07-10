@@ -8,10 +8,10 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between g-3">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title"> <strong class="text-primary small">{{ $trip->reference }}</strong></h3>
+                                <h3 class="nk-block-title page-title"> <strong class="text-primary small">{{ $booking->reference }}</strong></h3>
                                 <div class="nk-block-des text-soft">
                                     <ul class="list-inline">
-                                        <li>Booked on : <span class="text-base">{{ $trip->created_at->format('d-M-Y H:i:s') }}</span></li>
+                                        <li>Booked on : <span class="text-base">{{ $booking->created_at->format('d-M-Y H:i:s') }}</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -29,24 +29,54 @@
                                         <div class="card-inner">
                                             <div class="user-card user-card-s2">
                                                 <div class="user-avatar lg bg-primary">
-                                                     <img src="{{ $trip?->customer?->avatar }}" />
+                                                     <img src="{{ $booking?->customer?->avatar }}" />
                                                 </div>
                                                 <div class="user-info">
                                                     <div class="badge bg-outline-light rounded-pill ucap">Customer</div>
-                                                    <h5 class="text-capitalize">{{ $trip?->customer?->name }}</h5>
-                                                    <span class="sub-text">{{ $trip?->customer?->email }}</span>
-                                                    <span class="sub-text">{{ $trip?->customer?->phone }}</span>
+                                                    <h5 class="text-capitalize">{{ $booking?->customer?->name }}</h5>
+                                                    <span class="sub-text">{{ $booking?->customer?->email }}</span>
+                                                    <span class="sub-text">{{ $booking?->customer?->phone }}</span>
                                                 </div>
                                             </div>
                                         </div><!-- .card-inner -->
                                         <div class="card-inner">
-                                            <div class="overline-title-alt mb-2"> From Address</div>
+                                            <div class="overline-title-alt mb-2"> Pickup location</div>
                                             <div class="profile-balance">
                                                 <div class="profile-balance-group gx-4">
                                                     <div class="profile-balance-sub">
                                                         <div class="profile-balance-amount">
                                                             <div class="">
-                                                                {{ $trip->origin }}
+                                                                {{ $booking->pick_location }}
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- .card-inner -->
+                                        <div class="card-inner">
+                                            <div class="overline-title-alt mb-2"> Pickup date / time</div>
+                                            <div class="profile-balance">
+                                                <div class="profile-balance-group gx-4">
+                                                    <div class="profile-balance-sub">
+                                                        <div class="profile-balance-amount">
+                                                            <div class="">
+                                                                {{ $booking->pick_up_date }} / {{ $booking->pick_up_time }}
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- .card-inner -->
+                                        <div class="card-inner">
+                                            <div class="overline-title-alt mb-2"> Dropoff date / time</div>
+                                            <div class="profile-balance">
+                                                <div class="profile-balance-group gx-4">
+                                                    <div class="profile-balance-sub">
+                                                        <div class="profile-balance-amount">
+                                                            <div class="">
+                                                                {{ $booking->drop_off_date }} / {{ $booking->drop_off_time }}
                                                             </div>
                                                         </div>
 
@@ -55,42 +85,24 @@
                                             </div>
                                         </div><!-- .card-inner -->
 
-                                        @if($trip->driver)
-                                        <div class="card-inner">
-                                            <div class="overline-title-alt mb-2"> Driver</div>
-                                            <div class="profile-balance">
-                                                <div class="profile-balance-group gx-4">
-                                                    <div class="profile-balance-sub">
-                                                        <div class="profile-balance-amount">
-                                                            <div class="">
-                                                                <a href="{{ route('admin.user.show', $trip->driver_id) }}">
-                                                                    {{ $trip->driver->name }} ({{ $trip->driver->full_phone }})
-                                                                </a>
-                                                            </div>
-                                                        </div>
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><!-- .card-inner -->
-                                        @endif
                                         <div class="card-inner">
                                             <div class="row text-center">
                                                 <div class="col-4">
                                                     <div class="profile-stats">
-                                                        <span class="amount">{{ $trip->currency }}{{ $trip->grand_total }}</span>
+                                                        <span class="amount">{{ $booking->currency }}{{ $booking->grand_total }}</span>
                                                         <span class="sub-text">Grand Total</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="profile-stats">
-                                                        <span class="amount">{{ $trip->currency }}{{ $trip->tax }}</span>
+                                                        <span class="amount">{{ $booking->currency }}{{ $booking->tax }}</span>
                                                         <span class="sub-text">Tax</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="profile-stats">
-                                                        <span class="amount">{{ $trip->discount }} %</span>
+                                                        <span class="amount">{{ $booking->discount }} %</span>
                                                         <span class="sub-text">Discount</span>
                                                     </div>
                                                 </div>
@@ -118,41 +130,41 @@
                                                         <div class="profile-ud-item">
                                                         <div class="profile-ud wider">
 
-                                                            <span class="profile-ud-label">Trip status</span>
-                                                            <span class="profile-ud-value">{{ $trip->status }}</span>
+                                                            <span class="profile-ud-label">Booking status</span>
+                                                            <span class="profile-ud-value">{{ $booking->status }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Payment status</span>
-                                                                <span class="profile-ud-value">{{ $trip->payment_status }}</span>
+                                                                <span class="profile-ud-value">{{ $booking->payment_status }}</span>
 
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Payment method</span>
-                                                                <span class="profile-ud-value">{{ $trip->payment_method }}</span>
+                                                                <span class="profile-ud-value">{{ $booking->payment_method }}</span>
                                                             </div>
                                                         </div>
-                                                        <div class="profile-ud-item">
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Ride Type</span>
-                                                                <span class="profile-ud-value">{{ $trip->ride_type }}</span>
-                                                            </div>
-                                                        </div>
+{{--                                                        <div class="profile-ud-item">--}}
+{{--                                                            <div class="profile-ud wider">--}}
+{{--                                                                <span class="profile-ud-label">Ride Type</span>--}}
+{{--                                                                <span class="profile-ud-value">{{ $booking->ride_type }}</span>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
 
-                                                        <div class="profile-ud-item">
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Service Type</span>
-                                                                <span class="profile-ud-value">{{ $trip?->service?->name }}</span>
-                                                            </div>
-                                                        </div>
+{{--                                                        <div class="profile-ud-item">--}}
+{{--                                                            <div class="profile-ud wider">--}}
+{{--                                                                <span class="profile-ud-label">Service Type</span>--}}
+{{--                                                                <span class="profile-ud-value">{{ $booking?->service?->name }}</span>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
 
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Service region</span>
-                                                                <span class="profile-ud-value">{{ $trip?->region?->name ?? 'Not set' }}</span>
+                                                                <span class="profile-ud-value">{{ $booking?->region?->name ?? 'Not set' }}</span>
                                                             </div>
                                                         </div>
 
@@ -165,27 +177,20 @@
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Base price</span>
-                                                                <span class="profile-ud-value">{{ $trip->currency }}{{ $trip->base_price }}</span>
+                                                                <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->fee }}</span>
                                                             </div>
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Time price</span>
-                                                                <span class="profile-ud-value">{{ $trip->currency }}{{ $trip->time_price }}</span>
-                                                            </div>
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Distance price</span>
-                                                                <span class="profile-ud-value">{{ $trip->currency }}{{ $trip->distance_price }}</span>
-                                                            </div>
+
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Tax</span>
-                                                                <span class="profile-ud-value">{{ $trip->currency }}{{ $trip->tax }}</span>
+                                                                <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->tax }}</span>
                                                             </div>
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Discount</span>
-                                                                <span class="profile-ud-value">{{ $trip->currency }}{{ $trip->discount }}</span>
+                                                                <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->discount }}</span>
                                                             </div>
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Grand Total </span>
-                                                                <span class="profile-ud-value">{{ $trip->currency }}{{ $trip->grand_total }}</span>
+                                                                <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->grand_total }}</span>
                                                             </div>
                                                         </div>
                                                     </div>

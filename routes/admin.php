@@ -65,13 +65,16 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::resource('cancellation_reasons', CancellationReasonController::class);
 
     Route::get('trips/{status}', [TripRequestController::class,'index'])->name('trips.index');
-    Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
     Route::get('trip/{id}', [TripRequestController::class,'show'])->name('trip.show');
     Route::get('drivers/{status}', [DriversController::class,'index'])->name('drivers.index');
     Route::get('driver/{id}/documents', [DriversController::class,'documents'])->name('driver.documents');
     Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
 
     Route::resource('services', ServiceController::class);
+
+    Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
+    Route::get('bookings/show/{id}', [BookingController::class,'show'])->name('bookings.show');
+
 
     Route::group(['prefix' => 'api'], function() {
         Route::get('get/models', [VehicleModelController::class,'getByMake'])->name('api.get.models');

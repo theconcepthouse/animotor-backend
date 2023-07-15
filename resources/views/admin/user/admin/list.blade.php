@@ -19,10 +19,10 @@
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" href="{{ route('admin.user.create') }}"><em class="icon ni ni-plus"></em><span>Add New user</span></a>
+                                                        <a class="btn btn-primary" href="{{ route('admin.user.create') }}?role=admin"><em class="icon ni ni-plus"></em><span>Add New user</span></a>
                                                     </li>
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
-                                                        <a class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}"><em class="icon ni ni-plus"></em></a>
+                                                        <a class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}?role=admin"><em class="icon ni ni-plus"></em></a>
                                                     </li>
                                                 </ul>
                                             </div>

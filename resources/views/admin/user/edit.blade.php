@@ -71,6 +71,12 @@
                                                     <button type="submit" class="btn btn-lg btn-primary">Update  </button>
                                                 </div>
                                             </form>
+
+
+
+                                            <div class="form-group mt-3">
+                                                <a data-bs-toggle="modal" href="#user{{ $user->id }}" class="btn btn-lg btn-danger">Delete  </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -82,9 +88,48 @@
                 </div>
             </div>
         </div>
-    </div>
 
-@endsection
+
+        <div class="modal fade" role="dialog" id="user{{ $user->id }}">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                    <div class="modal-body modal-body-md text-center">
+{{--                        <h5 class="title">Editing {{ $item->name }}</h5>--}}
+
+                        <form action="{{ route('admin.user.delete',$user->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+
+                            <div class="row gy-4 pt-4 mb-5">
+                                <p>Are you sure you want to delete this user?<br/>
+                                Note this action is irreversible</p>
+                            </div>
+
+                            <div class="form-group mt-4">
+                                <a href="#" class="btn btn-default" data-bs-dismiss="modal">Cancel</a>
+
+                                <button type="submit" class="btn btn-lg btn-danger">Delete </button>
+                            </div>
+                        </form>
+
+
+                    </div><!-- .modal-body -->
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div><!-- .modal -->
+
+
+        @endsection
 
 @section('js')
     <script>

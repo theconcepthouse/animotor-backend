@@ -24,6 +24,12 @@
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
                                                         <a class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}?role=rider"><em class="icon ni ni-plus"></em></a>
                                                     </li>
+
+
+
+                                                    <li class="nk-block-tools-opt d-none d-sm-block">
+                                                        <a class="btn btn-danger" href="{{ route('admin.user.deleted') }}"><span>Deleted users</span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div><!-- .toggle-wrap -->

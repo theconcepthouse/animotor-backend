@@ -181,7 +181,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->back()->with('success', "User successfully deactivated");
+        return redirect()->route('admin.riders')->with('success', "User successfully deactivated");
     }
     public function forceDelete($id)
     {

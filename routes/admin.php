@@ -44,6 +44,12 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::post('setting/store', [AdminController::class, 'storeSettings'])->name('setting.store');
 
     Route::get('users', [UserController::class, 'users'])->name('users');
+    Route::post('user/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+    Route::get('user/restore/delete/{id}', [UserController::class, 'restoreDelete'])->name('user.restore_delete');
+    Route::delete('user/force_delete/{id}', [UserController::class, 'forceDelete'])->name('user.force_delete');
+    Route::get('user/deleted', [UserController::class, 'deleted'])->name('user.deleted');
+
+
     Route::get('/riders', [UserController::class, 'riders'])->name('riders');
 
 

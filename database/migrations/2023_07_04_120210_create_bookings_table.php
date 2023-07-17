@@ -52,6 +52,9 @@ return new class extends Migration
             $table->string('cancellation_reason')->nullable();
             $table->string('cancelled_by')->nullable();
 
+            $table->text('comment')->nullable();
+            $table->string('picked')->nullable('no');
+
             $table->timestamps();
 
         });

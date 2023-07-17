@@ -50,7 +50,16 @@ class AdminController extends Controller
        $active = $request->get('active') ?? 'general';
        $countries = Country::where('is_active',true)->get();
 //       return settings('active_methods',[]);
-       $active_methods =  json_decode(settings('active_methods','none'), true);
+
+        $active_methods = settings('active_methods', 'none');
+
+        if (is_string($active_methods)) {
+            $active_methods = json_decode($active_methods, true);
+        } elseif (!is_array($active_methods)) {
+            $active_methods = [];
+        }
+
+//       $active_methods =  json_decode(settings('active_methods','none'), true);
         return view('admin.settings', compact('data', 'countries','active','active_methods'));
     }
 

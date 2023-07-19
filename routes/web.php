@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
 
 Route::get('/', [FrontPageController::class,'home']);
 
@@ -33,7 +34,7 @@ Route::get('/home', function () {
 
 include 'admin.php';
 
-Auth::routes();
+
 //
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

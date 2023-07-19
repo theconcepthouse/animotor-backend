@@ -22,8 +22,8 @@ class PagesSeeder extends Seeder
             'path' => 'privacy',
         ],
         [
-            'title' => 'Privacy policy',
-            'path' => 'privacy',
+            'title' => 'Terms & Condition',
+            'path' => 'terms',
         ],
         [
             'title' => 'About us',

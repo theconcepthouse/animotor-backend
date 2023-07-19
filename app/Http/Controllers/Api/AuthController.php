@@ -47,8 +47,8 @@ class AuthController extends Controller
     {
 
         $request->validate([
-            'first_name' => 'required|max:50|min:5',
-            'last_name' => 'required|max:50|min:5',
+            'first_name' => 'required|max:50|min:2',
+            'last_name' => 'required|max:50|min:2',
 
             'phone' => 'required|min:3|unique:users',
             'country_code' => 'required',

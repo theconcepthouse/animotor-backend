@@ -27,7 +27,9 @@ class ThemeComponentSeeder extends Seeder
         ['title' => 'Testimonial section', 'content' =>  'testimonial_section.html'],
         ['title' => 'Faqs section', 'content' =>  'faqs.html'],
         ['title' => 'Facts number count section', 'content' =>  'facts_number_count.html'],
-        ['title' => 'Popular explore section', 'content' =>  'popular_explore.html']
+        ['title' => 'Popular explore section', 'content' =>  'popular_explore.html'],
+        ['title' => 'Breadcrumb', 'content' =>  'breadcrumb.html'],
+        ['title' => 'Content', 'content' =>  'content.html'],
 
     ];
 

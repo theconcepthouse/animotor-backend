@@ -27,6 +27,7 @@
 <body>
 <div class="main-wrapper">
 
+    @if(!request()->has('app'))
     <header class="header">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg header-nav">
@@ -76,11 +77,12 @@
             </nav>
         </div>
     </header>
-
+    @endif
 
     @yield('content')
 
-    <footer class="footer">
+        @if(!request()->has('app'))
+        <footer class="footer">
 
         <div class="footer-top aos" data-aos="fade-up">
             <div class="container">
@@ -212,7 +214,7 @@
         </div>
 
     </footer>
-
+        @endif
 </div>
 
 <div class="progress-wrap active-progress">

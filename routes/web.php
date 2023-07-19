@@ -22,12 +22,14 @@ Auth::routes();
 
 Route::get('/', [FrontPageController::class,'home']);
 
-Route::get('/{slug}', [FrontPageController::class,'page'])->name('page.show');
-
 
 Route::get('/home', function () {
     return redirect()->route('admin.dashboard');
 });
+
+Route::get('/{slug}', [FrontPageController::class,'page'])->name('page.show');
+
+
 
 //Route::get('/make/admin', [App\Http\Controllers\HomeController::class, 'makeAdmin']);
 

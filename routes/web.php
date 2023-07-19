@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [FrontPageController::class,'home']);
+Route::get('/builder', [FrontPageController::class,'builder']);
+Route::get('/flight', [FrontPageController::class,'flight']);
 
 
 Route::get('/home', function () {

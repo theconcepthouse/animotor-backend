@@ -13,6 +13,13 @@ class FrontPageController extends Controller
         return view('frontpage.page', compact('contents'));
     }
 
+    public function builder(){
+        return view('frontpage.home');
+    }
+    public function flight(){
+        return view('frontpage.flight');
+    }
+
     public function page($slug){
         $page = Page::where('path',$slug)->firstOrFail();
         $contents = $page->contents;

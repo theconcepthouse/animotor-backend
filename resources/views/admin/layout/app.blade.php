@@ -22,7 +22,6 @@
 {{--    <link rel="stylesheet" href="/vendor/toastr/toastr.min.css">--}}
     <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">
 
-    @yield('style')
 
     <style>
         /*290*/
@@ -43,9 +42,12 @@
             }
         }
     </style>
+
+    @yield('style')
+
 </head>
 
-<body class="nk-body bg-lighter npc-general has-sidebar dark-mode">
+<body class="nk-body bg-lighter npc-general has-sidebar dark-mode-">
 <div class="nk-app-root">
     <!-- main @s -->
     <div class="nk-main ">
@@ -299,7 +301,10 @@
                                 </a>
                                 <ul class="nk-menu-sub">
                                     <li class="nk-menu-item">
-                                        <a href="#" class="nk-menu-link"><span class="nk-menu-text">Home page</span></a>
+                                        <a href="{{ route('admin.setting.components') }}" class="nk-menu-link"><span class="nk-menu-text">Theme components</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('admin.setting.pages') }}" class="nk-menu-link"><span class="nk-menu-text">CMS Pages</span></a>
                                     </li>
                                     <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">Safety Page</span></a></li>
                                     <li class="nk-menu-item"><a href="#" class="nk-menu-link"><span class="nk-menu-text">Service Page</span></a></li>

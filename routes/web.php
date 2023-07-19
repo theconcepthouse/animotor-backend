@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\FrontPageController;
 use App\Http\Controllers\Payment\FlutterwavePaymentController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Payment\PaystackPaymentController;
@@ -17,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('admin.dashboard');
-});
+
+Route::get('/', [FrontPageController::class,'home']);
+
+Route::get('/{slug}', [FrontPageController::class,'page'])->name('page.show');
+
 
 Route::get('/home', function () {
     return redirect()->route('admin.dashboard');

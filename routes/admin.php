@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TripRequestController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -81,6 +82,22 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
     Route::get('bookings/show/{id}', [BookingController::class,'show'])->name('bookings.show');
     Route::post('bookings/update_status/{id}', [BookingController::class,'updateStatus'])->name('bookings.update_status');
+
+
+
+    Route::group(['prefix' => 'settings'], function() {
+        Route::get('pages', [SettingsController::class, 'pages'])->name('setting.pages');
+        Route::get('page/builder/{id}', [SettingsController::class, 'pageBuilder'])->name('setting.page.builder');
+        Route::post('page/content/store', [SettingsController::class, 'pageContentStore'])->name('setting.page.content.store');
+        Route::get('components', [SettingsController::class, 'components'])->name('setting.components');
+        Route::get('page/edit/{id}', [SettingsController::class, 'editPage'])->name('setting.page.edit');
+        Route::get('component/edit/{id}', [SettingsController::class, 'editComponents'])->name('setting.component.edit');
+        Route::get('component/duplicate/{id}', [SettingsController::class, 'duplicateComponent'])->name('setting.component.duplicate');
+        Route::get('component/delete/{id}', [SettingsController::class, 'deleteComponent'])->name('setting.component.delete');
+
+        Route::post('editor/save', [SettingsController::class, 'saveContent'])->name('setting.editor.store');
+
+    });
 
 
     Route::group(['prefix' => 'api'], function() {

@@ -42,6 +42,7 @@
                                                 <tr>
                                                     <th>S/N</th>
                                                     <th>Name</th>
+                                                    <th>Currency</th>
                                                     <th>Timezone</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
@@ -53,6 +54,7 @@
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->currency_symbol }}</td>
                                                         <td>{{ $item->timezone }}</td>
 
 
@@ -65,7 +67,7 @@
                                                         </td>
 
                                                         <td>
-
+                                                            <a class="btn btn-warning" href="{{ route('admin.regions.edit', $item->id) }}">Edit</a>
                                                         </td>
 
                                                     </tr>

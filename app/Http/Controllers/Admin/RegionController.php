@@ -32,7 +32,8 @@ class RegionController extends Controller
 
     public function edit(Region $region)
     {
-        return view('region.edit', compact('region'));
+        $region = Region::findOrFail($region->id);
+        return view('admin.service_area.edit', compact('region'));
     }
 
     public function update(Request $request, Region $region): \Illuminate\Http\RedirectResponse
@@ -41,7 +42,7 @@ class RegionController extends Controller
 
         $region->update($validatedData);
 
-        return redirect()->route('region.index')->with('success', 'Region updated successfully.');
+        return redirect()->route('admin.regions.index')->with('success', 'Region updated successfully.');
     }
 
     public function destroy(Region $region)

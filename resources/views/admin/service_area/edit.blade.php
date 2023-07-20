@@ -8,19 +8,26 @@
                     <div class="components-preview wide-md- mx-auto">
 
                         <div class="nk-block nk-block-lg">
-                            <div class="nk-block-head">
+                            <div class="nk-block-between g-3">
                                 <div class="nk-block-head-content">
-                                    <h4 class="title nk-block-title">Editing {{ $subscriber->organisation_name }}</h4>
+                                    <h4 class="title nk-block-title">Add new service area</h4>
+                                </div>
+
+                                <div class="nk-block-head-content">
+                                    <a href="{{ route('admin.regions.index') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                    <a href="{{ route('admin.regions.index') }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                 </div>
                             </div>
+
                             <div class="row g-gs">
 
                                 <div class="col-lg-12">
                                     <div class="card card-bordered h-100">
                                         <div class="card-inner">
 
-                                            <form action="{{ route('admin.subscriber.store') }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('admin.regions.update', $region->id) }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
+                                                @method('PATCH')
                                                 @if ($errors->any())
                                                     <div class="alert alert-danger">
                                                         <ul>
@@ -38,67 +45,17 @@
 
 
                                                 <div class="row gy-4">
-                                                    <div class="col-lg-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input value="{{ old('organisation_name', $subscriber->organisation_name) }}" name="organisation_name" type="text" class="form-control  @error('organisation_name') error @enderror  form-control-xl form-control-outlined" id="organisation_name">
-                                                                <label class="form-label-outlined" for="organisation_name">Organisation Name</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input value="{{ old('contact_person', $subscriber->contact_person) }}" name="contact_person" type="text" class="form-control @error('contact_person') error @enderror  form-control-xl form-control-outlined" id="contact_person">
-                                                                <label class="form-label-outlined" for="last_name">Contact person</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input value="{{ old('email', $subscriber->email) }}" name="email" type="text" class="form-control  @error('email') error @enderror form-control-xl form-control-outlined" id="email">
-                                                                <label class="form-label-outlined" for="email">Email Address</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input value="{{ old('phone', $subscriber->phone) }}" name="phone" type="text" class="form-control  @error('phone') error @enderror form-control-xl form-control-outlined" id="phone">
-                                                                <label class="form-label-outlined" for="phone">Mobile Number</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12 col-sm-12">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input value="{{ old('address', $subscriber->address) }}" name="address" type="text" class="form-control  @error('address') error @enderror form-control-xl form-control-outlined" id="address">
-                                                                <label class="form-label-outlined" for="address">Address</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="col-lg-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <input data-date-format="yyyy-mm-dd" value="{{ old('contract_date', $subscriber->contract_date) }}" name="contract_date" type="text" class="date-picker form-control  @error('contract_date') error @enderror form-control-xl form-control-outlined" id="contract_date">
-                                                                <label class="form-label-outlined" for="contract_date">Contracted Date</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->name, 'fieldName' => 'name','title' => 'Name'])
+                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->timezone,  'fieldName' => 'timezone','title' => 'Timezone'])
+                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->currency_symbol, 'fieldName' => 'currency_symbol','title' => 'Currency Symbol'])
+                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->currency_code,  'fieldName' => 'currency_code','title' => 'Currency code'])
+                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->coordinates, 'fieldName' => 'coordinates','title' => 'Coordinates'])
 
-                                                    <div class="col-lg-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <select name="status" class="form-select js-select2" data-ui="xl" id="status">
-                                                                    <option {{ $subscriber->status == 'active' ? 'selected' : '' }} value="active">Active</option>
-                                                                    <option {{ $subscriber->status == 'disabled' ? 'selected' : '' }} value="disabled">Disabled</option>
-                                                                </select>
-                                                                <label class="form-label-outlined" for="status">Status</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'value' => $region->is_active, 'fieldName' => 'is_active', 'title' => 'Status','options' => '
+                        <option value="1">Active</option>
+                        <option value="0">Disabled</option>
+                        '])
 
                                                 </div>
 

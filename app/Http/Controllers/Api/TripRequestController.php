@@ -68,7 +68,7 @@ class TripRequestController extends Controller
 
                 $type->discounted_fee = $type->discounted($type->grand_total);
             } else {
-                return response()->json(['error' => 'Distance is not set'], 400);
+                return $this->errorResponse('Distance is not set');
             }
         }
 

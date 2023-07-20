@@ -88,7 +88,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     public function getCurrencyAttribute(): ?string
     {
-        return $this->region?->currency_code;
+        return $this->region?->currency_symbol;
     }
 
     public function service(): BelongsTo

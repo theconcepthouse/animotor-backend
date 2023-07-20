@@ -57,6 +57,7 @@
                                                 @include('admin.partials.form.select_array', ['attributes' => 'required' ,'colSize' => 'col-md-12', 'value' => settings('enable_rental'), 'fieldName' => 'enable_rental', 'title' => 'Enable Rental','options' => ['yes','no']])
                                                 @include('admin.partials.form.select_array', ['attributes' => 'required' ,'colSize' => 'col-md-12', 'value' => settings('enable_instant_ride'), 'fieldName' => 'enable_instant_ride', 'title' => 'Enable Instant Ride','options' => ['yes','no']])
                                                 @include('admin.partials.form.select_array', ['attributes' => 'required' ,'colSize' => 'col-md-12', 'value' => settings('enable_fleet'), 'fieldName' => 'enable_fleet', 'title' => 'Enable Fleet','options' => ['yes','no']])
+                                                @include('admin.partials.form.select_array', ['attributes' => 'required' ,'colSize' => 'col-md-12', 'value' => settings('map_home_screen'), 'fieldName' => 'enable_fleet', 'title' => 'Map Home Screen','options' => ['yes','no']])
 
 
                                             </div>

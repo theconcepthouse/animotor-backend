@@ -69,6 +69,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('update/status', [TripRequestController::class, 'updateStatus']);
         Route::post('update/booking', [TripRequestController::class, 'update']);
         Route::post('share/feedback', [TripRequestController::class, 'shareFeedback']);
+        Route::get('get/{id}', [TripRequestController::class, 'getTrip']);
 
         //DRIVER
         Route::post('accept', [TripRequestController::class, 'acceptRide']);

@@ -317,7 +317,7 @@ class TripRequestController extends Controller
     public function getTrip($id): JsonResponse
     {
         try {
-            $trip = TripRequest::find($id);
+            $trip = TripRequest::with(['driver','customer'])->find($id);
 
             return $this->successResponse('Trip', $trip);
 

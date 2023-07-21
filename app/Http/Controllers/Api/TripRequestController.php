@@ -162,6 +162,8 @@ class TripRequestController extends Controller
                 }
             }
 
+            $this->notifyOnlineDrivers($tripRequest);
+
             return $this->successResponse('success', $tripRequest);
 
         } catch (ValidationException $e) {
@@ -169,6 +171,50 @@ class TripRequestController extends Controller
         } catch (\Exception $e) {
             return $this->errorResponse( $e->getMessage(), 500);
         }
+    }
+
+
+
+    public function notifyOnlineDrivers($order){
+
+        $drivers = $this->getDriversByDistance($order->origin_lat, $order->origin_lng, $order->location_id);
+
+        $data['title'] = "New ride request";
+        $data['message'] = "There is a new ride request within your current location";
+
+        return $this->notifyMany($drivers, $data);
+    }
+
+    public function getDriversByDistance($lat, $lng, $region_id)
+    {
+        $distanceService = new DistanceService();
+
+        $users = User::select('id','push_token','is_online','region_id')
+            ->where('is_online', true)
+            ->where('region_id', $region_id)
+            ->whereNotNull('push_token')
+            ->get();
+
+
+        // Calculate the distance between each user's coordinates and the supplied coordinates
+        foreach ($users as $user) {
+            $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
+        }
+
+        // Sort the users by distance
+        $users = $users->sortBy('distance')->take(5);
+
+
+        $closetDrivers = $users->filter(function ($user) {
+            return $user->distance < 5;
+        });
+
+        if($closetDrivers->count() < 1){
+            return $users;
+        }
+
+        return $closetDrivers;
+
     }
 
 

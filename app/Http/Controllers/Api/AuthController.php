@@ -257,9 +257,9 @@ class AuthController extends Controller
             $user->update($data);
         }
 
-        if($user->hasRole('driver')){
+//        if($user->hasRole('driver')){
             $firestoreService->updateUser($user);
-        }
+//        }
 
         return $this->successResponse($message, $user);
     }

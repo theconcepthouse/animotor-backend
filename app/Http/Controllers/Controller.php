@@ -76,7 +76,7 @@ class Controller extends BaseController
     public function notifyMany($users, $data){
 
 //        return $users;
-        Notification::send($users, new OrderStatusUpdate($data));
+//        Notification::send($users, new OrderStatusUpdate($data));
 
         $push_tokens = $users->pluck('push_token');
 
@@ -90,9 +90,6 @@ class Controller extends BaseController
 
 
         return $response->body();
-
-
-
     }
 
 

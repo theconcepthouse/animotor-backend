@@ -92,6 +92,13 @@
                                                     <span class="sub-text">Register At:</span>
                                                     <span> {{ $user->created_at->format('M d, Y') }}</span>
                                                 </div>
+
+                                                <div class="col-12">
+                                                    <span class="sub-text">Push token:</span>
+                                                    <span> {{ $user->push_token }}</span>
+                                                </div>
+
+
                                             </div>
                                         </div><!-- .card-inner -->
 

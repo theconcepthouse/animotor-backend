@@ -214,11 +214,13 @@ class TripRequestController extends Controller
             return $user->distance < 5;
         });
 
+        info('closetDrivers : '. count($closetDrivers));
+
+
         if($closetDrivers->count() < 1){
             return $users;
         }
 
-        info('closetDrivers : '. count($closetDrivers));
         return $closetDrivers;
 
     }

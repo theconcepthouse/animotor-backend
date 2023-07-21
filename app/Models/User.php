@@ -59,6 +59,9 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'city',
         'region_id',
         'service_id',
+        'push_token',
+        'last_notification',
+        'monify_account',
 
 
     ];

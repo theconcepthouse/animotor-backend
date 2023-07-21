@@ -277,6 +277,15 @@ class AuthController extends Controller
     }
 
 
+    public function updateToken(Request $request): JsonResponse
+    {
+        $user = user::find(auth()->user()->id);
+        $user->push_token = $request['push_token'];
+        $user->save();
+        return $this->successResponse('push_token updated',$user);
+    }
+
+
     public function locations(): JsonResponse
     {
         $data = [

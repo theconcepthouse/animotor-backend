@@ -142,6 +142,7 @@ class FirestoreService
             'region_id' => $user_data->region_id,
             'account_balance' => $user_data->account_balance,
             'avatar' => $user_data->avatar,
+            'last_notification' => $user_data->last_notification,
 
             'title' => $user_data->car?->title,
             'model' => $user_data->car?->model,
@@ -168,6 +169,7 @@ class FirestoreService
             'is_online' => boolval($user_data->is_online),
             'full_phone' => $user_data->full_phone,
             'status' => $user_data->status,
+            'last_notification' => $user_data->last_notification,
             'region_id' => $user_data->region_id,
             'account_balance' => $user_data->account_balance,
             'avatar' => $user_data->avatar,

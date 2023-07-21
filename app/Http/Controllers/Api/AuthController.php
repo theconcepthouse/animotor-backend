@@ -112,7 +112,7 @@ class AuthController extends Controller
     public function checkPhone(Request $request): JsonResponse
     {
         $phone = $request['phone'];
-        $role = $request->input('rider');
+        $role = $request->input('role');
 
         if(!$role){
             return $this->errorResponse('Please update to latest version');

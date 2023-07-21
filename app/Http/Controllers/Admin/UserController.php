@@ -12,6 +12,7 @@ use App\Models\VehicleModel;
 use App\Models\VehicleType;
 use App\Services\CarService;
 use App\Services\Firebase\FirestoreService;
+use App\Services\NotificationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -170,6 +171,15 @@ class UserController extends Controller
 
         if($status == 'approved' && $user->unapproved_documents > 0){
             return redirect()->back()->with('failure','Approve all document to approve driver');
+        }
+
+        if($status == 'approved'){
+            $notificationService = new NotificationService();
+
+            $data['title'] = "Account approved";
+            $data['message'] = "Congrats, your account is now approved";
+
+            $notificationService->notifyOne($user, $data);
         }
         $user->status = $status;
         $user->save();

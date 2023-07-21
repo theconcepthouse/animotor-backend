@@ -9,6 +9,7 @@ use App\Models\TripRequest;
 use App\Models\User;
 use App\Services\DistanceService;
 use App\Services\Firebase\FirestoreService;
+use App\Services\NotificationService;
 use App\Services\TripRequestService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -182,7 +183,9 @@ class TripRequestController extends Controller
         $data['title'] = "New ride request";
         $data['message'] = "There is a new ride request within your current location";
 
-        return $this->notifyMany($drivers, $data);
+        $notificationService = new NotificationService();
+
+        return $notificationService->notifyMany($drivers, $data);
     }
 
     public function getDriversByDistance($lat, $lng, $region_id)

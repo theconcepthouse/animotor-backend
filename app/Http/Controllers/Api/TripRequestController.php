@@ -218,6 +218,7 @@ class TripRequestController extends Controller
             return $users;
         }
 
+        info('closetDrivers', $closetDrivers);
         return $closetDrivers;
 
     }

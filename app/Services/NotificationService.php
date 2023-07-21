@@ -18,6 +18,7 @@ class NotificationService
         ])->post('https://exp.host/--/api/v2/push/send', [
             "to" => $push_tokens,
             "title" => $data['title'],
+            "channelId" => "bookings-repeat",
             "body" => $data['message']
         ]);
 

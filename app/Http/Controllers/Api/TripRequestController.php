@@ -59,7 +59,7 @@ class TripRequestController extends Controller
 
                 $type->time_price = $type->time_price * ($d_km['duration']['value'] / 60);
 
-                $type->fee = $type->time_price + $type->distance_price;
+                $type->fee = $type->time_price + $type->distance_price + $type->price;
 
                 $tax_percent = 0.075;
 

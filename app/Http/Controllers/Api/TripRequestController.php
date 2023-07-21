@@ -198,6 +198,8 @@ class TripRequestController extends Controller
             ->whereNotNull('push_token')
             ->get();
 
+        info('region_id', $region_id);
+        info('drivers by distance', $users);
 
         // Calculate the distance between each user's coordinates and the supplied coordinates
         foreach ($users as $user) {

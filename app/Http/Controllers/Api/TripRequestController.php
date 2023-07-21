@@ -199,7 +199,7 @@ class TripRequestController extends Controller
             ->get();
 
         info('region_id :'.$region_id);
-        info('drivers by distance', $users);
+        info('drivers by distance : '. count($users));
 
         // Calculate the distance between each user's coordinates and the supplied coordinates
         foreach ($users as $user) {
@@ -218,7 +218,7 @@ class TripRequestController extends Controller
             return $users;
         }
 
-        info('closetDrivers', $closetDrivers);
+        info('closetDrivers : '. count($closetDrivers));
         return $closetDrivers;
 
     }

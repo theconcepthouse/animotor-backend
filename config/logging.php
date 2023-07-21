@@ -70,6 +70,12 @@ return [
             'days' => 14,
         ],
 
+        'flutterwave' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/flutterwave.log'),
+            'level' => 'debug',
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

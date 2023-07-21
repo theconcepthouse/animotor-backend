@@ -53,11 +53,11 @@ class TripRequestController extends Controller
             if (isset($d_km['distance'])) {
                 $type->distance_m = $d_km['distance']['value'];
                 $type->duration = (number_format($d_km['duration']['value'] / 60)) . ' minutes';
-                $type->distance_price = ($d_km['distance']['value'] / 1000) * $type->price;
+                $type->distance_price = ($d_km['distance']['value'] / 1000) * $type->distance_price;
 
                 $type->arrived_at = Carbon::now()->addMinutes(ceil($d_km['duration']['value'] / 60))->format('H:i');
 
-                $type->time_price = $type->price * ($d_km['duration']['value'] / 60);
+                $type->time_price = $type->time_price * ($d_km['duration']['value'] / 60);
 
                 $type->fee = $type->time_price + $type->distance_price;
 

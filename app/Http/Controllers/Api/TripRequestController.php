@@ -178,7 +178,7 @@ class TripRequestController extends Controller
 
     public function notifyOnlineDrivers($order){
 
-        $drivers = $this->getDriversByDistance($order->origin_lat, $order->origin_lng, $order->location_id);
+        $drivers = $this->getDriversByDistance($order->origin_lat, $order->origin_lng, $order->region_id);
 
         $data['title'] = "New ride request";
         $data['message'] = "There is a new ride request within your current location";

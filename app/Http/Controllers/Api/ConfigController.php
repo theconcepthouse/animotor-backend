@@ -119,6 +119,10 @@ class ConfigController extends Controller
 //                $this->errorResponse('error');
 //            }
 
+//            $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id')->get();
+//
+//            return count($users);
+
             $user = User::findOrFail($request['user_id']);
 
             $walletService->fundWallet($user, $request['amount'], 'Wallet fund testing','paystack');

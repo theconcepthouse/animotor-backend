@@ -189,7 +189,7 @@ class TripRequestController extends Controller
     {
         $distanceService = new DistanceService();
 
-        $users = User::select('id','push_token','is_online','region_id')
+        $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id')
             ->where('is_online', true)
             ->where('region_id', $region_id)
             ->whereNotNull('push_token')

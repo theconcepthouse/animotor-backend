@@ -48,5 +48,7 @@ function hasRental(): bool
 
 function bladeCompile($content): string
 {
-    return Blade::compileString($content);
+    ob_start();
+    eval('?>' . $content);
+    return ob_get_clean();
 }

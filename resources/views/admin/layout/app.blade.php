@@ -368,7 +368,7 @@
     <!-- main @s -->
     <div class="nk-main ">
         <!-- sidebar @s -->
-        <div class="nk-sidebar nk-sidebar-fixed  {{ settings('is_dark') == 'yes' ? 'is-dark' : '' }}" data-content="sidebarMenu">
+        <div class="nk-sidebar nk-sidebar-fixed is-dark  {{ settings('is_dark') == 'yes' ? 'is-dark-' : '' }}" data-content="sidebarMenu">
             <div class="nk-sidebar-element nk-sidebar-head">
                 <div class="nk-menu-trigger">
                     <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
@@ -405,7 +405,7 @@
 {{--                                <p>{{ $menu['route'] }}</p>--}}
                                     <li class="nk-menu-item{{ isset($menu['submenu']) ? ' has-sub' : '' }}">
 {{--                                        @if ($url)--}}
-                                            <a href="{{ $url }}" class="nk-menu-link{{ isset($menu['submenu']) ? ' nk-menu-toggle' : '' }}">
+                                            <a  href="{{ $url }}" {{ isset($menu['submenu']) ? '' : 'wire:navigate' }}  class="nk-menu-link{{ isset($menu['submenu']) ? ' nk-menu-toggle' : '' }}">
                                                 @if (isset($menu['icon']))
                                                     <span class="nk-menu-icon"><em class="icon ni {{ $menu['icon'] }}"></em></span>
                                                 @endif
@@ -425,7 +425,7 @@
                                                     @endphp
                                                     @if ($submenuUrl)
                                                         <li class="nk-menu-item">
-                                                            <a href="{{ $submenuUrl }}" class="nk-menu-link">
+                                                            <a  href="{{ $submenuUrl }}" wire:navigate class="nk-menu-link">
                                                                 <span class="nk-menu-text">{{ $submenu['text'] }}</span>
                                                             </a>
                                                         </li>

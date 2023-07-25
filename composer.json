@@ -14,7 +14,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
-        "livewire/livewire": "^2.12",
+        "livewire/livewire": "^3.0@beta",
         "rawilk/laravel-settings": "^2.2",
         "santigarcor/laratrust": "^8.2",
         "unicodeveloper/laravel-paystack": "^1.1",

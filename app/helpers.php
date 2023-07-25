@@ -40,7 +40,7 @@ function hasTrips(): bool
 
 function hasFleet(): bool
 {
-   return settings('enable_fleet_management') == 'yes';
+   return settings('enable_fleet') == 'yes';
 }
 
 function hasRental(): bool

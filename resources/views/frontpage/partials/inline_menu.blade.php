@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg- header-nav">
     <div class="navbar-header">
-        <a href="index-2.html" class="navbar-brand logo">
+        <a href="/" class="navbar-brand logo">
             <img style="height: 30px" src="{{ settings('front_logo',asset('default/ani_logo.png')) }}" class="img-fluid" alt="Logo">
         </a>
     </div>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 function convertRouteToPermission($routeName): string
 {
@@ -48,7 +49,20 @@ function hasRental(): bool
 
 function bladeCompile($content): string
 {
+    return preg_replace_callback('/@include\((\'|")(.*?)(\'|")\)/', function ($matches) {
+        $partial = Str::replaceFirst(['"', "'"], '', $matches[2]);
+        return renderPartial($partial);
+    }, $content);
+}
+
+function renderPartial($partial): bool|string
+{
     ob_start();
-    eval('?>' . $content);
+    try {
+        View::make($partial)->render();
+    } catch (\Throwable $e) {
+        // Handle any exceptions, e.g., partial not found
+        return "<!-- Error rendering partial: $partial -->";
+    }
     return ob_get_clean();
 }

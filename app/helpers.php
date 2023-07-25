@@ -48,20 +48,3 @@ function hasRental(): bool
    return settings('enable_rental') == 'yes';
 }
 
-function bladeCompile($content): string
-{
-    return preg_replace_callback('/@include\((\'|")(.*?)(\'|")\)/', function ($matches) {
-        $partial = Str::replaceFirst(['"', "'"], '', $matches[2]);
-        return renderPartial($partial);
-    }, $content);
-}
-
-function renderPartial($partial): bool|string
-{
-    try {
-        return View::make($partial)->render();
-    } catch (\Throwable $e) {
-        // Handle any exceptions, e.g., partial not found
-        return "<!-- Error rendering partial: $partial -->";
-    }
-}

@@ -4,7 +4,7 @@
 
     @foreach($contents as $item)
 
-        {!! bladeCompile($item->content) !!}
+        {!! $item->content !!}
     @endforeach
 
 @endsection

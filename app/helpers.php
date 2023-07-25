@@ -58,12 +58,10 @@ function bladeCompile($content): string
 
 function renderPartial($partial): bool|string
 {
-    ob_start();
     try {
-        View::make($partial)->render();
+        return View::make($partial)->render();
     } catch (\Throwable $e) {
         // Handle any exceptions, e.g., partial not found
         return "<!-- Error rendering partial: $partial -->";
     }
-    return ob_get_clean();
 }

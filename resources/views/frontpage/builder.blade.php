@@ -2,11 +2,6 @@
 
 
 @section('content')
-{{--    <section class="banner-header">--}}
-{{--        <div class="container">--}}
-{{--            --}}
-{{--        </div>--}}
-{{--    </section>--}}
 
     <section class="banner-section banner-slider bg-black">
 

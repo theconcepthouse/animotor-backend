@@ -8,7 +8,11 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">{{ settings('site_name', env('APP_NAME')) }} dashboard</h3>
+                                @if(isOwner())
+                                    <h3 class="nk-block-title page-title">{{ auth()->user()->company->name }} dashboard</h3>
+                                @else
+                                    <h3 class="nk-block-title page-title">{{ settings('site_name', env('APP_NAME')) }} dashboard</h3>
+                                @endif
 
                             </div><!-- .nk-block-head-content -->
 
@@ -21,6 +25,7 @@
 
                                     <div class="col-md-12 col-xxl-12">
                                         <div class="row g-gs">
+                                            @if(hasTrips())
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="card card-bordered">
                                                     <div class="card-inner">
@@ -55,12 +60,13 @@
                                                     </div>
                                                 </div><!-- .card -->
                                             </div><!-- .col -->
+                                            @endif
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="card card-bordered">
                                                     <div class="card-inner">
                                                         <div class="card-title-group align-start mb-2">
                                                             <div class="card-title">
-                                                                <h6 class="title">Total riders</h6>
+                                                                <h6 class="title">Total customers</h6>
                                                             </div>
                                                         </div>
                                                         <div class="align-end flex-sm-wrap g-4 flex-md-nowrap">
@@ -72,6 +78,7 @@
                                                     </div>
                                                 </div><!-- .card -->
                                             </div><!-- .col -->
+                                                @if(hasTrips())
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="card card-bordered">
                                                     <div class="card-inner">
@@ -89,6 +96,7 @@
                                                     </div>
                                                 </div><!-- .card -->
                                             </div><!-- .col -->
+                                                @endif
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="card card-bordered">
                                                     <div class="card-inner">
@@ -111,6 +119,7 @@
                                     </div><!-- .col -->
                                 </div><!-- .row -->
                             </div><!-- .col -->
+                            @if(hasTrips())
                             <div class="col-xxl-6">
                                 <div class="card card-bordered h-100">
                                     <div class="card-inner">
@@ -132,7 +141,29 @@
                                     </div>
                                 </div><!-- .card -->
                             </div><!-- .col -->
+                            @else
+                                <div class="col-xxl-6">
+                                    <div class="card card-bordered h-100">
+                                        <div class="card-inner">
+                                            <div class="card-title-group align-start gx-3 mb-3">
+                                                <div class="card-title">
+                                                    <h6 class="title">Bookings  Overview</h6>
+                                                    <p>This month bookings overview. <a href="{{ route('admin.bookings.index',['status'=>'all']) }}">See all bookings</a></p>
+                                                </div>
 
+                                            </div>
+                                            <div class="nk-sale-data-group align-center justify-between gy-3 gx-5">
+                                                <div class="nk-sale-data">
+                                                    <span class="amount sm">{{ $ride_counts }} <small>Total rides</small></span>
+                                                </div>
+                                            </div>
+                                            <div class="nk-sales-ck large pt-4">
+                                                <canvas class="sales-overview-chart" id="salesOverview"></canvas>
+                                            </div>
+                                        </div>
+                                    </div><!-- .card -->
+                                </div><!-- .col -->
+                            @endif
 
                             <div class="col-md-6 col-xxl-4">
                                 <div class="card card-bordered card-full">
@@ -140,7 +171,7 @@
                                         <div class="card-inner">
                                             <div class="card-title-group">
                                                 <div class="card-title">
-                                                    <h6 class="title">Recent riders</h6>
+                                                    <h6 class="title">Recent customers</h6>
                                                 </div>
                                                 <div class="card-tools">
                                                     <a href="{{ route('admin.riders') }}" class="link">View All</a>
@@ -177,6 +208,7 @@
                                     </div>
                                 </div><!-- .card -->
                             </div><!-- .col -->
+                            @if(hasTrips())
                             <div class="col-md-6 col-xxl-4">
                                 <div class="card card-bordered card-full">
                                     <div class="card-inner-group">
@@ -221,7 +253,7 @@
                                     </div>
                                 </div><!-- .card -->
                             </div><!-- .col -->
-
+                            @endif
                             <div class="col-lg-6 col-xxl-4">
                                 <div class="card card-bordered h-100">
                                     <div class="card-inner border-bottom">

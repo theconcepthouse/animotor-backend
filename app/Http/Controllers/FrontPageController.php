@@ -16,6 +16,12 @@ class FrontPageController extends Controller
     public function builder(){
         return view('frontpage.home');
     }
+    public function builder2(){
+        return view('frontpage.builder');
+    }
+    public function list(){
+        return view('frontpage.list_cars');
+    }
     public function flight(){
         return view('frontpage.flight');
     }

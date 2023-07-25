@@ -19,17 +19,18 @@
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" href="{{ route('admin.user.create') }}?role=rider"><em class="icon ni ni-plus"></em><span>Add New Rider</span></a>
+                                                        <a class="btn btn-primary" href="{{ route('admin.user.create') }}?role=rider"><em class="icon ni ni-plus"></em><span>Add New</span></a>
                                                     </li>
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
                                                         <a class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}?role=rider"><em class="icon ni ni-plus"></em></a>
                                                     </li>
 
 
-
+                                                    @if(isAdmin())
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
                                                         <a class="btn btn-danger" href="{{ route('admin.user.deleted') }}"><span>Deleted users</span></a>
                                                     </li>
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div><!-- .toggle-wrap -->

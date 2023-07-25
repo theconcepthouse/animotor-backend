@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CancellationReasonController;
 use App\Http\Controllers\Admin\CarController;
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ComplaintsController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\DocumentController;
@@ -35,7 +36,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/user/admins', [AdminController::class, 'admins'])->name('user.admins');
@@ -78,6 +79,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
     Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
 
     Route::resource('services', ServiceController::class);
+    Route::resource('companies', CompanyController::class);
 
     Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
     Route::get('bookings/show/{id}', [BookingController::class,'show'])->name('bookings.show');
@@ -94,8 +96,13 @@ Route::group(['middleware' => ['auth','role:admin|superadmin'], 'prefix' => 'adm
         Route::get('component/edit/{id}', [SettingsController::class, 'editComponents'])->name('setting.component.edit');
         Route::get('component/duplicate/{id}', [SettingsController::class, 'duplicateComponent'])->name('setting.component.duplicate');
         Route::get('component/delete/{id}', [SettingsController::class, 'deleteComponent'])->name('setting.component.delete');
+        Route::get('toggle/theme', [SettingsController::class, 'toggleTheme'])->name('settings.toggle_theme');
 
         Route::post('editor/save', [SettingsController::class, 'saveContent'])->name('setting.editor.store');
+
+        Route::post('permission/store', [RolesController::class, 'storePermission'])->name('permission.store');
+        Route::post('permission/update/{id}', [RolesController::class, 'updatePermission'])->name('permission.update');
+
 
     });
 

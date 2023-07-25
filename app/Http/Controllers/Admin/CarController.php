@@ -13,18 +13,29 @@ class CarController extends Controller
 {
     public function index()
     {
-        $data = Car::paginate(100);
-        $title = "Cars listing";
+        if(isOwner()){
+            $data = Car::where('company_id', companyId())->paginate(100);
+            $title = "Fleet management";
+        }else if(isAdmin()){
+            $data = Car::paginate(100);
+            $title = "Cars listing";
+        }else{
+            $data = [];
+            $title = "Cars listing";
+        }
         return view('admin.cars.list', compact('data','title'));
     }
 
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validatedData = $this->validateData($request);
+        if(isOwner()){
+            $validatedData['company_id'] = companyId();
+        }
 
         Car::create($validatedData);
 
-        return redirect()->back()->with('success', 'Car created successfully.');
+        return redirect()->route('admin.cars.index')->with('success', 'Car created successfully.');
     }
 
     public function edit($id){

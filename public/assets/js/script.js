@@ -6,12 +6,12 @@ Version      : 1.0
 
 (function($) {
 	"use strict";
-	
+
 	var $slimScrolls = $('.slimscroll');
 	var $wrapper = $('.main-wrapper');
-	
+
 	// Sidebar
-	
+
 	if($(window).width() <= 991) {
 		var Sidemenu = function() {
 			this.$menuItem = $('.main-nav a');
@@ -36,26 +36,26 @@ Version      : 1.0
 		}
 
 	// Sidebar Initiate
-	
+
 	init();
 	}
 
 	// Mobile menu sidebar overlay
-	
+
 	$('body').append('<div class="sidebar-overlay"></div>');
 	$(document).on('click', '#mobile_btn', function() {
 		$('main-wrapper').toggleClass('slide-nav');
 		$('.sidebar-overlay').toggleClass('opened');
 		$('html').addClass('menu-opened');
 		return false;
-	});	
-	
+	});
+
 	$(document).on('click', '.sidebar-overlay', function() {
 		$('html').removeClass('menu-opened');
 		$(this).removeClass('opened');
 		$('main-wrapper').removeClass('slide-nav');
 	});
-	
+
 	$(document).on('click', '#menu_close', function() {
 		$('html').removeClass('menu-opened');
 		$('.sidebar-overlay').removeClass('opened');
@@ -63,45 +63,45 @@ Version      : 1.0
 	});
 
 	// Select 2
-	
+
 	if ($('.select').length > 0) {
 		$('.select').select2({
 			minimumResultsForSearch: -1,
 			width: '100%'
 		});
 	}
-	
+
 	if ($('.category-select').length > 0) {
 		$(".category-select").select2({
 			placeholder: "Choose Category",
 			allowClear: false
 		});
 	}
-	
+
 	if ($('.loc-select').length > 0) {
 		$(".loc-select").select2({
 			placeholder: "Choose Location",
 			allowClear: false
 		});
 	}
-	
+
 	if ($('.region select').length > 0) {
 		$(".region select").select2({
 			placeholder: "Region",
 			allowClear: false
 		});
 	}
-		
-	// Fade in Scroll 
-	
+
+	// Fade in Scroll
+
 	if($('.main-wrapper .aos').length>0){
 		AOS.init({
 			duration:1200,
 			once:true
 		});
 	}
-	
-	// Datepicker	
+
+	// Datepicker
 
 	if($('.datetimepicker').length > 0 ){
 		$('.datetimepicker').datetimepicker({
@@ -129,15 +129,15 @@ Version      : 1.0
 		});
 	}
 
-	
+
 	// Scroll Down
-	
+
 	$('.price-down').on('click', function() {
-		$('html, body').animate({ scrollTop: $("#price").offset().top - 85}, 150); 
+		$('html, body').animate({ scrollTop: $("#price").offset().top - 85}, 150);
 	});
-	
+
 	//Stick Sidebar
-	
+
 	if ($(window).width() > 767) {
 		if($('.theiaStickySidebar').length > 0) {
 			$('.theiaStickySidebar').theiaStickySidebar({
@@ -146,9 +146,9 @@ Version      : 1.0
 			});
 		}
 	}
-	
+
     //Range Slider
-	
+
 	if($('.input-range').length > 0) {
 		$(".input-range").ionRangeSlider({
 			type: "single",
@@ -156,20 +156,20 @@ Version      : 1.0
 			min: 0,
 			max: 100,
 			from: 50,
-			to: 100       
+			to: 100
 		});
 	}
-	
+
 	$('.input-range').on('input', function () {
         $('.demo span').html(this.value);
     });
-	
+
 	//Show Filter
-	
+
 	$(".btn.filterbtn").on('click', function() {
 		  $(".showfilter").toggleClass("filter-open");
-	});		
-	
+	});
+
 	// Password Eye
 
 	$('.toggle-password').on('click', function() {
@@ -180,8 +180,8 @@ Version      : 1.0
 		} else {
 			input.attr("type", "password");
 		}
-	});	
-	
+	});
+
 	// Most Popular Cartypes Slider
 
 	if($('.popular-cartype-slider').length > 0) {
@@ -197,7 +197,7 @@ Version      : 1.0
 				0:{
 					items:1
 				},
-				
+
 				550:{
 					items:1
 				},
@@ -215,7 +215,7 @@ Version      : 1.0
 	}
 
 	// Recommended Car Rental Deals
-	
+
 	if($('.rental-deal-slider').length > 0) {
 		$('.rental-deal-slider').owlCarousel({
 			loop:true,
@@ -229,7 +229,7 @@ Version      : 1.0
 				0:{
 					items:1
 				},
-				
+
 				550:{
 					items:1
 				},
@@ -244,12 +244,12 @@ Version      : 1.0
 	}
 
 	//What People Say Slider
-	
+
 	if($('.about-testimonials').length > 0) {
 		$('.about-testimonials').owlCarousel({
 			loop:true,
 			margin:24,
-			nav:false,
+			nav:true,
 			dots: true,
 			autoplay:true,
 			smartSpeed: 2000,
@@ -258,15 +258,15 @@ Version      : 1.0
 				0:{
 					items:1
 				},
-				
+
 				550:{
 					items:1
 				},
 				700:{
-					items:2
+					items:1
 				},
 				1000:{
-					items:2
+					items:1
 				}
 			}
 		})
@@ -295,7 +295,7 @@ Version      : 1.0
 			focusOnSelect: true
 
 		});
-	}	
+	}
 
 	if($('.car-details-slider').length > 0 ){
 		$('.car-details-slider').owlCarousel({
@@ -322,11 +322,11 @@ Version      : 1.0
 					loop:true
 				}
 			}
-		});	
+		});
 	}
 
 	// Select Favourite
-	
+
 	$('.fav-icon').on('click', function() {
 		$(this).toggleClass('selected');
 	});
@@ -339,10 +339,9 @@ Version      : 1.0
             time: 1500
         });
 	}
-	
-	
+
+
 })(jQuery);
 
 
 
-	

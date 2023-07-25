@@ -1302,16 +1302,7 @@ strong {
   background: #201F1D;
   position: relative;
 }
-.footer::before {
-  content: "";
-  background: url(../img/footer-left.png) no-repeat;
-  position: absolute;
-  top: 50px;
-  left: 0;
-  width: 97px;
-  height: 102px;
-  background-size: cover;
-}
+
 @media (max-width: 1199.98px) {
   .footer::before {
     display: none;
@@ -3913,7 +3904,7 @@ table .badge {
 }
 
 .text-muted {
-  color: #F2F7F6 !important;
+  /*color: #F2F7F6 !important;*/
 }
 
 .bg-light-gray {

@@ -28,11 +28,13 @@ class Car extends Model
 
         'rental_packages',
         'image',
+        'company_id',
 
         'country',
         'state',
         'city',
         'price_per_day',
+        'attributes',
     ];
 
     protected $appends = ['includes','why','details'];
@@ -68,12 +70,32 @@ class Car extends Model
         ];
     }
 
+    public function getAttributesAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    public function setAttributesAttribute($value)
+    {
+        $this->attributes['attributes'] = json_encode($value);
+    }
+
     public function getImageAttribute($value): string
     {
         if(!$value) {
             return asset('default/404.png');
         }
         return $value;
+    }
+
+    public function attributeList(): array
+    {
+        return [
+            ['name' => 'Mileage', 'attribute' => 'mileage'],
+            ['name' => 'Color', 'attribute' => 'color'],
+            ['name' => 'Engine', 'attribute' => 'engine'],
+            // Add more attributes as needed
+        ];
     }
 
 }

@@ -59,6 +59,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'city',
         'region_id',
         'service_id',
+        'company_id',
         'push_token',
         'last_notification',
         'monify_account',
@@ -80,13 +81,17 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'remember_token',
     ];
 
-    protected $with = ['documents','car','region','service'];
+    protected $with = ['documents','car','region','service','company'];
 
     protected $appends = ['unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
 
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class,'region_id');
+    }
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class,'company_id');
     }
 
     public function getCurrencyAttribute(): ?string

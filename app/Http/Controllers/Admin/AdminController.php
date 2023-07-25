@@ -38,9 +38,15 @@ class AdminController extends Controller
 
     public function admins()
     {
-        $users = User::whereHasRole(['admin'])->latest()->paginate(100);
-        return view('admin.user.admin.list', compact('users'
-        ));
+        if(isOwner()){
+            $users = User::whereHasRole(['manager'])
+                ->where('company_id', companyId())->latest()->paginate(100);
+        }else if (isAdmin()){
+            $users = User::whereHasRole(['admin'])->latest()->paginate(100);
+        }else{
+            $users = [];
+        }
+        return view('admin.user.admin.list', compact('users'));
     }
 
 

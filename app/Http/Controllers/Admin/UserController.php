@@ -29,7 +29,14 @@ class UserController extends Controller
 
     public function riders()
     {
-        $users = User::whereHasRole(['rider'])->paginate(100);
+        if(isOwner()){
+            $users = User::whereHasRole(['rider'])
+                ->where('company_id', companyId())->latest()->paginate(100);
+        }else if (isAdmin()){
+            $users = User::whereHasRole(['rider'])->paginate(100);
+        }else{
+            $users = [];
+        }
         $title = "Customers list";
         return view('admin.user.list', compact('users','title'));
     }
@@ -51,6 +58,11 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $role = $request->get('role') ?? 'rider';
+
+        if(isOwner() && !in_array($role, ['manager','rider','driver'])){
+            return redirect()->route('admin.dashboard')->with('failure','you are not permitted to create this user');
+        }
+
         $car_models = [];
         $car_makes = [];
         $car_types = [];
@@ -89,6 +101,11 @@ class UserController extends Controller
 
     public function store(Request $request, CarService $carService)
     {
+
+        if(isOwner() && !in_array($request->input('role'), ['manager','rider'])){
+            return redirect()->route('admin.dashboard')->with('failure','you are not permitted to create this user');
+        }
+
         $rules = [
             'first_name' => 'string|min:1|max:255|required',
             'last_name' => 'nullable',
@@ -102,6 +119,10 @@ class UserController extends Controller
         ];
         $data = $request->validate($rules);
         $data['password'] = Hash::make($data['password']);
+        if(isOwner()){
+            $data['company_id'] = companyId();
+        }
+
         $user = User::create($data);
 
         $user->addRole($data['role']);

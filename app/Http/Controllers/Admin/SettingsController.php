@@ -30,6 +30,18 @@ class SettingsController extends Controller
         return view('admin.settings.cms.page_builder', compact('title','components','data','page'));
     }
 
+    public function toggleTheme(){
+        $is_dark = settings('is_dark') == 'yes';
+        if($is_dark){
+            settings(['is_dark' => 'no']);
+        }else{
+            settings(['is_dark' => 'yes']);
+        }
+
+        return redirect()->back()->with('success', 'Theme updated');
+
+    }
+
     public function pageContentStore(Request $request){
         $id = $request->input('component_id');
         $page_id = $request->input('page_id');

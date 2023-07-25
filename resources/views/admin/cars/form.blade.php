@@ -1,4 +1,4 @@
-<div class="row gy-4">
+<div class="row gy-3">
 
         @include('admin.partials.form.text', ['attributes' => 'required', 'value' => $car?->title, 'colSize' => 'col-md-3', 'fieldName' => 'title','title' => 'Car title'])
         @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'value' => $car?->type, 'option_name' => 'name', 'colSize' => 'col-md-3', 'fieldName' => 'type','title' => 'Car Type','options' => $car_types])
@@ -14,4 +14,16 @@
         @include('admin.partials.image-upload',['field' => 'image','id' => 'car_image', 'image' => $car?->image,'title' => 'Car Image'])
 
 </div>
+
+{{--<div class="row gy-3">--}}
+
+{{--    <h5>Other car attributes</h5>--}}
+
+{{--    @foreach($attributesList as $attribute)--}}
+{{--        <div class="form-group">--}}
+{{--            <label for="{{ $attribute['name'] }}">{{ $attribute['name'] }}</label>--}}
+{{--            <input type="text" name="attributes[{{ $attribute['name'] }}]" id="{{ $attribute['name'] }}" class="form-control" value="{{ $car->attributes[$attribute['name']] ?? '' }}">--}}
+{{--        </div>--}}
+{{--    @endforeach--}}
+{{--</div>--}}
 

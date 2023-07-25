@@ -43,6 +43,7 @@
                                                     <th>Name</th>
                                                     <th>Display name</th>
                                                     <th>Description</th>
+                                                    <th>Permissions</th>
                                                     <th>Action</th>
                                                 </tr>
 
@@ -53,9 +54,10 @@
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->display_name }}</td>
                                                         <td>{{ $item->description }}</td>
+                                                        <td>{{ $item->permissions_count }}</td>
 
                                                         <td>
-
+                                                            <a href="{{route('laratrust.roles.edit', $item->id)}}" class="btn btn-warning">Permissions</a>
                                                         </td>
 
                                                     </tr>

@@ -23,11 +23,15 @@
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
 
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    @yield('style')
 </head>
 <body>
 <div class="main-wrapper">
 
     @if(!request()->has('app'))
+        @section('hid')
     <header class="header">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg header-nav">
@@ -77,6 +81,7 @@
             </nav>
         </div>
     </header>
+        @endsection
     @endif
 
     @yield('content')
@@ -92,11 +97,12 @@
                             <div class="col-lg-4 col-md-6">
 
                                 <div class="footer-widget footer-menu">
-                                    <h5 class="footer-title">About Company</h5>
                                     <ul>
-                                        <li><a href="/about">Our Company</a></li>
-                                        <li><a href="/privacy">Privacy policy</a></li>
-                                        <li><a href="/terms">Terms of us</a></li>
+                                        <li><a href="#">Countries</a></li>
+                                        <li><a href="#">Regions</a></li>
+                                        <li><a href="#">Cities</a></li>
+                                        <li><a href="#">Districts</a></li>
+                                        <li><a href="#">Places of interest</a></li>
 
                                     </ul>
                                 </div>
@@ -105,12 +111,10 @@
                             <div class="col-lg-4 col-md-6">
 
                                 <div class="footer-widget footer-menu">
-                                    <h5 class="footer-title">Booking Type</h5>
+{{--                                    <h5 class="footer-title">Booking Type</h5>--}}
                                     <ul>
                                         <li><a href="javascript:void(0)">Car Rental</a></li>
                                         <li><a href="javascript:void(0)">Car Instant ride</a></li>
-                                        <li><a href="javascript:void(0)">Hotel booking</a></li>
-                                        <li><a href="javascript:void(0)">Flight Booking</a></li>
                                     </ul>
                                 </div>
 
@@ -126,12 +130,7 @@
                                         <li>
                                             <a href="javascript:void(0)">Champaigns</a>
                                         </li>
-                                        <li>
-                                            <a href="javascript:void(0)">Dreamsrental Dealers</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">Deals and Incentive</a>
-                                        </li>
+
 
                                     </ul>
                                 </div>
@@ -190,7 +189,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <div class="copyright-text">
-                                <p>© 2023 Dreams Rent. All Rights Reserved.</p>
+                                <p>© {{ date('Y') }} {{ settings('site_name') }}. All Rights Reserved.</p>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -241,6 +240,16 @@
 <script src="/assets/js/bootstrap-datetimepicker.min.js"></script>
 
 <script src="/assets/js/owl.carousel.min.js"></script>
+
+
+
+
+<script src="/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="/assets/plugins/ion-rangeslider/js/custom-rangeslider.js"></script>
+
+<script src="/assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+<script src="/assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
 
 <script src="/assets/js/script.js"></script>
 </body>

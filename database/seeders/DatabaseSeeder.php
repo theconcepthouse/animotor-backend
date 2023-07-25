@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(LaratrustSeeder::class);
         $this->call(CountriesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
         $this->call(VehicleMakeAndModelSeeder::class);
         $this->call(DriverNeededDocTableSeeder::class);
         $this->call(CancellationReasonTableSeeder::class);

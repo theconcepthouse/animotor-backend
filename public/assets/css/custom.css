@@ -1,0 +1,164 @@
+.banner-slider {
+    position: relative;
+    background-image: url('/assets/img/banner.png') !important;
+
+    padding: 0 0 100px!important;
+}
+.banner_content {
+    padding: 100px 0 100px!important;
+}
+
+.sign-up-banner {
+    position: relative;
+    background-image: url('/assets/img/banner_signup.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+.banner-header {
+    position: relative;
+    background-image: url('/assets/img/banner_header.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+.testimonial-text {
+    position: relative;
+    background-image: url('/assets/img/bg.png') !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 10px;
+}
+
+.banner-slider .home-banner h1 span {
+    color: #194685!important;
+}
+.header .header-navbar-rht .nav-item .header-reg {
+    background-color: #194685!important;
+    border: 1px solid #194685!important;
+}
+.btn-primary {
+    background-color: #194685!important;
+    border: 1px solid #194685!important;
+    box-shadow: inset 0 0 0 0 #ffffff;
+}
+
+.btn-primary:hover {
+    color: #194685!important;
+    box-shadow: inset 0 50px 0 0 #ffffff;
+}
+h2 {
+    color: #2D3748!important;
+}
+.search-box-banner .column-group-main-2 {
+    flex: 50%;
+    max-width: 50%;
+}
+.search-box-banner .column-group-main {
+    flex: 30%!important;
+    max-width: 40%!important;
+}
+.search-box-banner .form-group label {
+    margin: 0 0 10px;
+    font-weight: 100!important;
+    font-size: 15px;
+    color: #2D3748!important;
+
+}
+.title {
+    font-weight: bold;
+    color: #2D3748!important;
+}
+.search-box-banner {
+    box-shadow: 0px 4px 24px #8282824f!important;
+}
+.sign-up-banner .inner-section {
+    padding: 30px 50px;
+}
+.sign-up-banner .inner-section h6{
+    color: #ffffff!important;
+
+}
+.sign-up-banner .inner-section p{
+    color: #ffffff;
+}
+
+.btn-default {
+    background-color: #ffffff!important;
+}
+.btn-default:hover {
+    background-color: #194685!important;
+    color: #ffffff!important;
+}
+.search-box-banner .search-btn .search-button {
+    background-color: #194685!important;
+    border: 1px solid #194685!important;
+}
+.testimonial {
+    background-color: #F2F7FD!important;
+    box-shadow: 0px 4px 24px #8282824f!important;
+}
+.count-group {
+    border: 1px solid #718096;
+    padding: 20px;
+    border-radius: 10px;
+}
+.popular_hire img {
+    border-radius: 10px;
+}
+.footer {
+    background: #194685!important;
+}
+.footer .footer-menu ul li a {
+    color: #ffffff!important;
+}
+.footer .footer-contact .footer-contact-info .footer-address span {
+    background: #000000!important;
+}
+.footer .footer-widget .footer-title:before {
+    background: #000000!important;
+}
+
+@media (max-width: 479px){
+    .banner_content {
+        padding: 50px 0 10px!important;
+    }
+    .banner-slider {
+        position: relative;
+        background-image: url(/assets/img/banner.png) !important;
+        padding: 0 0 40px !important;
+    }
+}
+
+.head-menu a{
+    color: #2D3748!important;
+}
+.head-menu .nav-link-img{
+    align-items: center;
+    margin-top: 8px;
+}
+
+.sidebar-section{
+    border: 1px solid #718096;
+    border-radius: 10px;
+}
+
+.filter-range .irs--flat .irs-bar {
+    background: #194685!important;
+}
+
+.blog-list-title h5 a {
+    color: #2D3748!important;
+    font-weight: 700;
+}
+
+.listview-car .card .card-body .blog-list-head .blog-list-rate h6 {
+    color: #194685!important;
+}
+
+.filter-range .irs--flat .irs-single {
+    background: #194685!important;
+}

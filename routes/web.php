@@ -22,6 +22,8 @@ Auth::routes();
 
 Route::get('/', [FrontPageController::class,'home']);
 Route::get('/builder', [FrontPageController::class,'builder']);
+Route::get('/builder2', [FrontPageController::class,'builder2']);
+Route::get('/list', [FrontPageController::class,'list']);
 Route::get('/flight', [FrontPageController::class,'flight']);
 
 

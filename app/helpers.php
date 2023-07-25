@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 
 function convertRouteToPermission($routeName): string
@@ -43,4 +44,9 @@ function hasFleet(): bool
 function hasRental(): bool
 {
    return settings('enable_rental') == 'yes';
+}
+
+function bladeCompile($content): string
+{
+    return Blade::compileString($content);
 }

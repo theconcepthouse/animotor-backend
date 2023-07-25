@@ -3,7 +3,8 @@
 @section('content')
 
     @foreach($contents as $item)
-        {!! $item->content !!}
+
+        {!! bladeCompile($item->content) !!}
     @endforeach
 
 @endsection

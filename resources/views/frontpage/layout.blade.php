@@ -43,7 +43,12 @@
     </style>
 
     @php
-        $menus = json_decode(settings('frontpage_menu','default'), true);
+    $menu_items = settings('frontpage_menu','default');
+    if(is_string($menu_items)){
+               $menus = json_decode(settings('frontpage_menu','default'), true);
+    }else{
+        $menus = [];
+    }
     @endphp
 
 </head>

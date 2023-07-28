@@ -3,12 +3,12 @@
 
 @section('content')
 
-    <section class="banner-section banner-slider bg-black">
+    <section class="banner-section banner-slider">
 
         <div class="container">
 
 
-            <div class="home-banner">
+            <div class="home-banner-">
 
                 @include('frontpage.partials.inline_menu')
 
@@ -16,9 +16,17 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6" data-aos="fade-down">
 
-                            <h2><span>Car hire for any kind <br> of trip</span></h2>
+                            <h2><span>Welcome to Surd Taxi <br>
+
+                                </span>
+                                The Ultimate Ride-Hailing Solution
+                            </h2>
                             <br/>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                            <p>
+                                Are you ready to revolutionize your taxi business? Look no further!
+                                <br/>Surd Taxi is the cutting-edge ride-hailing platform that empowers taxi
+                                service providers to take their business to new heights. <br/>
+                            </p>
 
                         </div>
                         <div class="col-lg-6" data-aos="fade-down">
@@ -35,11 +43,11 @@
     <div class="section-search">
         <div class="container">
             <div class="search-box-banner">
-                <p class="title"><strong>Book a car</strong></p>
+                <p class="title"><strong>Book a ride</strong></p>
 
-                <form action="/list" class="mt-4">
+                <form action="#" class="mt-4">
                     <ul class="align-items-center">
-                        <li class="column-group-main-2 mb-3">
+                        <li class="column-group-main mb-3-">
                             <div class="form-group">
                                 <label>Pickup Location</label>
                                 <div class="group-img">
@@ -48,7 +56,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="column-group-main-2 mb-3">
+                        <li class="column-group-main mb-3-">
                             <div class="form-group">
                                 <label>Drop-off Location</label>
                                 <div class="group-img">
@@ -59,44 +67,6 @@
                         </li>
 
 
-                            <li class="column-group-main ">
-                                <div class="form-group">
-                                    <label>Pickup Date</label>
-                                </div>
-                                <div class="form-group-wrapp">
-                                    <div class="form-group date-widget">
-                                        <div class="group-img">
-                                            <input type="text" class="form-control datetimepicker" placeholder="04/11/2023">
-                                            <span><i class="feather-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group time-widge">
-                                        <div class="group-img">
-                                            <input type="text" class="form-control timepicker" placeholder="11:00 AM">
-                                            <span><i class="feather-clock"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="column-group-main">
-                                <div class="form-group">
-                                    <label>Return Date</label>
-                                </div>
-                                <div class="form-group-wrapp">
-                                    <div class="form-group date-widge">
-                                        <div class="group-img">
-                                            <input type="text" class="form-control datetimepicker" placeholder="04/11/2023">
-                                            <span><i class="feather-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group time-widge">
-                                        <div class="group-img">
-                                            <input type="text" class="form-control timepicker" placeholder="11:00 AM">
-                                            <span><i class="feather-clock"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
                             <li class="column-group-last">
                                 <div class="form-group">
                                     <div class="search-btn">
@@ -122,11 +92,18 @@
                 <div class="inner-section">
                     <div class="row">
                         <div class="col-md-8">
-                            <h6>Sign in to save 10% with Genius</h6>
-                            <p class="mt-3">You're eligible for discounts on select car rentals.</p>
+                            <h6>Join Surd Taxi Today!</h6>
+                            <p class="mt-3">
+                                Discover the future of taxi services with Surd Taxi. <br/>
+                                Our feature-rich platform will take your business to the next level. <br/>
+                                Stay ahead of the competition, expand your revenue streams,
+                                and offer your customers an unforgettable ride-hailing experience.
+
+
+                            </p>
                         </div>
                         <div class="col-md-4 d-flex justify-content-end align-items-center">
-                            <a class="btn btn-default">Sign up now</a>
+                            <a class="btn btn-default">Get Started</a>
                         </div>
                     </div>
 
@@ -188,7 +165,7 @@
                 <p class="description ">Satisfied customers on Animotors</p>
             </div>
 
-            <div class="owl-carousel about-testimonials testimonial-group mb-0 owl-theme">
+            <div class="owl-carousel testimonials-slider testimonial-group mb-0 owl-theme">
 
                 <div class="testimonial-item- d-flex">
                     <div class="card- flex-fill">
@@ -326,9 +303,6 @@
             </div>
         </div>
 
-
-        @include('frontpage.partials.hire_destinations')
-
     </section>
 
 
@@ -342,7 +316,7 @@
         <div class="container">
 
             <div class="section-heading" data-aos="fade-down">
-                <h4>Why Choose Us</h4>
+                <h4>Why Surd Taxi</h4>
                 <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
             </div>
 
@@ -351,12 +325,15 @@
                     <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
                         <div class="card flex-fill">
                             <div class="card-body">
-                                <div class="choose-img choose-black">
-                                    <img src="/assets/img/icons/bx-user-check.svg" alt>
-                                </div>
+
                                 <div class="choose-content">
-                                    <h4>Easy & Fast Booking</h4>
-                                    <p>Completely carinate e business testing process whereas fully researched customer service. Globally extensive content with quality.</p>
+                                    <h4>Advanced Website Builder: </h4>
+                                    <p>
+                                        With Surd Taxi, you have the freedom to create a fully customizable and user-friendly
+                                        website for your taxi business. No coding skills required! Our intuitive website builder
+                                        lets you showcase your services,
+                                        display real-time ride availability, and attract more customers with ease.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -364,12 +341,13 @@
                     <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
                         <div class="card flex-fill">
                             <div class="card-body">
-                                <div class="choose-img choose-secondary">
-                                    <img src="/assets/img/icons/bx-user-check.svg" alt>
-                                </div>
+
                                 <div class="choose-content">
-                                    <h4>Many Pickup Location</h4>
-                                    <p>Enthusiastically magnetic initiatives with cross-platform sources. Dynamically target testing procedures through effective.</p>
+                                    <h4>Efficient Fleet Management</h4>
+                                    <p> Take full control of your taxi fleet with our comprehensive fleet management module.
+                                        Monitor and track your vehicles in real-time, optimize routes,
+                                        and manage driver assignments effortlessly.
+                                        Keep your fleet running at peak performance and maximize your profitability.</p>
                                 </div>
                             </div>
                         </div>
@@ -377,16 +355,45 @@
                     <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
                         <div class="card flex-fill">
                             <div class="card-body">
-                                <div class="choose-img choose-black">
-                                    <img src="/assets/img/icons/bx-user-check.svg" alt>
-                                </div>
+
                                 <div class="choose-content">
-                                    <h4>Customer Satisfaction</h4>
-                                    <p>Globally user centric method interactive. Seamlessly revolutionize unique portals corporate collaboration.</p>
+                                    <h4>Real-time Tracking</h4>
+                                    <p> Safety and transparency are our priorities. Surd Taxi enables real-time tracking of rides,
+                                        ensuring your customers feel secure throughout their journey.
+                                        Live tracking builds trust and enhances the overall customer experience.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
+                        <div class="card flex-fill">
+                            <div class="card-body">
+
+                                <div class="choose-content">
+                                    <h4>Driver and Customer Reviews</h4>
+                                    <p>
+                                        Feedback matters! Surd Taxi encourages honest reviews from both drivers and passengers.
+                                        This helps maintain service quality, build trust, and further improve your business's reputation.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
+                        <div class="card flex-fill">
+                            <div class="card-body">
+
+                                <div class="choose-content">
+                                    <h4>24/7 Customer Support </h4>
+                                    <p>
+                                        We believe in providing exceptional customer service. Our dedicated support team is available 24/7 to address any queries or issues promptly. Your satisfaction is our priority.
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

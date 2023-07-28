@@ -272,6 +272,33 @@ Version      : 1.0
 		})
 	}
 
+	if($('.testimonials-slider').length > 0) {
+		$('.testimonials-slider').owlCarousel({
+			loop:true,
+			margin:24,
+			nav:true,
+			dots: true,
+			autoplay:true,
+			smartSpeed: 2000,
+			navText : ["<i class='fa-solid fa-angle-left'></i>","<i class='fa-solid fa-angle-right'></i>"],
+			responsive:{
+				0:{
+					items:1
+				},
+
+				550:{
+					items:1
+				},
+				700:{
+					items:2
+				},
+				1000:{
+					items:3
+				}
+			}
+		})
+	}
+
 	// Slick Testimonial Two
 
 	if ($('.detail-bigimg').length > 0) {

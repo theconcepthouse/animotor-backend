@@ -16,7 +16,27 @@ class SettingsController extends Controller
         return view('admin.settings.cms.privacy');
     }
 
-    public function pages(){
+    public function pages(Request $request){
+        $title = "All pages";
+        $data = Page::all();
+        if($request->has('path')){
+            $request->validate(
+                [
+                    'title' => 'required|unique:pages,title',
+                    'path' => 'required|unique:pages,path',
+                ]
+            );
+            Page::create([
+                'path' => $request->input('path'),
+                'title' => $request->input('title'),
+            ]);
+
+            return redirect()->route('admin.setting.pages')->with('success','Page successfully saved');
+        }
+        return view('admin.settings.cms.pages', compact('title','data'));
+    }
+
+    public function pageStore(){
         $title = "All pages";
         $data = Page::all();
         return view('admin.settings.cms.pages', compact('title','data'));
@@ -63,6 +83,75 @@ class SettingsController extends Controller
         $data = ThemeComponent::latest()->get();
         return view('admin.settings.cms.components', compact('title','data'));
     }
+
+    public function saveComponent(Request $request){
+        $request->validate(
+            [
+                'title' => 'required|unique:theme_components,title',
+                'content' => 'required'
+            ]
+        );
+
+        ThemeComponent::create([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+        ]);
+
+
+        return redirect()->back()->with('success', 'Component successfully added');
+
+    }
+
+    public function themeSetting(Request $request){
+        $title = "Theme setting";
+        $page = Page::first();
+        $data = $page->contents;
+        $active = $request->get('active') ?? 'nav';
+        $countries = [];
+        $active_methods = [];
+        $components = ThemeComponent::all();
+        return view('admin.settings.cms.theme_settings', compact('title','active_methods','countries','active','components','page','data'));
+    }
+
+    public function cssEditor(Request $request){
+        $title = "CSS Editor";
+        $customCssFilePath = public_path('assets/css/custom_style.css');
+        $customCssContent = file_exists($customCssFilePath) ? file_get_contents($customCssFilePath) : '';
+        return view('admin.settings.cms.css_editor', compact('title','customCssContent'));
+    }
+
+    public function headFoot(Request $request){
+        if($request->has('head_section')){
+            settings()->set('head_section', $request->input('head_section'));
+            settings()->set('foot_section', $request->input('foot_section'));
+        }
+        return view('admin.settings.cms.head_foot');
+    }
+    public function menuSetup(Request $request){
+        if($request->has('frontpage_menu')){
+            $validatedData = $request->validate([
+                'frontpage_menu' => 'required|json',
+            ]);
+
+            settings()->set('frontpage_menu', $validatedData['frontpage_menu']);
+
+            return redirect()->back()->with('success', 'Menu successfully updated');
+
+        }
+        return view('admin.settings.cms.menu_setup');
+    }
+
+    public function cssEditorSave(Request $request){
+        $customCssFilePath = public_path('assets/css/custom_style.css');
+        $customCssContent = $request->input('custom_css');
+
+        // Save the updated CSS to the custom.css file
+        file_put_contents($customCssFilePath, $customCssContent);
+
+        return redirect()->back()->with('success', 'Custom CSS updated successfully.');
+    }
+
+
     public function editComponents($id){
         $component = ThemeComponent::findOrFail($id);
         $content = $component->content;
@@ -82,6 +171,12 @@ class SettingsController extends Controller
         $component = ThemeComponent::findOrFail($id);
         $component->delete();
         return redirect()->back()->with('success', 'Component successfully deleted');
+    }
+
+    public function destroyPage($id){
+        $page = Page::findOrFail($id);
+        $page->delete();
+        return redirect()->back()->with('success', 'Page successfully deleted');
     }
 
     public function saveContent(Request $request){

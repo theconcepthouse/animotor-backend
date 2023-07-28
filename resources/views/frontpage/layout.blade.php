@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>{{ settings('site_name') }} | Template</title>
+    <title>{{ settings('site_name') }} | @yield('page_title')</title>
 
     <link rel="shortcut icon" href="/assets/img/favicon.png">
 
@@ -23,16 +23,36 @@
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
 
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/custom_style.css">
 
     @yield('style')
+
+    {!! settings('head_section') !!}
+
+    <style>
+        :root {
+            --main-color: {{ settings('primary_color','#194685') }};
+        }
+
+        /* Example usage */
+        .my-element {
+            color: var(--main-color) !important;
+        }
+
+
+    </style>
+
+    @php
+        $menus = json_decode(settings('frontpage_menu',[]), true);
+    @endphp
+
 </head>
 <body>
 <div class="main-wrapper">
 
     @if(!request()->has('app'))
-        @section('hid')
-    <header class="header">
+        @if(settings('nav_style') == 'nav_fixed')
+            <header class="header">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg header-nav">
                 <div class="navbar-header">
@@ -43,31 +63,28 @@
 <span></span>
 </span>
                     </a>
-                    <a href="index-2.html" class="navbar-brand logo">
+                    <a href="/" class="navbar-brand logo">
                         <img style="height: 50px" src="{{ settings('light_logo',asset('default/logo.png')) }}" class="img-fluid" alt="Logo">
                     </a>
-                    <a href="index-2.html" class="navbar-brand logo-small">
+                    <a href="/" class="navbar-brand logo-small">
                         <img style="height: 50px" src="{{ settings('light_logo',asset('default/logo.png')) }}" class="img-fluid" alt="Logo">
                     </a>
                 </div>
                 <div class="main-menu-wrapper">
                     <div class="menu-header">
-                        <a href="index-2.html" class="menu-logo">
+                        <a href="/" class="menu-logo">
                             <img style="height: 50px" src="{{ settings('light_logo',asset('default/logo.png')) }}" class="img-fluid" alt="Logo">
                         </a>
                         <a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
                     </div>
                     <ul class="main-nav">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/flight">Flight Booking</a></li>
-                        <li><a href="#">About</a></li>
-
-                        <li class="login-link">
-                            <a href="#">Sign Up</a>
-                        </li>
-                        <li class="login-link">
-                            <a href="#">Sign In</a>
-                        </li>
+                        @foreach($menus as $menu)
+                            @if(isset($menu['title']) && isset($menu['url']))
+                                @if($menu['url'] != '/login')
+                                    <li><a href="{{ $menu['title'] }}">{{ $menu['title'] }}</a></li>
+                                @endif
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
                 <ul class="nav header-navbar-rht">
@@ -81,7 +98,7 @@
             </nav>
         </div>
     </header>
-        @endsection
+        @endif
     @endif
 
     @yield('content')
@@ -252,5 +269,8 @@
 
 
 <script src="/assets/js/script.js"></script>
+
+{!! settings('foot_section') !!}
+
 </body>
 </html>

@@ -118,6 +118,10 @@ class AdminController extends Controller
            return redirect()->back()->with('success','Settings successfully updated');
        }
 
+       if($request->get('type') == 'theme'){
+           return redirect()->route('admin.settings.theme',['active' => $request->get('active_setting') ?? 'nav'])->with('success','Settings successfully updated');
+       }
+
         return redirect()->route('admin.settings',['active' => $request->get('active_setting') ?? 'general'])->with('success','Settings successfully updated');
 
    }

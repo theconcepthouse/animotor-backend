@@ -48,3 +48,15 @@ function hasRental(): bool
    return settings('enable_rental') == 'yes';
 }
 
+if (!function_exists('dynamic_include')) {
+    function dynamic_include($view)
+    {
+        $viewPath = resource_path('views/' . $view . '.blade.php');
+
+        if (file_exists($viewPath)) {
+            return view($view);
+        }
+
+        return "<p>NOT FOUND</p>";
+    }
+}

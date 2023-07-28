@@ -8,8 +8,12 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Page builder</h3>
+                                <h3 class="nk-block-title page-title">page components  builder</h3>
                             </div><!-- .nk-block-head-content -->
+
+                            <div class="nk-block-head-content">
+                                <a href="{{ route('admin.setting.page.edit', $page->id) }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-building"></em><span>Page Builder</span></a>
+                           </div>
                         </div><!-- .nk-block-between -->
                     </div><!-- .nk-block-head -->
 
@@ -49,10 +53,8 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <div class="form-group mt-3">
+                                            <div class="form-group mt-">
                                                 <button type="submit" class="btn btn-lg btn-primary">Save </button>
-
-                                                <a class="btn btn-success btn-lg" href="{{ route('admin.setting.page.edit', $page->id) }}">Page builder</a>
                                             </div>
                                         </div>
 
@@ -70,6 +72,8 @@
 
 
                                 @foreach($data as $item)
+                                    @if($item->title)
+                                    <div class="col-md-12">
                                 <div id="faqs" class="accordion">
                                     <div class="accordion-item">
                                         <a href="#" class="accordion-head" data-bs-toggle="collapse" data-bs-target="#faq-q{{ $loop->index }}">
@@ -86,6 +90,8 @@
 
                                     <!-- .accordion-item -->
                                 </div><!-- .accordion -->
+                                    </div>
+                                    @endif
                                 @endforeach
 
                             </div>

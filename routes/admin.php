@@ -88,7 +88,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
 
     Route::group(['prefix' => 'settings'], function() {
-        Route::get('pages', [SettingsController::class, 'pages'])->name('setting.pages');
+        Route::any('pages', [SettingsController::class, 'pages'])->name('setting.pages');
         Route::get('page/builder/{id}', [SettingsController::class, 'pageBuilder'])->name('setting.page.builder');
         Route::post('page/content/store', [SettingsController::class, 'pageContentStore'])->name('setting.page.content.store');
         Route::get('components', [SettingsController::class, 'components'])->name('setting.components');
@@ -97,12 +97,20 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
         Route::get('component/duplicate/{id}', [SettingsController::class, 'duplicateComponent'])->name('setting.component.duplicate');
         Route::get('component/delete/{id}', [SettingsController::class, 'deleteComponent'])->name('setting.component.delete');
         Route::get('toggle/theme', [SettingsController::class, 'toggleTheme'])->name('settings.toggle_theme');
+        Route::get('theme', [SettingsController::class, 'themeSetting'])->name('settings.theme');
+        Route::get('css', [SettingsController::class, 'cssEditor'])->name('settings.css');
+        Route::any('head/foot', [SettingsController::class, 'headFoot'])->name('settings.head_foot');
+        Route::any('menu/setup', [SettingsController::class, 'menuSetup'])->name('settings.menu_setup');
+        Route::post('css/store', [SettingsController::class, 'cssEditorSave'])->name('settings.css.store');
 
         Route::post('editor/save', [SettingsController::class, 'saveContent'])->name('setting.editor.store');
+        Route::post('component/store', [SettingsController::class, 'saveComponent'])->name('setting.component.store');
 
         Route::post('permission/store', [RolesController::class, 'storePermission'])->name('permission.store');
         Route::post('permission/update/{id}', [RolesController::class, 'updatePermission'])->name('permission.update');
 
+
+        Route::delete('/pages/{id}', [SettingsController::class, 'destroyPage'])->name('setting.page.destroy');
 
     });
 

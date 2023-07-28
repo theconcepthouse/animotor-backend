@@ -11,9 +11,9 @@ class FrontPageController extends Controller
         $page = Page::where('path','/')->firstOrFail();
         $contents = $page->contents;
         if(strlen($contents) < 300){
-            return view('frontpage.builder', compact('contents'));
+            return view('frontpage.builder', compact('contents','page'));
         }
-        return view('frontpage.page', compact('contents'));
+        return view('frontpage.page', compact('contents','page'));
     }
 
     public function builder(){
@@ -32,6 +32,6 @@ class FrontPageController extends Controller
     public function page($slug){
         $page = Page::where('path',$slug)->firstOrFail();
         $contents = $page->contents;
-        return view('frontpage.page', compact('contents'));
+        return view('frontpage.page', compact('contents','page'));
     }
 }

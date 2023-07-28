@@ -5,7 +5,8 @@
 @endsection
 @section('content')
 
-    <section class="banner-section banner-slider- bg-black-">
+    @if(settings('nav_style') == 'nav_inline')
+    <section class="banner-section">
 
         <div class="container">
             <div class="home-banner">
@@ -13,7 +14,7 @@
             </div>
         </div>
     </section>
-
+    @endif
 
 
     <div class="section-search mt-5">

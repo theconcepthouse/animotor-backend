@@ -278,16 +278,21 @@
     ];
 
     $menuArray[] = [
-        'text' => 'CMS Setup',
+        'text' => 'CMS Section',
         'type' => 'heading',
         'route' => 'cms-setup',
     ];
 
     $menuArray[] = [
-        'text' => 'Website pages',
+        'text' => 'CMS setup',
         'icon' => 'ni ni-layers-fill',
         'route' => 'website-pages',
         'submenu' => [
+            [
+                'url' => route('admin.settings.theme'),
+                'text' => 'Theme setting',
+                'route' => 'settings-components',
+            ],
             [
                 'url' => route('admin.setting.components'),
                 'text' => 'Theme components',
@@ -296,7 +301,22 @@
             [
                 'url' => route('admin.setting.pages'),
                 'route' => 'settings-pages',
-                'text' => 'CMS Pages',
+                'text' => 'Website Pages',
+            ],
+            [
+                'url' => route('admin.settings.css'),
+                'route' => 'settings-pages',
+                'text' => 'Custom CSS',
+            ],
+            [
+                'url' => route('admin.settings.head_foot'),
+                'route' => 'settings-pages',
+                'text' => 'Inject head & foot',
+            ],
+            [
+                'url' => route('admin.settings.menu_setup'),
+                'route' => 'settings-pages',
+                'text' => 'Menu setup',
             ],
             [
                 'url' => '#',
@@ -337,26 +357,6 @@
             [
                 'url' => '#',
                 'text' => 'Color scheme',
-            ],
-        ],
-    ];
-
-    $menuArray[] = [
-        'text' => 'Legal',
-        'icon' => 'ni ni-coins',
-        'route' => 'legal',
-        'submenu' => [
-            [
-                'url' => '#',
-                'text' => 'DMV Page',
-            ],
-            [
-                'url' => '#',
-                'text' => 'Compliance Page',
-            ],
-            [
-                'url' => '#',
-                'text' => 'Terms Page',
             ],
         ],
     ];

@@ -61,13 +61,13 @@
                             <a href="register.html">Sign Up</a>
                         </li>
                         <li class="login-link">
-                            <a href="login.html">Add Component</a>
+                            <a data-bs-toggle="modal" href="#addNew">Add Component</a>
                         </li>
                     </ul>
                 </div>
                 <ul class="nav header-navbar-rht">
                     <li class="nav-item">
-                        <a class="nav-link header-login" href="login.html"><span><i class="fa-regular fa-plus"></i></span>Add Component</a>
+                        <a class="nav-link header-login" data-bs-toggle="modal" href="#addNew"><span><i class="fa-regular fa-plus"></i></span>Add Component</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link header-reg" href="{{ route('admin.dashboard') }}"><span><i class="fa-solid fa-close"></i></span>Exit builder</a>
@@ -80,6 +80,47 @@
 
 
     @yield('content')
+
+
+    <div class="modal fade" role="dialog" id="addNew">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                <div class="modal-body modal-body-md" style="background-color: #e2e4e9;">
+                    <h5 class="title">Add component</h5>
+
+                    <form action="{{ route('admin.setting.component.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+
+                        <div class="row gy-4 pt-4">
+
+                           @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-12',  'fieldName' => 'title','title' => 'Component Title'])
+                           @include('admin.partials.form.textarea', ['attributes' => 'required', 'colSize' => 'col-md-12',  'fieldName' => 'content','title' => 'Component Content'])
+
+
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-lg btn-primary">Save </button>
+                        </div>
+                    </form>
+
+
+                </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+        </div><!-- .modal-dialog -->
+    </div><!-- .modal -->
+
 
 </div>
 

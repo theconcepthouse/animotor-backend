@@ -42,6 +42,7 @@
                 <a class="mt-2" href="{{ route('admin.countries.index') }}">{{ count($countries) }} active countries (enable supported countries only)</a>
 
 
+                @include('admin.partials.image-upload',['field' => 'front_logo', 'image' => settings('front_logo'), 'id' => 'front_logo','title' => 'Frontend logo logo'])
                 @include('admin.partials.image-upload',['field' => 'light_logo', 'image' => settings('light_logo'), 'id' => 'light_logo','title' => 'Light mode logo'])
                 @include('admin.partials.image-upload',['field' => 'dark_logo',  'image' => settings('dark_logo'), 'id' => 'dark_logo','title' => 'Dark mode logo'])
                 @include('admin.partials.image-upload',['field' => 'favicon',  'image' => settings('favicon'), 'id' => 'favicon','title' => 'Favicon'])

@@ -1,5 +1,5 @@
 @php
-    $menus = json_decode(settings('frontpage_menu',''), true);
+    $menus = json_decode(settings('frontpage_menu','default'), true);
 @endphp
 
 <nav class="navbar navbar-expand-lg- header-nav">

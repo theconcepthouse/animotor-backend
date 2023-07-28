@@ -6,7 +6,7 @@
             <p class="description ">Satisfied customers on Animotors</p>
         </div>
 
-        <div class="owl-carousel about-testimonials testimonial-group mb-0 owl-theme">
+        <div class="owl-carousel testimonials-slider testimonial-group mb-0 owl-theme">
 
             <div class="testimonial-item- d-flex">
                 <div class="card- flex-fill">
@@ -93,5 +93,8 @@
 
         </div>
     </div>
-</section>
 
+
+
+
+</section>

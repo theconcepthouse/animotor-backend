@@ -19,7 +19,7 @@ class DistanceService
         }
 
         // If the result is not in cache, make the API call
-        $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' . $origin_lat . ',' . $origin_lng . '&destinations=' . $des_lat . ',' . $des_lng . '&key=' . env('API_KEY') . '&mode=driving');
+        $response = Http::get('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' . $origin_lat . ',' . $origin_lng . '&destinations=' . $des_lat . ',' . $des_lng . '&key=' . env('MAP_API_KEY') . '&mode=driving');
 
         $result = $response['rows'][0]['elements'][0];
         // Store the result in cache for 24 hours

@@ -97,6 +97,8 @@ class AdminController extends Controller
 
        }elseif($request->get('active_setting') == 'smtp'){
             $this->storeSmtp($request);
+        }elseif($request->get('active_setting') == 'api'){
+            $this->storeSmtp($request);
         }else{
             if($request->has('country_id')){
                 if($request->get('country_id') != settings('country_id')){
@@ -146,6 +148,15 @@ class AdminController extends Controller
        $this->setEnvironmentValue('MAIL_FROM_ADDRESS', $request['MAIL_FROM_ADDRESS']);
        $this->setEnvironmentValue('MAIL_FROM_NAME', $request['MAIL_FROM_NAME']);
 
+
+   }
+
+   private function apiKey($request){
+
+//       $this->setEnvironmentValue('APP_DEBUG', $request['APP_DEBUG']);
+       $this->setEnvironmentValue('FIREBASE_PROJECT_ID', $request['FIREBASE_PROJECT_ID'] ?? '');
+       $this->setEnvironmentValue('FIREBASE_API_KEY', $request['FIREBASE_API_KEY'] ?? '');
+       $this->setEnvironmentValue('MAP_API_KEY', $request['MAP_API_KEY']);
 
    }
 

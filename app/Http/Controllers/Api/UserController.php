@@ -104,7 +104,7 @@ class UserController extends Controller
         // Retrieve the latitude and longitude range for the given city
         $response = Http::get("https://maps.googleapis.com/maps/api/geocode/json", [
             'address' => $city,
-            'key' => env('API_KEY'),
+            'key' => env('MAP_API_KEY'),
         ]);
 
         $data = $response->json();

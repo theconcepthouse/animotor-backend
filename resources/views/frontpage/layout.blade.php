@@ -43,7 +43,7 @@
     </style>
 
     @php
-        $menus = json_decode(settings('frontpage_menu',[]), true);
+        $menus = json_decode(settings('frontpage_menu',''), true);
     @endphp
 
 </head>

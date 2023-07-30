@@ -104,6 +104,8 @@
         </div>
     </header>
         @endif
+
+
     @endif
 
     @yield('content')
@@ -120,7 +122,7 @@
 
                                 <div class="footer-widget footer-menu">
                                     <ul>
-                                        <li><a href="#">Countries</a></li>
+                                        <li><a href="#">Countries </a></li>
                                         <li><a href="#">Regions</a></li>
                                         <li><a href="#">Cities</a></li>
                                         <li><a href="#">Districts</a></li>

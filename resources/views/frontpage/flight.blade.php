@@ -2,8 +2,14 @@
 
 @section('content')
 
+    @if(!request()->has('app'))
+        @include('frontpage.partials.layout.header')
+    @endif
+
+    <section class="booking__landing__one">
 
     <style>
+
     @keyframes spinner {
         0% {
             transform: translate3d(-50%, -50%, 0) rotate(0deg);
@@ -17,13 +23,15 @@
         top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); will-change: transform;}
     iframe {height: 100vh !important; width: 100%;}
 </style>
-<div id='logs' ></div>
+<div id='logs' style="" ></div>
 <iframe id='travelstartIframe-a45a3e91-5ca6-4579-bffa-71c01e600efc'
         frameBorder='0'
         scrolling='auto'
         style='margin: 0px; padding: 0px; border: 0px; height: 0px; background-color: #fafafa;'>
 </iframe>
 <div class='spin'></div>
+
+    </section>
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' type='text/javascript'></script>
 <script type='text/javascript'>
     // these variables can be configured

@@ -18,6 +18,13 @@
 
     @yield('style')
 
+    <style>
+        .footer__logo img {
+            /*height: 40px;*/
+            width: 100%;
+        }
+    </style>
+
     {!! settings('head_section') !!}
 
 </head>

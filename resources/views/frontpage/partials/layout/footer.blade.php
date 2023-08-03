@@ -8,7 +8,7 @@
                     <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="1s">
                         <div class="footer__widget">
                             <div class="widget__head mb__20">
-                                <a href="index.html" class="footer__logo">
+                                <a href="#" class="footer__logo">
                                     <img src="assets/img/logo/logo.png" alt="logo">
                                 </a>
                             </div>
@@ -81,14 +81,7 @@
                            (406) 555-0120
                           </span>
                                 </a>
-                                <a href="javascript:void(0)" class="link fz-18 pratext">
-                           <span class="d-block">
-                              <span class="__cf_email__" data-cfemail="99fdfcf8f7f7f8b7faecebedf0ead9fce1f8f4e9f5fcb7faf6f4">[email&#160;protected]</span>
-                           </span>
-                                    <span>
-                              <span class="__cf_email__" data-cfemail="b4d0d1d6c6d59adcdbd8c0f4d1ccd5d9c4d8d19ad7dbd9">[email&#160;protected]</span>
-                           </span>
-                                </a>
+
                                 <a href="javascript:void(0)" class="link fz-18 pratext">
                                     285 Great North Road, Grey Lynn, Auckland 1021
                                 </a>
@@ -123,21 +116,21 @@
             </div>
             <div class="footer__bottom d-flex">
                 <p class="fz-18 pratext">
-                    Copyright &copy;2023 <a href="index.html" class="base">Rechargio.</a> All Rights Reserved
+                    Copyright &copy;2023 <a href="#" class="base">{{ settings('site_name') }}.</a> All Rights Reserved
                 </p>
                 <ul class="footer__bottom__link">
                     <li>
-                        <a href="help-support.html">
+                        <a href="#">
                             Support
                         </a>
                     </li>
                     <li>
-                        <a href="help-support.html">
+                        <a href="#">
                             Terms of Use
                         </a>
                     </li>
                     <li>
-                        <a href="help.html">
+                        <a href="#">
                             Privacy Policy
                         </a>
                     </li>

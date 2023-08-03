@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\PageContent;
 use App\Models\ThemeComponent;
 use Database\Seeders\ThemeComponentSeeder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
@@ -244,4 +245,30 @@ class SettingsController extends Controller
         return $page;
 //        return redirect()->back()->with('success', 'Page updated successfully.');
     }
+
+
+    public function toggle($modelId): JsonResponse
+    {
+
+        $modelClass = 'App\\Models\\' . request('model');
+
+        if (!class_exists($modelClass)) {
+            return response()->json(['success' => false]);
+        }
+
+        $model = $modelClass::find($modelId);
+
+        if ($model) {
+            $field = request('field');
+            $value = request('value');
+            // Update the model field value here
+            $model->$field = $value;
+            $model->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
 }

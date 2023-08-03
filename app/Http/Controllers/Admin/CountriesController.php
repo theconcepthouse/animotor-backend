@@ -10,7 +10,7 @@ class CountriesController extends Controller
 {
     public function index()
     {
-        $data = Country::paginate(100);
+        $data = Country::all();
         $title = "Countries listing";
         return view('admin.countries.list', compact('data','title'));
     }

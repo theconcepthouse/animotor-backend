@@ -10,9 +10,9 @@ class FrontPageController extends Controller
     public function home(){
         $page = Page::where('path','/')->firstOrFail();
         $contents = $page->contents;
-        if(strlen($contents) < 300){
-            return view('frontpage.builder', compact('contents','page'));
-        }
+//        if(strlen($contents) < 300){
+//            return view('frontpage.builder', compact('contents','page'));
+//        }
         return view('frontpage.page', compact('contents','page'));
     }
 

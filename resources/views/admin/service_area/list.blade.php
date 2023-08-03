@@ -19,10 +19,10 @@
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" href="{{ route('admin.regions.create') }}"><em class="icon ni ni-plus"></em><span>Add New Area</span></a>
+                                                        <a class="btn btn-primary" wire:navigate href="{{ route('admin.regions.create') }}"><em class="icon ni ni-plus"></em><span>Add New Area</span></a>
                                                     </li>
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
-                                                        <a class="btn btn-icon btn-primary" href="{{ route('admin.regions.create') }}"><em class="icon ni ni-plus"></em></a>
+                                                        <a class="btn btn-icon btn-primary"  wire:navigate  href="{{ route('admin.regions.create') }}"><em class="icon ni ni-plus"></em></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -37,13 +37,17 @@
                                 <div class="card-inner">
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                            <table class="datatable-init nowrap table" data-export-title="Export">
                                                 <thead>
                                                 <tr>
                                                     <th>S/N</th>
                                                     <th>Name</th>
                                                     <th>Currency</th>
                                                     <th>Timezone</th>
+                                                    <th>Country</th>
+                                                    @if(!request()->has('region_id'))
+                                                    <th>Sub regions</th>
+                                                    @endif
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -56,14 +60,19 @@
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->currency_symbol }}</td>
                                                         <td>{{ $item->timezone }}</td>
-
+                                                        <td>{{ $item?->country?->name ?? 'None' }}</td>
+                                                        @if(!request()->has('region_id'))
+                                                        <td><a wire:navigate href="{{ route('admin.regions.index') }}?region_id={{ $item->id }}"> {{ $item->regions->count() }}</a></td>
+                                                        @endif
 
                                                         <td>
-                                                            @if($item->is_active)
-                                                                <span class="badge badge-dim bg-success">Active</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">Inactive</span>
-                                                            @endif
+                                                            @include('admin.components.toggle-switch', ['model' => "Region", 'item' => $item, 'checked' => $item->is_active, 'field' => 'is_active'])
+
+{{--                                                        @if($item->is_active)--}}
+{{--                                                                <span class="badge badge-dim bg-success">Active</span>--}}
+{{--                                                            @else--}}
+{{--                                                                <span class="badge badge-dim bg-danger">Inactive</span>--}}
+{{--                                                            @endif--}}
                                                         </td>
 
                                                         <td>

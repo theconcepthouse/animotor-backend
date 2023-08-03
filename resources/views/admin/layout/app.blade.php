@@ -43,6 +43,34 @@
                 padding-left: 240px;
             }
         }
+
+        .map-warper {
+            height: 450px;
+        }
+        .map-warper #map-canvas {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            position: relative;
+            overflow: hidden;
+        }
+        .nk-menu-icon .icon {
+            font-size: 17px!important;
+        }
+        .nk-menu .active a {
+            color: #fff;
+            /*background-color: #1d2d40;*/
+            /*border-radius: 5px;*/
+            /*margin: 0 5px;*/
+        }
+        .search-in-menu {
+            padding: 10px 18px 14px 22px;
+        }
+        .search-in-menu .form-control {
+            background-color: #3c4d62;
+            border-color: #3c4d62;
+        }
+
     </style>
 
     @yield('style')
@@ -376,8 +404,8 @@
                 </div>
                 <div class="nk-sidebar-brand">
                     <a href="{{ route('admin.dashboard') }}" class="logo-link nk-sidebar-logo">
-                        <img class="logo-light logo-img" src="{{ asset('default/logo.png') }}"  alt="logo">
-                        <img class="logo-dark logo-img" src="/icon/logo_md.png" alt="logo-dark">
+                        <img class="logo-light logo-img" src="{{ asset('admin/assets/images/logo.png') }}"  alt="logo">
+                        <img class="logo-dark logo-img" src="{{ asset('admin/assets/images/logo.png') }}" alt="logo-dark">
                     </a>
                 </div>
             </div><!-- .nk-sidebar-element -->
@@ -388,7 +416,12 @@
 
 
                         <ul class="nk-menu">
+                            <li class="nk-menu-item search-in-menu">
+                                <input class="form-control" placeholder="search in menu" />
+                            </li>
                             @foreach ($menuArray as $menu)
+
+
 
                                 @permission($menu['route'])
 
@@ -464,6 +497,33 @@
                                 <img class="logo-dark logo-img" src="/icon/logo_md.png" srcset="/icon/logo_md.png 2x" alt="logo-dark">
                             </a>
                         </div><!-- .nk-header-brand -->
+
+
+                        <div class="nk-header-news d-none d-xl-block">
+                            <div class="nk-news-list">
+                                <a class="nk-news-item" title="Open frontend" target="_blank" href="{{ url('/') }}">
+                                    <div class="nk-news-icon">
+                                        <em class="icon ni ni-globe"></em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+{{--                        <div class="nk-header-news d-none d-xl-block">--}}
+{{--                            <div class="nk-news-list">--}}
+{{--                                <a class="nk-news-item btn btn-warning" href="#">--}}
+{{--                                    <div class="nk-news-icon">--}}
+{{--                                        <em class="icon ni ni-box"></em>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="nk-news-text-">--}}
+{{--                                        <p>Clear Cache</p>--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+
+
 
                         <div class="nk-header-tools">
                             <ul class="nk-quick-nav">
@@ -682,6 +742,7 @@
 <script src="{{ asset('admin/assets/js/libs/datatable-btns.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/libs/datatable-btns.js?ver=3.1.1') }}"></script>
 
+<script src="./assets/js/example-toastr.js?ver=3.1.1"></script>
 
 {{--<script src="./assets/js/bundle.js?ver=3.1.1"></script>--}}
 {{--<script src="./assets/js/scripts.js?ver=3.1.1"></script>--}}
@@ -689,7 +750,7 @@
 
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 
-{{--<script src="/vendor/toastr/toastr.min.js"></script>--}}
+<script src="/vendor/toastr/toastr.min.js"></script>
 
 @yield('js')
 
@@ -722,6 +783,48 @@
 
 
 @livewireScripts
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+{{--<script>--}}
+
+{{--document.addEventListener('DOMContentLoaded', function () {--}}
+
+<script>
+    document.addEventListener('livewire:navigated', function () {
+        let toggleSwitches = document.querySelectorAll('.custom-control-input');
+        toggleSwitches.forEach(switchElement => {
+            switchElement.addEventListener('change', function () {
+                let isActive = this.checked;
+                let modelType = this.dataset.model;
+                let field = this.dataset.field;
+                let modelId = this.dataset.modelId;
+
+                axios.put(`/admin/api/toggle/${modelId}`, {
+                    field: field,
+                    model : modelType,
+                    value: isActive,
+                })
+                    .then(response => {
+                        // Handle success
+                        if (response.data.success) {
+                            NioApp.Toast('Status updated successfully', 'success',{
+                                position: 'top-right'
+                            });
+                        } else {
+                            // Handle other scenarios if needed
+                        }
+                    })
+                    .catch(error => {
+                        // Handle error if needed
+                    });
+            });
+        });
+    });
+</script>
+
+
 </body>
 
 </html>

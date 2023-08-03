@@ -7,6 +7,7 @@ use App\Models\Car;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -26,7 +27,7 @@ class CarController extends Controller
         return view('admin.cars.list', compact('data','title'));
     }
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->validateData($request);
         if(isOwner()){
@@ -67,7 +68,7 @@ class CarController extends Controller
 
         $car->update($validatedData);
 
-        return redirect()->back()->with('success', 'Car updated successfully.');
+        return redirect()->route('admin.cars.index')->with('success', 'Car updated successfully.');
     }
 
     public function destroy($id)

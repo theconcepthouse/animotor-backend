@@ -22,7 +22,7 @@
                                 <div class="card-inner">
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                            <table class="datatable-init nowrap table" data-export-title="Export">
                                                 <thead>
                                                 <tr>
                                                     <th>Flag</th>
@@ -30,6 +30,7 @@
                                                     <th>Country code</th>
                                                     <th>Currency</th>
                                                     <th>Currency Symbol</th>
+                                                    <th>Active</th>
                                                     <th>Action</th>
                                                 </tr>
 
@@ -47,19 +48,18 @@
                                                         <td>{{ $item->currency_symbol }}</td>
 
                                                         <td>
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a  href="{{ route('admin.countries.edit', $item->id) }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
-{{--                                                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>Toggle status</span></a></li>--}}
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
+                                                            @include('admin.components.toggle-switch', ['model' => "Country", 'item' => $item, 'checked' => $item->is_active, 'field' => 'is_active'])
+{{--                                                            <x-toggle-switch :model="$item" field="is_active" />--}}
+
+
+{{--                                                            <livewire:toggle-item-status :model="$item" field="is_active"--}}
+{{--                                                                                         key="{{ $item->id }}"--}}
+{{--                                                                                          />--}}
+                                                        </td>
+                                                        <td>
+
+                                                            <a class="btn btn-warning btn-sm" href="{{ route('admin.countries.edit', $item->id) }}"><em class="icon ni ni-edit"></em></a>
+
                                                         </td>
 
                                                     </tr>

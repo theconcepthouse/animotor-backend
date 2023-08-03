@@ -70,6 +70,11 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::resource('rental', RentalController::class);
 
     Route::resource('regions', RegionController::class);
+    Route::get('region/all_zones/{id?}', [RegionController::class,'getAllZoneCordinates'])->name('regions.all_coordinates');
+    Route::get('region/region/search', [RegionController::class,'search'])->name('regions.search');
+
+
+
     Route::resource('cancellation_reasons', CancellationReasonController::class);
 
     Route::get('trips/{status}', [TripRequestController::class,'index'])->name('trips.index');
@@ -84,6 +89,8 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
     Route::get('bookings/show/{id}', [BookingController::class,'show'])->name('bookings.show');
     Route::post('bookings/update_status/{id}', [BookingController::class,'updateStatus'])->name('bookings.update_status');
+
+    Route::put('/api/toggle/{modelId}', [SettingsController::class, 'toggle']);
 
 
 
@@ -108,6 +115,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
         Route::post('permission/store', [RolesController::class, 'storePermission'])->name('permission.store');
         Route::post('permission/update/{id}', [RolesController::class, 'updatePermission'])->name('permission.update');
+
 
 
         Route::delete('/pages/{id}', [SettingsController::class, 'destroyPage'])->name('setting.page.destroy');

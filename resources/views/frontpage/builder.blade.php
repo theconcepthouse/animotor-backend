@@ -1,406 +1,602 @@
 @extends('frontpage.layout')
 
-
 @section('content')
 
-    <section class="banner-section banner-slider">
-
+    <!--cars booking Categoris Here -->
+    <div class="hotelbokking__categoris">
         <div class="container">
-
-
-            <div class="home-banner-">
-
-                @include('frontpage.partials.inline_menu')
-
-                <div class="banner_content">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6" data-aos="fade-down">
-
-                            <h2><span>Welcome to Surd Taxi <br>
-
-                                </span>
-                                The Ultimate Ride-Hailing Solution
-                            </h2>
-                            <br/>
-                            <p>
-                                Are you ready to revolutionize your taxi business? Look no further!
-                                <br/>Surd Taxi is the cutting-edge ride-hailing platform that empowers taxi
-                                service providers to take their business to new heights. <br/>
-                            </p>
-
-                        </div>
-                        <div class="col-lg-6" data-aos="fade-down">
-
+            <div class="hotelbooking__categoris__wrap">
+                <div class="dating__body">
+                    <h5 class="hoteltitle">
+                        Book Car Rental Worldwide
+                    </h5>
+                    <div class="dating__body">
+                        <div class="dating__body__box justify-content-center">
+                            <div class="dating__item dating__hidden">
+                                <input type="text" placeholder="Enter City">
+                                <span class="calendaricon">
+                        <i class="material-symbols-outlined">
+                           location_on
+                        </i>
+                     </span>
+                            </div>
+                            <div class="dating__item select__border">
+                                <select name="room">
+                                    <option value="1">
+                                        Time
+                                    </option>
+                                    <option value="2">
+                                        8:30 pm
+                                    </option>
+                                    <option value="3">
+                                        8:10 am
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="dating__item dating__hidden">
+                                <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control" type="text" placeholder="Pick-up Date" readonly>
+                                    <span class="calendaricon">
+                           <i class="material-symbols-outlined">
+                              calendar_month
+                           </i>
+                        </span>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="dating__item dating__hidden">
+                                <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control" type="text" placeholder="Drop-off date" readonly>
+                                    <span class="calendaricon">
+                           <i class="material-symbols-outlined">
+                              calendar_month
+                           </i>
+                        </span>
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </div>
+                            <div class="dating__item">
+                                <button type="submit" class="cmn__btn">
+                        <span>
+                           Search Cars
+                        </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-
+                    <div class="boock__check mt__30">
+                        <input class="form-check-input" type="checkbox" value="" id="bcheckbok">
+                        <label class="form-check-label" for="bcheckbok">
+                            Driver aged 25 - 70
+                        </label>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="section-search">
-        <div class="container">
-            <div class="search-box-banner">
-                <p class="title"><strong>Book a ride</strong></p>
-
-                <form action="#" class="mt-4">
-                    <ul class="align-items-center">
-                        <li class="column-group-main mb-3-">
-                            <div class="form-group">
-                                <label>Pickup Location</label>
-                                <div class="group-img">
-                                    <input type="text" class="form-control" placeholder="Enter City, Airport, or Address">
-                                    <span><i class="feather-map-pin"></i></span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="column-group-main mb-3-">
-                            <div class="form-group">
-                                <label>Drop-off Location</label>
-                                <div class="group-img">
-                                    <input type="text" class="form-control" placeholder="Enter City, Airport, or Address">
-                                    <span><i class="feather-map-pin"></i></span>
-                                </div>
-                            </div>
-                        </li>
-
-
-                            <li class="column-group-last">
-                                <div class="form-group">
-                                    <div class="search-btn">
-                                        <button class="btn search-button" type="submit"> <i class="fa fa-search" aria-hidden="true"></i>Search</button>
-                                    </div>
-                                </div>
-                            </li>
-
-
-                    </ul>
-                </form>
             </div>
         </div>
     </div>
+    <!--cars booking Categoris end -->
 
-
-    <section class="section services">
-        <div class="service-right">
-            <img src="/assets/img/bg/service-right.svg" class="img-fluid" alt="services right">
+    <!--cars facilities here -->
+    <section class="hotel__facilities pb-120">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-6 col-xl-7 col-lg-7 wow fadeInDown">
+                    <div class="section__header section__center pb__60">
+                        <h2>
+                            Car Facilities
+                        </h2>
+                        <p class="max-636">
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="flight__facilites__wrap bus__facilities__wrap">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-5">
+                        <div class="car__facilitiesthumb">
+                            <img src="assets/img/cars/carapp.png" alt="img">
+                        </div>
+                    </div>
+                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-6">
+                        <div class="car__facilities__wrap gy-3 row">
+                            <div class="col-lg-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.2s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/room/seats.png" alt="img">
+                                        <h5>
+                                            <a href="car-grid.html">
+                                                Comfortable setas
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.4s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/room/hotcoffee.png" alt="img">
+                                        <h5>
+                                            <a href="car-grid.html">
+                                                Hot Coffee
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.6s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/room/wifi.png" alt="img">
+                                        <h5>
+                                            <a href="car-grid.html">
+                                                Unlimited WIFI
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.4s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/room/supports.png" alt="img">
+                                        <h5>
+                                            <a href="car-grid.html">
+                                                Unlimited Support
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="container  " data-aos="fade-down">
-            <div class="sign-up-banner">
-                <div class="inner-section">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h6>Join Surd Taxi Today!</h6>
-                            <p class="mt-3">
-                                Discover the future of taxi services with Surd Taxi. <br/>
-                                Our feature-rich platform will take your business to the next level. <br/>
-                                Stay ahead of the competition, expand your revenue streams,
-                                and offer your customers an unforgettable ride-hailing experience.
+        <div class="carshape">
+            <img src="assets/img/cars/carshapeapp.png" alt="img">
+        </div>
+    </section>
+    <!--cars facilities End -->
 
-
+    <!-- cars ticket here -->
+    <section class="cars__ticket bgsection pt-120 pb-120">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xxl-6 col-xl-6 col-lg-6">
+                    <div class="train__ticket__content car__ticket__content">
+                        <div class="section__header mb__30 wow fadeInDown">
+                            <h2>
+                                We provide car rental services worldwide
+                            </h2>
+                            <p>
+                                There are many variations of passages of Lorem Ipsum available, but the  have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use...
                             </p>
                         </div>
-                        <div class="col-md-4 d-flex justify-content-end align-items-center">
-                            <a class="btn btn-default">Get Started</a>
-                        </div>
+                        <ul class="offer__list pb__40 wow fadeInUp">
+                            <li>
+                     <span class="thumb">
+                        <img src="assets/img/bus/b3.png" alt="img">
+                     </span>
+                                <span class="text">
+                        Unlimited Offers
+                     </span>
+                            </li>
+                            <li>
+                     <span class="thumb">
+                        <img src="assets/img/bus/b2.png" alt="img">
+                     </span>
+                                <span class="text">
+                        24X7 Support
+                     </span>
+                            </li>
+                            <li>
+                     <span class="thumb">
+                        <img src="assets/img/bus/b6.png" alt="img">
+                     </span>
+                                <span class="text">
+                        Cheapest Price
+                     </span>
+                            </li>
+                            <li>
+                     <span class="thumb">
+                        <img src="assets/img/bus/b4.png" alt="img">
+                     </span>
+                                <span class="text">
+                        100% Trust pay
+                     </span>
+                            </li>
+                        </ul>
+                        <a href="car-list.html" class="cmn__btn wow fadeInDown">
+                  <span>
+                     Explore deals
+                  </span>
+                        </a>
                     </div>
-
                 </div>
-
-            </div>
-
-        </div>
-
-        <div class="container mt-5">
-            <div class="services-work">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-12" data-aos="fade-down">
-                        <div class="services-group">
-                            <div class="services-icon">
-                                <img class="" src="/assets/img/support.png" alt="Choose Locations">
+                <div class="col-xxl-5 col-xl-5 col-lg-5">
+                    <div class="worldwide__tumb__wrapper">
+                        <div class="thumb__innner">
+                            <div class="tumb wow fadeInDown" data-wow-duration="1.2s">
+                                <img src="assets/img/cars/car1.jpg" alt="img">
                             </div>
-                            <div class="services-content">
-                                <h3>We're here for you</h3>
-                                <p>Providing customer support in <br/> over 30 languages</p>
+                            <div class="tumb wow fadeInUp" data-wow-duration="1.2s">
+                                <img src="assets/img/cars/car2.jpg" alt="img">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12" data-aos="fade-down">
-                        <div class="services-group">
-                            <div class="services-icon">
-                                <img class="" src="/assets/img/date.png" alt="Choose Locations">
+                        <div class="thumb__innner">
+                            <div class="tumb wow fadeInUp" data-wow-duration="1.2s">
+                                <img src="assets/img/cars/carman1.jpg" alt="img">
                             </div>
-                            <div class="services-content">
-                                <h3>Free Cancellation</h3>
-                                <p>On most booking, up to 48 hours  <br/>  before pick-up</p>
+                            <div class="tumb wow fadeInDown" data-wow-duration="1.2s">
+                                <img src="assets/img/cars/carman2.jpg" alt="img">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-4 col-12" data-aos="fade-down">
-                        <div class="services-group">
-                            <div class="services-icon">
-                                <img class="" src="/assets/img/like.png" alt="Choose Locations">
-                            </div>
-                            <div class="services-content">
-                                <h3>5 million+ reviews</h3>
-                                <p>By verified customers</p>
-                            </div>
+                        <div class="car__rount">
+                            <img src="assets/img/cars/carround.png" alt="img">
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
+    <!-- cars ticket end -->
 
-
-    <section class="section  testimonials-section">
-        <div class="container testimonial bg-light-primary p-5">
-
-            <div class="section-heading" data-aos="fade-down">
-                <h4 class="title">What our clients say about us? </h4>
-                <p class="description ">Satisfied customers on Animotors</p>
-            </div>
-
-            <div class="owl-carousel testimonials-slider testimonial-group mb-0 owl-theme">
-
-                <div class="testimonial-item- d-flex">
-                    <div class="card- flex-fill">
-                        <div class="card-body-">
-
-                            <div class="review-box d-flex flex-column">
-                                <div class="text-center testimonial-text justify-content-center" style="max-width: 600px; padding: 20px">
-                                    <img style="height: 50px; width: 50px; display : inline" class="text-center " src="/assets/img/comment.png" />
-
-                                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut </p>
-                                </div>
-
-                                <div class="review-profile mt-3">
-                                <div class="review-img">
-                                    <img src="assets/img/profiles/avatar-02.jpg" class="img-fluid" alt="img">
-                                </div>
-                                </div>
-                                <div class="review-details mt-3 text-center">
-                                    <h6>Rabien Ustoc</h6>
-                                    <p>Califonia</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item- d-flex">
-                    <div class="card- flex-fill">
-                        <div class="card-body-">
-
-                            <div class="review-box d-flex flex-column">
-                                <div class="text-center testimonial-text justify-content-center" style="max-width: 600px; padding: 20px">
-                                    <img style="height: 50px; width: 50px; display : inline" class="text-center " src="/assets/img/comment.png" />
-
-                                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut </p>
-                                </div>
-
-                                <div class="review-profile mt-3">
-                                <div class="review-img">
-                                    <img src="assets/img/profiles/avatar-02.jpg" class="img-fluid" alt="img">
-                                </div>
-                                </div>
-                                <div class="review-details mt-3 text-center">
-                                    <h6>Rabien Ustoc</h6>
-                                    <p>Califonia</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item- d-flex">
-                    <div class="card- flex-fill">
-                        <div class="card-body-">
-
-                            <div class="review-box d-flex flex-column">
-                                <div class="text-center testimonial-text justify-content-center" style="max-width: 600px; padding: 20px">
-                                    <img style="height: 50px; width: 50px; display : inline" class="text-center " src="/assets/img/comment.png" />
-
-                                    <p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut </p>
-                                </div>
-
-                                <div class="review-profile mt-3">
-                                <div class="review-img">
-                                    <img src="assets/img/profiles/avatar-02.jpg" class="img-fluid" alt="img">
-                                </div>
-                                </div>
-                                <div class="review-details mt-3 text-center">
-                                    <h6>Rabien Ustoc</h6>
-                                    <p>Califonia</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-
-
-
-
-    </section>
-
-
-    <section class="section faq-section bg-light-primary-">
+    <!--cars facilities here -->
+    <section class="hotel__facilities  pt-120 pb-120">
         <div class="container">
-
-            <div class="section-heading" data-aos="fade-down">
-                <h4>Frequently Asked Questions </h4>
+            <div class="row justify-content-center">
+                <div class="col-xxl-6 col-xl-7 col-lg-7 wow fadeInDown">
+                    <div class="section__header section__center pb__60">
+                        <h2>
+                            Car Information Service
+                        </h2>
+                        <p class="max-636">
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form
+                        </p>
+                    </div>
+                </div>
             </div>
-
-            <div class="faq-info">
-                <div class="faq-card bg-white" data-aos="fade-down">
-                    <h4 class="faq-title">
-                        <a class="collapsed" data-bs-toggle="collapse" href="#faqOne" aria-expanded="false">Can i book a car for my partner, friend, colleague, etc ?</a>
-                    </h4>
-                    <div id="faqOne" class="card-collapse collapse">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="flight__facilites__wrap bus__facilities__wrap">
+                <div class="row flex-row-reverse justify-content-between align-items-center">
+                    <div class="col-xxl-6 col-xl-6 col-lg-6">
+                        <div class="car__facilities__wrap gy-3 row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.2s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/cars/location.png" alt="img">
+                                        <h5>
+                                            <a href="car-list.html">
+                                                Over 50,000 locations
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.4s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/cars/bookiing.png" alt="img">
+                                        <h5>
+                                            <a href="car-list.html">
+                                                No booking fees
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.6s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/cars/rental.png" alt="img">
+                                        <h5>
+                                            <a href="car-list.html">
+                                                Low rental rates
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="hotel__facilities__item wow fadeInDown" data-wow-duration="1.4s">
+                                    <div class="head__wrap">
+                                        <img src="assets/img/cars/customer.png" alt="img">
+                                        <h5>
+                                            <a href="car-list.html">
+                                                24/7 customer service
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <p>
+                                        There are many variations of passages of Lorem Ipsum available...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-xl-6 col-lg-6">
+                        <div class="car__facilitiesthumb2">
+                            <img src="assets/img/cars/car-ingo.png" alt="img">
+                        </div>
                     </div>
                 </div>
-                <div class="faq-card bg-white" data-aos="fade-down">
-                    <h4 class="faq-title">
-                        <a class="collapsed" data-bs-toggle="collapse" href="#faqTwo" aria-expanded="false">Any tips on choosing the right car?</a>
-                    </h4>
-                    <div id="faqTwo" class="card-collapse collapse">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                </div>
-                <div class="faq-card bg-white" data-aos="fade-down">
-                    <h4 class="faq-title">
-                        <a class="collapsed" data-bs-toggle="collapse" href="#faqThree" aria-expanded="false">Is the rental price all inclusive</a>
-                    </h4>
-                    <div id="faqThree" class="card-collapse collapse">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                </div>
-                <div class="faq-card bg-white" data-aos="fade-down">
-                    <h4 class="faq-title">
-                        <a class="collapsed" data-bs-toggle="collapse" href="#faqFour" aria-expanded="false">Am i old enough to rent a car ?</a>
-                    </h4>
-                    <div id="faqFour" class="card-collapse collapse">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                </div>
-
             </div>
         </div>
-
     </section>
+    <!--cars facilities End -->
 
-
-
-
-
-    <section class="section why-choose popular-explore">
-        <div class="choose-left">
-            <img src="/assets/img/bg/choose-left.png" class="img-fluid" alt="Why Choose Us">
-        </div>
+    <!-- cars client here -->
+    <section class="cars__testimonial__section bgsection pt-120 pb-120">
         <div class="container">
-
-            <div class="section-heading" data-aos="fade-down">
-                <h4>Why Surd Taxi</h4>
-                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
+            <div class="row justify-content-center justify-content-between">
+                <div class="col-xxl-5 col-xl-6 col-lg-6">
+                    <div class="carss__testimonial owl-theme owl-carousel">
+                        <div class="flight__client__item">
+                            <div class="header">
+                                <img src="assets/img/testimonial/commonquote.png" alt="img">
+                                <p>
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                </p>
+                            </div>
+                            <div class="lastcommon">
+                                <img src="assets/img/testimonial/devid.png" alt="img">
+                                <ul class="ratting">
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/wihtstar.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/wihtstar.png" alt="img">
+                                    </li>
+                                </ul>
+                                <h5>
+                                    Devid Warner
+                                </h5>
+                                <span class="degisnation">
+                        Customer
+                     </span>
+                            </div>
+                        </div>
+                        <div class="flight__client__item">
+                            <div class="header">
+                                <img src="assets/img/testimonial/commonquote.png" alt="img">
+                                <p>
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                </p>
+                            </div>
+                            <div class="lastcommon">
+                                <img src="assets/img/testimonial/wilsond.png" alt="img">
+                                <ul class="ratting">
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/wihtstar.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/wihtstar.png" alt="img">
+                                    </li>
+                                </ul>
+                                <h5>
+                                    Jenny Wilson
+                                </h5>
+                                <span class="degisnation">
+                        Marketing Coordinator
+                     </span>
+                            </div>
+                        </div>
+                        <div class="flight__client__item">
+                            <div class="header">
+                                <img src="assets/img/testimonial/commonquote.png" alt="img">
+                                <p>
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                </p>
+                            </div>
+                            <div class="lastcommon">
+                                <img src="assets/img/testimonial/cody.png" alt="img">
+                                <ul class="ratting">
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/star.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/wihtstar.png" alt="img">
+                                    </li>
+                                    <li>
+                                        <img src="assets/img/testimonial/wihtstar.png" alt="img">
+                                    </li>
+                                </ul>
+                                <h5>
+                                    Cody Fisher
+                                </h5>
+                                <span class="degisnation">
+                        Medical Assistant
+                     </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-6 col-xl-6 col-lg-6 wow fadeInDown">
+                    <div class="section__header">
+                        <h2>
+                            What do clients tell us?
+                        </h2>
+                        <p class="pb__40">
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators...
+                        </p>
+                        <a href="car-grid.html" class="cmn__btn">
+                  <span>
+                     Explore deals
+                  </span>
+                        </a>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="car__quote">
+            <img src="assets/img/cars/quote.png" alt="img">
+        </div>
+    </section>
+    <!-- cars client End -->
 
-            <div class="why-choose-group">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
-                        <div class="card flex-fill">
-                            <div class="card-body">
-
-                                <div class="choose-content">
-                                    <h4>Advanced Website Builder: </h4>
-                                    <p>
-                                        With Surd Taxi, you have the freedom to create a fully customizable and user-friendly
-                                        website for your taxi business. No coding skills required! Our intuitive website builder
-                                        lets you showcase your services,
-                                        display real-time ride availability, and attract more customers with ease.
-                                    </p>
+    <!--cars two qustions start-->
+    <section class="question__section pt-120 pb-120">
+        <div class="container">
+            <div class="row justify-content-center wow fadeInDown">
+                <div class="col-lg-6">
+                    <div class="section__header section__center pb__40">
+                        <h2>
+                            If you got questions we have answer
+                        </h2>
+                        <p>
+                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-8">
+                    <div class="qustion__content">
+                        <div class="accordion__wrap">
+                            <div class="accordion" id="accordionExample">
+                                <!--Accordion items-->
+                                <div class="accordion-item wow fadeInUp" data-wow-duration="0.9s">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            What is e recharge?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
+                                <!--Accordion items-->
+                                <div class="accordion-item wow fadeInUp" data-wow-duration="1s">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            What is recharge credit?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Accordion items-->
+                                <div class="accordion-item wow fadeInUp" data-wow-duration="1.4s">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            How reliable is recharge com?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Accordion items-->
+                                <div class="accordion-item wow fadeInUp" data-wow-duration="1.6s">
+                                    <h2 class="accordion-header" id="headingThreem">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreem" aria-expanded="false" aria-controls="collapseThreem">
+                                            What is recharge application?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThreem" class="accordion-collapse collapse" aria-labelledby="headingThreem" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Accordion items-->
+                                <div class="accordion-item wow fadeInUp" data-wow-duration="1.8s">
+                                    <h2 class="accordion-header" id="headingThreemm">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreemm" aria-expanded="false" aria-controls="collapseThreemm">
+                                            How do I recharge a phone number?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThreemm" class="accordion-collapse collapse" aria-labelledby="headingThreemm" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Accordion items-->
+                                <div class="accordion-item wow fadeInUp" data-wow-duration="1.9s">
+                                    <h2 class="accordion-header" id="headingThreemmm">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreemmm" aria-expanded="false" aria-controls="collapseThreemmm">
+                                            What is the primary function of the recharge payment application?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThreemmm" class="accordion-collapse collapse" aria-labelledby="headingThreemmm" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <p>
+                                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Accordion items-->
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
-                        <div class="card flex-fill">
-                            <div class="card-body">
-
-                                <div class="choose-content">
-                                    <h4>Efficient Fleet Management</h4>
-                                    <p> Take full control of your taxi fleet with our comprehensive fleet management module.
-                                        Monitor and track your vehicles in real-time, optimize routes,
-                                        and manage driver assignments effortlessly.
-                                        Keep your fleet running at peak performance and maximize your profitability.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
-                        <div class="card flex-fill">
-                            <div class="card-body">
-
-                                <div class="choose-content">
-                                    <h4>Real-time Tracking</h4>
-                                    <p> Safety and transparency are our priorities. Surd Taxi enables real-time tracking of rides,
-                                        ensuring your customers feel secure throughout their journey.
-                                        Live tracking builds trust and enhances the overall customer experience.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
-                        <div class="card flex-fill">
-                            <div class="card-body">
-
-                                <div class="choose-content">
-                                    <h4>Driver and Customer Reviews</h4>
-                                    <p>
-                                        Feedback matters! Surd Taxi encourages honest reviews from both drivers and passengers.
-                                        This helps maintain service quality, build trust, and further improve your business's reputation.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12 d-flex" data-aos="fade-down">
-                        <div class="card flex-fill">
-                            <div class="card-body">
-
-                                <div class="choose-content">
-                                    <h4>24/7 Customer Support </h4>
-                                    <p>
-                                        We believe in providing exceptional customer service. Our dedicated support team is available 24/7 to address any queries or issues promptly. Your satisfaction is our priority.
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
+    <!--cars two qustions start-->
 
 @endsection

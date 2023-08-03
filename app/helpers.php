@@ -60,3 +60,28 @@ if (!function_exists('dynamic_include')) {
         return "<p>NOT FOUND</p>";
     }
 }
+
+if(!function_exists('format_coordiantes')){
+    function format_coordiantes($coordinates): array
+    {
+        $data = [];
+        foreach ($coordinates as $coord) {
+            $data[] = (object)['lat' => $coord[1], 'lng' => $coord[0]];
+        }
+        return $data;
+    }
+}
+
+if(!function_exists('show_item')){
+    function show_item($item): int
+    {
+
+        if(is_int($item)){
+            return $item;
+        }else{
+            return 0;
+        }
+
+    }
+}
+

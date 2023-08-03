@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\TripRequest;
 use App\Models\User;
 
+use App\Services\StatisticsService;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,6 +21,11 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
+        $statisticsService = new StatisticsService();
+        $tripsStatistics = $statisticsService->getTripsStatistics();
+        $bookingsStatistics = $statisticsService->getBookingsStatistics();
+
+
         $users = User::whereHasRole(['user','customer'])->latest()->paginate(10);
         $riders = User::whereHasRole(['rider'])->latest()->paginate(5);
         $riders_count = User::whereHasRole(['rider'])->count();
@@ -32,7 +38,9 @@ class AdminController extends Controller
         return view('admin.index', compact(
             'users','riders','drivers','rides',
             'riders','ride_counts','riders_count','total_complains',
-            'un_approved_drivers_count','approved_drivers_count'
+            'un_approved_drivers_count','approved_drivers_count',
+            'tripsStatistics',
+            'bookingsStatistics'
         ));
     }
 

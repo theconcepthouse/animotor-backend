@@ -27,9 +27,9 @@ class CarController extends Controller
         return view('admin.cars.list', compact('data','title'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $validatedData = $this->validateData($request);
+       $validatedData = $this->validateData($request);
         if(isOwner()){
             $validatedData['company_id'] = companyId();
         }
@@ -63,9 +63,10 @@ class CarController extends Controller
 
     public function update(Request $request, $id)
     {
+        $photos = removeDuplicatePhotos($request->input('images_array'), $request->input('photos'));
         $car = Car::findOrFail($id);
         $validatedData = $this->validateData($request);
-
+        $validatedData['photos'] = $photos;
         $car->update($validatedData);
 
         return redirect()->route('admin.cars.index')->with('success', 'Car updated successfully.');
@@ -94,6 +95,8 @@ class CarController extends Controller
             'model' => 'required',
             'vehicle_no' => 'required',
             'image' => 'nullable',
+            'photos' => 'nullable',
+            'youtube_link' => 'nullable',
             'gear' => 'nullable',
             'title' => 'required',
         ];

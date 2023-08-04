@@ -54,6 +54,7 @@ class TripRequest extends Model
         'grand_total',
         'service_id',
         'ride_type',
+        'scheduled',
         'driver_earn',
         'commission',
         'cancellation_reason',

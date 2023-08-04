@@ -43,7 +43,7 @@
                     </div>
 
 
-{{--                    @include('admin.components.widgets.alerts')--}}
+                    @include('admin.components.widgets.alerts')
 
                     <div class="nk-block">
 

@@ -42,6 +42,16 @@
             .nk-sidebar + .nk-wrap, .nk-sidebar-overlay + .nk-wrap {
                 padding-left: 240px;
             }
+
+            .features h5{
+                font-weight: 100;
+            }
+            .features .content {
+                background-color: #e5e9f2;
+                /*margin: 0 10px;*/
+                padding: 20px 10px;
+                border-radius: 10px;
+            }
         }
 
         .map-warper {
@@ -69,6 +79,71 @@
         .search-in-menu .form-control {
             background-color: #3c4d62;
             border-color: #3c4d62;
+        }
+
+        /* CSS */
+        .image-picker {
+            border: 1px dashed #ccc;
+            position: relative;
+            padding: 20px;
+            min-height: 150px;
+            cursor: pointer;
+
+        }
+
+        .picker_img{
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.5;
+            min-height: 150px;
+
+        }
+
+        .image-preview {
+            display: none;
+        }
+
+        .dropzone-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            /*color: #aaa;*/
+            color: red;
+            font-weight: 600;
+        }
+
+
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .delete-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 8px;
+            cursor: pointer;
+        }
+
+        .image-picker.active .dropzone-placeholder {
+            display: none;
+        }
+
+        .image-picker.active .image-preview {
+            display: block;
         }
 
     </style>
@@ -240,7 +315,7 @@
         'submenu' => [
             [
                 'url' => route('admin.settings.services'),
-                'text' => 'Booking types',
+                'text' => 'Features activation',
                 'route' => 'settings-services',
             ],
             [
@@ -792,7 +867,16 @@
 {{--document.addEventListener('DOMContentLoaded', function () {--}}
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeToggleSwitches();
+    });
+
     document.addEventListener('livewire:navigated', function () {
+        initializeToggleSwitches();
+        $('.lfm').filemanager('image');
+    });
+
+    function initializeToggleSwitches() {
         let toggleSwitches = document.querySelectorAll('.custom-control-input');
         toggleSwitches.forEach(switchElement => {
             switchElement.addEventListener('change', function () {
@@ -803,13 +887,13 @@
 
                 axios.put(`/admin/api/toggle/${modelId}`, {
                     field: field,
-                    model : modelType,
+                    model: modelType,
                     value: isActive,
                 })
                     .then(response => {
                         // Handle success
                         if (response.data.success) {
-                            NioApp.Toast('Status updated successfully', 'success',{
+                            NioApp.Toast('Status updated successfully', 'success', {
                                 position: 'top-right'
                             });
                         } else {
@@ -821,7 +905,26 @@
                     });
             });
         });
-    });
+    }
+
+    function removeImage(deleteIcon) {
+        const imageItem = deleteIcon.parentElement;
+        const imageSrc = imageItem.querySelector('img').src;
+        const imagesInput = document.querySelector('input[name="images[]"][value="' + imageSrc + '"]');
+
+        if (imagesInput) {
+            imagesInput.remove(); // Remove the hidden input field for the image
+        }
+        imageItem.remove(); // Remove the image container from the DOM
+    }
+
+</script>
+
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+
+
+<script>
+    $('.lfm').filemanager('image');
 </script>
 
 

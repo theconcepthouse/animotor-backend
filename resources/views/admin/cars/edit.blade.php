@@ -14,8 +14,8 @@
                                 </div>
 
                                 <div class="nk-block-head-content">
-                                    <a href="{{ route('admin.cars.index') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
-                                    <a href="{{ route('admin.cars.index') }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                    <a href="{{ route('admin.cars.index') }}" wire:navigate class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                    <a href="{{ route('admin.cars.index') }}" wire:navigate class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                 </div>
 
                             </div>
@@ -71,8 +71,19 @@
     <script>
         // Fetch and populate models based on selected make
         $(document).ready(function() {
+            onChangeMake()
+        });
+
+        document.addEventListener('livewire:navigated', function () {
+            $(document).ready(function() {
+                onChangeMake()
+            });
+        });
+
+        function onChangeMake() {
             $('#make').on('change', function() {
                 var makeId = $(this).val();
+                alert(makeId)
                 if (makeId) {
                     $.ajax({
                         url: "{{ route('admin.api.get.models') }}?make_id=" + makeId,
@@ -90,15 +101,10 @@
                 } else {
                     $('#model').empty().append('<option value="">Select Model</option>');
                 }
-            });
-        });
+            })
+        }
     </script>
 
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
-
-    <script>
-        $('.lfm').filemanager('image');
-    </script>
 
 @endsection

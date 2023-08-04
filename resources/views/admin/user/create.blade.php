@@ -114,11 +114,6 @@
         });
     </script>
 
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
-
-    <script>
-        $('.lfm').filemanager('image');
-    </script>
 
 @endsection

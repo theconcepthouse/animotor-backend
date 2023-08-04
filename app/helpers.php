@@ -85,3 +85,41 @@ if(!function_exists('show_item')){
     }
 }
 
+function convertToWord($input): string
+{
+    return ucwords(str_replace('_', ' ', $input));
+}
+
+function isApiSet(): bool
+{
+    if(strlen(env('FIREBASE_API_KEY')) > 3 && strlen(env('MAP_API_KEY')) > 3 && strlen(env('FIREBASE_PROJECT_ID')) > 3){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function isPaymentMethodSet(): bool
+{
+    $active_methods = settings('active_methods', 'none');
+
+    if(strlen($active_methods) > 3){
+        return true;
+    }
+
+    return false;
+
+}
+
+function removeDuplicatePhotos($photos_array, $new): string
+{
+    if(count($photos_array) < 1){
+        return $new;
+    }
+    $new_array = explode(',', $new);
+
+    $all_photos = array_unique(array_merge($photos_array, $new_array));
+
+    return implode(',', $all_photos);
+
+}

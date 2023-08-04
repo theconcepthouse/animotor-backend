@@ -68,12 +68,7 @@
                                                         <td>{{ $item->discount }}%</td>
 
                                                         <td>
-                                                            @if($item->is_active)
-                                                                <span class="badge badge-dim bg-success">Active</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">Disabled</span>
-                                                            @endif
-                                                        </td>
+                                                            @include('admin.components.toggle-switch', ['model' => "Service", 'item' => $item, 'checked' => $item->is_active, 'field' => 'is_active'])
 
 
                                                         <td>
@@ -236,11 +231,6 @@
 
 @section('js')
 
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
-
-    <script>
-        $('.lfm').filemanager('image');
-    </script>
 
 @endsection

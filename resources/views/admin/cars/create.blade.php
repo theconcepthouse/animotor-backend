@@ -14,8 +14,8 @@
                                 </div>
 
                                 <div class="nk-block-head-content">
-                                    <a href="{{ route('admin.cars.index') }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
-                                    <a href="{{ route('admin.cars.index') }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                    <a href="{{ route('admin.cars.index') }}" wire:navigate class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                    <a href="{{ route('admin.cars.index') }}" wire:navigate class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                 </div>
                             </div>
                             <div class="row g-gs">
@@ -67,36 +67,78 @@
 
 @section('js')
     <script>
-        // Fetch and populate models based on selected make
-        $(document).ready(function() {
-            $('#make').on('change', function() {
-                var makeId = $(this).val();
+
+
+        {{--function populateModels() {--}}
+        {{--    $('#make').on('change', function() {--}}
+        {{--        var makeId = $(this).val();--}}
+        {{--        if (makeId) {--}}
+        {{--            $.ajax({--}}
+        {{--                url: "{{ route('admin.api.get.models') }}?make_id=" + makeId,--}}
+        {{--                type: 'GET',--}}
+        {{--                dataType: 'json',--}}
+        {{--                success: function(data) {--}}
+        {{--                    $('#model').empty().append('<option value="">Select Model</option>');--}}
+        {{--                    if (data.data.length > 0) {--}}
+        {{--                        $.each(data.data, function(index, model) {--}}
+        {{--                            $('#model').append('<option value="' + model.name + '">' + model.name + '</option>');--}}
+        {{--                        });--}}
+        {{--                    }--}}
+        {{--                }--}}
+        {{--            });--}}
+        {{--        } else {--}}
+        {{--            $('#model').empty().append('<option value="">Select Model</option>');--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--}--}}
+
+        function populateModels() {
+            var makeElement = document.getElementById('make');
+            var modelElement = document.getElementById('model');
+
+            makeElement.addEventListener('change', function () {
+                var makeId = this.value;
                 if (makeId) {
-                    $.ajax({
-                        url: "{{ route('admin.api.get.models') }}?make_id=" + makeId,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            $('#model').empty().append('<option value="">Select Model</option>');
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', "{{ route('admin.api.get.models') }}?make_id=" + makeId, true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var data = JSON.parse(xhr.responseText);
+                            modelElement.innerHTML = '<option value="">Select Model</option>';
                             if (data.data.length > 0) {
-                                $.each(data.data, function(index, model) {
-                                    $('#model').append('<option value="' + model.name + '">' + model.name + '</option>');
+                                data.data.forEach(function (model) {
+                                    var option = document.createElement('option');
+                                    option.value = model.name;
+                                    option.text = model.name;
+                                    modelElement.appendChild(option);
                                 });
                             }
                         }
-                    });
+                    };
+                    xhr.send();
                 } else {
-                    $('#model').empty().append('<option value="">Select Model</option>');
+                    modelElement.innerHTML = '<option value="">Select Model</option>';
                 }
             });
+        }
+
+        // Call the function after the DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            populateModels();
+        });
+
+
+        document.addEventListener('livewire:navigated', function () {
+            // Call the function when livewire:navigated event is triggered
+            populateModels();
+
+            $('#make').on('select2:select', function (e) {
+                alert('heeeeeeeeeeeee')
+            })
         });
     </script>
 
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
 
-    <script>
-        $('.lfm').filemanager('image');
-    </script>
 
 @endsection

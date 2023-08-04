@@ -8,7 +8,7 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Settings</h3>
+                                <h3 class="nk-block-title page-title">Features activation</h3>
                             </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->
                     </div><!-- .nk-block-head -->
@@ -28,6 +28,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="general">
 
+                                    @section('hide')
                                     <div class="card-inner pt-0">
                                         <h4 class="title nk-block-title">Booking service </h4>
                                         <p>Configure your booking services here.</p>
@@ -71,6 +72,25 @@
                                             </div>
                                         </form>
                                     </div>
+                                    @endsection
+                                    <div class="card-inner pt-0">
+                                        <div class="row features">
+                                            @foreach($settings as $item)
+                                                <div class="col-3">
+                                                    <div class="mt-3 content d-flex flex-row justify-content-between  align-center">
+                                                        <h5 class="">{{ convertToWord($item) }}</h5>
+
+                                                        <div class="custom-control custom-switch">
+                                                            <input
+                                                                data-model-id="2" data-model="2"  data-field="" type="checkbox" class="custom-control-input" id="customSwitch{{ $item }}">
+                                                            <label class="custom-control-label" for="customSwitch{{ $item }}"></label>
+                                                        </div>
+                                                </div>
+
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
 
 
 
@@ -88,11 +108,6 @@
 @endsection
 
 @section('js')
-    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
-
-    <script>
-        $('.lfm').filemanager('image');
-    </script>
 
 @endsection

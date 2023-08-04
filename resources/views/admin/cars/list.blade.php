@@ -19,7 +19,7 @@
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" href="{{ route('admin.cars.create') }}"><em class="icon ni ni-plus"></em><span>Add New</span></a>
+                                                        <a class="btn btn-primary" wire:navigate href="{{ route('admin.cars.create') }}"><em class="icon ni ni-plus"></em><span>Add New</span></a>
                                                     </li>
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
                                                         <a class="btn btn-icon btn-primary"  data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em></a>
@@ -76,18 +76,8 @@
 
                                                         <td>
 
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a href="{{ route('admin.cars.edit',$item->id) }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
+                                                            <a class="btn btn-warning btn-sm rounded" wire:navigate href="{{ route('admin.cars.edit',$item->id) }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a>
+
                                                         </td>
 
                                                     </tr>

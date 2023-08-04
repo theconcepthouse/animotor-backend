@@ -1,59 +1,23 @@
-{{--<div class="{{ isset($colSize) ? $colSize : 'col-md-12 col-sm-12' }}">--}}
-{{--    <div class="form-group">--}}
-{{--        <label class="form-label" for="">{{ ucfirst($title) }}</label>--}}
+<div class="{{ isset($colSize) ? $colSize : 'col-md-4 col-sm-6' }}">
+    <label class="form-label" for="">{{ ucfirst($title) }}</label>
+    <div
+         data-input="{{ $id }}" data-preview="{{ $id }}_holder" class="image-picker dropzone lfm">
 
-{{--        @if(isset($image))--}}
-{{--            <br/>--}}
-{{--            <img src="{{ $image }}" width="auto" height="50" />--}}
-{{--            <br/>--}}
-{{--            <br/>--}}
-{{--        @endif--}}
-{{--        <div class="form-control-wrap">--}}
-{{--            <div class="input-group">--}}
-{{--   <span class="input-group-btn">--}}
-{{--     <a  data-input="{{ $id }}" data-preview="{{ $id }}_holder" class="btn btn-primary lfm">--}}
-{{--       <i class="fas fa-picture"></i> Choose Image--}}
-{{--     </a>--}}
-{{--   </span>--}}
-{{--                @if (isset($image))--}}
-{{--                    <input id="{{ $id }}" class="form-control" type="hidden" value="{{ $image }}" name="{{ $field }}">--}}
-{{--                    <input disabled  class="form-control" value="{{ $image }}" type="text">--}}
-
-{{--                @else--}}
-{{--                    <input id="{{ $id }}" class="form-control" type="hidden" name="{{ $field }}">--}}
-{{--                    <input disabled class="form-control" value="" type="text">--}}
-{{--                @endif--}}
-{{--            </div>--}}
-{{--            <div id="{{ $id }}_holder" style="margin-top:15px; margin-bottom:20px;max-height:200px;"></div>--}}
-{{--        </div>--}}
-
-{{--    </div>--}}
-
-{{--</div>--}}
+        @if(isset($image))
+            <div style="background-image: url('{{ $image }}');" class="picker_img"></div>
+        @endif
+        <input id="{{ $id }}" value="{{ $image ?? '' }}" hidden class="form-control" type="text" name="{{ $field }}">
 
 
-<div class="{{ isset($colSize) ? $colSize : 'col-md-12 col-sm-12' }}">
-    <div class="form-group">
-        <label class="form-label" for="">{{ ucfirst($title) }}</label>
+        <div id="{{ $id }}_holder" class="dropzone-placeholder">
+            <div class="text-center">
+                <i class="bi bi-cloud-upload"></i>
+                <p>Click here <br/>
 
-        <div class="image-uploader">
-            @if(isset($image))
-                <div class="selected-image" style="background-image: url('{{ $image }}');"></div>
-            @endif
-            <div class="form-control-wrap">
-                <div class="input-group">
-                    <span class="input-group-btn">
-                        <a data-input="{{ $id }}" data-preview="{{ $id }}_holder" class="btn btn-primary lfm">
-                            <i class="fas fa-picture"></i> Choose Image
-                        </a>
-                    </span>
-                    <input id="{{ $id }}" class="form-control" type="hidden" name="{{ $field }}">
-                    <input disabled class="form-control" value="{{ $image ?? '' }}" type="text">
-                </div>
-                <div id="{{ $id }}_holder" style="margin-top: 15px; margin-bottom: 20px; max-height: 200px;"></div>
+                    to upload image </p>
             </div>
         </div>
 
     </div>
-</div>
 
+</div>

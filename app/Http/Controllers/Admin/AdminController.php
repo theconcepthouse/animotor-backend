@@ -79,7 +79,17 @@ class AdminController extends Controller
 
     public function ServicesSettings(){
         $title = "Services";
-        return view('admin.settings.booking_services', compact('title'));
+        $settings = [
+            'enable_rental',
+            'enable_instant_ride',
+            'enable_fleet',
+            'map_home_screen',
+            'enable_email_verification',
+            'enable_sms_verification',
+            'enable_https',
+            'enable_frontpage',
+        ];
+        return view('admin.settings.booking_services', compact('title','settings'));
     }
 
    public function storeSettings(Request $request)

@@ -35,9 +35,11 @@ class Car extends Model
         'city',
         'price_per_day',
         'attributes',
+        'photos',
+        'youtube_link',
     ];
 
-    protected $appends = ['includes','why','details'];
+    protected $appends = ['includes','why','details','photos_array'];
 
     public function getIncludesAttribute(): array
     {
@@ -58,6 +60,12 @@ class Car extends Model
             'Helpful counter staff',
             'Free Cancellation'
         ];
+    }
+
+    public function getPhotosArrayAttribute(): array
+    {
+        $photos = $this->photos;
+        return explode(',', $photos);
     }
 
     public function getDetailsAttribute(): array

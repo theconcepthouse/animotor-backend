@@ -13,7 +13,7 @@ class Page extends Model
 
     use HasUuids;
 
-    protected $fillable = ['title','path','content','template','meta','image','type'];
+    protected $fillable = ['title','path','content','template','meta','image','type','is_active'];
 
     public function contents(): HasMany
     {

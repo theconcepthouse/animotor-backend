@@ -9,7 +9,10 @@ use App\Models\ThemeComponent;
 use Database\Seeders\ThemeComponentSeeder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\Component;
+
+use Rawilk\Settings\Models\Setting;
 
 class SettingsController extends Controller
 {
@@ -68,14 +71,30 @@ class SettingsController extends Controller
         $page_id = $request->input('page_id');
 
         $com = ThemeComponent::findOrFail($id);
+        $is_shortcode = Str::contains($com->content, 'is_shortcode');
 
         PageContent::create([
             'page_id' => $page_id,
             'content' => $com->content,
-            'title' => $com->title
+            'title' => $com->title,
+            'is_shortcode' => $is_shortcode,
         ]);
 
         return redirect()->back()->with('success', 'Page content successfully added');
+
+    }
+
+    public function pageContentUpdate(Request $request){
+//        return $request->all();
+        $id = $request->input('id');
+
+        $content = PageContent::findOrFail($id);
+        $content->content = $request->input('content') ?? $content->content;
+        $content->title = $request->input('title');
+        $content->level = $request->input('level') ?? 0;
+        $content->save();
+
+        return redirect()->back()->with('success', 'Page content successfully updated');
 
     }
 
@@ -250,6 +269,10 @@ class SettingsController extends Controller
     public function toggle($modelId): JsonResponse
     {
 
+        if(request('model') == 'Setting'){
+            return $this->toggleSetting(request());
+        }
+
         $modelClass = 'App\\Models\\' . request('model');
 
         if (!class_exists($modelClass)) {
@@ -269,6 +292,13 @@ class SettingsController extends Controller
         }
 
         return response()->json(['success' => false]);
+    }
+
+    public function toggleSetting($request): JsonResponse
+    {
+        $value = $request->get('value') ? 'yes' : 'no';
+        settings()->set($request->get('field'), $value);
+        return response()->json(['success' => true, 'data' => $value]);
     }
 
 }

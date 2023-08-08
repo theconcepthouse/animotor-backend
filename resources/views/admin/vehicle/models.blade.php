@@ -51,33 +51,17 @@
                                                 <tbody>
                                                 @foreach($data as $item)
                                                     <tr>
-                                                        <td>{{ $item->id }}</td>
+                                                        <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ optional($item->make)->name }}</td>
 
                                                         <td>
-                                                            @if($item->is_active)
-                                                                <span class="badge badge-dim bg-success">Active</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">Inactive</span>
-                                                            @endif
-                                                        </td>
+                                                            @include('admin.components.toggle-switch', ['model' => "VehicleModel", 'item' => $item, 'checked' => $item->is_active, 'field' => 'is_active'])
 
                                                         <td>
+                                                            <a class="btn btn-warning btn-sm" data-bs-toggle="modal" href="#update{{ $item->id }}">
+                                                                <em class="icon ni ni-edit"></em><span>Edit Item</span></a>
 
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a  data-bs-toggle="modal" href="#update{{ $item->id }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
-                                                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>Toggle status</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
                                                         </td>
 
                                                     </tr>

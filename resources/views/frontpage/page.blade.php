@@ -45,15 +45,17 @@
     @endif
 
 
-    @if(strlen($contents) < 300)
-        @include('frontpage.partials.dummy')
-    @endif
+{{--    @if(strlen($contents) < 300)--}}
+{{--        @include('frontpage.partials.dummy')--}}
+{{--    @endif--}}
 
     @foreach($contents as $item)
 
-        @php
-            eval(' ?> ' . Blade::compileString($item->content));
-        @endphp
+        @if($item->is_shortcode)
+            @include($item->content)
+        @else
+            {!! $item->content !!}
+        @endif
     @endforeach
 
 @endsection

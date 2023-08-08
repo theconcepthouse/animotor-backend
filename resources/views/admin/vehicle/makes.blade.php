@@ -40,6 +40,7 @@
                                             <table class="datatable-init-export nowrap table" data-export-title="Export">
                                                 <thead>
                                                 <tr>
+                                                    <th>S/N</th>
                                                     <th>Name</th>
                                                     <th>Make For</th>
                                                     <th>Status</th>
@@ -50,32 +51,18 @@
                                                 <tbody>
                                                 @foreach($data as $item)
                                                     <tr>
+                                                        <td>{{ $loop->index + 1 }}</td>
+
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->make_for }}</td>
 
                                                         <td>
-                                                            @if($item->is_active)
-                                                            <span class="badge badge-dim bg-success">Active</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">Inactive</span>
-                                                            @endif
+                                                            @include('admin.components.toggle-switch', ['model' => "VehicleMake", 'item' => $item, 'checked' => $item->is_active, 'field' => 'is_active'])
                                                         </td>
 
                                                         <td>
-
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a  data-bs-toggle="modal" href="#update{{ $item->id }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
-                                                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>Toggle status</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
+                                                            <a class="btn btn-warning btn-sm" data-bs-toggle="modal" href="#update{{ $item->id }}">
+                                                                <em class="icon ni ni-edit"></em><span>Edit</span></a>
                                                         </td>
 
                                                     </tr>

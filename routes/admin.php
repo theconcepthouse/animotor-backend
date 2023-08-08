@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
 Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
@@ -98,6 +99,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
         Route::any('pages', [SettingsController::class, 'pages'])->name('setting.pages');
         Route::get('page/builder/{id}', [SettingsController::class, 'pageBuilder'])->name('setting.page.builder');
         Route::post('page/content/store', [SettingsController::class, 'pageContentStore'])->name('setting.page.content.store');
+        Route::post('page/content/update', [SettingsController::class, 'pageContentUpdate'])->name('setting.page.content.update');
         Route::get('components', [SettingsController::class, 'components'])->name('setting.components');
         Route::get('page/edit/{id}', [SettingsController::class, 'editPage'])->name('setting.page.edit');
         Route::get('component/edit/{id}', [SettingsController::class, 'editComponents'])->name('setting.component.edit');
@@ -130,3 +132,5 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     });
 
 });
+
+Route::get('p/{id}', [SettingsController::class, 'pageBuilder'])->name('admin.setting.page.builder');

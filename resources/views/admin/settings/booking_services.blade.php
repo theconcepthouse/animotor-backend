@@ -82,7 +82,7 @@
 
                                                         <div class="custom-control custom-switch">
                                                             <input
-                                                                data-model-id="2" data-model="2"  data-field="" type="checkbox" class="custom-control-input" id="customSwitch{{ $item }}">
+                                                                data-model-id="1_{{ $item }}" data-model="Setting"  {{ settings($item) == 'yes' ? 'checked' : '' }}  data-field="{{ $item }}" type="checkbox" class="custom-control-input" id="customSwitch{{ $item }}">
                                                             <label class="custom-control-label" for="customSwitch{{ $item }}"></label>
                                                         </div>
                                                 </div>

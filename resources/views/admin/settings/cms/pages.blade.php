@@ -49,12 +49,13 @@
 
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                            <table class="datatable-init nowrap table" data-export-title="Export">
                                                 <thead>
                                                 <tr>
                                                     <th>S/N</th>
                                                     <th>Title</th>
                                                     <th>Path</th>
+                                                    <th>Active</th>
                                                     <th>Action</th>
                                                 </tr>
 
@@ -65,8 +66,11 @@
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $item->title }}</td>
                                                         <td>{{ $item->path }}</td>
-
-
+                                                        <td>
+                                                            @if($item->path != '/')
+                                                            @include('admin.components.toggle-switch', ['model' => "Page", 'item' => $item, 'checked' => $item->is_active, 'field' => 'is_active'])
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <a href="{{ route('admin.setting.page.builder', $item->id) }}" class="btn btn-warning">Component builder</a>
                                                             <a class="btn btn-success" href="{{ route('admin.setting.page.edit', $item->id) }}">Page builder</a>

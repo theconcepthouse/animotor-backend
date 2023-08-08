@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>{{ settings('site_name') }} | Template</title>
 
-    <link rel="shortcut icon" href="/assets/img/favicon.png">
+    <link rel="shortcut icon" href="/assets_init/img/favicon.png">
 
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets_init/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/assets/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/assets_init/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/assets_init/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/assets_init/plugins/select2/css/select2.min.css">
 
-    <link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/assets_init/css/bootstrap-datetimepicker.min.css">
 
-    <link rel="stylesheet" href="/assets/plugins/aos/aos.css">
+    <link rel="stylesheet" href="/assets_init/plugins/aos/aos.css">
 
-    <link rel="stylesheet" href="/assets/css/feather.css">
+    <link rel="stylesheet" href="/assets_init/css/feather.css">
 
-    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets_init/css/owl.carousel.min.css">
 
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets_init/css/style.css">
 
     @yield('style')
 
@@ -131,25 +131,25 @@
 </div>
 
 
-<script src="/assets/js/jquery-3.6.4.min.js"></script>
+<script src="/assets_init/js/jquery-3.6.4.min.js"></script>
 
-<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/assets_init/js/bootstrap.bundle.min.js"></script>
 
-<script src="/assets/js/jquery.waypoints.js"></script>
-<script src="/assets/js/jquery.counterup.min.js"></script>
+<script src="/assets_init/js/jquery.waypoints.js"></script>
+<script src="/assets_init/js/jquery.counterup.min.js"></script>
 
-<script src="/assets/plugins/select2/js/select2.min.js"></script>
+<script src="/assets_init/plugins/select2/js/select2.min.js"></script>
 
-<script src="/assets/plugins/aos/aos.js"></script>
+<script src="/assets_init/plugins/aos/aos.js"></script>
 
-<script src="/assets/js/backToTop.js"></script>
+<script src="/assets_init/js/backToTop.js"></script>
 
-<script src="/assets/plugins/moment/moment.min.js"></script>
-<script src="/assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets_init/plugins/moment/moment.min.js"></script>
+<script src="/assets_init/js/bootstrap-datetimepicker.min.js"></script>
 
-<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets_init/js/owl.carousel.min.js"></script>
 
-<script src="/assets/js/script.js"></script>
+<script src="/assets_init/js/script.js"></script>
 
 
 <!-- include summernote css/js -->

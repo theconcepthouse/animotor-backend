@@ -146,6 +146,12 @@
             display: block;
         }
 
+        .my-editor {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
     </style>
 
     @yield('style')
@@ -811,6 +817,7 @@
 <!-- JavaScript -->
 
 
+{{--<script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}" data-navigate-track></script>--}}
 <script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/scripts.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/charts/gd-default.js?ver=3.1.1') }}"></script>

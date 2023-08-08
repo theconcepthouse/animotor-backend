@@ -54,43 +54,22 @@
                                                         <td>{{ $item->name }}</td>
 
                                                         <td>
-                                                            @if($item->has_expiry_date)
-                                                                <span class="badge badge-dim bg-success">Yes</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">No</span>
-                                                            @endif
+                                                            @include('admin.components.toggle-switch', ['model' => "Document", 'item' => $item, 'checked' => $item->has_expiry_date, 'field' => 'has_expiry_date'])
                                                         </td>
 
                                                         <td>
-                                                            @if($item->is_required)
-                                                                <span class="badge badge-dim bg-success">Yes</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">No</span>
-                                                            @endif
+                                                            @include('admin.components.toggle-switch', ['model' => "Document", 'item' => $item, 'checked' => $item->is_required, 'field' => 'is_required'])
                                                         </td>
 
                                                         <td>
-                                                            @if($item->status)
-                                                            <span class="badge badge-dim bg-success">Active</span>
-                                                            @else
-                                                                <span class="badge badge-dim bg-danger">Inactive</span>
-                                                            @endif
+                                                            @include('admin.components.toggle-switch', ['model' => "Document", 'item' => $item, 'checked' => $item->status, 'field' => 'status'])
+
                                                         </td>
 
                                                         <td>
-
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a  data-bs-toggle="modal" href="#update{{ $item->id }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
+                                                            <a class="btn btn-warning" data-bs-toggle="modal" href="#update{{ $item->id }}">
+                                                                <em class="icon ni ni-edit"></em><span>Edit</span>
+                                                            </a>
                                                         </td>
 
                                                     </tr>

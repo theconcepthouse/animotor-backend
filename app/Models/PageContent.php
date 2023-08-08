@@ -12,5 +12,5 @@ class PageContent extends Model
 
     use HasUuids;
 
-    protected $fillable = ['title','content','page_id'];
+    protected $fillable = ['title','content','page_id','level','is_shortcode'];
 }

@@ -11,7 +11,7 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h4 class="nk-block-title">{{ $title }}</h4>
+                                        <h4 class="nk-block-title">{{ __('admin.app.title') }}</h4>
                                     </div>
                                     <div class="nk-block-head-content">
                                         <div class="toggle-wrap nk-block-tools-toggle">
@@ -19,7 +19,7 @@
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em><span>Add New</span></a>
+                                                        <a class="btn btn-primary" data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em><span>{{ __('admin.app.add_new') }}</span></a>
                                                     </li>
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
                                                         <a class="btn btn-icon btn-primary"  data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em></a>
@@ -37,14 +37,14 @@
                                 <div class="card-inner">
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                            <table class="datatable-init-export nowrap table" data-export-title="{{ __('admin.app.export_title') }}">
                                                 <thead>
                                                 <tr>
-                                                    <th>S/N</th>
-                                                    <th>Reason</th>
-                                                    <th>User type</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>{{ __('admin.app.sn') }}</th>
+                                                    <th>{{ __('admin.app.reason') }}</th>
+                                                    <th>{{ __('admin.app.user_type') }}</th>
+                                                    <th>{{ __('admin.app.status') }}</th>
+                                                    <th>{{ __('admin.app.action') }}</th>
                                                 </tr>
 
                                                 </thead>
@@ -57,9 +57,9 @@
 
                                                         <td>
                                                             @if($item->is_active)
-                                                                <span class="badge badge-dim bg-success">Active</span>
+                                                                <span class="badge badge-dim bg-success">{{ __('admin.app.active') }}</span>
                                                             @else
-                                                                <span class="badge badge-dim bg-danger">Disabled</span>
+                                                                <span class="badge badge-dim bg-danger">{{ __('admin.app.disabled') }}</span>
                                                             @endif
                                                         </td>
 
@@ -72,7 +72,7 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-end" style="">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a  data-bs-toggle="modal" href="#update{{ $item->id }}"><em class="icon ni ni-edit"></em><span>Edit Item</span></a></li>
+                                                                                <li><a  data-bs-toggle="modal" href="#update{{ $item->id }}"><em class="icon ni ni-edit"></em><span>{{ __('admin.app.edit_item') }}</span></a></li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -104,7 +104,7 @@
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
-                    <h5 class="title">Add New Reason</h5>
+                    <h5 class="title">{{ __('admin.app.add_new_reason') }}</h5>
 
                     <form action="{{ route('admin.cancellation_reasons.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -121,22 +121,22 @@
 
                         <div class="row gy-4 pt-4">
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason','title' => 'Cancellation Reason'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason','title' => __('admin.app.cancellation_reason')])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => 'User type','options' => '
-    <option value="driver">Driver</option>
-    <option value="user">User</option>
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => __('admin.app.user_type'),'options' => '
+    <option value="driver">{{ __('admin.app.driver') }}</option>
+    <option value="user">{{ __('admin.app.user') }}</option>
 '])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status','options' => '
-    <option value="1">Active</option>
-    <option value="0">Disabled</option>
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => __('admin.app.status'),'options' => '
+    <option value="1">{{ __('admin.app.active') }}</option>
+    <option value="0">{{ __('admin.app.disabled') }}</option>
 '])
                         </div>
 
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-lg btn-primary">Save </button>
+                            <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.app.save') }}</button>
                         </div>
                     </form>
 
@@ -152,7 +152,7 @@
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
-                    <h5 class="title">Editing {{ $item->name }}</h5>
+                    <h5 class="title">{{ __('admin.app.editing_item', ['name' => $item->name]) }}</h5>
 
                     <form action="{{ route('admin.cancellation_reasons.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -171,23 +171,23 @@
                         <div class="row gy-4 pt-4">
 
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason', 'value' => $item->reason, 'title' => 'Cancellation Reason'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason', 'value' => $item->reason, 'title' => __('admin.app.cancellation_reason')])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => 'User type','options' => '
-    <option value="driver">Driver</option>
-    <option value="user">User</option>
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => __('admin.app.user_type'),'options' => '
+    <option value="driver">{{ __('admin.app.driver') }}</option>
+    <option value="user">{{ __('admin.app.user') }}</option>
 '])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status','options' => '
-    <option value="1">Active</option>
-    <option value="0">Disabled</option>
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => __('admin.app.status'),'options' => '
+    <option value="1">{{ __('admin.app.active') }}</option>
+    <option value="0">{{ __('admin.app.disabled') }}</option>
 '])
 
                         </div>
 
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-lg btn-primary">Update </button>
+                            <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.app.update') }}</button>
                         </div>
                     </form>
 

@@ -179,20 +179,6 @@
                                                                 <span class="profile-ud-value">{{ $booking->payment_method }}</span>
                                                             </div>
                                                         </div>
-{{--                                                        <div class="profile-ud-item">--}}
-{{--                                                            <div class="profile-ud wider">--}}
-{{--                                                                <span class="profile-ud-label">Ride Type</span>--}}
-{{--                                                                <span class="profile-ud-value">{{ $booking->ride_type }}</span>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-
-{{--                                                        <div class="profile-ud-item">--}}
-{{--                                                            <div class="profile-ud wider">--}}
-{{--                                                                <span class="profile-ud-label">Service Type</span>--}}
-{{--                                                                <span class="profile-ud-value">{{ $booking?->service?->name }}</span>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
                                                                 <span class="profile-ud-label">Service region</span>

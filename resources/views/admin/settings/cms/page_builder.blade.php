@@ -56,7 +56,7 @@
                                             <div class="form-group mt-">
                                                 <button type="submit" class="btn btn-lg btn-primary">Add </button>
 
-                                                <a href="" class="btn btn-lg btn-success">View components </a>
+                                                <a target="_blank" href="{{ route('admin.setting.all_blocks') }}" class="btn btn-lg btn-success">View components </a>
 
                                             </div>
                                         </div>
@@ -107,6 +107,9 @@
 
                                                             <div class="form-group mt-3">
                                                                 <button type="submit" class="btn btn-lg btn-primary">Update </button>
+
+                                                                <a  data-bs-toggle="modal" href="#{{ 'delete_'.$item->id }}"  class="btn btn-danger btn-lg">Delete</a>
+
                                                             </div>
                                                         </div>
                                                         </form>
@@ -120,6 +123,10 @@
                                 </div><!-- .accordion -->
                                     </div>
                                     @endif
+
+
+
+
                                 @endforeach
 
                             </div>
@@ -133,6 +140,19 @@
             </div>
         </div>
     </div>
+
+
+    @foreach($data as $item)
+
+
+        @component('admin.components.delete_modal', [
+    'modalId' => 'delete_'.$item->id, // Unique ID for the modal
+    'action' => route('admin.setting.page.content.destroy', $item->id), // Form action URL for the delete action
+    'message' => 'This page component will be removed permanently.', // Message to display in the modal
+])
+    @endcomponent
+
+    @endforeach
 
 @endsection
 

@@ -407,11 +407,7 @@
                 'text' => 'Theme setting',
                 'route' => 'settings-components',
             ],
-            [
-                'url' => route('admin.setting.components'),
-                'text' => 'Theme components',
-                'route' => 'settings-components',
-            ],
+
             [
                 'url' => route('admin.setting.pages'),
                 'route' => 'settings-pages',

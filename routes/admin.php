@@ -103,6 +103,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
         Route::post('page/content/store', [SettingsController::class, 'pageContentStore'])->name('setting.page.content.store');
         Route::post('page/content/update', [SettingsController::class, 'pageContentUpdate'])->name('setting.page.content.update');
         Route::get('components', [SettingsController::class, 'components'])->name('setting.components');
+        Route::get('component/all_blocks', [SettingsController::class, 'allBlocks'])->name('setting.all_blocks');
         Route::get('page/edit/{id}', [SettingsController::class, 'editPage'])->name('setting.page.edit');
         Route::get('component/edit/{id}', [SettingsController::class, 'editComponents'])->name('setting.component.edit');
         Route::get('component/duplicate/{id}', [SettingsController::class, 'duplicateComponent'])->name('setting.component.duplicate');
@@ -123,6 +124,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
 
         Route::delete('/pages/{id}', [SettingsController::class, 'destroyPage'])->name('setting.page.destroy');
+        Route::delete('/page/content/{id}', [SettingsController::class, 'destroyPageContent'])->name('setting.page.content.destroy');
 
     });
 

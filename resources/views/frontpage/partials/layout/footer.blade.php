@@ -1,6 +1,6 @@
 
 <!-- Footer Here -->
-<footer class="footer__section bgsection pt-120">
+<footer class="footer__section bg_section pt-120">
     <div class="container">
         <div class="footer__wrapper">
             <div class="footer__top pb-120">

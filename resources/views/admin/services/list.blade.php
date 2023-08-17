@@ -144,10 +144,8 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'commission', 'title' => 'Commission'])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'discount', 'title' => 'Discount (in %)'])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status','options' => '
-<option value="1">Active</option>
-<option value="0">Disabled</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status',
+'options' => ['1' => 'Yes', '0' => 'No']])
 
                             @include('admin.partials.image-upload',['field' => 'image','id' => 'image','title' => 'Image'])
 
@@ -206,10 +204,8 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'commission', 'value' => $item->commission, 'title' => 'Commission'])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'discount', 'value' => $item->discount, 'title' => 'Discount (in %)'])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'value' => $item->is_active, 'title' => 'Status','options' => '
-<option value="1">Active</option>
-<option value="0">Disabled</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'value' => $item->is_active, 'title' => 'Status',
+'options' =>  ['1' => 'Yes', '0' => 'No'] ])
 
                             @include('admin.partials.image-upload',['field' => 'image','id' => 'image', 'image' => $item->image,'title' => 'Image'])
 

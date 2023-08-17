@@ -73,7 +73,7 @@
                                                         </td>
                                                         <td>
                                                             <a href="{{ route('admin.setting.page.builder', $item->id) }}" class="btn btn-warning">Component builder</a>
-                                                            <a class="btn btn-success" href="{{ route('admin.setting.page.edit', $item->id) }}">Page builder</a>
+{{--                                                            <a class="btn btn-success" href="{{ route('admin.setting.page.edit', $item->id) }}">Page builder</a>--}}
                                                             <a href="{{ route('page.show', $item->path) }}" class="btn btn-primary">Preview</a>
                                                             @if($item->path != '/')
                                                             <a  data-bs-toggle="modal" href="#{{ 'delete_'.$item->id }}"  class="btn btn-danger">Delete</a>
@@ -185,7 +185,7 @@
 
         @component('admin.components.delete_modal', [
         'modalId' => 'delete_'.$item->id, // Unique ID for the modal
-        'action' => route('admin.setting.page.destroy', $item->id), // Form action URL for the delete action
+        'action' => route('admin.setting.page.content.destroy', $item->id), // Form action URL for the delete action
         'message' => 'This page data will be removed permanently.', // Message to display in the modal
     ])
         @endcomponent

@@ -49,9 +49,9 @@ Section css
   --bordertwo: #EBEBEB;
   --textwhite: #FFFFFF;
   --white: #FFFFFF;
-  --bgsection: #194685;
+  --bgSection: #194685;
   --bgprimary: #E6F1FC;
-  /*--bgsection: #F4F5FC;*/
+  --bgsection: #F4F5FC;
   --pragraph-larg: #352C00;
   --socialbg: #EAEDF8;
   /*--buttoncolor: #4154B9;*/
@@ -579,6 +579,9 @@ p {
 
 .bgsection {
   background: var(--bgsection);
+}
+.bg_section {
+  background: var(--bgSection);
 }
 
 .bgsectiontwo {

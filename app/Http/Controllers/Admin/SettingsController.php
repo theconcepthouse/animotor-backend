@@ -104,6 +104,11 @@ class SettingsController extends Controller
         return view('admin.settings.cms.components', compact('title','data'));
     }
 
+    public function allBlocks(){
+        $title = "All Component Blocks";
+        return view('frontpage.builder.index', compact('title'));
+    }
+
     public function saveComponent(Request $request){
         $request->validate(
             [
@@ -197,6 +202,12 @@ class SettingsController extends Controller
         $page = Page::findOrFail($id);
         $page->delete();
         return redirect()->back()->with('success', 'Page successfully deleted');
+    }
+
+    public function destroyPageContent($id){
+        $page = PageContent::findOrFail($id);
+        $page->delete();
+        return redirect()->back()->with('success', 'Page content successfully deleted');
     }
 
     public function saveContent(Request $request){

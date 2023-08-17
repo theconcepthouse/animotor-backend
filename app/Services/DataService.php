@@ -244,10 +244,6 @@ class DataService
                 "name" =>  "Dominica"
             ],
             [
-                "id" =>  "America/Edmonton",
-                "name" =>  "Edmonton"
-            ],
-            [
                 "id" =>  "America/Eirunepe",
                 "name" =>  "Eirunepe"
             ],
@@ -663,10 +659,7 @@ class DataService
                 "id" =>  "America/Yakutat",
                 "name" =>  "Yakutat"
             ],
-            [
-                "id" =>  "America/Yellowknife",
-                "name" =>  "Yellowknife"
-            ],
+
             [
                 "id" =>  "Europe/Amsterdam",
                 "name" =>  "Amsterdam"
@@ -1860,32 +1853,8 @@ class DataService
                 "name" =>  "UTC"
             ],
             [
-                "id" => "Australia/Sydney",
-                "name" => "Sydney, New South Wales"
-            ],
-            [
-                "id" => "Australia/Melbourne",
-                "name" => "Melbourne, Victoria"
-            ],
-            [
-                "id" => "Australia/Brisbane",
-                "name" => "Brisbane, Queensland"
-            ],
-            [
-                "id" => "Australia/Perth",
-                "name" => "Perth, Western Australia"
-            ],
-            [
-                "id" => "Australia/Adelaide",
-                "name" => "Adelaide, South Australia"
-            ],
-            [
                 "id" => "Australia/Gold_Coast",
                 "name" => "Gold Coast, Queensland"
-            ],
-            [
-                "id" => "Australia/Canberra",
-                "name" => "Canberra, Australian Capital Territory"
             ],
             [
                 "id" => "Australia/Newcastle",
@@ -1899,10 +1868,7 @@ class DataService
                 "id" => "Australia/Sunshine_Coast",
                 "name" => "Sunshine Coast, Queensland"
             ],
-            [
-                "id" => "Australia/Hobart",
-                "name" => "Hobart, Tasmania"
-            ],
+
             [
                 "id" => "Australia/Geelong",
                 "name" => "Geelong, Victoria"
@@ -1915,10 +1881,47 @@ class DataService
                 "id" => "Australia/Cairns",
                 "name" => "Cairns, Queensland"
             ],
+
             [
-                "id" => "Australia/Darwin",
-                "name" => "Darwin, Northern Territory"
-            ]
+                "id" => "America/Calgary",
+                "name" => "Calgary, Alberta"
+            ],
+            [
+                "id" => "America/Edmonton",
+                "name" => "Edmonton, Alberta"
+            ],
+
+            [
+                "id" => "America/Hamilton",
+                "name" => "Hamilton, Ontario"
+            ],
+            [
+                "id" => "America/Kitchener",
+                "name" => "Kitchener, Ontario"
+            ],
+            [
+                "id" => "America/London",
+                "name" => "London, Ontario"
+            ],
+
+            [
+                "id" => "America/Ottawa",
+                "name" => "Ottawa, Ontario"
+            ],
+            [
+                "id" => "America/Quebec",
+                "name" => "Quebec City, Quebec"
+            ],
+
+            [
+                "id" => "America/Victoria",
+                "name" => "Victoria, British Columbia"
+            ],
+
+            [
+                "id" => "America/Yellowknife",
+                "name" => "Yellowknife, Northwest Territories"
+            ],
         ];
     }
 }

@@ -37,23 +37,30 @@ Section css
 @import "prism.css";
 :root {
   --body: #ffffff;
-  --base: #2840BF;
+  /*--base: #2840BF;*/
+  --base: #194685;
+  --textheading: #2D3748;
   --darkbase: #1E0702;
   --text: #3F3F3F;
+  --textfooter: #CECECE;
   --darkextra: #5A5A5A;
   --placeholder: #929292;
   --border: #CECECE;
   --bordertwo: #EBEBEB;
   --textwhite: #FFFFFF;
   --white: #FFFFFF;
-  --bgsection: #F4F5FC;
+  --bgsection: #194685;
+  --bgprimary: #E6F1FC;
+  /*--bgsection: #F4F5FC;*/
   --pragraph-larg: #352C00;
   --socialbg: #EAEDF8;
-  --buttoncolor: #4154B9;
+  /*--buttoncolor: #4154B9;*/
+  --buttoncolor: #194685;
   --pagination: #DFDFDF;
   --success: #008F20;
   --green: #087982;
   --meron: #862014;
+  --danger: #ce240e;
   --borderthree: #DFE2F3;
   --checkborder: #D5DAF1;
   --cmnborder: #DFE3F7;
@@ -8316,7 +8323,7 @@ p {
 }
 
 form {
-  display: flex;
+  /*display: flex;*/
   align-items: center;
 }
 form .flag__select {
@@ -8353,25 +8360,25 @@ form .flag__select .nice-select::after {
 form .flag__select .nice-select .list li {
   color: var(--text);
 }
-form input {
-  width: 100%;
-  border: none;
-  outline: none;
-  border: 1px solid var(--bordertwo);
-  padding: 14px 10px 14px;
-}
-form .cmn__btn {
-  padding: 8px 30px 8px;
-  border: none;
-  outline: none;
-  border-radius: 0;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-form .cmn__btn span i {
-  color: var(--white);
-  font-size: 20px;
-}
+/*form input {*/
+/*  width: 100%;*/
+/*  border: none;*/
+/*  outline: none;*/
+/*  border: 1px solid var(--bordertwo);*/
+/*  padding: 14px 10px 14px;*/
+/*}*/
+/*form .cmn__btn {*/
+/*  padding: 8px 30px 8px;*/
+/*  border: none;*/
+/*  outline: none;*/
+/*  border-radius: 0;*/
+/*  border-top-right-radius: 5px;*/
+/*  border-bottom-right-radius: 5px;*/
+/*}*/
+/*form .cmn__btn span i {*/
+/*  color: var(--white);*/
+/*  font-size: 20px;*/
+/*}*/
 @media (max-width: 500px) {
   form {
     flex-wrap: wrap;
@@ -8382,11 +8389,11 @@ form .cmn__btn span i {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-  form .cmn__btn {
-    width: 100%;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-  }
+  /*form .cmn__btn {*/
+  /*  width: 100%;*/
+  /*  border-top-left-radius: 5px;*/
+  /*  border-bottom-left-radius: 5px;*/
+  /*}*/
 }
 
 .oparator__texts {
@@ -10120,13 +10127,13 @@ form .cmn__btn span i {
 }
 
 .flight__client__item {
-  box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.08);
+  /*box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.08);*/
   border-radius: 10px;
-  background: var(--white);
+  /*background: var(--white);*/
   margin: 5px 5px 30px;
 }
 .flight__client__item .header {
-  background: var(--bgsection);
+  /*background: var(--bgsection);*/
   padding: 30px 30px 60px;
   text-align: center;
 }
@@ -11461,3 +11468,341 @@ form .cmn__btn span i {
 
 /*--Button Area End--*/
 /*--Button Area End--*//*# sourceMappingURL=main.css.map */
+
+form .nice-select {
+    padding: 18px 30px 18px 15px;
+    width: 100%;
+    /*max-height: 50px; overflow-y: auto;*/
+}
+
+
+
+h5, p{
+    color: #3F3F3F;
+}
+
+.footer__logo img {
+    /*height: 40px;*/
+    width: 100%;
+}
+.hotel__content p {
+    font-size: 1.0rem;
+}
+
+
+.search-box .clear{
+    clear:both;
+    margin-top: 20px;
+}
+
+.search-box ul{
+    list-style: none;
+    padding: 0px;
+    width: 100%;
+    position: absolute;
+    margin: 0;
+    background: white;
+}
+
+.search-box ul li{
+    background: lavender;
+    padding: 10px 10px;
+    margin-bottom: 1px;
+}
+
+.dating__item .error {
+    background: lavender;
+    padding: 10px 10px;
+    margin-bottom: 1px;
+}
+
+/*.search-box ul li:nth-child(even){*/
+/*    background: cadetblue;*/
+/*    color: white;*/
+/*}*/
+
+.search-box ul li:hover{
+    cursor: pointer;
+}
+
+.search-box input[type=text]{
+    /*padding: 5px;*/
+    width: 100%;
+    letter-spacing: 1px;
+}
+.search-box ul {
+    z-index: 2;
+}
+
+.dating__body  .edit_booking{
+    width: 100%;
+    position: relative;
+    border-radius: 5px;
+}
+
+.date-input-container {
+    position: relative;
+    display: inline-block;
+}
+
+.date-placeholder {
+    position: absolute;
+    top: 0.4em;
+    left: 15px;
+    pointer-events: none;
+    color: #aaa;
+    font-size: 0.9em;
+    transition: all 0.2s ease-in-out;
+}
+
+.dating__item .date {
+    padding: 22px 30px 5px 15px!important;
+}
+
+.date-input:focus + .date-placeholder,
+.date-input:not(:placeholder-shown) + .date-placeholder {
+    top: -1em;
+    left: 0;
+    font-size: 0.75em;
+    color: var(--base);
+}
+
+.car_category_item {
+    background-image: url("/assets/img/car_bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 20px 40px;
+}
+.booking_stage_1 {
+    background-image: url("/assets/img/booking/book1.png");
+    background-position: center;
+    height: 80px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: -70px;
+}
+
+.booking_stage .cmn__btn {
+    border-radius: 50px;
+}
+.booking_stage .btn-white {
+    border-radius: 50px;
+    color: var(--base);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.5);
+}
+.booking_stage {
+    margin-top: -70px;
+}
+
+p {
+    color: #718096;
+}
+
+.text-primary {
+    color: var(--base)
+}
+
+.text-title {
+    color: var(--textheading);
+    font-weight: bold;
+    font-size: 1.5em;
+}
+.text-bold {
+    font-weight: bold;
+}
+
+.text-heading {
+    color: var(--textheading);
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.heading {
+    color: var(--textheading);
+}
+.text-primary {
+    color: var(--base);
+}
+.car_item {
+    /*height: 300px;*/
+}
+
+.thumb img {
+    height: 230px;
+    width: 100%;
+}
+.car_item .thumb {
+    background-color: #E6F1FC;
+    padding: 10px;
+    height: 100%;
+    display: block;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.review_count {
+    border: 1px solid #E6F1FC;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.car_section {
+    gap: 20px 35px;
+    /*padding: 0 30px;*/
+    border-bottom: 1px solid rgba(167, 164, 156, 0.59);
+}
+
+.car_info {
+    border-top: 1px solid rgba(167, 164, 156, 0.59);
+}
+
+.no-gutters {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.no-gutters [class^="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+p a {
+    color:  var(--base)!important;
+}
+
+.bg-primary {
+    background-color: var(--bgprimary)!important;
+}
+
+.footer__section .pratext {
+    color: var(--textfooter)
+}
+
+.footer__widget .widget__link .link:hover {
+    color: var(--darkbase)
+}
+.footer__bottom .footer__bottom__link li a {
+    color: var(--textfooter)
+}
+.hotelbooking__categoris__wra {
+    margin-bottom: -210px;
+    box-shadow: 0px 6px 30px rgb(0 0 0 / 8%);
+    border-radius: 10px;
+    background: var(--white);
+    padding: 30px 30px;
+    transform: translateY(-110px);
+    background-image: url("/assets/img/base.png");
+    background-size: contain;
+
+}
+
+.cmn_btn_white {
+    border-radius: 5px;
+    padding: 10px 30px 14px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    display: inline-block;
+    color: var(--base);
+    border: 1px solid var(--base);
+    position: relative;
+    background: var(--white);
+    overflow: hidden;
+    font-family: "Roboto", sans-serif;
+    transition: all 0.5s;
+}
+
+.btn_danger {
+    border-radius: 5px;
+    padding: 10px 30px 14px;
+    font-weight: 700;
+    font-size: 1.125rem;
+    display: inline-block;
+    color: var(--white)!important;
+    border: 1px solid var(--danger);
+    position: relative;
+    background: var(--danger);
+    overflow: hidden;
+    font-family: "Roboto", sans-serif;
+    transition: all 0.5s;
+}
+.border-radius-10 {
+    border-radius: 10px;
+}
+
+
+.voucher_page_banner {
+    background-image: url("/assets/img/voucher_bg.png");
+    background-position: center;
+    height: 350px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.voucher_title {
+    background-color: var(--buttoncolor);
+    border-radius: 50px;
+    padding: 15px 30px;
+    margin: 30px 0;
+
+}
+.voucher_title p {
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.voucher_page_footer_bg {
+    background-image: url("/assets/img/print_bg.png");
+    background-position: center;
+    height: 30px;
+    width: 100%;
+    /*background-repeat: no-repeat;*/
+    background-size: cover;
+}
+
+.section_three {
+    background-image: url("/assets/img/section_three_bg.png");
+    background-position: center;
+    width: 100%;
+    border-radius: 10px;
+    padding: 40px 50px;
+    /*background-repeat: no-repeat;*/
+    background-size: cover;
+}
+
+.bg-testimonial{
+    background-color: #F2F7FD;
+    border-radius: 10px;
+    padding: 70px 0;
+    box-shadow: 0px 4px 6px rgba(242, 247, 253, 0.5);
+}
+
+.flight__client__item .header {
+    padding: 30px 30px 60px;
+    text-align: center;
+    /*width: 100%;*/
+    background: #F2F7FD url("/assets/img/test_bg.png") no-repeat center;
+    background-size: contain;
+}
+
+.pt-70 {
+    padding-top: 70px!important;
+}
+
+.header_simple {
+    border-bottom: 1px solid #7180962b;
+    padding: 18px 0px;
+    /*min-height: 80px;*/
+}
+
+.sigin__grp a {
+    color: #2D3748;
+}
+
+.logo-menu {
+    max-height: 50px;
+}

@@ -109,10 +109,11 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','title' => 'Vehicle make name'])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'make_for', 'title' => 'Vehicle make for','options' => '
-    <option value="Taxi">Taxi</option>
-    <option value="Bike">Bike</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'make_for', 'title' => 'Vehicle make for',
+'options' => [
+    'Taxi' => 'Taxi',
+    'Bike' => 'Bike'
+    ]])
                         </div>
 
                         <div class="form-group mt-3">
@@ -153,10 +154,8 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'value' => $item->name,  'colSize' => 'col-md-6', 'fieldName' => 'name','title' => 'Vehicle make name'])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'make_for', 'id' => 'make_'.$item->id, 'title' => 'Vehicle make for','options' => '
-    <option  value="Taxi">Taxi</option>
-    <option value="Bike">Bike</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'make_for', 'id' => 'make_'.$item->id, 'title' => 'Vehicle make for',
+'options' =>  ['Taxi' => 'Taxi', 'Bike' => 'Bike']])
                         </div>
 
                         <div class="form-group mt-3">

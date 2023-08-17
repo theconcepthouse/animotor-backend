@@ -11,18 +11,22 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h4 class="nk-block-title">{{ __('admin.app.title') }}</h4>
+                                        <h4 class="nk-block-title">{{ $title }}</h4>
                                     </div>
                                     <div class="nk-block-head-content">
                                         <div class="toggle-wrap nk-block-tools-toggle">
-                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
+                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1"
+                                               data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em><span>{{ __('admin.app.add_new') }}</span></a>
+                                                        <a class="btn btn-primary" data-bs-toggle="modal"
+                                                           href="#addNew"><em
+                                                                class="icon ni ni-plus"></em><span>{{ __('admin.add_new') }}</span></a>
                                                     </li>
                                                     <li class="nk-block-tools-opt d-block d-sm-none">
-                                                        <a class="btn btn-icon btn-primary"  data-bs-toggle="modal" href="#addNew"><em class="icon ni ni-plus"></em></a>
+                                                        <a class="btn btn-icon btn-primary" data-bs-toggle="modal"
+                                                           href="#addNew"><em class="icon ni ni-plus"></em></a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -35,31 +39,35 @@
 
                             <div class="card card-bordered card-preview">
                                 <div class="card-inner">
-                                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div id="DataTables_Table_1_wrapper"
+                                         class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init-export nowrap table" data-export-title="{{ __('admin.app.export_title') }}">
+                                            <table class="datatable-init-export nowrap table"
+                                                   data-export-title="{{ __('admin.export_title') }}">
                                                 <thead>
                                                 <tr>
-                                                    <th>{{ __('admin.app.sn') }}</th>
-                                                    <th>{{ __('admin.app.reason') }}</th>
-                                                    <th>{{ __('admin.app.user_type') }}</th>
-                                                    <th>{{ __('admin.app.status') }}</th>
-                                                    <th>{{ __('admin.app.action') }}</th>
+                                                    <th>{{ __('admin.sn') }}</th>
+                                                    <th>{{ __('admin.reason') }}</th>
+                                                    <th>{{ __('admin.user_type') }}</th>
+                                                    <th>{{ __('admin.status') }}</th>
+                                                    <th>{{ __('admin.action') }}</th>
                                                 </tr>
 
                                                 </thead>
                                                 <tbody>
                                                 @foreach($data as $item)
                                                     <tr>
-                                                        <td>{{ $item->id }}</td>
+                                                        <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $item->reason }}</td>
                                                         <td>{{ $item->user_type }}</td>
 
                                                         <td>
                                                             @if($item->is_active)
-                                                                <span class="badge badge-dim bg-success">{{ __('admin.app.active') }}</span>
+                                                                <span
+                                                                    class="badge badge-dim bg-success">{{ __('admin.active') }}</span>
                                                             @else
-                                                                <span class="badge badge-dim bg-danger">{{ __('admin.app.disabled') }}</span>
+                                                                <span
+                                                                    class="badge badge-dim bg-danger">{{ __('admin.disabled') }}</span>
                                                             @endif
                                                         </td>
 
@@ -69,10 +77,18 @@
                                                             <ul class="nk-tb-actions gx-1">
                                                                 <li>
                                                                     <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown" aria-expanded="false"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end" style="">
+                                                                        <a href="#"
+                                                                           class="dropdown-toggle btn btn-sm btn-icon btn-trigger"
+                                                                           data-bs-toggle="dropdown"
+                                                                           aria-expanded="false"><em
+                                                                                class="icon ni ni-more-h"></em></a>
+                                                                        <div class="dropdown-menu dropdown-menu-end"
+                                                                             style="">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a  data-bs-toggle="modal" href="#update{{ $item->id }}"><em class="icon ni ni-edit"></em><span>{{ __('admin.app.edit_item') }}</span></a></li>
+                                                                                <li><a data-bs-toggle="modal"
+                                                                                       href="#update{{ $item->id }}"><em
+                                                                                            class="icon ni ni-edit"></em><span>{{ __('admin.edit_item') }}</span></a>
+                                                                                </li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -104,9 +120,10 @@
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
-                    <h5 class="title">{{ __('admin.app.add_new_reason') }}</h5>
+                    <h5 class="title">{{ __('admin.add_new_reason') }}</h5>
 
-                    <form action="{{ route('admin.cancellation_reasons.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.cancellation_reasons.store') }}" method="POST"
+                          enctype="multipart/form-data">
                         @csrf
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -121,22 +138,35 @@
 
                         <div class="row gy-4 pt-4">
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason','title' => __('admin.app.cancellation_reason')])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason','title' => __('admin.cancellation_reason')])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => __('admin.app.user_type'),'options' => '
-    <option value="driver">{{ __('admin.app.driver') }}</option>
-    <option value="user">{{ __('admin.app.user') }}</option>
-'])
+                            @include('admin.partials.form.select', [
+    'attributes' => 'required',
+    'colSize' => 'col-md-6',
+    'fieldName' => 'user_type',
+    'title' => __('admin.user_type'),
+    'options' => [
+        'driver' => __('admin.driver'),
+        'user' => __('admin.user'),
+    ],
+])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => __('admin.app.status'),'options' => '
-    <option value="1">{{ __('admin.app.active') }}</option>
-    <option value="0">{{ __('admin.app.disabled') }}</option>
-'])
+                            @include('admin.partials.form.select', [
+                                'attributes' => 'required',
+                                'colSize' => 'col-md-6',
+                                'fieldName' => 'is_active',
+                                'title' => __('admin.status'),
+                                'options' => [
+                                    '1' => __('admin.active'),
+                                    '0' => __('admin.disabled'),
+                                ],
+                            ])
+
                         </div>
 
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.app.save') }}</button>
+                            <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.save') }}</button>
                         </div>
                     </form>
 
@@ -147,55 +177,68 @@
     </div><!-- .modal -->
 
     @foreach($data as $item)
-    <div class="modal fade" role="dialog" id="update{{ $item->id }}">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                <div class="modal-body modal-body-md">
-                    <h5 class="title">{{ __('admin.app.editing_item', ['name' => $item->name]) }}</h5>
+        <div class="modal fade" role="dialog" id="update{{ $item->id }}">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                    <div class="modal-body modal-body-md">
+                        <h5 class="title">{{ __('admin.editing_item', ['name' => $item->name]) }}</h5>
 
-                    <form action="{{ route('admin.cancellation_reasons.update', $item->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PATCH')
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                        <form action="{{ route('admin.cancellation_reasons.update', $item->id) }}" method="POST"
+                              enctype="multipart/form-data">
+                            @csrf
+                            @method('PATCH')
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+
+                            <div class="row gy-4 pt-4">
+
+
+                                @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason', 'value' => $item->reason, 'title' => __('admin.cancellation_reason')])
+
+
+                                @include('admin.partials.form.select', [
+                                    'attributes' => 'required',
+                                    'colSize' => 'col-md-6',
+                                    'fieldName' => 'user_type',
+                                    'title' => __('admin.user_type'),
+                                    'options' => [
+                                        'driver' => __('admin.driver'),
+                                        'user' => __('admin.user'),
+                                    ],
+                                ])
+
+                                @include('admin.partials.form.select', [
+                                    'attributes' => 'required',
+                                    'colSize' => 'col-md-6',
+                                    'fieldName' => 'is_active',
+                                    'title' => __('admin.status'),
+                                    'options' => [
+                                        '1' => __('admin.active'),
+                                        '0' => __('admin.disabled'),
+                                    ],
+                                ])
+
                             </div>
-                        @endif
+
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.update') }}</button>
+                            </div>
+                        </form>
 
 
-                        <div class="row gy-4 pt-4">
-
-
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason', 'value' => $item->reason, 'title' => __('admin.app.cancellation_reason')])
-
-
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => __('admin.app.user_type'),'options' => '
-    <option value="driver">{{ __('admin.app.driver') }}</option>
-    <option value="user">{{ __('admin.app.user') }}</option>
-'])
-
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => __('admin.app.status'),'options' => '
-    <option value="1">{{ __('admin.app.active') }}</option>
-    <option value="0">{{ __('admin.app.disabled') }}</option>
-'])
-
-                        </div>
-
-                        <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.app.update') }}</button>
-                        </div>
-                    </form>
-
-
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
-    </div><!-- .modal -->
+                    </div><!-- .modal-body -->
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div><!-- .modal -->
     @endforeach
 
 @endsection

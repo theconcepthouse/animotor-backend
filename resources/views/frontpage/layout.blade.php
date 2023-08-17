@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ settings('site_name') }} | @yield('page_title')</title>
+{{--    <title>{{ settings('site_name') }} | @yield('page_title')</title>--}}
+    <title>{{ settings('site_name') }} </title>
 
     <!--Favicon img-->
     <link rel="shortcut icon" href="{{ asset('assets/img/logo/favicon.png') }}">
@@ -16,14 +17,11 @@
     <!--main css-->
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
+
     @yield('style')
 
-    <style>
-        .footer__logo img {
-            /*height: 40px;*/
-            width: 100%;
-        }
-    </style>
 
     {!! settings('head_section') !!}
 
@@ -34,9 +32,9 @@
 <!-- Preloader Start Here -->
 <div class="preloader__wrap">
     <div class="preloader__box">
-        <div class="circle">
-            <img src="assets/img/preloader/preloader.png" alt="preloader">
-        </div>
+{{--        <div class="circle">--}}
+{{--            <img src="assets/img/preloader/preloader.png" alt="preloader">--}}
+{{--        </div>--}}
         <div class="recharge">
             <img src="assets/img/preloader/rechage.png" alt="rechage">
         </div>
@@ -74,6 +72,23 @@
 <script src="{{ asset('assets/js/prism.js') }}"></script>
 <!--main Js-->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateInputs = document.querySelectorAll('.date-input');
+
+        dateInputs.forEach(function(input) {
+            input.addEventListener('change', function() {
+                if (input.value === '') {
+                    input.classList.remove('filled');
+                } else {
+                    input.classList.add('filled');
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 
 </html>

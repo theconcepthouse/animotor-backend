@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -122,4 +123,35 @@ function removeDuplicatePhotos($photos_array, $new): string
 
     return implode(',', $all_photos);
 
+}
+
+function listTime(): array
+{
+
+    $time = Carbon::createFromTime(0, 0, 0);
+
+    $endTime = Carbon::createFromTime(23, 30, 0);
+
+    $timeStrings = [];
+
+    while ($time <= $endTime) {
+        $timeStrings[] = $time->format('H:i');
+        $time->addMinutes(30);
+    }
+
+    return $timeStrings;
+
+}
+
+function amt($amt): string
+{
+    return '$'.number_format($amt);
+}
+
+function getUniqueBookingNumber(): float|int|string
+{
+    $currentTimestamp = now()->timestamp;
+    $milliseconds = round(microtime(true) * 10);
+
+    return $currentTimestamp + $milliseconds;
 }

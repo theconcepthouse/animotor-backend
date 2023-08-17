@@ -9,7 +9,7 @@
                         <div class="footer__widget">
                             <div class="widget__head mb__20">
                                 <a href="#" class="footer__logo">
-                                    <img src="assets/img/logo/logo.png" alt="logo">
+                                    <img style="max-height: 70px" src="{{ settings('front_logo') }}" alt="logo">
                                 </a>
                             </div>
                             <p class="pratext mb__20 fz-18">
@@ -47,19 +47,19 @@
                                 </h4>
                             </div>
                             <div class="widget__link">
-                                <a href="index.html" class="link fz-18 pratext">
+                                <a href="#" class="link fz-18 pratext">
                                     Home
                                 </a>
-                                <a href="about.html" class="link fz-18 pratext">
+                                <a href="#" class="link fz-18 pratext">
                                     About
                                 </a>
-                                <a href="index.html" class="link fz-18 pratext">
+                                <a href="#" class="link fz-18 pratext">
                                     Rechage & Bill Payment
                                 </a>
-                                <a href="booking-landing1.html" class="link fz-18 pratext">
+                                <a href="#" class="link fz-18 pratext">
                                     Booking
                                 </a>
-                                <a href="contact.html" class="link fz-18 pratext">
+                                <a href="#" class="link fz-18 pratext">
                                     Contact
                                 </a>
                             </div>

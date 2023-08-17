@@ -1,5 +1,5 @@
 <section class="section  testimonials-section">
-    <div class="container testimonial bg-light-primary p-5">
+    <div class="container testimonial p-5">
 
         <div class="section-heading" data-aos="fade-down">
             <h4 class="title">What our clients say about us? </h4>

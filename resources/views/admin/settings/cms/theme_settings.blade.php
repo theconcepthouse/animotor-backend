@@ -49,9 +49,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ $active == 'nav' ? 'active' : '' }}" data-bs-toggle="tab" href="#nav"><em class="icon ni ni-laptop"></em><span>Nav Style</span></a>
                                 </li>
-{{--                                <li class="nav-item">--}}
-{{--                                    <a class="nav-link {{ $active == 'smtp' ? 'active' : '' }}" data-bs-toggle="tab" href="#smtp"><em class="icon ni ni-user-alt"></em><span>SMTP Settings</span></a>--}}
-{{--                                </li>--}}
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $active == 'home_banner' ? 'active' : '' }}" data-bs-toggle="tab" href="#home_banner"><em class="icon ni ni-code"></em><span>Home Banner</span></a>
+                                </li>
 {{--                                <li class="nav-item">--}}
 {{--                                    <a class="nav-link  {{ $active == 'app' ? 'active' : '' }}" data-bs-toggle="tab" href="#app"><em class="icon ni ni-mobile"></em><span>Mobile App setting </span></a>--}}
 {{--                                </li>--}}
@@ -68,8 +68,8 @@
                                 <div class="tab-pane {{ $active == 'nav' ? 'active' : '' }}" id="nav">
                                     @include('admin.settings.partials.nav')
                                 </div><!--tab pan -->
-                                <div class="tab-pane {{ $active == 'smtp' ? 'active' : '' }}" id="smtp">
-                                    @include('admin.settings.partials.smtp')
+                                <div class="tab-pane {{ $active == 'home_banner' ? 'active' : '' }}" id="home_banner">
+                                    @include('admin.settings.partials.home_banner')
 
                                 </div><!--tab pan -->
                                 <div class="tab-pane  {{ $active == 'app' ? 'active' : '' }}" id="app">

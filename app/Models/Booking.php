@@ -57,13 +57,13 @@ class Booking extends Model
         'picked',
     ];
 
-    protected  $with = ['car'];
+//    protected  $with = ['car'];
 
-    protected $appends = ['days'];
+    protected $appends = ['days','booking_number'];
 
-    public function car(): HasOne
+    public function car(): BelongsTo
     {
-        return $this->hasOne(Car::class,'id','car_id');
+        return $this->belongsTo(Car::class, 'car_id');
     }
 
     public function getDaysAttribute(): int
@@ -72,6 +72,10 @@ class Booking extends Model
         $endDate = Carbon::parse($this->drop_off_date);
 
         return $endDate->diffInDays($startDate);
+    }
+    public function getBookingNumberAttribute(): string
+    {
+        return getUniqueBookingNumber();
     }
 
     public function customer(): BelongsTo

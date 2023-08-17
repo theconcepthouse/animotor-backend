@@ -357,7 +357,12 @@
             [
                 'url' => route('admin.cancellation_reasons.index'),
                 'text' => 'Cancellation Reasons',
-                'route' => 'cancellation_reasons-index',
+                'route' => 'cancellation_reasons-read',
+            ],
+            [
+                'url' => route('admin.faqs.index'),
+                'text' => 'Faqs',
+                'route' => 'faqs-read',
             ],
             [
                 'url' => '#',

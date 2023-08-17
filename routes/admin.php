@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ComplaintsController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DriversController;
+use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\RolesController;
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::resource('roles', RolesController::class);
     Route::resource('vehicle_types', VehicleTypeController::class);
     Route::resource('vehicle_makes', VehicleMakeController::class);
+    Route::resource('faqs', FaqsController::class);
     Route::resource('vehicle_models', VehicleModelController::class);
     Route::resource('countries', CountriesController::class);
     Route::resource('complains', ComplaintsController::class);

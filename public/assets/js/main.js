@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
 
-	
+
 	//--Owl Carousel--//
 	$(".payment__sponsor").owlCarousel({
 		loop: true,
@@ -548,6 +548,7 @@ $(document).ready(function () {
 			},
 		},
 	});
+
 	$(".flight__brachslider").owlCarousel({
 		loop: true,
 		margin: 24,
@@ -584,6 +585,41 @@ $(document).ready(function () {
 			},
 		},
 	});
+
+	$(".car_categories").owlCarousel({
+		loop: true,
+		margin: 24,
+		autoplayTimeout: 1000,
+		autoplay: false,
+		nav: false,
+		dots: true,
+		responsiveClass: true,
+		responsive: {
+			0: {
+				items: 1,
+			},
+			550: {
+				items: 2,
+			},
+			767: {
+				items: 4,
+			},
+			991: {
+				items: 4,
+			},
+			1199: {
+				items: 4,
+			},
+			1499: {
+				items: 4,
+			},
+			1999: {
+				items: 4,
+			},
+		},
+	});
+
+
 	$(".flight__client__wrap").owlCarousel({
 		loop: true,
 		margin: 15,
@@ -732,9 +768,9 @@ $(document).ready(function () {
 			},
 		},
 	});
-	
-	
-	
+
+
+
 	//--Owl Carousel--//
 
 	//--Header Menu--//
@@ -782,7 +818,7 @@ $(document).ready(function () {
 	//--Header Menu--//
 
 	//--Nice Select--//
-	$('select').niceSelect();
+	$('select-').niceSelect();
 	//--Nice Select--//
 
 
@@ -839,7 +875,7 @@ $(document).ready(function () {
 	$('.video-btn').magnificPopup({
 		type: 'iframe',
 		callbacks: {
-			
+
 	  	}
 	});
 	//--Magnifiqpopup--//
@@ -851,12 +887,12 @@ $(document).ready(function () {
 	//--common filter slide--//
 
 	$(function () {
-		$("#datepicker, #datepicker2, #datepicker3, #datepicker4, #datepicker5, #datepicker6, #datepicker7, #datepicker8, #datepicker9, #datepicker10, #datepicker11").datepicker({ 
-			  autoclose: true, 
+		$("#datepicker, #datepicker2, #datepicker3, #datepicker4, #datepicker5, #datepicker6, #datepicker7, #datepicker8, #datepicker9, #datepicker10, #datepicker11").datepicker({
+			  autoclose: true,
 			  todayHighlight: true
 		});
 	});
-	  
+
 	//--Odometer--//
 	$(".odometer-item").each(function () {
 		$(this).isInViewport(function (status) {
@@ -892,11 +928,11 @@ $(document).ready(function () {
 		  let slide1 = parseFloat( slides[0].value );
 		  let slide2 = parseFloat( slides[1].value );
 		if( slide1 > slide2 ){ let tmp = slide2; slide2 = slide1; slide1 = tmp; }
-		
+
 		let displayElement = parent.getElementsByClassName("rangeValues")[0];
 			displayElement.innerHTML = "$" + slide1 + " - $" + slide2;
 	}
-	  
+
 	window.onload = function(){
 	let sliderSections = document.getElementsByClassName("range-slider");
 		for( let x = 0; x < sliderSections.length; x++ ){

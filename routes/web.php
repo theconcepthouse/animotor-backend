@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontPageController;
 use App\Http\Controllers\Payment\FlutterwavePaymentController;
 use App\Http\Controllers\Payment\PaymentController;
@@ -22,9 +23,24 @@ Auth::routes();
 
 Route::get('/', [FrontPageController::class,'home']);
 Route::get('/builder', [FrontPageController::class,'builder']);
+Route::get('/booking/{id}', [FrontPageController::class,'booking'])->name('booking');
+Route::get('/voucher/{id}', [FrontPageController::class,'voucher'])->name('voucher');
 Route::get('/builder2', [FrontPageController::class,'builder2']);
 Route::get('/list', [FrontPageController::class,'list']);
 Route::get('/flight', [FrontPageController::class,'flight']);
+Route::get('/deal', [FrontPageController::class,'deal'])->name('deal');
+Route::get('/protection_option', [FrontPageController::class,'protectionOption'])->name('protection');
+Route::get('/checkout', [FrontPageController::class,'checkout'])->name('checkout');
+
+
+Route::get('/search', [FrontPageController::class,'search'])->name('search');
+
+
+Route::group(['prefix' => 'customer'], function(){
+    Route::get('/dashboard', [DashboardController::class,'dashboard'])->name('dashboard');
+
+});
+
 
 
 Route::get('/home', function () {
@@ -56,6 +72,8 @@ Route::group(['prefix' => 'payment'], function(){
 
     Route::any('/failed', [PaymentController::class,'paymentFailed'])->name('payment.failed');
 });
+
+
 
 Route::any('/paystack/callback', [PaystackPaymentController::class, 'callback']);
 Route::any('/flutterwave/payment/callback', [FlutterwavePaymentController::class, 'callback']);

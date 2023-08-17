@@ -24,7 +24,7 @@ class PermissionsTableSeeder extends Seeder
 
         $resources = [
         'regions', 'settings', 'users', 'roles', 'vehicle_types', 'vehicle_makes','admins',
-        'vehicle_models', 'countries', 'complains', 'documents', 'cars',
+        'vehicle_models', 'countries', 'complains', 'documents', 'cars','faqs',
         'rental','companies', 'cancellation_reasons', 'services', 'pages'];
 
         $owner_permissions = [

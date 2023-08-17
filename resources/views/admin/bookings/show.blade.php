@@ -11,12 +11,12 @@
                                 <h3 class="nk-block-title page-title"> <strong class="text-primary small">{{ $booking->reference }}</strong></h3>
                                 <div class="nk-block-des text-soft">
                                     <ul class="list-inline">
-                                        <li>{{ __('admin.app.booked_on') }} : <span class="text-base">{{ $booking->created_at->format('d-M-Y H:i:s') }}</span></li>
+                                        <li>{{ __('admin.booked_on') }} : <span class="text-base">{{ $booking->created_at->format('d-M-Y H:i:s') }}</span></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="nk-block-head-content">
-                                <a href="{{ route('admin.app.index',['status' => 'all']) }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>{{ __('admin.app.back') }}</span></a>
+                                <a href="{{ route('admin.app.index',['status' => 'all']) }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>{{ __('admin.back') }}</span></a>
                                 <a href="{{ url()->previous() }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                                      <img src="{{ $booking?->customer?->avatar }}" />
                                                 </div>
                                                 <div class="user-info">
-                                                    <div class="badge bg-outline-light rounded-pill ucap">{{ __('admin.app.customer') }}</div>
+                                                    <div class="badge bg-outline-light rounded-pill ucap">{{ __('admin.customer') }}</div>
                                                     <h5 class="text-capitalize">{{ $booking?->customer?->name }}</h5>
                                                     <span class="sub-text">{{ $booking?->customer?->email }}</span>
                                                     <span class="sub-text">{{ $booking?->customer?->phone }}</span>
@@ -40,7 +40,7 @@
                                             </div>
                                         </div><!-- .card-inner -->
                                         <div class="card-inner">
-                                            <div class="overline-title-alt mb-2">{{ __('admin.app.booking_status') }}</div>
+                                            <div class="overline-title-alt mb-2">{{ __('admin.booking_status') }}</div>
                                             <div class="profile-balance">
                                                 <div class="profile-balance-group gx-4">
                                                     <div class="profile-balance-sub">
@@ -49,14 +49,14 @@
                                                                 @csrf
                                                             <div class="row">
 
-                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12', 'value' => $booking->status,'fieldName' => 'status','title' => __('admin.app.status'),'options' => ['pending','approved','completed']])
-                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3', 'value' => $booking->picked,'fieldName' => 'picked','title' => __('admin.app.vehicle_picked'),'options' => ['yes','no']])
+                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12', 'value' => $booking->status,'fieldName' => 'status','title' => __('admin.status'),'options' => ['pending','approved','completed']])
+                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3', 'value' => $booking->picked,'fieldName' => 'picked','title' => __('admin.vehicle_picked'),'options' => ['yes','no']])
 
-                                                                @include('admin.partials.form.textarea', ['colSize' => 'col-md-12 mt-3 mb-3', 'value' => $booking->comment, 'fieldName' => 'comment','title' => __('admin.app.status_comment')])
+                                                                @include('admin.partials.form.textarea', ['colSize' => 'col-md-12 mt-3 mb-3', 'value' => $booking->comment, 'fieldName' => 'comment','title' => __('admin.status_comment')])
 
 
                                                                 <div class="form-group mt-3">
-                                                                    <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.app.update') }}</button>
+                                                                    <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.update') }}</button>
                                                                 </div>
 
                                                             </div>
@@ -72,7 +72,7 @@
 
 
                                         <div class="card-inner">
-                                            <div class="overline-title-alt mb-2">{{ __('admin.app.pickup_location') }}</div>
+                                            <div class="overline-title-alt mb-2">{{ __('admin.pickup_location') }}</div>
                                             <div class="profile-balance">
                                                 <div class="profile-balance-group gx-4">
                                                     <div class="profile-balance-sub">
@@ -87,7 +87,7 @@
                                             </div>
                                         </div><!-- .card-inner -->
                                         <div class="card-inner">
-                                            <div class="overline-title-alt mb-2">{{ __('admin.app.pickup_date_time') }}</div>
+                                            <div class="overline-title-alt mb-2">{{ __('admin.pickup_date_time') }}</div>
                                             <div class="profile-balance">
                                                 <div class="profile-balance-group gx-4">
                                                     <div class="profile-balance-sub">
@@ -102,7 +102,7 @@
                                             </div>
                                         </div><!-- .card-inner -->
                                         <div class="card-inner">
-                                            <div class="overline-title-alt mb-2">{{ __('admin.app.dropoff_date_time') }}</div>
+                                            <div class="overline-title-alt mb-2">{{ __('admin.dropoff_date_time') }}</div>
                                             <div class="profile-balance">
                                                 <div class="profile-balance-group gx-4">
                                                     <div class="profile-balance-sub">
@@ -123,19 +123,19 @@
                                                 <div class="col-4">
                                                     <div class="profile-stats">
                                                         <span class="amount">{{ $booking->currency }}{{ $booking->grand_total }}</span>
-                                                        <span class="sub-text">{{ __('admin.app.grand_total') }}</span>
+                                                        <span class="sub-text">{{ __('admin.grand_total') }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="profile-stats">
                                                         <span class="amount">{{ $booking->currency }}{{ $booking->tax }}</span>
-                                                        <span class="sub-text">{{ __('admin.app.tax') }}</span>
+                                                        <span class="sub-text">{{ __('admin.tax') }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-4">
                                                     <div class="profile-stats">
                                                         <span class="amount">{{ $booking->discount }} %</span>
-                                                        <span class="sub-text">{{ __('admin.app.discount') }}</span>
+                                                        <span class="sub-text">{{ __('admin.discount') }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,7 +146,7 @@
                                 <div class="card-content">
                                     <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
                                         <li class="nav-item">
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#info"><span>{{ __('admin.app.other_details') }}</span></a>
+                                            <a class="nav-link active" data-bs-toggle="tab" href="#info"><span>{{ __('admin.other_details') }}</span></a>
                                         </li>
 
                                     </ul>
@@ -155,59 +155,59 @@
                                             <div class="card-inner pt-0">
                                                 <div class="nk-block">
                                                     <div class="nk-block-head">
-                                                        <h5 class="title">{{ __('admin.app.personal_information') }}</h5>
+                                                        <h5 class="title">{{ __('admin.personal_information') }}</h5>
                                                     </div><!-- .nk-block-head -->
                                                     <div class="profile-ud-list">
 
                                                         <div class="profile-ud-item">
                                                         <div class="profile-ud wider">
 
-                                                            <span class="profile-ud-label">{{ __('admin.app.booking_status') }}</span>
+                                                            <span class="profile-ud-label">{{ __('admin.booking_status') }}</span>
                                                             <span class="profile-ud-value">{{ $booking->status }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.app.payment_status') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.payment_status') }}</span>
                                                                 <span class="profile-ud-value">{{ $booking->payment_status }}</span>
 
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.app.payment_method') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.payment_method') }}</span>
                                                                 <span class="profile-ud-value">{{ $booking->payment_method }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.app.service_region') }}</span>
-                                                                <span class="profile-ud-value">{{ $booking?->region?->name ?? __('admin.app.not_set') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.service_region') }}</span>
+                                                                <span class="profile-ud-value">{{ $booking?->region?->name ?? __('admin.not_set') }}</span>
                                                             </div>
                                                         </div>
 
                                                     </div><!-- .profile-ud-list -->
                                                     <div class="nk-block-head mt-4">
-                                                        <h5 class="title">{{ __('admin.app.billing_information') }}</h5>
+                                                        <h5 class="title">{{ __('admin.billing_information') }}</h5>
                                                     </div><!-- .nk-block-head -->
                                                     <div class="profile-ud-list">
 
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.app.base_price') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.base_price') }}</span>
                                                                 <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->fee }}</span>
                                                             </div>
 
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.app.tax') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.tax') }}</span>
                                                                 <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->tax }}</span>
                                                             </div>
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.app.discount') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.discount') }}</span>
                                                                 <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->discount }}</span>
                                                             </div>
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.app.grand_total') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.grand_total') }}</span>
                                                                 <span class="profile-ud-value">{{ $booking->currency }}{{ $booking->grand_total }}</span>
                                                             </div>
                                                         </div>

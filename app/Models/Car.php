@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Car extends Model
 {
@@ -38,6 +39,19 @@ class Car extends Model
         'photos',
         'youtube_link',
     ];
+
+    protected $with = ['company'];
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id')
+            ->withDefault([
+                'name' => settings('site_name'),
+                'address' => settings('address'),
+                'contact_phone' => settings('contact_phone'),
+                'contact_email' => settings('contact_email'),
+            ]);
+    }
 
     protected $appends = ['includes','why','details','photos_array'];
 

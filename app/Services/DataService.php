@@ -6,7 +6,7 @@ class DataService
 {
     public function timeZones()
     {
-        return [
+        $zones = [
             [
                 "id" => "America/Puerto_Rico",
                 "name" => "Puerto Rico (Atlantic)"
@@ -1923,5 +1923,11 @@ class DataService
                 "name" => "Yellowknife, Northwest Territories"
             ],
         ];
+
+        usort($zones, function ($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
+
+        return $zones;
     }
 }

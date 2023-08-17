@@ -47,7 +47,9 @@
                                                 <div class="row gy-4">
 
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->name, 'fieldName' => 'name','title' => 'Name'])
-                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->timezone,  'fieldName' => 'timezone','title' => 'Timezone'])
+{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->timezone,  'fieldName' => 'timezone','title' => 'Timezone'])--}}
+                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'key' => true ,'colSize' => 'col-md-4', 'fieldName' => 'timezone', 'value' => $region->timezone, 'title' => 'Timezone','options' => $timezones])
+
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->currency_symbol, 'fieldName' => 'currency_symbol','title' => 'Currency Symbol'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $region->currency_code,  'fieldName' => 'currency_code','title' => 'Currency code'])
 

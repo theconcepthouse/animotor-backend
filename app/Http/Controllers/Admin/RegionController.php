@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Region;
 use App\Models\Zone;
+use App\Services\DataService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,12 +45,21 @@ class RegionController extends Controller
     {
         $regions = Region::whereNull('parent_id')->where('is_active', true)->get();
         $countries = Country::where('is_active',true)->get();
-        return view('admin.service_area.create', compact('regions','countries'));
+        $timezones = (new DataService())->timeZones();
+        return view('admin.service_area.create', compact('regions','countries','timezones'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->validateData($request);
+
+        if(!$validatedData['currency_code'] || !$validatedData['currency_symbol']){
+             $country = Country::find($validatedData['country_id']);
+            if($country){
+                $validatedData['currency_code'] = $country->currency_code;
+                $validatedData['currency_symbol'] = $country->currency_symbol;
+            }
+        }
 
         $polygon = [];
 
@@ -81,11 +91,14 @@ class RegionController extends Controller
         $regions = Region::whereNull('parent_id')->where('is_active', true)->get();
         $countries = Country::where('is_active',true)->get();
 
+        $timezones = (new DataService())->timeZones();
+
+
         $region= Region::selectRaw("*,ST_AsText(ST_Centroid(`coordinates`)) as center")->findOrFail($region->id);
 
         $area = json_decode($region->coordinates[0]->toJson(),true);
 
-        return view('admin.service_area.edit', compact('region','regions','countries','area'));
+        return view('admin.service_area.edit', compact('region','regions','countries','area','timezones'));
     }
 
     public function getAllZoneCordinates($id = 0): JsonResponse
@@ -155,8 +168,8 @@ class RegionController extends Controller
     {
         $rules = [
             'name' => 'required|unique:regions,name',
-            'currency_code' => 'required',
-            'currency_symbol' => 'required',
+            'currency_code' => 'nullable',
+            'currency_symbol' => 'nullable',
             'timezone' => 'required',
             'is_active' => 'nullable',
             'parent_id' => 'nullable',

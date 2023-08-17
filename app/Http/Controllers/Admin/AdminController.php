@@ -116,7 +116,7 @@ class AdminController extends Controller
        }elseif($request->get('active_setting') == 'smtp'){
             $this->storeSmtp($request);
         }elseif($request->get('active_setting') == 'api'){
-            $this->storeSmtp($request);
+            $this->apiKey($request);
         }else{
             if($request->has('country_id')){
                 if($request->get('country_id') != settings('country_id')){

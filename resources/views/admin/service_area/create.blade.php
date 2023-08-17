@@ -50,8 +50,8 @@
                                                     @include('admin.partials.form.select_array', ['attributes' => 'required', 'key' => true ,'colSize' => 'col-md-4', 'fieldName' => 'timezone', 'title' => 'Timezone','options' => $timezones])
 
 {{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4',  'fieldName' => 'timezone','title' => 'Timezone'])--}}
-                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_symbol','title' => 'Currency Symbol'])
-                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_code','title' => 'Currency code'])
+{{--                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_symbol','title' => 'Currency Symbol'])--}}
+{{--                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_code','title' => 'Currency code'])--}}
 {{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'coordinates','title' => 'Coordinates'])--}}
 
 {{--                                                    @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-4', 'fieldName' => 'is_active', 'title' => 'Status','options' => '--}}

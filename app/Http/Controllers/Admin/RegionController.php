@@ -44,7 +44,7 @@ class RegionController extends Controller
     public function create()
     {
         $regions = Region::whereNull('parent_id')->where('is_active', true)->get();
-        $countries = Country::where('is_active',true)->get();
+        $countries = Country::where('is_active',true)->orderBy('name', 'asc')->get();
         $timezones = (new DataService())->timeZones();
         return view('admin.service_area.create', compact('regions','countries','timezones'));
     }
@@ -89,7 +89,7 @@ class RegionController extends Controller
     {
 //        $region = Region::findOrFail($region->id);
         $regions = Region::whereNull('parent_id')->where('is_active', true)->get();
-        $countries = Country::where('is_active',true)->get();
+        $countries = Country::where('is_active',true)->orderBy('name', 'asc')->get();
 
         $timezones = (new DataService())->timeZones();
 

@@ -11,7 +11,6 @@ class DataService
                 "value" => "America/Puerto_Rico",
                 "name" => "Puerto Rico (Atlantic)"
             ],
-            // ... rest of the time zones ...
             [
                 "value" => "UTC",
                 "name" => "UTC"

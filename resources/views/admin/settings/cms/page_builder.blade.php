@@ -52,11 +52,15 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+                                        <div class="col">
                                             <div class="form-group mt-">
                                                 <button type="submit" class="btn btn-lg btn-primary">Add </button>
+
+                                                <a href="" class="btn btn-lg btn-success">View components </a>
+
                                             </div>
                                         </div>
+
 
 
                                     </div>

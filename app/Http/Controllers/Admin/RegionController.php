@@ -53,13 +53,13 @@ class RegionController extends Controller
     {
         $validatedData = $this->validateData($request);
 
-        if(!$validatedData['currency_code'] || !$validatedData['currency_symbol']){
+//        if(!$validatedData['currency_code'] || !$validatedData['currency_symbol']){
              $country = Country::find($validatedData['country_id']);
             if($country){
                 $validatedData['currency_code'] = $country->currency_code;
                 $validatedData['currency_symbol'] = $country->currency_symbol;
             }
-        }
+//        }
 
         $polygon = [];
 

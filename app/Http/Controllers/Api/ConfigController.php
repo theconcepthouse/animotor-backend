@@ -77,6 +77,7 @@ class ConfigController extends Controller
 
         $data['country_id'] = settings('country_id');
         $data['has_rental'] = settings('enable_rental', 'yes');
+        $data['enable_mobile_slider'] = settings('enable_mobile_slider', 'yes');
         $data['in_app_notification_sound'] = settings('enable_in_app_notification', 'yes') == 'yes';
         $data['has_instant_ride'] = settings('enable_instant_ride', 'yes');
         $data['sidebar'] = settings('map_home_screen', 'no') == 'yes';

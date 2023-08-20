@@ -60,6 +60,13 @@ class BookingController extends Controller
         return response()->json(['data' => $service_types], 200);
     }
 
+    public function getAllCars(): JsonResponse
+    {
+        $data = Car::all();
+        return $this->successResponse('cars', $data);
+    }
+
+
     public function getCars(Request $request, DistanceService $distanceService):JsonResponse
     {
         $user = User::find(auth()->id());

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\CancellationReason;
+use App\Models\Car;
 use App\Models\Country;
 use App\Models\Region;
 use App\Models\TripRequest;
@@ -56,6 +57,7 @@ class ConfigController extends Controller
         $data = json_decode($sliders, true) ?? [];
         return $this->successResponse('sliders', $data);
     }
+
 
     public function getDriversCancellationReasons(): JsonResponse
     {

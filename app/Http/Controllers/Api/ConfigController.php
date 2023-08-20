@@ -50,6 +50,13 @@ class ConfigController extends Controller
         return $this->successResponse('countries', $data);
     }
 
+    public function getSliders(): JsonResponse
+    {
+        $sliders = settings('mobile_sliders', '');
+        $data = json_decode($sliders, true) ?? [];
+        return $this->successResponse('sliders', $data);
+    }
+
     public function getDriversCancellationReasons(): JsonResponse
     {
         $data = CancellationReason::where('is_active', true)->where('user_type','driver')->get();

@@ -87,6 +87,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
     Route::group(['prefix' => 'config'], function () {
         Route::get('settings', [ConfigController::class, 'getSettings']);
         Route::get('countries', [ConfigController::class, 'getCountries']);
+        Route::get('sliders', [ConfigController::class, 'getSliders']);
         Route::get('driver/cancellation/reasons', [ConfigController::class, 'getDriversCancellationReasons']);
         Route::get('rider/cancellation/reasons', [ConfigController::class, 'getRidersCancellationReasons']);
         Route::get('regions', [ConfigController::class, 'getRegions']);

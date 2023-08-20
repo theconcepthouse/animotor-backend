@@ -27,6 +27,16 @@ class CarController extends Controller
         return view('admin.cars.list', compact('data','title'));
     }
 
+    public function extras($id)
+    {
+        $car = Car::findOrFail($id);
+
+        $title = $car->title. " extras";
+
+
+        return view('admin.cars.extras', compact('car','title'));
+    }
+
     public function store(Request $request)
     {
        $validatedData = $this->validateData($request);
@@ -34,9 +44,14 @@ class CarController extends Controller
             $validatedData['company_id'] = companyId();
         }
 
-        Car::create($validatedData);
+        $car = Car::create($validatedData);
 
-        return redirect()->route('admin.cars.index')->with('success', 'Car created successfully.');
+        $message = $car->title." created successfully.";
+
+        if(settings('enable_rental') == 'yes'){
+            return redirect()->route('admin.car.extras', ['id' => $car->id])->with('success', $message );
+        }
+        return redirect()->route('admin.cars.index')->with('success', $message);
     }
 
     public function edit($id){
@@ -99,6 +114,19 @@ class CarController extends Controller
             'youtube_link' => 'nullable',
             'gear' => 'nullable',
             'title' => 'required',
+
+            'deposit' => 'nullable',
+            'bags' => 'nullable',
+            'cancellation_fee' => 'nullable',
+            'price_per_mileage' => 'nullable',
+            'mileage' => 'nullable',
+            'map_lat' => 'nullable',
+            'map_lng' => 'nullable',
+
+            'air_condition' => 'nullable',
+            'seats' => 'nullable',
+            'pick_up_location' => 'nullable',
+            'insurance_fee' => 'nullable',
         ];
 
         return $request->validate($rules);

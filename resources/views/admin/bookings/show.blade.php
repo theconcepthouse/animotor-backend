@@ -16,7 +16,7 @@
                                 </div>
                             </div>
                             <div class="nk-block-head-content">
-                                <a href="{{ route('admin.app.index',['status' => 'all']) }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>{{ __('admin.back') }}</span></a>
+                                <a href="{{ route('admin.bookings.index',['status' => 'all']) }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>{{ __('admin.back') }}</span></a>
                                 <a href="{{ url()->previous() }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                                 <div class="profile-balance-group gx-4">
                                                     <div class="profile-balance-sub">
                                                         <div class="profile-balance-amount">
-                                                            <form action="{{ route('admin.app.update_status', $booking->id) }}" method="POST" enctype="multipart/form-data">
+                                                            <form action="{{ route('admin.bookings.update_status', $booking->id) }}" method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                             <div class="row">
 
@@ -181,7 +181,7 @@
                                                         </div>
                                                         <div class="profile-ud-item">
                                                             <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">{{ __('admin.service_region') }}</span>
+                                                                <span class="profile-ud-label">{{ __('admin.service_area') }}</span>
                                                                 <span class="profile-ud-value">{{ $booking?->region?->name ?? __('admin.not_set') }}</span>
                                                             </div>
                                                         </div>

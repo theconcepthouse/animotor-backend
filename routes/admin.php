@@ -69,6 +69,8 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::resource('documents', DocumentController::class);
 
     Route::resource('cars', CarController::class);
+    Route::get('car/{id}/extras', [CarController::class,'extras'])->name('car.extras');
+
 
     Route::resource('rental', RentalController::class);
 

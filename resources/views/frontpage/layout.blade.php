@@ -36,7 +36,7 @@
 {{--            <img src="assets/img/preloader/preloader.png" alt="preloader">--}}
 {{--        </div>--}}
         <div class="recharge">
-            <img src="assets/img/preloader/rechage.png" alt="rechage">
+            <img src="/assets/img/preloader/rechage.png" alt="rechage">
         </div>
 {{--        <span class="pretext">--}}
 {{--         Swift bookings--}}
@@ -48,8 +48,9 @@
 
 @yield('content')
 
-
+@if(!request()->has('app'))
 @include('frontpage.partials.layout.footer')
+@endif
 
 <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
 

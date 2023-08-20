@@ -14,3 +14,4 @@ php artisan db:seed
 
 
 TABLES TO REMOVE
+important_information

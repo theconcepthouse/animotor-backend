@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FillableTraits;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,34 +14,40 @@ class Car extends Model
     use HasUuids;
 
 
-    protected $fillable = [
-        'driver_id',
-        'title',
-        'make',
-        'model',
-        'type',
-        'year',
-        'color',
-        'gear',
-        'door',
-        'vehicle_no',
-        'region_id',
-        'is_available',
+    use FillableTraits;
 
-        'rental_packages',
-        'image',
-        'company_id',
+    protected $fillable = [];
 
-        'country',
-        'state',
-        'city',
-        'price_per_day',
-        'attributes',
-        'photos',
-        'youtube_link',
-    ];
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->fillable = $this->car;
+    }
 
     protected $with = ['company'];
+
+    protected $casts = [
+        'extras' => 'array'
+    ];
+
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class,'region_id');
+    }
+
+    public function getExtrasAttribute($value)
+    {
+        if(!$value){
+            return [];
+        }
+        return json_decode($value, true);
+    }
+
+
+    public function setExtrasAttribute($value)
+    {
+        $this->attributes['extras'] = json_encode($value);
+    }
 
     public function company(): BelongsTo
     {
@@ -48,6 +55,7 @@ class Car extends Model
             ->withDefault([
                 'name' => settings('site_name'),
                 'address' => settings('address'),
+                'logo' => settings('front_logo'),
                 'contact_phone' => settings('contact_phone'),
                 'contact_email' => settings('contact_email'),
             ]);
@@ -105,7 +113,7 @@ class Car extends Model
     public function getImageAttribute($value): string
     {
         if(!$value) {
-            return asset('default/404.png');
+            return asset('assets/img/cars/big_car.png');
         }
         return $value;
     }

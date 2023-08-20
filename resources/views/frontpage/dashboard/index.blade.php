@@ -11,7 +11,7 @@
     <section class="pt-120 pb-120">
         <div class="row- justify-content-center- text-center">
             <div class="col-12 justify-content-center">
-                <a href="#" class="cmn__btn">
+                <a href="{{ route('return') }}" class="cmn__btn">
                     <span>Return vehicle</span>
                 </a>
             </div>

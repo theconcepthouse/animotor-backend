@@ -11809,3 +11809,7 @@ p a {
 .logo-menu {
     max-height: 50px;
 }
+
+.modal {
+    --bs-modal-zindex: 9999;
+}

@@ -5,47 +5,47 @@
     </div>
 
     <div class="carferrari__item mb__30 car_item d-flex-  bgwhite p-3">
-        <div class="row- d-flex p__10 align-items-center car_section">
-            <a href="#0" class="thumb">
-                <img src="assets/img/cars/big_car.png" alt="cars">
+        <div class="row d-flex p__10 align-items-center car_section">
+            <a href="#0" class="thumb col-sm-12 col-md-5">
+                <img src="{{ $car?->image }}" alt="cars" />
             </a>
-            <div class="carferrari__content">
+            <div class="carferrari__content col-md-6 col-sm-12">
                 <div class="d-flex- carferari__box justify-content-between">
 
                     <div class="row">
                         <div class="col-12">
-                            <p><span class="text-title">Fiat 500 </span>or similar car</p>
+                            <p><span class="text-title">{{ $car->title }} </span>or similar car</p>
                         </div>
 
                         <div class="col-6 mt-2">
                             <p><img src="/assets/img/icons/profile.png" />
-                                4 seats </p>
+                                {{ $car->seats }} seats </p>
                         </div>
 
                         <div class="col-6 mt-2">
                             <p><img src="/assets/img/icons/gear.png" />
-                                Manual</p>
+                                {{ $car->gear }}</p>
                         </div>
 
                         <div class="col-6 mt-2">
                             <p><img src="/assets/img/icons/bag.png" />
-                                1 large bag</p>
+                                {{ $car->bags ?? '1 large bag' }}</p>
                         </div>
 
                         <div class="col-6 mt-2">
                             <p><img src="/assets/img/icons/signpost.png" />
-                                300 miles per rental</p>
+                                {{ $car->mileage }} miles per rental</p>
                         </div>
 
                         <div class="col-6 mt-3">
-                            <p class="text-primary">Heathrow Airport</p>
-                            <p class="mt-2">Shuttle Bus</p>
+                            <p class="text-primary">{{ $car?->pick_up_location ?? 'Pickup Not set' }}</p>
+                            <p class="mt-2">{{ $car?->type }}</p>
                         </div>
 
 
                         <div class="col-6 mt-3">
-                            <p>Price for 3days</p>
-                            <p class="mt-2 text-title">US$90.22</p>
+                            <p>Price for {{ request()->query('booking_day') }}days</p>
+                            <p class="mt-2 text-title">{{ amt(request()->query('booking_day') * $car->price_per_day) }}</p>
                         </div>
 
                         <div style="height: 50px"></div>
@@ -57,10 +57,14 @@
             </div>
 
         </div>
-        <div class="d-flex justify-content-between mt-3">
-            <div class="">
-                <div class="d-flex align-items-center justify-content-center">
-                    <img src="assets/img/icons/compony.png" alt="cars">
+
+
+        <div class="row justify-content-between mt-3">
+            <div class="col">
+                <div class="d-flex align-items-center justify-content-center-">
+
+                    <img style="max-height: 80px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
+
                     <div class="review_count">
                         7.7
                     </div>
@@ -72,10 +76,10 @@
             </div>
 
 
-            <div class="">
-                <div class="d-flex align-items-center justify-content-center">
+            <div class="col d-flex justify-content-end">
+                <div class="d-flex align-items-center">
+                    <p class="text-primary mb-0">Important info</p>
                     <img src="assets/img/icons/info.png" class="mx-3" alt="cars">
-                    <p class="text-primary">Important info</p>
                 </div>
             </div>
         </div>

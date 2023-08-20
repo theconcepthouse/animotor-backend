@@ -34,6 +34,8 @@
 
                     @include('admin.partials.form.textarea', ['colSize' => 'col-md-12 mt-3 mb-3', 'value' => settings('site_description'), 'fieldName' => 'site_description','title' => 'Site Description'])
 
+                    @include('admin.partials.form.text', ['colSize' => 'col-md-12 mt-3', 'value' => settings('live_chat_link'), 'fieldName' => 'live_chat_link','title' => 'Live Chat Link'])
+
                 </fiv>
             </div>
 

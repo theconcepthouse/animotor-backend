@@ -19,25 +19,25 @@
             <div class="row ">
 
                 <div class="d-flex booking_stage align-items-center justify-content-between">
-                    <div>
+                    <div class=" d-none d-md-block">
                         <a href="javascript:void(0)" class="btn-white">
                             <img src="/assets/img/icons/check.png"><span class="mx-3">Your deal</span>
                         </a>
                     </div>
-                    <div>
+                    <div class=" d-none d-md-block">
                         <img src="/assets/img/icons/dot.png" />
                     </div>
 
-                    <div>
+                    <div class="">
                         <a href="javascript:void(0)" class="cmn__btn">
                             <img class="text-white" src="/assets/img/icons/shield.png"><span class="mx-3">Protection option</span>
                         </a>
                     </div>
-                    <div>
+                    <div class=" d-none d-md-block">
                         <img src="/assets/img/icons/dot.png" />
                     </div>
 
-                    <div>
+                    <div class=" d-none d-md-block">
                         <a href="javascript:void(0)" class="btn-white">
                             <img src="/assets/img/icons/cart.png"><span class="mx-3">Checkout</span>
                         </a>
@@ -48,8 +48,10 @@
 
             <div class="row g-4 justify-content-center mt-3">
                 <div class="col-xxl-8 col-xl-8 col-lg-8">
-                    <div class="alert alert-success alert-dismissible mb-4">
-                        <p>Free Cancellation up to 48 hours before pick-up</p>
+
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Please note:</strong>  Your own car insurance is unlikely to cover hire cars.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
 
                     <div class="carferrari__item mb__30 car_item d-flex-  bgwhite p-3">
@@ -64,12 +66,7 @@
                                             <p>Free cancellation</p>
                                         </div>
                                         <div class="mt-3">
-                                            <p>
-                                                At the counter, the car hire company will block a deposit amount on your credit card.
-                                                You could lose your whole deposit if the car is damaged or stolen, but as long as you have our Full Protection, Rentalcover.com will refund you!
-                                                (The cover price you see includes all applicable taxes and fees).
-                                            </p>
-                                            <p>T&Cs and standard exclusions apply. Please read: Policy Terms</p>
+                                            {!! $car->security_deposit !!}
                                         </div>
 
                                         <div class="d-flex justify-content-between mt-4">
@@ -78,7 +75,7 @@
                                             <p class="text-center">Full Protection <br/>Total cover price
 
                                             <br/>
-                                                US$67.55
+                                                {{ amt($car->insurance_fee) }}
                                             </p>
                                         </div>
 
@@ -93,10 +90,7 @@
                                         </h2>
                                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
                                             <div class="accordion-body">
-                                                <p>
-                                                    At the counter, the car hire company will block a deposit amount on your credit card.
-                                                    You could lose your whole deposit if the car is damaged or stolen, but as long as you have our Full Protection
-                                                </p>
+                                                {{ $car->damage_excess }}
                                             </div>
                                         </div>
                                     </div>

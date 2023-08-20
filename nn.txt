@@ -1,1 +1,47 @@
 [{"img":"https:\/\/gas.ebeanomarket.com\/public\/storage\/photos\/1\/fast_de.png","title":"Fastest Delivery"},{"img":"https:\/\/gas.ebeanomarket.com\/public\/storage\/photos\/1\/fast_de.png","title":"Cheapest Price"},{"img":"https:\/\/gas.ebeanomarket.com\/public\/storage\/photos\/1\/fast_de.png","title":"Easy Payment"}]
+
+
+
+
+
+
+
+<!-- resources/views/livewire/google-maps-autocomplete.blade.php -->
+
+<div>
+    <label for="autocomplete">Search for a place:</label>
+    <input type="text" id="autocomplete" wire:model="selectedPlace" />
+
+    <input type="hidden" id="origin" wire:model="origin" />
+    <input type="hidden" id="latitude" wire:model="latitude" />
+
+    <div id="map" style="height: 300px;"></div>
+
+    <script>
+        var autocomplete;
+
+        function initAutocomplete() {
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('autocomplete'),
+                { types: ['geocode'] }
+            );
+
+            autocomplete.addListener('place_changed', fillInAddress);
+        }
+
+        function fillInAddress() {
+            var place = autocomplete.getPlace();
+
+            if (!place.geometry) {
+                return;
+            }
+
+            var originInput = document.getElementById('origin');
+            var latitudeInput = document.getElementById('latitude');
+
+            originInput.value = place.name;
+            latitudeInput.value = place.geometry.location.lat();
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initAutocomplete" async defer></script>
+</div>

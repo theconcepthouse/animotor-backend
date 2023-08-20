@@ -43,7 +43,7 @@
                                 <div class="card-inner">
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init-export nowrap table" data-export-title="{{ __('admin.export_title') }}">
+                                            <table class="datatable-init nowrap table" data-export-title="{{ __('admin.export_title') }}">
                                                 <thead>
 
                                                 <tr>

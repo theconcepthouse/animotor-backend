@@ -88,6 +88,8 @@ class AdminController extends Controller
             'enable_sms_verification',
             'enable_https',
             'enable_frontpage',
+            'enable_mobile_slider',
+            'enable_mobile_carlisting',
         ];
         return view('admin.settings.booking_services', compact('title','settings'));
     }

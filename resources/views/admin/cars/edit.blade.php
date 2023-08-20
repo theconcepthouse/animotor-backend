@@ -83,7 +83,7 @@
         function onChangeMake() {
             $('#make').on('change', function() {
                 var makeId = $(this).val();
-                alert(makeId)
+                // alert(makeId)
                 if (makeId) {
                     $.ajax({
                         url: "{{ route('admin.api.get.models') }}?make_id=" + makeId,

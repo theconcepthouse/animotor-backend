@@ -55,47 +55,48 @@
                     </div>
 
                     <div class="carferrari__item mb__30 car_item d-flex-  bgwhite p-3">
-                        <div class="row- d-flex p__10 align-items-center car_section" style="border-bottom: 0">
-                            <a href="#0" class="thumb">
-                                <img src="assets/img/cars/big_car.png" alt="cars">
+
+                        <div style="border-bottom: 0" class="row d-flex p__10 align-items-center car_section">
+                            <a href="#0" class="thumb col-sm-12 col-md-5">
+                                <img src="{{ $booking?->car?->image }}" alt="cars" />
                             </a>
-                            <div class="carferrari__content">
+                            <div class="carferrari__content col-md-6 col-sm-12">
                                 <div class="d-flex- carferari__box justify-content-between">
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <p><span class="text-title">Fiat 500 </span>or similar car</p>
+                                            <p><span class="text-title">{{ $booking->car->title }} </span>or similar car</p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/profile.png" />
-                                                4 seats </p>
+                                                {{ $booking->car->seats }} seats </p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/gear.png" />
-                                                Manual</p>
+                                                {{ $booking->car->gear }}</p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/bag.png" />
-                                                1 large bag</p>
+                                                {{ $booking->car->bags ?? '1 large bag' }}</p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/signpost.png" />
-                                                300 miles per rental</p>
+                                                {{ $booking->car->mileage }} miles per rental</p>
                                         </div>
 
                                         <div class="col-6 mt-3">
-                                            <p class="text-primary">Heathrow Airport</p>
-                                            <p class="mt-2">Shuttle Bus</p>
+                                            <p class="text-primary">{{ $booking->car?->pick_up_location ?? 'Pickup Not set' }}</p>
+                                            <p class="mt-2">{{ $booking->car?->type }}</p>
                                         </div>
 
 
                                         <div class="col-6 mt-3">
-                                            <p>Price for 3days</p>
-                                            <p class="mt-2 text-title">US$90.22</p>
+                                            <p>Price for {{ request()->query('booking_day') }}days</p>
+                                            <p class="mt-2 text-title">{{ amt(request()->query('booking_day') * $booking->car->price_per_day) }}</p>
                                         </div>
 
                                         <div style="height: 50px"></div>
@@ -178,7 +179,8 @@
                         <div class="p-3">
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">Term and Conditions</p>
-                                <p><a href="/terms">View Ani motors rental terms</a></p>
+                                <p><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">View Ani motors rental terms</a></p>
+
                             </div>
                             <div class="mt-3">
                                 <p>
@@ -314,6 +316,11 @@
 
             </div>
         </div>
+
+
+        @include('frontpage.partials.terms_modal')
+
+
 
     </section>
 

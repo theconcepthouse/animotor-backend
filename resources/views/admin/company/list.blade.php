@@ -37,11 +37,12 @@
                                 <div class="card-inner">
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                            <table class="datatable-init nowrap table" data-export-title="Export">
                                                 <thead>
                                                 <tr>
                                                     <th>S/N</th>
                                                     <th>Company Name</th>
+                                                    <th>Company Logo</th>
                                                     <th>Owner Name</th>
                                                     <th>Email</th>
                                                     <th>Phone</th>
@@ -55,6 +56,9 @@
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $item?->company?->name }}</td>
+                                                        <td>
+                                                            <img src="{{  $item?->company?->logo }}" style="height: 80px" />
+                                                        </td>
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->email }}</td>
                                                         <td>{{ $item->phone }}</td>

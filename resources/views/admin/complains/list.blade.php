@@ -130,15 +130,11 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason','title' => 'Cancellation Reason'])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => 'User type','options' => '
-    <option value="driver">Driver</option>
-    <option value="user">User</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => 'User type',
+'options' => ['driver' => 'Driver', 'user' => 'user']])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status','options' => '
-    <option value="1">Active</option>
-    <option value="0">Disabled</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status',
+'options' => ['1' => 'Active', '0' => 'Disabled']])
                         </div>
 
                         <div class="form-group mt-3">
@@ -180,15 +176,11 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason', 'value' => $item->reason, 'title' => 'Cancellation Reason'])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => 'User type','options' => '
-    <option value="driver">Driver</option>
-    <option value="user">User</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => 'User type',
+'options' => ['driver' => 'Driver', 'user' => 'user']])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status','options' => '
-    <option value="1">Active</option>
-    <option value="0">Disabled</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status',
+'options' => ['1' => 'Active', '0' => 'Disabled']])
 
                         </div>
 

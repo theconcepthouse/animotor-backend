@@ -16,78 +16,84 @@
 
         <div class="container">
 
-            <div class="row ">
+            <div class="row booking_stage">
 
-                <div class="d-flex booking_stage align-items-center justify-content-between">
-                    <div>
+                    <div class="col-md col-sm-12">
                         <a href="javascript:void(0)" class="cmn__btn">
                             <img src="/assets/img/icons/deal.png"><span class="mx-3">Your deal</span>
                         </a>
                     </div>
-                    <div>
+                    <div class="col-md col-sm-12 d-none d-md-block">
                         <img src="/assets/img/icons/dot.png" />
                     </div>
 
-                    <div>
+                    <div class="col-md col-sm-12 d-none d-md-block">
                         <a href="javascript:void(0)" class="btn-white">
                             <img src="/assets/img/icons/shield.png"><span class="mx-3">Protection option</span>
                         </a>
                     </div>
-                    <div>
+                    <div class="col-md col-sm-12 d-none d-md-block">
                         <img src="/assets/img/icons/dot.png" />
                     </div>
 
-                    <div>
+                    <div class="col-md col-sm-12 d-none d-md-block">
                         <a href="javascript:void(0)" class="btn-white">
                             <img src="/assets/img/icons/cart.png"><span class="mx-3">Checkout</span>
                         </a>
                     </div>
 
-                </div>
+{{--                </div>--}}
             </div>
 
             <div class="row g-4 justify-content-center mt-3">
                 <div class="col-xxl-8 col-xl-8 col-lg-8">
-                    <div class="alert alert-success alert-dismissible mb-4">
-                        <p>Free Cancellation up to 48 hours before pick-up</p>
+                    @if($car->cancellation_fee > 0)
+                    <div class="alert alert-danger alert-dismissible mb-4">
+                        <p>Cancellation Fee is {{ amt($car->cancellation_fee) }}</p>
                     </div>
+                    @else
+                        <div class="alert alert-success alert-dismissible mb-4">
+                            <p>Free Cancellation up to 48 hours before pick-up</p>
+                        </div>
+                    @endif
 
                     <div class="carferrari__item mb__30 car_item d-flex-  bgwhite p-3">
-                        <div class="row- d-flex p__10 align-items-center car_section">
-                            <a href="#0" class="thumb">
-                                <img src="assets/img/cars/big_car.png" alt="cars">
+                        <div class="row d-flex p__10 align-items-center car_section">
+                            <a href="#0" class="thumb col-sm-12 col-md-5">
+
+                                <img src="{{ $car?->image }}" alt="cars" />
                             </a>
-                            <div class="carferrari__content">
+                            <div class="carferrari__content col-md-6 col-sm-12">
                                 <div class="d-flex- carferari__box justify-content-between">
 
                                     <div class="row">
                                         <div class="col-12">
-                                            <p><span class="text-title">Fiat 500 </span>or similar car</p>
+                                            <p><span class="text-title">{{ $car->title }} </span>or similar car</p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/profile.png" />
-                                                4 seats </p>
+                                                {{ $car->seats }} seats </p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/gear.png" />
-                                                Manual</p>
+                                                {{ $car->gear }}</p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/bag.png" />
-                                                1 large bag</p>
+                                                {{ $car->bags ?? '1 large bag' }}</p>
                                         </div>
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/signpost.png" />
-                                                300 miles per rental</p>
+                                                {{ $car->mileage }} miles per rental</p>
                                         </div>
 
                                         <div class="col-6 mt-3">
-                                            <p class="text-primary">Heathrow Airport</p>
-                                            <p class="mt-2">Shuttle Bus</p>
+                                            <p class="text-primary">{{ $car?->pick_up_location ?? 'Pickup Not set' }}</p>
+                                            <p class="mt-2">{{ $car?->type }}</p>
                                         </div>
 
 
@@ -105,10 +111,12 @@
                             </div>
 
                         </div>
-                        <div class="d-flex justify-content-between mt-3">
-                            <div class="">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <img src="assets/img/icons/compony.png" alt="cars">
+                        <div class="row justify-content-between mt-3">
+                            <div class="col">
+                                <div class="d-flex align-items-center justify-content-center-">
+
+                                    <img style="max-height: 80px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
+
                                     <div class="review_count">
                                         7.7
                                     </div>
@@ -120,10 +128,10 @@
                             </div>
 
 
-                            <div class="">
-                                <div class="d-flex align-items-center justify-content-center">
+                            <div class="col d-flex justify-content-end">
+                                <div class="d-flex align-items-center">
+                                    <p class="text-primary mb-0">Important info</p>
                                     <img src="assets/img/icons/info.png" class="mx-3" alt="cars">
-                                    <p class="text-primary">Important info</p>
                                 </div>
                             </div>
                         </div>
@@ -178,25 +186,7 @@
     </section>
 
 
-    <section class="flight__onewaysection">
-        <div class="container p-5">
-        <div class="hotelbooking__categoris__wra">
-
-            <div class="dating__body text-center">
-                <p class="text-title">save time, save money!</p>
-                <p class="text-center my-4">sign up and we'll send the best deals to you</p>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col text-center ps-5 "> <div class="input">
-                            <p class="px-3 text-center">exampls@gmail.com <span> <button class=" ms-5 btn btn_style">Subscribe</button></span></p>
-                        </div></div>
-                    <div class="col"></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    </section>
+    @include('frontpage.components.subscribe')
 
 
 @endsection

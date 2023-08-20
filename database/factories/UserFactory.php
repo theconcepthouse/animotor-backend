@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -10,31 +13,43 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
+
+    protected $model = User::class;
+
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'first_name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->unique()->phoneNumber,
+            'password' => Hash::make('password'),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Define the "after creating" callback.
      *
-     * @return static
+     * @param  \App\Models\User  $user
+     * @return void
      */
-    public function unverified()
+
+
+    public function configure()
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        return $this->afterCreating(function (User $user) {
+            $company = Company::factory()->create();
+
+            $user->update([
+                'company_id' => $company->id,
+            ]);
+
+            $user->addRole('owner');
+        });
     }
+
 }

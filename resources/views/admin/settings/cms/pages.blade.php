@@ -185,7 +185,7 @@
 
         @component('admin.components.delete_modal', [
         'modalId' => 'delete_'.$item->id, // Unique ID for the modal
-        'action' => route('admin.setting.page.content.destroy', $item->id), // Form action URL for the delete action
+        'action' => route('admin.setting.page.destroy', $item->id), // Form action URL for the delete action
         'message' => 'This page data will be removed permanently.', // Message to display in the modal
     ])
         @endcomponent

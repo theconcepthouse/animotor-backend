@@ -152,427 +152,100 @@
                 </div>
             </section>
 
-        @foreach($filteredCars as $car)
-                @include('frontpage.partials.car_item',['car' => $car])
-            @endforeach
+            <div class="row">
+                @foreach($filteredCars as $car)
+                    <div class="col-sm-12 col-md-6">
+                        @include('frontpage.partials.car_item',['car' => $car,'days' => $booking_day])
+                    </div>
+                @endforeach
+            </div>
 
-            <div class="carferrari__item mb__30 d-flex align-items-center bgwhite p__10">
-                <a href="#0" class="thumb">
-                    <img src="assets/img/cars/cadillac.jpg" alt="cars">
-                </a>
-                <div class="carferrari__content">
-                    <div class="d-flex carferari__box justify-content-between">
-                        <div class="farrari__left">
-                            <div class="d-flex mb__24 align-items-center gap-4">
-                                <a href="#0">
-                                    <h5 class="dtext">
-                                        Cadillac
-                                    </h5>
-                                </a>
-                                <span class="suv fz-16 fw-400 lato d-block gratext">
-                              <span class="gratext">
-                                 Suv
-                              </span>
-                           </span>
-                            </div>
-                            <ul class="ferrari__list d-flex">
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Free Cancellation
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Price Guarantee
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Instantly Confirmed
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Third Party Liability
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="farrari__carbook">
-                            <div class="d-flex mb-1 pratext gap-3">
-                                <span class="gratext fz-16 lato">20% off</span>
-                                Per day
-                            </div>
-                            <div class="d-flex align-items-end mb__20 pratext gap-3">
-                                <span class="gratext fz-18 fw-500 lato">$312</span>
-                                <span class="troth3">
-                              $332
-                          </span>
-                            </div>
-                            <a href="car-confirm-details.html" class="cmn__btn">
-                           <span>
-                              Book Now
-                           </span>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="ferrari__pats justify-content-between d-flex align-items-center">
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/person.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           5 Pass
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/lock.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           3 Big Bag
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/setting.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                          Auto
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/speeder.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           100+ Km
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/acs.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           A/C
-                        </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="carferrari__item mb__30 d-flex align-items-center bgwhite p__10">
-                <a href="#0" class="thumb">
-                    <img src="assets/img/cars/chevrolet.jpg" alt="cars">
-                </a>
-                <div class="carferrari__content">
-                    <div class="d-flex carferari__box justify-content-between">
-                        <div class="farrari__left">
-                            <div class="d-flex mb__24 align-items-center gap-4">
-                                <a href="#0">
-                                    <h5 class="dtext">
-                                        Chevrolet
-                                    </h5>
-                                </a>
-                                <span class="suv fz-16 fw-400 lato d-block gratext">
-                              <span class="gratext">
-                                 Suv
-                              </span>
-                           </span>
-                            </div>
-                            <ul class="ferrari__list d-flex">
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Free Cancellation
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Price Guarantee
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Instantly Confirmed
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Third Party Liability
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="farrari__carbook">
-                            <div class="d-flex mb-1 pratext gap-3">
-                                <span class="gratext fz-16 lato">20% off</span>
-                                Per day
-                            </div>
-                            <div class="d-flex align-items-end mb__20 pratext gap-3">
-                                <span class="gratext fz-18 fw-500 lato">$312</span>
-                                <span class="troth3">
-                              $332
-                          </span>
-                            </div>
-                            <a href="car-confirm-details.html" class="cmn__btn">
-                           <span>
-                              Book Now
-                           </span>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="ferrari__pats justify-content-between d-flex align-items-center">
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/person.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           5 Pass
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/lock.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           3 Big Bag
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/setting.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                          Auto
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/speeder.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           100+ Km
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/acs.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           A/C
-                        </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="carferrari__item mb__30 d-flex align-items-center bgwhite p__10">
-                <a href="#0" class="thumb">
-                    <img src="assets/img/cars/datsun.jpg" alt="cars">
-                </a>
-                <div class="carferrari__content">
-                    <div class="d-flex carferari__box justify-content-between">
-                        <div class="farrari__left">
-                            <div class="d-flex mb__24 align-items-center gap-4">
-                                <a href="#0">
-                                    <h5 class="dtext">
-                                        Datsun
-                                    </h5>
-                                </a>
-                                <span class="suv fz-16 fw-400 lato d-block gratext">
-                              <span class="gratext">
-                                 Suv
-                              </span>
-                           </span>
-                            </div>
-                            <ul class="ferrari__list d-flex">
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Free Cancellation
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Price Guarantee
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Instantly Confirmed
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Third Party Liability
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="farrari__carbook">
-                            <div class="d-flex mb-1 pratext gap-3">
-                                <span class="gratext fz-16 lato">20% off</span>
-                                Per day
-                            </div>
-                            <div class="d-flex align-items-end mb__20 pratext gap-3">
-                                <span class="gratext fz-18 fw-500 lato">$312</span>
-                                <span class="troth3">
-                              $332
-                          </span>
-                            </div>
-                            <a href="car-confirm-details.html" class="cmn__btn">
-                           <span>
-                              Book Now
-                           </span>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="ferrari__pats justify-content-between d-flex align-items-center">
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/person.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           5 Pass
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/lock.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           3 Big Bag
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/setting.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                          Auto
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/speeder.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           100+ Km
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/acs.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           A/C
-                        </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="carferrari__item d-flex align-items-center bgwhite p__10">
-                <a href="#0" class="thumb">
-                    <img src="assets/img/cars/bmw.jpg" alt="cars">
-                </a>
-                <div class="carferrari__content">
-                    <div class="d-flex carferari__box justify-content-between">
-                        <div class="farrari__left">
-                            <div class="d-flex mb__24 align-items-center gap-4">
-                                <a href="#0">
-                                    <h5 class="dtext">
-                                        BMW Creta
-                                    </h5>
-                                </a>
-                                <span class="suv fz-16 fw-400 lato d-block gratext">
-                              <span class="gratext">
-                                 Suv
-                              </span>
-                           </span>
-                            </div>
-                            <ul class="ferrari__list d-flex">
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Free Cancellation
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Price Guarantee
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Instantly Confirmed
-                                </li>
-                                <li class="fz-16 fw-400 pratext lato">
-                                    Third Party Liability
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="farrari__carbook">
-                            <div class="d-flex mb-1 pratext gap-3">
-                                <span class="gratext fz-16 lato">20% off</span>
-                                Per day
-                            </div>
-                            <div class="d-flex align-items-end mb__20 pratext gap-3">
-                                <span class="gratext fz-18 fw-500 lato">$312</span>
-                                <span class="troth3">
-                              $332
-                          </span>
-                            </div>
-                            <a href="car-confirm-details.html" class="cmn__btn">
-                           <span>
-                              Book Now
-                           </span>
-                            </a>
-                        </div>
-                    </div>
-                    <ul class="ferrari__pats justify-content-between d-flex align-items-center">
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/person.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           5 Pass
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/lock.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           3 Big Bag
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/setting.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                          Auto
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/speeder.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           100+ Km
-                        </span>
-                        </li>
-                        <li class="d-grid justify-content-center text-center">
-                        <span class="icon mb__10">
-                           <img src="assets/img/svg/acs.svg" alt="icon">
-                        </span>
-                            <span class="dtext fz-16 fw-400 lato d-block">
-                           A/C
-                        </span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="pagination justify-content-center pt__40">
-                <a href="javascript:void(0)">
-                  <span>
-                     <i class="material-symbols-outlined">
-                     navigate_before
-                  </i>
-                  </span>
-                </a>
-                <a href="javascript:void(0)">
-                    1
-                </a>
-                <a href="javascript:void(0)">
-                    2
-                </a>
-                <a href="javascript:void(0)">
-                    3
-                </a>
-                <a href="javascript:void(0)">
-                    ....
-                </a>
-                <a href="javascript:void(0)">
-                    30
-                </a>
-                <a href="javascript:void(0)">
-                  <span>
-                     <i class="material-symbols-outlined">
-                     chevron_right
-                     </i>
-                  </span>
-                </a>
-            </div>
         </div>
     </div>
         @endif
+
+
+        <div class="modal fade" id="exampleModal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Important Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                       <div class="card card-bordered">
+                           <div class="card-body">
+                               <div id="accordion">
+                                   <div class="accordion-item">
+                                       <h2 class="accordion-header" id="headingOne">
+                                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                               Important Info
+                                           </button>
+                                       </h2>
+                                       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                                           <div class="accordion-body">
+                                               <!-- Accordion content here -->
+                                               <div class="row">
+                                                   <div class="col-4">
+                                                       <p>
+
+                                                       </p>
+                                                   </div>
+                                               </div>
+                                            </div>
+                                       </div>
+                                   </div>
+                                   <!-- Other accordion items go here -->
+                               </div>
+                           </div>
+                       </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModal1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modal Title</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Accordion -->
+                        <div id="accordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Accordion Item #1
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <!-- Accordion content here -->
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto asperiores autem dolores doloribus, eius, esse laborum magnam maxime minus nihil obcaecati omnis possimus qui quibusdam tempora voluptatem.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto asperiores autem dolores doloribus, eius, esse laborum magnam maxime minus nihil obcaecati omnis possimus qui quibusdam tempora voluptatem.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto asperiores autem dolores doloribus, eius, esse laborum magnam maxime minus nihil obcaecati omnis possimus qui quibusdam tempora voluptatem.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto asperiores autem dolores doloribus, eius, esse laborum magnam maxime minus nihil obcaecati omnis possimus qui quibusdam tempora voluptatem.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto asperiores autem dolores doloribus, eius, esse laborum magnam maxime minus nihil obcaecati omnis possimus qui quibusdam tempora voluptatem.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto asperiores autem dolores doloribus, eius, esse laborum magnam maxime minus nihil obcaecati omnis possimus qui quibusdam tempora voluptatem.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet animi architecto asperiores autem dolores doloribus, eius, esse laborum magnam maxime minus nihil obcaecati omnis possimus qui quibusdam tempora voluptatem.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Other accordion items go here -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </div>

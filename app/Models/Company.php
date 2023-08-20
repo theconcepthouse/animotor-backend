@@ -23,5 +23,14 @@ class Company extends Model
         'contact_name',
         'contact_phone',
         'contact_email',
+        'logo',
     ];
+
+    public function getLogoAttribute($value): string
+    {
+        if(!$value) {
+            return asset('default/404.png');
+        }
+        return $value;
+    }
 }

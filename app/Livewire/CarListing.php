@@ -13,6 +13,7 @@ class CarListing extends Component
     public $search;
     public int $min_price = 10;
     public int $max_price = 100;
+    public int $booking_day = 0;
 
 
     #[Computed]
@@ -56,6 +57,10 @@ class CarListing extends Component
 
     public function updatedSearch(){
         dd($this->max_price);
+    }
+
+    public function mount(){
+        $this->booking_day = request()->query('booking_day');
     }
 
     public function services(){

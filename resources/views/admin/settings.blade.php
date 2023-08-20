@@ -31,6 +31,11 @@
                                     <a class="nav-link  {{ $active == 'payment-methods' ? 'active' : '' }}" data-bs-toggle="tab" href="#payment-methods"><em class="icon ni ni-money"></em><span>Payment Methods </span></a>
                                 </li>
 
+                                @if(settings('enable_mobile_slider') == 'yes')
+                                <li class="nav-item">
+                                    <a class="nav-link  {{ $active == 'slider' ? 'active' : '' }}" data-bs-toggle="tab" href="#slider"><em class="icon ni ni-img-fill"></em><span>Mobile Slider </span></a>
+                                </li>
+                                @endif
 
 {{--                                <li class="nav-item">--}}
 {{--                                    <a class="nav-link" data-bs-toggle="tab" href="#email"><em class="icon ni ni-mail-fill"></em><span>Email settings </span> </a>--}}
@@ -54,6 +59,10 @@
                                 </div> <!-- .tab-pane -->
                                <div class="tab-pane  {{ $active == 'api' ? 'active' : '' }}" id="api">
                                     @include('admin.settings.partials.api')
+                                </div> <!-- .tab-pane -->
+
+                                <div class="tab-pane  {{ $active == 'slider' ? 'active' : '' }}" id="slider">
+                                    @include('admin.settings.partials.slider')
                                 </div> <!-- .tab-pane -->
 
                             </div><!-- .tab-content -->

@@ -116,19 +116,13 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','title' => 'Document name'])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_required', 'title' => 'Is Required','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_required', 'title' => 'Is Required',
+'options' => ['1' => 'Yes', '0' => 'No']])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'has_expiry_date', 'title' => 'Has expiry date','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-'])
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'status', 'title' => 'Status','options' => '
-    <option value="1">Active</option>
-    <option value="0">Disabled</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'has_expiry_date', 'title' => 'Has expiry date',
+'options' => ['1' => 'Yes', '0' => 'No']])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'status', 'title' => 'Status',
+'options' => ['1' => 'Active', '0' => 'Disabled']])
                         </div>
 
                         <div class="form-group mt-3">
@@ -170,19 +164,13 @@
                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','value' => $item->name, 'title' => 'Document name'])
 
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_required', 'value' => $item->is_required, 'title' => 'Is Required','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_required', 'value' => $item->is_required, 'title' => 'Is Required',
+'options' => ['1' => 'Yes', '0' => 'No']])
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'has_expiry_date', 'value' => $item->has_expiry_date, 'title' => 'Has expiry date','options' => '
-    <option value="1">Yes</option>
-    <option value="0">No</option>
-'])
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'status', 'value' => $item->status, 'title' => 'Status','options' => '
-    <option value="1">Active</option>
-    <option value="0">Disabled</option>
-'])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'has_expiry_date', 'value' => $item->has_expiry_date, 'title' => 'Has expiry date',
+'options' => ['1' => 'Yes', '0' => 'No']])
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'status', 'value' => $item->status, 'title' => 'Status',
+'options' => ['1' => 'Active', '0' => 'Disabled']])
                         </div>
 
                         <div class="form-group mt-3">

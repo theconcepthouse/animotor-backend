@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [FrontPageController::class,'home']);
+Route::get('/manage/booking', [FrontPageController::class,'manageBooking'])->name('manage_booking');
+Route::post('/search/booking', [FrontPageController::class,'searchBooking'])->name('search_booking');
 Route::get('/builder', [FrontPageController::class,'builder']);
 Route::get('/booking/{id}', [FrontPageController::class,'booking'])->name('booking');
 Route::get('/voucher/{id}', [FrontPageController::class,'voucher'])->name('voucher');
@@ -38,6 +40,7 @@ Route::get('/search', [FrontPageController::class,'search'])->name('search');
 
 Route::group(['prefix' => 'customer'], function(){
     Route::get('/dashboard', [DashboardController::class,'dashboard'])->name('dashboard');
+    Route::get('/return', [DashboardController::class,'return'])->name('return');
 
 });
 

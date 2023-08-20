@@ -106,7 +106,7 @@
                 </div>
 
                 <div class="sigin__grp d-flex align-items-center">
-                    <a href="#" class="">
+                    <a href="/manage/booking" class="">
                         <img src="/assets/img/icons/calender.png">
                         <span>Manage booking</span>
                     </a>

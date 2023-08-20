@@ -8,54 +8,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Traits\FillableTraits;
 
 class Booking extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = [
-        'region_id',
-        'driver_id',
-        'customer_id',
-        'fee',
-        'reference',
-        'pick_up_date',
-        'pick_up_time',
-        'drop_off_date',
-        'drop_off_time',
-        'pick_location',
-        'drop_off_location',
-        'status',
-        'payment_status',
-        'payment_method',
-        'pick_up_lat',
-        'pick_up_lng',
-        'drop_off_lat',
-        'drop_off_lng',
+    use FillableTraits;
 
-        'car_id',
-        'completed',
-        'cancelled',
-        'rating',
-        'rating_comment',
+    protected $fillable = [];
 
-
-        'extra_time_price',
-
-        'discount',
-        'tax',
-        'grand_total',
-
-        'rental_id',
-
-        'booking_type',
-        'driver_earn',
-        'commission',
-        'cancellation_reason',
-        'cancelled_by',
-        'comment',
-        'picked',
-    ];
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->fillable = $this->bookings;
+    }
 
 //    protected  $with = ['car'];
 

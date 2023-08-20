@@ -66,6 +66,59 @@ class BookingController extends Controller
         return $this->successResponse('cars', $data);
     }
 
+    public function setBooking(Request $request): JsonResponse
+    {
+        $user = User::find(auth()->id());
+        if(!$user->region_id){
+            return $this->errorResponse('We cant identify your pickup location');
+        }
+
+        $region_id = $user->region_id;
+
+        $request->validate([
+
+            'pick_up_time' => 'nullable',
+            'pick_up_date' => 'nullable',
+
+            'drop_off_date' => 'nullable',
+            'car_id' => 'required',
+        ]);
+
+
+        $pick_up_date = $request['pick_up_date'];
+
+        $drop_off_date = $request['drop_off_date'];
+
+        $startDate = Carbon::parse($pick_up_date);
+        $endDate = Carbon::parse($drop_off_date);
+
+        $diffInDays = $endDate->diffInDays($startDate);
+
+        $car = Car::find($request->input('car_id'));
+
+        if(!$car){
+            return $this->errorResponse('Something went wrong', 422);
+        }
+
+
+        if($diffInDays < 2){
+            return $this->errorResponse('Your drop off date cant be same as pickup', 422);
+        }
+
+        $booking = [
+            "days" => $diffInDays,
+
+            "pick_up_date" => $pick_up_date,
+            "drop_off_date" => $drop_off_date,
+
+        ];
+
+        $car->booking = $booking;
+
+
+        return $this->successResponse('available cars', $car);
+    }
+
 
     public function getCars(Request $request, DistanceService $distanceService):JsonResponse
     {

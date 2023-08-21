@@ -486,8 +486,8 @@
                 </div>
                 <div class="nk-sidebar-brand">
                     <a href="{{ route('admin.dashboard') }}" class="logo-link nk-sidebar-logo">
-                        <img class="logo-light logo-img" src="{{ asset('admin/assets/images/logo.png') }}"  alt="logo">
-                        <img class="logo-dark logo-img" src="{{ asset('admin/assets/images/logo.png') }}" alt="logo-dark">
+                        <img class="logo-light logo-img" src="{{ settings('light_logo') }}"  alt="logo">
+                        <img class="logo-dark logo-img" src="{{ settings('dark_logo') }}" alt="logo-dark">
                     </a>
                 </div>
             </div><!-- .nk-sidebar-element -->

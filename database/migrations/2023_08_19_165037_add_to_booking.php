@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->string('booking_number')->nullable()->after('picked');
-            $table->string('confirmation_no')->nullable()->after('picked');
-            $table->boolean('is_confirmed')->default(0)->after('picked');
-            $table->boolean('insurance_fee')->default(0)->after('picked');
-            $table->boolean('deposit_fee')->default(0)->after('picked');
+            $table->string('booking_number')->nullable();
+            $table->string('confirmation_no')->nullable();
+            $table->boolean('is_confirmed')->default(0);
+            $table->boolean('insurance_fee')->default(0);
+            $table->boolean('deposit_fee')->default(0);
         });
     }
 

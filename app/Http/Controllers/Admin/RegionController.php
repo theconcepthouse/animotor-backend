@@ -96,7 +96,15 @@ class RegionController extends Controller
 
         $region= Region::selectRaw("*,ST_AsText(ST_Centroid(`coordinates`)) as center")->findOrFail($region->id);
 
-        $area = json_decode($region->coordinates[0]->toJson(),true);
+        if (isset($region->coordinates[0])) {
+            $area = json_decode($region->coordinates[0]->toJson(),true);
+        } else {
+            $area = [
+                'lat' => 23.757989,
+                'lng' => 90.360587,
+            ];
+        }
+
 
         return view('admin.service_area.edit', compact('region','regions','countries','area','timezones'));
     }

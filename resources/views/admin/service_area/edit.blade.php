@@ -102,10 +102,12 @@
                                                                    for="exampleFormControlInput1">Coordinates<span
                                                                     class="input-label-secondary" title="draw_your_zone_on_the_map">draw your zone on the map</span></label>
                                                             <textarea  type="text" name="coordinates"  id="coordinates" class="form-control">
+                                                                @if(isset($area['coordinates']))
                                                                 @foreach($area['coordinates'] as $key=>$coords)
                                                                     <?php if(count($area['coordinates']) != $key+1) {if($key != 0) echo(','); ?>({{$coords[1]}}, {{$coords[0]}})
                                                                     <?php } ?>
                                                                 @endforeach
+                                                                @endif
                                                             </textarea>
                                                         </div>
 
@@ -197,7 +199,11 @@
         }
 
         function initialize() {
+            @if (!empty($area['coordinates']))
             var myLatlng = new google.maps.LatLng({{trim(explode(' ',$region->center)[1], 'POINT()')}}, {{trim(explode(' ',$region->center)[0], 'POINT()')}});
+            @else
+            var myLatlng = { lat: {{ '23.757989' }}, lng: {{ '90.360587' }} };
+            @endif
             var myOptions = {
                 zoom: 13,
                 center: myLatlng,
@@ -205,8 +211,9 @@
             };
             map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
 
-            const polygonCoords = [
+            @if (!empty($area['coordinates']))
 
+            var polygonCoords = [
                     @foreach($area['coordinates'] as $coords)
                 { lat: {{$coords[1]}}, lng: {{$coords[0]}} },
                 @endforeach
@@ -221,6 +228,8 @@
             });
 
             zonePolygon.setMap(map);
+
+            @endif
 
             zonePolygon.getPaths().forEach(function(path) {
                 path.forEach(function(latlng) {

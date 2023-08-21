@@ -14,17 +14,7 @@ class CarController extends Controller
 {
     public function index()
     {
-        if(isOwner()){
-            $data = Car::where('company_id', companyId())->paginate(100);
-            $title = "Fleet management";
-        }else if(isAdmin()){
-            $data = Car::paginate(100);
-            $title = "Cars listing";
-        }else{
-            $data = [];
-            $title = "Cars listing";
-        }
-        return view('admin.cars.list', compact('data','title'));
+        return view('admin.cars.list');
     }
 
     public function extras($id)

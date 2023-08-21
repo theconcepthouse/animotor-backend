@@ -114,6 +114,9 @@ function isPaymentMethodSet(): bool
 
 function removeDuplicatePhotos($photos_array, $new): string
 {
+    if(!$photos_array){
+        return '';
+    }
     if(count($photos_array) < 1){
         return $new;
     }

@@ -113,6 +113,22 @@ class BookingController extends Controller
 
         ];
 
+        $tax = ($car->price_per_day * $diffInDays) * 0.075;
+
+
+        $booking['price_in_days'] =  $car->price_per_day * $diffInDays;
+        $booking['grand_total'] =  ($car->price_per_day * $diffInDays) + $tax;
+
+
+        $price = [
+            ['name' => 'Price', 'val' => $car->price_per_day],
+            ['name' => 'Tax', 'val' => $tax],
+            ['name' => 'Total', 'val' => ($car->price_per_day * $diffInDays)],
+            ['name' => 'Grand total', 'val' => ($car->price_per_day * $diffInDays) + $tax],
+        ];
+
+        $car->price = $price;
+
         $car->booking = $booking;
 
 

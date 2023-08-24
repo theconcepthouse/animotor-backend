@@ -178,6 +178,15 @@
             color: #ffffff;
         }
 
+        .step:first-child {
+            border-bottom-left-radius: 30px;
+            border-top-left-radius: 30px;
+        }
+        .step:last-child {
+            border-bottom-right-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
     </style>
 
     @yield('style')

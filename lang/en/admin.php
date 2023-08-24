@@ -21,6 +21,7 @@ return [
 
     'view' => 'View',
     'service_area' => 'Service Area',
+    'booking_no' => 'Booking no',
     'car_listings' => 'Car Listings',
     'reference' => 'Reference',
     'pickup_date' => 'Pickup Date',
@@ -41,6 +42,49 @@ return [
     'discount' => 'Discount',
     'update' => 'Update',
     'status' => 'Status',
+
+    'reported_date' => 'Reported date',
+    'incident_date' => 'Incident date',
+    'insurance_reference_no' => 'Insurance reference no',
+    'total_claim_cost' => 'Total claim cost',
+
+    'booking_id' => 'Booking id',
+    'booking_date' => 'Booking date',
+    'date_time' => 'Date time',
+    'date_and_time' => 'Date & time',
+    'mileage_at_repair' => 'Mileage at repair',
+    'workshop_name' => 'Workshop name',
+    'repair_type' => 'Repair type',
+    'total_cost' => 'Total cost',
+    'vat' => 'VAT',
+    'invoice' => 'Invoice',
+
+    'no_booking_history' => 'No Booking History',
+
+    'tfl_congestion_charge' => 'TFL Congestion Charge',
+    'heathrow_airport' => 'Heathrow Airport',
+    'dartford_charge' => 'Dartford Charge',
+    'gatwick_airport' => 'Gatwick Airport',
+
+    'finance_type' => 'Finance type',
+    'purchase_price' => 'Purchase price',
+    'agreement_number' => 'Agreement number',
+    'funder_name' => 'Funder name',
+    'agreement_start_date' => 'Agreement start date',
+    'agreement_end_date' => 'Agreement end date',
+    'loan_amount' => 'Loan amount',
+    'repayment_frequency' => 'Repayment frequency',
+    'amount' => 'Amount',
+
+    'document_type' => 'Document type',
+    'document_name' => 'Document name',
+    'upload_date' => 'Upload date',
+    'action_type' => 'Action type',
+    'action_date' => 'Action date',
+    'file' => 'File',
+
+
+
     'vehicle_picked' => 'Vehicle Picked',
     'status_comment' => 'Status Comment',
     'personal_information' => 'Personal Information',

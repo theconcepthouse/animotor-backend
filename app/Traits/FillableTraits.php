@@ -67,6 +67,7 @@ trait FillableTraits
         'tax_type',
         'service',
         'documents',
+        'subscriptions',
         'finance',
         'damage_history',
         'repairs',

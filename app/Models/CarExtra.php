@@ -43,6 +43,70 @@ class CarExtra extends Model
         }
         return json_decode($value, true);
     }
+    public function getDamageHistoryAttribute($value)
+    {
+        if(!$value){
+            return [];
+        }
+        return json_decode($value, true);
+    }
+
+    public function setDamageHistoryAttribute($value)
+    {
+        $this->attributes['damage_history'] = json_encode($value);
+    }
+
+    public function getRepairsAttribute($value)
+    {
+        if(!$value){
+            return [];
+        }
+        return json_decode($value, true);
+    }
+
+    public function setRepairsAttribute($value)
+    {
+        $this->attributes['repairs'] = json_encode($value);
+    }
+
+    public function getDocumentsAttribute($value)
+    {
+        if(!$value){
+            return [];
+        }
+        return json_decode($value, true);
+    }
+
+    public function setDocumentsAttribute($value)
+    {
+        $this->attributes['documents'] = json_encode($value);
+    }
+
+    public function getSubscriptionsAttribute($value)
+    {
+        if(!$value){
+            return [];
+        }
+        return json_decode($value, true);
+    }
+
+    public function setSubscriptionsAttribute($value)
+    {
+        $this->attributes['subscriptions'] = json_encode($value);
+    }
+
+    public function getFinanceAttribute($value)
+    {
+        if(!$value){
+            return [];
+        }
+        return json_decode($value, true);
+    }
+
+    public function setFinanceAttribute($value)
+    {
+        $this->attributes['finance'] = json_encode($value);
+    }
 
     public function setMotsAttribute($value)
     {

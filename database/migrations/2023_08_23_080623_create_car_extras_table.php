@@ -25,6 +25,7 @@ return new class extends Migration
             $table->json('finance')->comment('car finance')->nullable();
             $table->json('damage_history')->comment('car finance')->nullable();
             $table->json('repairs')->comment('car finance')->nullable();
+            $table->json('subscriptions')->comment('car subscriptions')->nullable();
 
             $table->foreign('car_id')->references('id')->on('cars')
                 ->onDelete('cascade')

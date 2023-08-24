@@ -5,13 +5,19 @@ namespace App\Livewire\Admin\Cars;
 use App\Models\Car;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
+use App\Services\FileUploadService;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Form extends Component
 {
+    use WithFileUploads;
+
+
     public Car $car;
 
+    public ?string $thumbnail;
     public ?string $title;
     public ?string $type;
     public ?string $make;
@@ -40,8 +46,6 @@ class Form extends Component
     public array $extras = ['title' => '', 'price' => ''];
 
 
-
-
 //    TAX
     public ?string $is_taxed = "yes";
     public ?string $tax_amount;
@@ -55,11 +59,58 @@ class Form extends Component
         'next_service_mileage' => '',
     ];
 
+    public array $subscription = [
+        'tfl_congestion_charge' => '',
+        'heathrow_airport' => '',
+        'dartford_charge' => '',
+        'gatwick_airport' => '',
+    ];
+
     public array $mots = [
         'test_date' => '',
         'expiry_date' => '',
         'result' => 'pass',
         'details' => '',
+    ];
+    public array $damage = [
+        'reported_date' => '',
+        'incident_date' => '',
+        'insurance_reference_no' => '',
+        'total_claim_cost' => '',
+        'status' => 'open',
+    ];
+    public array $repair = [
+        'booking_id' => '',
+        'booking_date' => '',
+        'date_time' => '',
+        'mileage_at_repair' => '',
+        'workshop_name' => '',
+        'repair_type' => '',
+        'total_cost' => '',
+        'vat' => '',
+        'invoice' => '',
+    ];
+
+    public array $finance = [
+        'finance_type' => '',
+        'purchase_price' => '',
+        'agreement_number' => '',
+        'funder_name' => '',
+        'agreement_start_date' => '',
+        'agreement_end_date' => '',
+        'loan_amount' => '',
+        'repayment_frequency' => '',
+        'amount' => '',
+    ];
+
+    public array $document = [
+        'document_type' => '',
+        'document_name' => '',
+        'upload_date' => '',
+        'expiry_date' => '',
+        'action_type' => '',
+        'action_date' => '',
+        'file' => '',
     ];
 
     public array $steps = [
@@ -71,6 +122,13 @@ class Form extends Component
         'Service',
         'Addons',
         'Booking Information',
+        'Documents',
+        'Finance',
+        'Demage History',
+        'Add repair',
+        'PCNS Listing',
+        'Reports',
+        'Subscriptions',
     ];
 
     public array $full_types = [
@@ -85,70 +143,97 @@ class Form extends Component
         'Hydrogen',
     ];
 
-    public $car_types;
-    public $car_makes;
-    public $car_models;
+    public ?string $car_types;
+    public ?string $car_makes;
+    public ?string $car_models;
 
     #[Computed]
-    public int $step = 8;
+    public int $step = 14;
 
 
-    public function updatedMake(){
-        $make = VehicleMake::select('name','id')->where('name', $this->make)->first();
+    public function updatedMake()
+    {
+        $make = VehicleMake::select('name', 'id')->where('name', $this->make)->first();
         $make_id = $make->id ?? null;
-        if($make_id){
+        if ($make_id) {
             $this->car_models = VehicleModel::where('make_id', $make_id)->get();
         }
     }
 
-    public function updatedGear(){
+    public function updatedGear()
+    {
         $this->car->update(['gear', $this->gear]);
         $this->successMsg();
     }
 
-    public function mount(Car $car, $car_types, $car_makes, $car_models){
+    public function updatedThumbnail()
+    {
+        dd($this->thumbnail);
+    }
+
+    public function mount(Car $car, $car_types, $car_makes, $car_models)
+    {
         $this->car_types = $car_types;
         $this->car_makes = $car_makes;
         $this->car_models = $car_models;
-        if($car){
+        if ($car) {
             $this->car = $car;
             $this->fill($car->toArray());
 
-            if($car->carExtra){
+            if ($car->carExtra) {
                 $carExtra = $car->carExtra;
                 $this->is_taxed = $carExtra->is_taxed;
+                $this->finance = $carExtra->finance;
+                $this->subscription = $carExtra->subscriptions;
                 $this->tax_amount = $carExtra->tax_amount;
                 $this->tax_type = $carExtra->tax_type;
                 $this->tax_expiry_date = $carExtra->tax_expiry_date;
             }
         }
     }
+
     public function render()
     {
         return view('livewire.admin.cars.form');
     }
 
 
-    public function saveUpdate(){
+    public function saveUpdate()
+    {
 
 //        if($this->step == 6){
 //            return $this->addService();
 //        }
 //
 
-        if($this->step == 5){
+        if ($this->step == 5) {
             $this->saveTax();
             return $this->step++;
         }
 
-        if($this->step == 3){
+        if ($this->step == 15) {
+           return $this->updateSubscription();
+        }
+
+
+        if ($this->step == 10) {
+            $this->updateFinance();
+            return $this->step++;
+        }
+
+
+        if ($this->step == 3) {
             $this->saveSpec();
             return $this->step++;
         }
 
-        if($this->step == 7){
+        if ($this->step == 7) {
             $this->addExtras();
             return $this->step++;
+        }
+
+        if ($this->step == 8) {
+            return $this->updateBookingInfo();
         }
 
         $validated = $this->validate([
@@ -177,7 +262,8 @@ class Form extends Component
 
     }
 
-    public function saveSpec(){
+    public function saveSpec()
+    {
 
 
         $validated = $this->validate([
@@ -196,6 +282,239 @@ class Form extends Component
         $this->successMsg();
 
 
+    }
+
+    public function setStep($step)
+    {
+        $this->step = $step;
+    }
+
+    public function updateBookingInfo(): bool
+    {
+        $validated = $this->validate([
+            'requirements' => ['required', 'string'],
+            'security_deposit' => ['required', 'string'],
+            'damage_excess' => ['required', 'string'],
+            'mileage_text' => ['required', 'string'],
+        ]);
+
+        $this->car->update($validated);
+
+        $this->successMsg();
+
+        return true;
+    }
+
+    public function updateDamage(): bool
+    {
+        $validated = $this->validate([
+            'damage.reported_date' => ['required', 'string'],
+            'damage.incident_date' => ['required', 'string'],
+            'damage.insurance_reference_no' => ['required', 'string'],
+            'damage.total_claim_cost' => ['required', 'string'],
+            'damage.status' => ['required', 'string'],
+        ]);
+
+        $newData = [
+            'reported_date' => $this->damage['reported_date'],
+            'incident_date' => $this->damage['incident_date'],
+            'insurance_reference_no' => $this->damage['insurance_reference_no'],
+            'total_claim_cost' => $this->damage['total_claim_cost'],
+            'status' => $this->damage['status'],
+        ];
+
+        $carExtra = $this->car->carExtra;
+
+        if ($carExtra) {
+            $damage_history = $carExtra->damage_history;
+            $damage_history[] = $newData;
+            $carExtra->update(['damage_history' => $damage_history]);
+        }
+
+        $this->successMsg();
+
+        $this->damage = [
+            'reported_date' => '',
+            'incident_date' => '',
+            'insurance_reference_no' => 'pass',
+            'total_claim_cost' => '',
+            'status' => '',
+        ];
+
+        return true;
+    }
+
+    public function updateRepair(): bool
+    {
+        $validated = $this->validate([
+            'repair.booking_id' => ['required', 'string'],
+            'repair.booking_date' => ['required', 'string'],
+            'repair.date_time' => ['required', 'string'],
+            'repair.mileage_at_repair' => ['required', 'string'],
+            'repair.workshop_name' => ['required', 'string'],
+            'repair.repair_type' => ['required', 'string'],
+            'repair.total_cost' => ['required', 'string'],
+            'repair.vat' => ['required', 'string'],
+            'repair.invoice' => ['required', 'mimes:pdf',  'mimes:jpeg,png,jpg', 'max:2048'],
+        ]);
+
+
+        if ($this->repair['invoice']) {
+            $uploadService = new FileUploadService();
+            $file = $uploadService->userFileUpload($this->repair['invoice']);
+        }
+
+
+        $newData = [
+            'booking_id' => $this->repair['booking_id'],
+            'booking_date' => $this->repair['booking_date'],
+            'date_time' => $this->repair['date_time'],
+            'mileage_at_repair' => $this->repair['mileage_at_repair'],
+            'workshop_name' => $this->repair['workshop_name'],
+            'repair_type' => $this->repair['repair_type'],
+            'total_cost' => $this->repair['total_cost'],
+            'vat' => $this->repair['vat'],
+            'invoice' => $file ?? '',
+        ];
+
+        $carExtra = $this->car->carExtra;
+
+        if ($carExtra) {
+            $repairs = $carExtra->repairs;
+            $repairs[] = $newData;
+            $carExtra->update(['repairs' => $repairs]);
+        }
+
+        $this->successMsg();
+
+        $this->damage = [
+            'booking_id' => '',
+            'booking_date' => '',
+            'date_time' => 'pass',
+            'mileage_at_repair' => '',
+            'workshop_name' => '',
+            'repair_type' => '',
+            'total_cost' => '',
+        ];
+
+        return true;
+    }
+
+    public function updateDocument(): bool
+    {
+
+        $this->validate([
+            'document.document_type' => ['required', 'string'],
+            'document.document_name' => ['required', 'string'],
+            'document.upload_date' => ['required', 'string'],
+            'document.expiry_date' => ['required', 'string'],
+            'document.action_type' => ['required', 'string'],
+            'document.action_date' => ['required', 'string'],
+            'document.file' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+        ]);
+
+
+        if ($this->document['file']) {
+            $uploadService = new FileUploadService();
+            $image = $uploadService->userPhotoUpload($this->document['file']);
+        }
+
+
+        $newData = [
+            'document_type' => $this->document['document_type'],
+            'document_name' => $this->document['document_name'],
+            'upload_date' => $this->document['upload_date'],
+            'expiry_date' => $this->document['expiry_date'],
+            'action_type' => $this->document['action_type'],
+            'action_date' => $this->document['action_date'],
+            'file' => $image ?? '',
+        ];
+
+        $carExtra = $this->car->carExtra;
+
+        if ($carExtra) {
+            $documents = $carExtra->documents;
+            $documents[] = $newData;
+            $carExtra->update(['documents' => $documents]);
+        }
+
+        $this->successMsg();
+
+        $this->document = [
+            'document_type' => '',
+            'document_name' => '',
+            'upload_date' => '',
+            'expiry_date' => '',
+            'action_type' => '',
+            'action_date' => '',
+            'file' => '',
+        ];
+
+        return true;
+    }
+
+    public function updateFinance(): bool
+    {
+        $this->validate([
+            'finance.finance_type' => ['required', 'string'],
+            'finance.purchase_price' => ['required', 'string'],
+            'finance.agreement_number' => ['required', 'string'],
+            'finance.funder_name' => ['required', 'string'],
+            'finance.agreement_start_date' => ['required', 'string'],
+            'finance.agreement_end_date' => ['required', 'string'],
+            'finance.loan_amount' => ['required', 'string'],
+            'finance.repayment_frequency' => ['required', 'string'],
+            'finance.amount' => ['required', 'string'],
+        ]);
+
+        $newData = [
+            'finance_type' => $this->finance['finance_type'],
+            'purchase_price' => $this->finance['purchase_price'],
+            'agreement_number' => $this->finance['agreement_number'],
+            'funder_name' => $this->finance['funder_name'],
+            'agreement_start_date' => $this->finance['agreement_start_date'],
+            'agreement_end_date' => $this->finance['agreement_end_date'],
+            'loan_amount' => $this->finance['loan_amount'],
+            'repayment_frequency' => $this->finance['repayment_frequency'],
+            'amount' => $this->finance['amount'],
+        ];
+
+        $carExtra = $this->car->carExtra;
+
+        if ($carExtra) {
+            $carExtra->update(['finance' => $newData]);
+        }
+
+        $this->successMsg();
+
+        return true;
+    }
+
+    public function updateSubscription(): bool
+    {
+        $this->validate([
+            'subscription.tfl_congestion_charge' => ['required', 'string'],
+            'subscription.heathrow_airport' => ['required', 'string'],
+            'subscription.dartford_charge' => ['required', 'string'],
+            'subscription.gatwick_airport' => ['required', 'string'],
+        ]);
+
+        $newData = [
+            'tfl_congestion_charge' => $this->subscription['tfl_congestion_charge'],
+            'heathrow_airport' => $this->subscription['heathrow_airport'],
+            'dartford_charge' => $this->subscription['dartford_charge'],
+            'gatwick_airport' => $this->subscription['gatwick_airport'],
+        ];
+
+        $carExtra = $this->car->carExtra;
+
+        if ($carExtra) {
+            $carExtra->update(['subscriptions' => $newData]);
+        }
+
+        $this->successMsg();
+
+        return true;
     }
 
     public function saveTax()
@@ -321,7 +640,8 @@ class Form extends Component
         $this->car->save();
     }
 
-    public function successMsg(){
+    public function successMsg()
+    {
         $this->js("NioApp.Toast('Successfully updated', 'success', {
                                 position: 'top-right'
                             });");

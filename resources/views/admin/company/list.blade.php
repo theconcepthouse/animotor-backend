@@ -57,7 +57,7 @@
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $item?->company?->name }}</td>
                                                         <td>
-                                                            <img src="{{  $item?->company?->logo }}" style="height: 80px" />
+                                                            <img src="{{  $item?->company?->logo }}" style="height: 40px" />
                                                         </td>
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->email }}</td>

@@ -9,6 +9,16 @@ return [
     'scheduled' => 'Scheduled',
     'export_title' => 'Bookings Export',
     'sn' => 'SN',
+
+    'test_date' => 'Test Date',
+    'expiry_date' => 'Expiry Date',
+    'result' => 'Result',
+
+    'last_service_date' => 'Last Service Date',
+    'next_service_date' => 'Next Service Date',
+    'last_service_mileage' => 'Last Service Mileage',
+    'next_service_mileage' => 'Next Service Mileage',
+
     'view' => 'View',
     'service_area' => 'Service Area',
     'car_listings' => 'Car Listings',

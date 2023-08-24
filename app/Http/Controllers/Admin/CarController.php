@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Car;
+use App\Models\CarExtra;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
@@ -23,7 +24,6 @@ class CarController extends Controller
 
         $title = $car->title. " extras";
 
-
         return view('admin.cars.extras', compact('car','title'));
     }
 
@@ -39,13 +39,21 @@ class CarController extends Controller
         $message = $car->title." created successfully.";
 
         if(settings('enable_rental') == 'yes'){
-            return redirect()->route('admin.car.extras', ['id' => $car->id])->with('success', $message );
+            return redirect()->route('admin.cars.edit', $car->id)->with('success', $message );
         }
         return redirect()->route('admin.cars.index')->with('success', $message);
     }
 
     public function edit($id){
         $car = Car::findOrFail($id);
+
+        if(!$car->carExtra){
+            CarExtra::create([
+                'car_id' => $car->id
+            ]);
+        }
+
+
         $car_makes = VehicleMake::all();
         $car_types = VehicleType::all();
         if($car->model){

@@ -58,6 +58,20 @@ trait FillableTraits
         'deposit_fee',
     ];
 
+    protected array $car_extra = [
+        'is_taxed',
+        'car_id',
+        'mots',
+        'tax_expiry_date',
+        'tax_amount',
+        'tax_type',
+        'service',
+        'documents',
+        'finance',
+        'damage_history',
+        'repairs',
+        ];
+
     protected array $car = [
         'driver_id',
         'title',
@@ -102,5 +116,14 @@ trait FillableTraits
         'extras',
         'drop_off_instruction',
         'pickup_instruction',
+
+        'engine_size',
+        'fuel_type',
+        'body_type',
+
+        'license_no',
+        'tracker_no',
+        'description',
+        'registration_number',
     ];
 }

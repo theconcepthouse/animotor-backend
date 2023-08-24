@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Car extends Model
 {
@@ -33,6 +34,11 @@ class Car extends Model
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class,'region_id');
+    }
+
+    public function carExtra(): HasOne
+    {
+        return $this->hasOne(CarExtra::class);
     }
 
     public function getExtrasAttribute($value)

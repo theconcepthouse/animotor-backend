@@ -1,3 +1,11 @@
+<div class="row">
+    <div class="step-form">
+        <div class="step active">Info</div>
+        <div class="step">Details</div>
+        <div class="step">Address</div>
+        <div class="step">MOT</div>
+    </div>
+</div>
 
 <div class="row mt-3">
 

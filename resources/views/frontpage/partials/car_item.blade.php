@@ -82,7 +82,7 @@
 
         <div  class="col-12 d-flex justify-content-between mt-2">
             <div class="">
-                <img style="max-height: 80px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
+                <img style="max-height: 40px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
             </div>
             <div>
                 <p>

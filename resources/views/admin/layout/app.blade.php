@@ -152,6 +152,32 @@
             padding: 0;
         }
 
+
+
+        .step-form {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f7f7f8;
+            padding: 10px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #e9ecef;
+        }
+
+        .step.active {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .step.prev {
+            background-color: #22D187;
+            color: #ffffff;
+        }
+
     </style>
 
     @yield('style')

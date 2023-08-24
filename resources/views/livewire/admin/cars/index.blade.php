@@ -73,7 +73,7 @@
                             <th>{{ __('admin.make') }}</th>
                             <th>{{ __('admin.is_available') }}</th>
                             <th>{{ __('admin.model') }}</th>
-                            <th>{{ __('admin.extras') }}</th>
+{{--                            <th>{{ __('admin.extras') }}</th>--}}
                             <th>{{ __('admin.type') }}</th>
                             <th>{{ __('admin.vehicle_no') }}</th>
                             <th>{{ __('admin.year') }}</th>
@@ -97,8 +97,7 @@
                                     </button>
                                 </td>
                                 <td>{{ $item->model }}</td>
-                                <td><a wire:navigate href="{{ route('admin.car.extras',['id' => $item->id]) }}">{{ count($item->extras) }} view</a></td>
-                                <td>{{ $item->type }}</td>
+                               <td>{{ $item->type }}</td>
                                 <td>{{ $item->vehicle_no }}</td>
                                 <td>{{ $item->year }}</td>
 

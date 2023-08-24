@@ -25,32 +25,34 @@
                                     <div class="card card-bordered h-100">
                                         <div class="card-inner">
 
-                                            <form action="{{ route('admin.cars.update', $car->id) }}" method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                @method('PATCH')
-                                                @if ($errors->any())
-                                                    <div class="alert alert-danger">
-                                                        <ul>
-                                                            @foreach ($errors->all() as $error)
-                                                                <li>{{ $error }}</li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                @endif
-                                                @if(session()->has('success'))
-                                                    <div class="alert alert-success">
-                                                        {{ session()->get('success') }}
-                                                    </div>
-                                                @endif
+{{--                                            <form action="{{ route('admin.cars.update', $car->id) }}" method="POST" enctype="multipart/form-data">--}}
+{{--                                                @csrf--}}
+{{--                                                @method('PATCH')--}}
+{{--                                                @if ($errors->any())--}}
+{{--                                                    <div class="alert alert-danger">--}}
+{{--                                                        <ul>--}}
+{{--                                                            @foreach ($errors->all() as $error)--}}
+{{--                                                                <li>{{ $error }}</li>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        </ul>--}}
+{{--                                                    </div>--}}
+{{--                                                @endif--}}
+{{--                                                @if(session()->has('success'))--}}
+{{--                                                    <div class="alert alert-success">--}}
+{{--                                                        {{ session()->get('success') }}--}}
+{{--                                                    </div>--}}
+{{--                                                @endif--}}
 
 
-                                                @include('admin.cars.form', ['car' => $car, 'car_types' => $car_types, 'car_makes' => $car_makes])
+                                                <livewire:admin.cars.form :car="$car" :car_types="$car_types" :car_models="$car_models" :car_makes="$car_makes" />
+
+{{--                                                @include('admin.cars.form', ['car' => $car, 'car_types' => $car_types, 'car_makes' => $car_makes])--}}
 
 
-                                                <div class="form-group mt-3">
-                                                    <button type="submit" class="btn btn-lg btn-primary">Update car </button>
-                                                </div>
-                                            </form>
+{{--                                                <div class="form-group mt-3">--}}
+{{--                                                    <button type="submit" class="btn btn-lg btn-primary">Update car </button>--}}
+{{--                                                </div>--}}
+{{--                                            </form>--}}
                                         </div>
                                     </div>
                                 </div>

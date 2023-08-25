@@ -163,29 +163,19 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return $this->errorResponse('Invalid credentials.',422);
         }
-        // assuming that the email or username is passed through a 'login' parameter
-        $login = $request->input('email');
-        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
-        $request->merge([$field => $login]);
-        $credentials = $request->only($field, 'password');
 
         try {
 
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
                 $user = User::where('email', $request->email)->first();
 
-                $data['user'] = new UserCollection(User::withCount(['washes'])->where('email', $request->email)->first());
+                $data['user'] = $user;
 
                 if($request['platform']){
                     $user->platform = $request['platform'];
 
                     $user->save();
                 }
-
-//                if($data['user']['roles'][0]['name'] != 'customer'){
-//
-//                    return $this->errorResponse('Only car owners can login for now, check back in few hours later', 422);
-//                }
 
                 $data['token'] = $user->createToken($request->email)->plainTextToken;
                 return $this->successResponse('Login Successful', $data);
@@ -201,8 +191,6 @@ class AuthController extends Controller
             return $this->errorResponse('Invalid credentials.',422);
 
         }
-
-        // return $this->respondWithToken($token);
     }
 
     public function user(Request $request, DriverDocumentService $driverDocumentService): JsonResponse
@@ -309,31 +297,6 @@ class AuthController extends Controller
         return $this->successResponse('push_token updated',$user);
     }
 
-
-    public function locations(): JsonResponse
-    {
-        $data = [
-            'Port Harcourt',
-            'Lagos',
-            'Owerri',
-            'Asaba',
-            'Uyo',
-            'Abuja',
-            'Enugu',
-            'Warri',
-            'Calabar',
-            'Awka',
-        ];
-
-        return $this->successResponse('locations',$data);
-    }
-
-    public function withdrawals(): JsonResponse
-    {
-        $data = Withdraw::whereUserId(\auth()->id())->get();
-
-        return $this->successResponse('locations',$data);
-    }
 
     public function logout(): JsonResponse
     {

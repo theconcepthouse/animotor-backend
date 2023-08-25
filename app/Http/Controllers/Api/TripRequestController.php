@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\NewTrip;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\TripRequest;
@@ -18,7 +19,7 @@ use Illuminate\Validation\ValidationException;
 
 class TripRequestController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $tripRequests = TripRequest::all();
 
@@ -162,6 +163,8 @@ class TripRequestController extends Controller
                     $firestoreService->updateTripRequest($tripRequest);
                 }
             }
+
+            NewTrip::dispatch($tripRequest);
 
             $this->notifyOnlineDrivers($tripRequest);
 

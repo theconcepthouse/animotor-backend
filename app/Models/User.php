@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\FillableTraits;
 use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Traits\HasWallet;
 use Carbon\Carbon;
@@ -26,56 +27,21 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable implements LaratrustUser, Wallet
 {
 
-    use HasRolesAndPermissions;
-    use HasWallet;
-    use HasApiTokens;
-    use HasFactory, Notifiable, SoftDeletes;
-    use HasUuids;
+    use HasRolesAndPermissions, HasWallet, HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids, FillableTraits;
 
+    protected $fillable = [];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->fillable = $this->user;
+    }
 
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'avatar',
-        'email',
-        'phone',
-        'is_online',
-        'map_lat',
-        'map_lng',
-        'email_verified_at',
-        'password',
-        'comment',
-        'status',
-        'address',
-        'country_code',
-        'country',
-        'city',
-        'region_id',
-        'service_id',
-        'company_id',
-        'push_token',
-        'last_notification',
-        'monify_account',
-
-
-    ];
 
     protected $casts = [
         'is_online' => 'bool'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -84,6 +50,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     protected $with = ['documents','car','region','service','company'];
 
     protected $appends = ['unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
+
 
     public function region(): BelongsTo
     {
@@ -114,25 +81,20 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->hasOne(Car::class,'driver_id');
     }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-
-
     public function role(){
         return $this->getRoles()[0];
     }
 
-    public function getAvatarAttribute($value) {
+    public function getAvatarAttribute($value): string
+    {
         if(!$this->attributes['avatar']) {
             return asset('default/avatar.png');
         }
         return $this->attributes['avatar'];
     }
 
-    public function getNameAttribute() {
+    public function getNameAttribute(): string
+    {
         return $this->first_name." ".$this->last_name;
     }
     public function getFullPhoneAttribute(): string
@@ -140,12 +102,12 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->country_code.$this->phone;
     }
 
-   public function getLatestTransactionsAttribute()
-    {
+   public function getLatestTransactionsAttribute(): \Illuminate\Database\Eloquent\Collection
+   {
         return $this->transactions()->latest()->limit(5)->get();
     }
 
-    public function getAccountBalanceAttribute()
+    public function getAccountBalanceAttribute() : int | float
     {
         $wallet = $this->wallet()->first();
         if($wallet){
@@ -155,7 +117,8 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         }
     }
 
-    public function getStatusTextAttribute() {
+    public function getStatusTextAttribute(): string
+    {
         $status = $this->status;
         if($status == 'pending'){
             return "Account pending approval";
@@ -169,22 +132,6 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return 'Account '.$status;
     }
 
-//    public function getCommentAttribute() {
-//        if(strlen($this->comment) > 3){
-//            return $this->comment;
-//        }
-//        $status = $this->status;
-//        if($status == 'pending'){
-//            return "Your account is pending approval, you will be notified once approved";
-//        }
-//        if($status == 'unapproved'){
-//            return "Account unapproved";
-//        }
-//        if($status == 'blocked'){
-//            return "Account Blocked";
-//        }
-//        return 'Account '.$status;
-//    }
 
     public function getUnapprovedDocumentsAttribute(): int
     {
@@ -200,14 +147,5 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         }
         return 0;
     }
-
-//    public function getPhoneAttribute($value) {
-//        if (str_starts_with($value, "+")) {
-//            return $value;
-//        } else {
-//            return "0".$value;
-//        }
-//
-//    }
 
 }

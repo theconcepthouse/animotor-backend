@@ -127,4 +127,31 @@ trait FillableTraits
         'description',
         'registration_number',
     ];
+
+    protected array $user = [
+        'first_name',
+        'last_name',
+        'avatar',
+        'email',
+        'phone',
+        'is_online',
+        'map_lat',
+        'map_lng',
+        'email_verified_at',
+        'password',
+        'comment',
+        'status',
+        'address',
+        'country_code',
+        'country',
+        'city',
+        'region_id',
+        'service_id',
+        'company_id',
+        'push_token',
+        'last_notification',
+        'monify_account',
+
+
+    ];
 }

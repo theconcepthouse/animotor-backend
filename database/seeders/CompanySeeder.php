@@ -14,7 +14,14 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
+        $users = User::factory(10)->create();
+        $company = Company::factory()->create();
 
-        User::factory(10)->create();
+        $users->each(function ($user) use ( $company) {
+            $user->addRole('owner');
+            $user->update([
+                'company_id' => $company->id,
+            ]);
+        });
     }
 }

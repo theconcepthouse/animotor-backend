@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\FillableTraits;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,56 +11,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TripRequest extends Model
 {
-    use HasFactory;
-    use HasUuids;
+    use HasFactory, HasUuids, FillableTraits;
 
 
-    protected $fillable = [
-        'region_id',
-        'driver_id',
-        'customer_id',
-        'fee',
-        'reference',
-        'origin',
-        'destination',
-        'status',
-        'payment_status',
-        'payment_method',
-        'origin_lat',
-        'origin_lng',
-        'destination_lat',
-        'destination_lng',
-        'started_at',
-        'end_at',
-        'current_lat',
-        'current_lng',
-        'distance',
-        'distance_text',
-        'duration',
-        'duration_text',
-        'car_id',
-        'completed',
-        'cancelled',
-        'rating',
-        'driver_rating',
-        'rating_comment',
-        'driver_rating_comment',
-        'driver_feedback',
-        'rider_feedback',
-        'base_price',
-        'time_price',
-        'distance_price',
-        'discount',
-        'tax',
-        'grand_total',
-        'service_id',
-        'ride_type',
-        'scheduled',
-        'driver_earn',
-        'commission',
-        'cancellation_reason',
-        'cancelled_by',
-    ];
+    protected $fillable = [];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->fillable = $this->trip_request;
+    }
 
     protected $casts = [
         'destination_lat' => 'decimal:8',

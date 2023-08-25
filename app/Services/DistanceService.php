@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -55,5 +56,43 @@ class DistanceService
             return null;
         }
     }
+
+    public function getDriversByDistance($lat, $lng, $region_id)
+    {
+        $distanceService = new DistanceService();
+
+        $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id')
+            ->where('is_online', true)
+            ->where('region_id', $region_id)
+            ->whereNotNull('push_token')
+            ->get();
+
+        info('region_id :'.$region_id);
+        info('drivers by distance : '. count($users));
+
+        // Calculate the distance between each user's coordinates and the supplied coordinates
+        foreach ($users as $user) {
+            $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
+        }
+
+        // Sort the users by distance
+        $users = $users->sortBy('distance')->take(5);
+
+
+        $closetDrivers = $users->filter(function ($user) {
+            return $user->distance < 5;
+        });
+
+        info('closetDrivers : '. count($closetDrivers));
+
+
+        if($closetDrivers->count() < 1){
+            return $users;
+        }
+
+        return $closetDrivers;
+
+    }
+
 
 }

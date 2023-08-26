@@ -24,7 +24,7 @@
                         <ul class="offer__list pb__40 wow fadeInUp">
                             <li>
                      <span class="thumb">
-                        <img src="assets/img/bus/b3.png" alt="img">
+                        <img src="/assets/img/bus/b3.png" alt="img">
                      </span>
                                 <span class="text">
                         Unlimited Offers
@@ -32,7 +32,7 @@
                             </li>
                             <li>
                      <span class="thumb">
-                        <img src="assets/img/bus/b2.png" alt="img">
+                        <img src="/assets/img/bus/b2.png" alt="img">
                      </span>
                                 <span class="text">
                         24X7 Support
@@ -40,7 +40,7 @@
                             </li>
                             <li>
                      <span class="thumb">
-                        <img src="assets/img/bus/b6.png" alt="img">
+                        <img src="/assets/img/bus/b6.png" alt="img">
                      </span>
                                 <span class="text">
                         Cheapest Price
@@ -48,7 +48,7 @@
                             </li>
                             <li>
                      <span class="thumb">
-                        <img src="assets/img/bus/b4.png" alt="img">
+                        <img src="/assets/img/bus/b4.png" alt="img">
                      </span>
                                 <span class="text">
                         100% Trust pay
@@ -66,22 +66,22 @@
                     <div class="worldwide__tumb__wrapper">
                         <div class="thumb__innner">
                             <div class="tumb wow fadeInDown" data-wow-duration="1.2s">
-                                <img src="assets/img/cars/car1.jpg" alt="img">
+                                <img src="/assets/img/cars/car1.jpg" alt="img">
                             </div>
                             <div class="tumb wow fadeInUp" data-wow-duration="1.2s">
-                                <img src="assets/img/cars/car2.jpg" alt="img">
+                                <img src="/assets/img/cars/car2.jpg" alt="img">
                             </div>
                         </div>
                         <div class="thumb__innner">
                             <div class="tumb wow fadeInUp" data-wow-duration="1.2s">
-                                <img src="assets/img/cars/carman1.jpg" alt="img">
+                                <img src="/assets/img/cars/carman1.jpg" alt="img">
                             </div>
                             <div class="tumb wow fadeInDown" data-wow-duration="1.2s">
-                                <img src="assets/img/cars/carman2.jpg" alt="img">
+                                <img src="/assets/img/cars/carman2.jpg" alt="img">
                             </div>
                         </div>
                         <div class="car__rount">
-                            <img src="assets/img/cars/carround.png" alt="img">
+                            <img src="/assets/img/cars/carround.png" alt="img">
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="1.2s" style="visibility: visible; animation-duration: 1.2s; animation-name: fadeInUp;">
                     <div class="hotel__facilities__item">
                         <div class="head__wrap">
-                            <img src="assets/img/room/pickdrop.png" alt="img">
+                            <img src="/assets/img/room/pickdrop.png" alt="img">
                             <h5>
                                 <a href="hotel-list.html">
                                     Pick up &amp; drop
@@ -123,7 +123,7 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="1.6s" style="visibility: visible; animation-duration: 1.6s; animation-name: fadeInUp;">
                     <div class="hotel__facilities__item">
                         <div class="head__wrap">
-                            <img src="assets/img/room/prking.png" alt="img">
+                            <img src="/assets/img/room/prking.png" alt="img">
                             <h5>
                                 <a href="hotel-list.html">
                                     Parking Space
@@ -138,7 +138,7 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="1.9s" style="visibility: visible; animation-duration: 1.9s; animation-name: fadeInUp;">
                     <div class="hotel__facilities__item">
                         <div class="head__wrap">
-                            <img src="assets/img/room/roomservice.png" alt="img">
+                            <img src="/assets/img/room/roomservice.png" alt="img">
                             <h5>
                                 <a href="hotel-list.html">
                                     Rooom Service
@@ -153,7 +153,7 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2.1s" style="visibility: visible; animation-duration: 2.1s; animation-name: fadeInUp;">
                     <div class="hotel__facilities__item">
                         <div class="head__wrap">
-                            <img src="assets/img/room/swimming.png" alt="img">
+                            <img src="/assets/img/room/swimming.png" alt="img">
                             <h5>
                                 <a href="hotel-list.html">
                                     Swimming Pool
@@ -168,7 +168,7 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2.2s" style="visibility: visible; animation-duration: 2.2s; animation-name: fadeInUp;">
                     <div class="hotel__facilities__item">
                         <div class="head__wrap">
-                            <img src="assets/img/room/internetfibra.png" alt="img">
+                            <img src="/assets/img/room/internetfibra.png" alt="img">
                             <h5>
                                 <a href="hotel-list.html">
                                     Fibra Internet
@@ -183,7 +183,7 @@
                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2.3s" style="visibility: visible; animation-duration: 2.3s; animation-name: fadeInUp;">
                     <div class="hotel__facilities__item">
                         <div class="head__wrap">
-                            <img src="assets/img/room/hotbrekfast.png" alt="img">
+                            <img src="/assets/img/room/hotbrekfast.png" alt="img">
                             <h5>
                                 <a href="hotel-list.html">
                                     Beakfast

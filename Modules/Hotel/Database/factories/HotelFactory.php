@@ -26,8 +26,10 @@ class HotelFactory extends Factory
         $large_images = $this->largeImages();
 //        $user_id = User::whereHasRole('rider')->inRandomOrder()->first()->id;
         $region = Region::inRandomOrder()->first();
+        $names = $this->names();
+        shuffle($names);
         return [
-            'title' => $faker->words(3, true),
+            'title' => $names[0],
             'slug' => $faker->slug,
             'region_id' => $region->id,
 //            'user_id' => $user_id,
@@ -80,6 +82,32 @@ class HotelFactory extends Factory
             'https://cf.bstatic.com/xdata/images/hotel/square250/293888001.webp?k=141181817c09b1f8a14538ed33d02007a8e1ee0a9474de2dcc2e89b245855da4&o=',
 
             ];
+    }
+
+    public function names(): array
+    {
+        return [
+            "Eko Hotels & Suites",
+            "Transcorp Hilton Abuja",
+            "Sheraton Lagos Hotel",
+            "Radisson Blu Anchorage Hotel",
+            "Federal Palace Hotel",
+            "Southern Sun Ikoyi",
+            "Protea Hotel Victoria Island",
+            "Lagos Continental Hotel",
+            "Four Points by Sheraton",
+            "Le Meridien Ogeyi Place",
+            "Protea Hotel Ikeja",
+            "Oriental Hotel",
+            "Sheraton Abuja Hotel",
+            "Intercontinental Lagos ",
+            "Ibom Hotel & Golf Resort",
+            "Wheatbaker Lagos",
+            "Nike Lake Resort",
+            "Golden Tulip Festac",
+            "Grand Tower Hotel ",
+            "Beni Gold Hotel & Apartments "
+        ];
     }
 }
 

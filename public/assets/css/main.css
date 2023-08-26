@@ -11632,10 +11632,10 @@ p {
     /*height: 300px;*/
 }
 
-.thumb img {
-    height: 230px;
-    width: 100%;
-}
+/*.thumb img {*/
+/*    height: 230px;*/
+/*    width: 100%;*/
+/*}*/
 .car_item .thumb {
     background-color: #E6F1FC;
     padding: 10px;
@@ -11812,4 +11812,16 @@ p a {
 
 .modal {
     --bs-modal-zindex: 9999;
+}
+
+.hotel_listing .hotel_image{
+    height: 250px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.hotel_cities_listing img{
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
 }

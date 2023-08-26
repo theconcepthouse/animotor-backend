@@ -14,7 +14,7 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        $data = User::with('company')->whereHasRole('owner')->paginate(100);
+        $data = User::with('company.bookings')->whereHasRole('owner')->paginate(100);
         $title = "Company listing";
         return view('admin.company.list', compact('data','title'));
     }

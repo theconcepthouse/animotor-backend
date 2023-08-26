@@ -182,6 +182,7 @@ class RegionController extends Controller
             'is_active' => 'nullable',
             'parent_id' => 'nullable',
             'country_id' => 'nullable',
+            'image' => 'nullable',
             'coordinates' => 'required',
         ];
 

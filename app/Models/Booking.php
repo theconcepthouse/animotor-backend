@@ -47,6 +47,11 @@ class Booking extends Model
         return $this->belongsTo(User::class, 'customer_id');
     }
 
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);

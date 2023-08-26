@@ -41,6 +41,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>S/N</th>
+                                                    <th>Image</th>
                                                     <th>Name</th>
                                                     <th>Currency</th>
                                                     <th>Timezone</th>
@@ -57,6 +58,7 @@
                                                 @foreach($data as $item)
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
+                                                        <td><img src="{{ $item->image }}" style="height: 40px;" /></td>
                                                         <td>{{ $item->name }}</td>
                                                         <td>{{ $item->currency_symbol }}</td>
                                                         <td>{{ $item->timezone }}</td>

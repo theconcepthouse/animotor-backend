@@ -455,19 +455,19 @@ $(document).ready(function () {
 				items: 2,
 			},
 			767: {
-				items: 3,
+				items: 5,
 			},
 			991: {
-				items: 3,
+				items: 6,
 			},
 			1199: {
-				items: 3,
+				items: 6,
 			},
 			1499: {
-				items: 3,
+				items: 6,
 			},
 			1999: {
-				items: 3,
+				items: 6,
 			},
 		},
 	});
@@ -712,19 +712,19 @@ $(document).ready(function () {
 				items: 1,
 			},
 			767: {
-				items: 2,
+				items: 4,
 			},
 			991: {
-				items: 3,
+				items: 4,
 			},
 			1199: {
-				items: 3,
+				items: 4,
 			},
 			1499: {
-				items: 3,
+				items: 4,
 			},
 			1999: {
-				items: 3,
+				items: 5,
 			},
 		},
 	});

@@ -22,6 +22,7 @@ class Region extends Model
         'parent_id',
         'country_id',
         'coordinates',
+        'image',
     ];
 
     protected $casts = [
@@ -53,6 +54,14 @@ class Region extends Model
         return $query->where('is_active', '=', true);
     }
 
+
+    public function getImageAttribute($value): string
+    {
+        if(!$value) {
+            return asset('default/404.png');
+        }
+        return $value;
+    }
 
     public function scopeByCountryId($query, $countryId)
     {

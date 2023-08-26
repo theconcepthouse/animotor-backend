@@ -11,6 +11,14 @@
 |
 */
 
+use Modules\Hotel\Http\Controllers\HotelController;
+
 Route::prefix('hotel')->group(function() {
-    Route::get('/', 'HotelController@index');
+
+    Route::get('/all', [HotelController::class,'index'])->name('admin.hotels.all');
+
+
+    Route::get('/show/{id}', [HotelController::class,'show'])->name('hotel.show');
+
+
 });

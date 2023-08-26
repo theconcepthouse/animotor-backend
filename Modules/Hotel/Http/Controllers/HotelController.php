@@ -5,6 +5,7 @@ namespace Modules\Hotel\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Hotel\Entities\Hotel;
 
 class HotelController extends Controller
 {
@@ -36,14 +37,11 @@ class HotelController extends Controller
         //
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
+
     public function show($id)
     {
-        return view('hotel::show');
+        $hotel = Hotel::findOrFail($id);
+        return view('hotel::show', compact('hotel'));
     }
 
     /**

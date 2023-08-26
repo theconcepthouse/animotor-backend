@@ -44,6 +44,9 @@
                                                     <th>Company Name</th>
                                                     <th>Company Logo</th>
                                                     <th>Owner Name</th>
+                                                    @if(hasRental())
+                                                        <th>Total Bookings</th>
+                                                    @endif
                                                     <th>Email</th>
                                                     <th>Phone</th>
                                                     <th>Status</th>
@@ -60,6 +63,9 @@
                                                             <img src="{{  $item?->company?->logo }}" style="height: 40px" />
                                                         </td>
                                                         <td>{{ $item->name }}</td>
+                                                        @if(hasRental())
+                                                            <td>{{ $item->company?->bookings?->count() }}</td>
+                                                        @endif
                                                         <td>{{ $item->email }}</td>
                                                         <td>{{ $item->phone }}</td>
 

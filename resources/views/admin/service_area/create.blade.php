@@ -43,25 +43,37 @@
                                                 @endif
 
 
-                                                <div class="row gy-4">
+                                                <div class="row">
+                                                    <div class="col-7">
+                                                        <div class="row gy-4">
 
-                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'name','title' => 'Name'])
-                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required' ,'colSize' => 'col-md-4', 'fieldName' => 'country_id', 'title' => 'Country','options' => $countries])
-                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'key' => true ,'colSize' => 'col-md-4', 'fieldName' => 'timezone', 'title' => 'Timezone','options' => $timezones])
+                                                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','title' => 'Name'])
+                                                            @include('admin.partials.form.select_w_object', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'country_id', 'title' => 'Country','options' => $countries])
+                                                            @include('admin.partials.form.select_array', ['attributes' => 'required', 'key' => true ,'colSize' => 'col-md-6', 'fieldName' => 'timezone', 'title' => 'Timezone','options' => $timezones])
 
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4',  'fieldName' => 'timezone','title' => 'Timezone'])--}}
-{{--                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_symbol','title' => 'Currency Symbol'])--}}
-{{--                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_code','title' => 'Currency code'])--}}
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'coordinates','title' => 'Coordinates'])--}}
+                                                            {{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4',  'fieldName' => 'timezone','title' => 'Timezone'])--}}
+                                                            {{--                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_symbol','title' => 'Currency Symbol'])--}}
+                                                            {{--                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_code','title' => 'Currency code'])--}}
+                                                            {{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'coordinates','title' => 'Coordinates'])--}}
 
-{{--                                                    @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-4', 'fieldName' => 'is_active', 'title' => 'Status','options' => '--}}
-{{--                        <option value="1">Active</option>--}}
-{{--                        <option value="0">Disabled</option>--}}
-{{--                        '])--}}
+                                                            {{--                                                    @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-4', 'fieldName' => 'is_active', 'title' => 'Status','options' => '--}}
+                                                            {{--                        <option value="1">Active</option>--}}
+                                                            {{--                        <option value="0">Disabled</option>--}}
+                                                            {{--                        '])--}}
 
 
-                                                    @include('admin.partials.form.select_w_object', ['colSize' => 'col-md-4', 'fieldName' => 'parent_id', 'title' => 'Region','options' => $regions])
+                                                            @include('admin.partials.form.select_w_object', ['colSize' => 'col-md-6', 'fieldName' => 'parent_id', 'title' => 'Region','options' => $regions])
 
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-5">
+                                                        <div class="row gy-4">
+
+                                                            @include('admin.partials.image-upload',['field' => 'image', 'colSize' => 'col-md-12','id' => 'image','title' => 'Image'])
+
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="row mt-5">

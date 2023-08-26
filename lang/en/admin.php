@@ -42,6 +42,8 @@ return [
 
     'view' => 'View',
     'service_area' => 'Service Area',
+    'company' => 'Company',
+    'car' => 'Car',
     'booking_no' => 'Booking no',
     'car_listings' => 'Car Listings',
     'reference' => 'Reference',

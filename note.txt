@@ -15,13 +15,21 @@ php artisan migrate --path=database/migrations/addon
 
 php artisan migrate:rollback --path=database/migrations/addon
 
+ php artisan module:seed --class=HotelTableSeeder Hotel
+
+
+
+php artisan module:make-seed Hotel Hotel
+php artisan module:make-seed HotelAdmins Hotel
 
 
 
 
 
 
-
+php artisan module:make-factory HotelFactory Hotel
+ php artisan module:make-migration create_hotels_table Hotel
+php artisan module:migrate Hotel
 
 
 

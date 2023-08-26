@@ -26,7 +26,7 @@ class Booking extends Model
 
 //    protected  $with = ['car'];
 
-    protected $appends = ['days','booking_number'];
+    protected $appends = ['days'];
 
     public function car(): BelongsTo
     {
@@ -40,10 +40,7 @@ class Booking extends Model
 
         return $endDate->diffInDays($startDate);
     }
-    public function getBookingNumberAttribute(): string
-    {
-        return getUniqueBookingNumber();
-    }
+
 
     public function customer(): BelongsTo
     {

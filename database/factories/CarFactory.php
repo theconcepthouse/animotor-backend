@@ -37,6 +37,7 @@ class CarFactory extends Factory
             'color' => $this->faker->colorName,
             'model' =>  $model,
             'vehicle_no' => $this->faker->regexify('[A-Z0-9]{7}'),
+            'registration_number' => $this->faker->regexify('[A-Z0-9]{7}'),
             'gear' => $this->faker->randomElement(['Automatic', 'Manual']),
             'title' => $make . ' ' . $model. ' '.$this->faker->colorName,
             'deposit' => $this->faker->numberBetween(100, 1000),

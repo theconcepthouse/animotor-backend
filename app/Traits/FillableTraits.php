@@ -155,7 +155,7 @@ trait FillableTraits
 
     ];
 
-    protected $trip_request = [
+    protected array $trip_request = [
         'region_id',
         'driver_id',
         'customer_id',
@@ -200,5 +200,20 @@ trait FillableTraits
         'commission',
         'cancellation_reason',
         'cancelled_by',
+    ];
+
+    protected array $pcns = [
+        'car_id',
+        'booking_id',
+        'vrm',
+        'pcn_no',
+        'date_time',
+        'offence_type',
+        'location',
+        'notice_issue_date',
+        'payment_dead_line',
+        'appeal_dead_line',
+        'status',
+        'histories',
     ];
 }

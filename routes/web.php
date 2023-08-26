@@ -58,6 +58,7 @@ Route::get('/{slug}', [FrontPageController::class,'page'])->name('page.show');
 
 
 include 'admin.php';
+include 'addons.php';
 
 
 //

@@ -5,6 +5,7 @@
         <a href="{{ route('admin.bookings.show', $item->id) }}"><em class="icon ni ni-eye"></em></a>
     </td>
     <td>{{ $item?->region?->name }}</td>
+    <td>{{ $item->booking_number }}</td>
     <td>{{ $item->reference }}</td>
     <td>{{ $item->created_at->format('Y-m-d H:i:s') }}</td>
     <td>{{ $item->days }} {{ __('admin.booking_days') }}</td>

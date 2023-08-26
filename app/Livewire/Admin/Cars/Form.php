@@ -143,9 +143,9 @@ class Form extends Component
         'Hydrogen',
     ];
 
-    public ?string $car_types;
-    public ?string $car_makes;
-    public ?string $car_models;
+    public $car_types = null;
+    public $car_makes;
+    public $car_models;
 
     #[Computed]
     public int $step = 14;

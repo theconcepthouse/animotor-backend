@@ -50,6 +50,7 @@
                                                     <th>{{ __('admin.sn') }}</th>
                                                     <th>{{ __('admin.view') }}</th>
                                                     <th>{{ __('admin.service_area') }}</th>
+                                                    <th>{{ __('admin.booking_no') }}</th>
                                                     <th>{{ __('admin.reference') }}</th>
                                                     <th>{{ __('admin.pickup_date') }}</th>
                                                     <th>{{ __('admin.period') }}</th>

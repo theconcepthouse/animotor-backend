@@ -10,6 +10,22 @@ return [
     'export_title' => 'Bookings Export',
     'sn' => 'SN',
 
+    'pcn' => 'PCN',
+
+    'vrm' => 'VRM',
+    'pcn_no' => 'PCN no',
+    'offence_date' => 'Offence date',
+    'offence_type' => 'Offence type',
+    'hire_agreement_no' => 'Hire agreement no',
+    'location' => 'Location',
+    'notice_issue_date' => 'Notice issue date',
+    'payment_deadline' => 'Payment dead line',
+    'appeal_dead_line' => 'Appeal dead line',
+
+
+    'pcns' => 'PCNS',
+    'pcn_status_history' => 'PCN Status History',
+
     'test_date' => 'Test Date',
     'expiry_date' => 'Expiry Date',
     'result' => 'Result',
@@ -43,6 +59,8 @@ return [
     'update' => 'Update',
     'status' => 'Status',
 
+    'table_no_data' => 'No data available in table',
+
     'reported_date' => 'Reported date',
     'incident_date' => 'Incident date',
     'insurance_reference_no' => 'Insurance reference no',
@@ -58,6 +76,9 @@ return [
     'total_cost' => 'Total cost',
     'vat' => 'VAT',
     'invoice' => 'Invoice',
+    'driver_first_name' => 'Drivers first name',
+    'phone_number' => 'Phone number',
+    'driver_last_name' => 'Drivers last name',
 
     'no_booking_history' => 'No Booking History',
 
@@ -105,6 +126,7 @@ return [
     'save' => 'Save',
     'editing_item' => 'Editing :name',
     'driver' => 'Driver',
+    'driver_name' => 'Driver name',
     'user' => 'User',
 
     'car_title' => 'Cars List',

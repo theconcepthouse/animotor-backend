@@ -158,3 +158,9 @@ function getUniqueBookingNumber(): float|int|string
 
     return $currentTimestamp + $milliseconds;
 }
+
+function getUniqueReferenceCode(): string
+{
+    return substr(settings('site_name', 'TRIP'), 0, 4).'-BOOKING-'.date('Hm').'-'.mt_rand(100,999);
+
+}

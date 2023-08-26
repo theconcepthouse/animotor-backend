@@ -78,10 +78,13 @@ class Checkout extends Component
         $data['grand_total'] =  $data['fee'] + $tax;
 
 
-        $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-BOOKING-'.date('Hm').'-'.mt_rand(100,999);
+        $data['reference'] = getUniqueReferenceCode();
 
+        $data['booking_number'] = getUniqueBookingNumber();
 
         $data['payment_status'] = 'unpaid';
+
+        $data['payment_method'] = 'cash';
 
         $data['pick_up_date'] = $this->pick_up_date;
         $data['pick_up_time'] = $this->pick_up_time;

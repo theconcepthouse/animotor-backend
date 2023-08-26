@@ -427,6 +427,13 @@
     ];
 
     $menuArray[] = [
+        'url' => route('admin.pcn.index'),
+        'text' => 'PCNS',
+        'route' => 'settings-read',
+        'icon' => 'ni ni-setting-alt-fill',
+    ];
+
+    $menuArray[] = [
         'text' => 'CMS Section',
         'type' => 'heading',
         'route' => 'cms-setup',

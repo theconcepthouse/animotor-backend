@@ -119,4 +119,26 @@ class FrontPageController extends Controller
         $contents = $page->contents;
         return view('frontpage.page', compact('contents','page'));
     }
+
+//    public function menu(){
+//      return [
+//    {
+//        "title": "Manage booking",
+//        "url": "/manage/booking",
+//        "icon": "fa-regular fa-calendar mx-2",
+//        "img" : "/assets/img/icons/calender.png"
+//    },
+//    {
+//        "title": "EUR"
+//    },
+//    {
+//        "img": "/assets/img/icons/lang.png"
+//    },
+//    {
+//        "title": "Login / Register",
+//        "url": "/login",
+//        "icon": "fa-solid fa-sign-in-alt"
+//    }
+//]
+//    }
 }

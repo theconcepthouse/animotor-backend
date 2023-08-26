@@ -107,18 +107,17 @@
                     </div>
                 </div>
 
-                @if(is_array(menuItems()))
-                    <div class="sigin__grp d-flex align-items-center">
-                    @foreach(menuItems() as $item)
-                    <a href="{{ isset($item['url']) ? $item['url'] : "#" }}" class="">
-                        @if(isset($item['img']))
-                            <img src="{{ $item['img'] }}">
-                        @endif
-                            @if(isset($item['title']))
-                                <span>{{ $item['title'] }}</span>
-                            @endif
+                <div class="sigin__grp d-flex align-items-center">
+                    <a href="/manage/booking" class="">
+                        <img src="/assets/img/icons/calender.png">
+                        <span>Manage booking</span>
                     </a>
-                    @endforeach
+
+                    <a href=""><span>EUR</span></a>
+
+                    <a href="#" class="">
+                        <img src="/assets/img/icons/lang.png">
+                    </a>
 
                     @guest()
                     <a href="/login" class="">
@@ -146,7 +145,6 @@
 
 
                 </div>
-                @endif
             </div>
         </div>
     </header>

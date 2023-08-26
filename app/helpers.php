@@ -172,3 +172,13 @@ function getUniqueReferenceCode(): string
     return substr(settings('site_name', 'TRIP'), 0, 4).'-BOOKING-'.date('Hm').'-'.mt_rand(100,999);
 
 }
+
+function menuItems(){
+    $menu_items = settings('frontpage_menu','default');
+    if(is_string($menu_items)){
+        $menus = json_decode(settings('frontpage_menu','default'), true);
+    }else{
+        $menus = [];
+    }
+    return $menus;
+}

@@ -13,9 +13,14 @@ class HotelController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('hotel::index');
+        $query = Hotel::query();
+        if($request->has('region')){
+            $query->where('region_id', $request->get('region'));
+        }
+        $hotels = $query->paginate(8);
+        return view('hotel::index', compact('hotels'));
     }
 
     /**

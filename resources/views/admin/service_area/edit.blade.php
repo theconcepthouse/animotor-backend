@@ -59,6 +59,8 @@
 
                                                     @include('admin.partials.form.select_w_object', ['colSize' => 'col-md-4', 'fieldName' => 'parent_id', 'value' => $region->parent_id, 'title' => 'Region','options' => $regions])
 
+                                                    @include('admin.partials.image-upload',['field' => 'image', 'colSize' => 'col-md-12','image' => $region->image, 'id' => 'image','title' => 'Image'])
+
 
                                                 </div>
 

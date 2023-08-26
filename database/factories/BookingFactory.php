@@ -18,6 +18,7 @@ class BookingFactory extends Factory
         return [
             'customer_id' => $user_id,
             'region_id' => $car->region_id,
+            'company_id' => $car->company_id,
             'car_id' => $car->id,
             'fee' => $fee,
             'grand_total' => $fee,

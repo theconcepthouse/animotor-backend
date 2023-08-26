@@ -88,6 +88,7 @@ class SettingsController extends Controller
 //        return $request->all();
         $id = $request->input('id');
 
+//        return $request->input('content');
         $content = PageContent::findOrFail($id);
         $content->content = $request->input('content') ?? $content->content;
         $content->title = $request->input('title');

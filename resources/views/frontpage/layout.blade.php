@@ -25,6 +25,12 @@
 
     {!! settings('head_section') !!}
 
+    <style>
+        .services {
+            padding-top: 10px!important;
+        }
+    </style>
+
 </head>
 
 <body>

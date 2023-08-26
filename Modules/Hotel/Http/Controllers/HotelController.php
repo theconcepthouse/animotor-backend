@@ -46,7 +46,8 @@ class HotelController extends Controller
     public function show($id)
     {
         $hotel = Hotel::findOrFail($id);
-        return view('hotel::show', compact('hotel'));
+        $related = Hotel::where('region_id', $hotel->region_id)->paginate(6);
+        return view('hotel::show', compact('hotel','related'));
     }
 
     /**

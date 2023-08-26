@@ -79,6 +79,11 @@ class FrontPageController extends Controller
     public function list(){
         return view('frontpage.list_cars');
     }
+
+    public function flight(){
+        return view('frontpage.flight');
+    }
+
     public function deal(Request $request){
         $id = $request->get('car_id');
         $car = Car::findOrFail($id);

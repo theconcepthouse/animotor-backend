@@ -10,9 +10,19 @@ MODULES TO REMOVE
 PCN
 
 
- php artisan make:migration create_pcns_table --path=database/migration/addon
-
 
 php artisan migrate --path=database/migrations/addon
 
 php artisan migrate:rollback --path=database/migrations/addon
+
+
+
+
+
+
+
+
+
+
+
+ php artisan make:migration create_pcns_table --path=database/migration/addon

@@ -9,24 +9,23 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    public function index($status)
+    public function index()
     {
-        $title = $status. " booking requests";
 
-        if($status == 'pending'){
-            $data = Booking::where('completed', false)->where('cancelled',false)->paginate(100);
-        } elseif($status == 'completed'){
-            $data = Booking::where('completed', true)->paginate(100);
-        }elseif($status == 'cancelled'){
-            $data = Booking::where('cancelled', true)->paginate(100);
-        }else{
+//        if($status == 'pending'){
+//            $data = Booking::where('completed', false)->where('cancelled',false)->paginate(100);
+//        } elseif($status == 'completed'){
+//            $data = Booking::where('completed', true)->paginate(100);
+//        }elseif($status == 'cancelled'){
+//            $data = Booking::where('cancelled', true)->paginate(100);
+//        }else{
+//
+//            $title = "All bookings requests";
+//
+//            $data = Booking::paginate(100);
+//        }
 
-            $title = "All bookings requests";
-
-            $data = Booking::paginate(100);
-        }
-
-        return view('admin.bookings.list', compact('data','title'));
+        return view('admin.bookings.list');
     }
 
     public function show($id){

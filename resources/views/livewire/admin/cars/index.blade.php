@@ -12,14 +12,17 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li>
-                                <div class="form-control-wrap">
-                                    <div class="form-icon form-icon-right">
-                                        <em class="icon ni ni-search"></em>
-                                    </div>
-                                    <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Car search">
-                                </div>
-                            </li>
+
+{{--                            <li>--}}
+{{--                                <div class="form-control-wrap">--}}
+{{--                                    <div class="form-icon form-icon-right">--}}
+{{--                                        <em class="icon ni ni-search"></em>--}}
+{{--                                    </div>--}}
+{{--                                    <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Car search">--}}
+{{--                                </div>--}}
+{{--                            </li>--}}
+
+
                             @if(count($selected_items) > 0)
                             <li class="nk-block-tools-opt d-none d-sm-block">
                                 <span class="btn btn-warning"><span>{{ __('admin.selected_items') }} ({{ count($selected_items) }})</span></span>
@@ -62,8 +65,21 @@
 
         <div class="card-inner">
             <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="d-flex">
+                    <div class="form-control-wrap">
+                        <div class="form-icon form-icon-right">
+                            <em class="icon ni ni-search"></em>
+                        </div>
+                        <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Car search">
+                    </div>
+                </div>
+
+
                 <div class="datatable-wrap- my-3">
-                    <table class="datatable-init- table-bordered- nowrap table" data-export-title="{{ __('admin.export_title') }}">
+
+
+
+                    <table class="datatable-init- table-bordered nowrap table" data-export-title="{{ __('admin.export_title') }}">
                         <thead>
                         <tr>
                             <th><input type="checkbox" wire:model.live="selectAll"></th>

@@ -56,6 +56,7 @@ trait FillableTraits
         'is_confirmed',
         'insurance_fee',
         'deposit_fee',
+        'company_id',
     ];
 
     protected array $car_extra = [

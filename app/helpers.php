@@ -29,6 +29,14 @@ function isAdmin(): bool
     return false;
 }
 
+function canViewUserBookings(): bool
+{
+    if(auth()->user()->hasRole('superadmin|admin')){
+        return true;
+    }
+    return false;
+}
+
 function companyId(): string
 {
    return auth()?->user()?->company_id;

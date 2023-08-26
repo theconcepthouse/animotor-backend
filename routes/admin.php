@@ -91,7 +91,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::resource('services', ServiceController::class);
     Route::resource('companies', CompanyController::class);
 
-    Route::get('booking/{status}', [BookingController::class,'index'])->name('bookings.index');
+    Route::get('bookings', [BookingController::class,'index'])->name('bookings.index');
     Route::get('bookings/show/{id}', [BookingController::class,'show'])->name('bookings.show');
     Route::post('bookings/update_status/{id}', [BookingController::class,'updateStatus'])->name('bookings.update_status');
 

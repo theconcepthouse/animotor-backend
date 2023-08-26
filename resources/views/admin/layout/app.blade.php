@@ -187,6 +187,11 @@
             border-top-right-radius: 30px;
         }
 
+        .link-items li {
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
     </style>
 
     @yield('style')
@@ -319,33 +324,46 @@
         'route' => 'cars-read'
     ];
 
+
     $menuArray[] = [
+        'url' => route('admin.bookings.index'),
         'text' => 'Car Bookings',
-        'icon' => 'ni ni-users-fill',
         'route' => 'bookings-index',
-        'submenu' => [
-            [
-                'url' => route('admin.bookings.index', ['status' => 'all']),
-                'route' => 'bookings-index',
-                'text' => 'All Rentals',
-            ],
-            [
-                'url' => route('admin.bookings.index', ['status' => 'completed']),
-                'route' => 'bookings-index',
-                'text' => 'Completed',
-            ],
-            [
-                'url' => route('admin.bookings.index', ['status' => 'pending']),
-                'route' => 'bookings-index',
-                'text' => 'Pending',
-            ],
-            [
-                'url' => route('admin.bookings.index', ['status' => 'cancelled']),
-                'route' => 'bookings-index',
-                'text' => 'Cancelled',
-            ],
-            // Add more Car Bookings submenu items here as required
-        ],
+        'icon' => 'ni ni-calendar-booking',
+    ];
+    $menuArray[] = [
+        'url' => "#",
+        'text' => 'Fleet Planning',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-calender-date',
+    ];
+
+    $menuArray[] = [
+        'url' => "#",
+        'text' => 'Vehicle Checks',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-calendar-check-fill',
+    ];
+
+    $menuArray[] = [
+        'url' => "#",
+        'text' => 'Reported Incidents',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-file-docs',
+    ];
+
+    $menuArray[] = [
+        'url' => "#",
+        'text' => 'vehicle Defects',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-linux-server',
+    ];
+
+    $menuArray[] = [
+        'url' => route('admin.pcn.index'),
+        'text' => 'PCNS',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-note-add-fill',
     ];
     }
 
@@ -426,12 +444,7 @@
         'icon' => 'ni ni-setting-alt-fill',
     ];
 
-    $menuArray[] = [
-        'url' => route('admin.pcn.index'),
-        'text' => 'PCNS',
-        'route' => 'settings-read',
-        'icon' => 'ni ni-setting-alt-fill',
-    ];
+
 
     $menuArray[] = [
         'text' => 'CMS Section',

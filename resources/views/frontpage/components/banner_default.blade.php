@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="car__shape">
-        <img src="/assets/img/bg.png" alt="img">
-{{--        <img src="{{ settings('home_banner_image','/assets/img/cars/car-bg.png') }}" alt="img">--}}
+{{--        <img src="/assets/img/bg.png" alt="img">--}}
+        <img src="{{ settings('home_banner_image','/assets/img/cars/car-bg.png') }}" alt="img">
     </div>
 </section>

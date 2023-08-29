@@ -11,7 +11,11 @@
                                     <li wire:key="{{ $loop->index + 1 }}"
                                         class="{{ $step == $loop->index + 1 ? 'active' : '' }}">
                                         <div class="d-flex menu_item">
+                                            @if($step > $loop->index + 1)
+                                                <img src="{{ asset('assets/img/icons/right.png') }}"/>
+                                            @else
                                             <img src="{{ $menu_logos[$loop->index] }}"/>
+                                            @endif
                                             <div class="step-text">
                                                 <div class="lead-text">{{ $item }}</div>
                                             </div>

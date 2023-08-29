@@ -152,6 +152,88 @@
             padding: 0;
         }
 
+        .menu_item img{
+            margin-right: 20px;
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+        }
+
+        .menu_item .lead-text {
+            /*font-size: 1.075rem;*/
+            /*font-weight: 700;*/
+            color: #2D3748;
+            font-family: Poppins;
+            display: block;
+
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .menu_item .active{
+            color: #194685
+        }
+
+        .step_menu .active {
+            color: #194685
+        }
+
+        .step_menu .active .lead-text {
+            color: #194685!important;
+        }
+
+        .nk-stepper-nav li {
+            cursor: pointer;
+        }
+        .step_content {
+            background-color: #e5e9f2;
+            height: 100vh;
+            position: absolute;
+            margin-top: -50px;
+            padding-top: 50px;
+            padding-left: 50px;
+            right: 0;
+        }
+
+        .step_content .nk-stepper-content {
+            max-width: 500px;
+        }
+
+        .step_content .back {
+            cursor: pointer;
+        }
+
+        .step_content .back p {
+            color: #718096;
+        }
+        .step_content .nxt_button {
+            border-radius: 50px;
+            padding-left: 50px;
+            padding-right: 50px;
+            margin-left: 20px;
+        }
+        .step_content .full_button {
+            border-radius: 50px;
+            padding-left: 50px;
+            padding-right: 50px;
+            width: 100%;
+            display: block;
+        }
+        .step_content .prev_button {
+            border-radius: 50px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        .full_page {
+            background-color: lightgray; /* Just for visualization */
+            height: 100%;
+            position: absolute;
+            right: 0;
+        }
+
     </style>
 
     @yield('style')

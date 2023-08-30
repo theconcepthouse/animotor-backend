@@ -54,7 +54,7 @@ class AuthController extends Controller
             'country_code' => 'required',
             'country' => 'required',
             'email' => 'required|max:50|email|unique:users',
-//            'password'  => 'required|min:6',
+            'password'  => 'nullable',
             'role'  => 'required',
 //            'referral'  => 'nullable',
             'avatar'  => 'nullable',
@@ -66,7 +66,13 @@ class AuthController extends Controller
 
             $data = $request->all();
             $role = Role::where('name', $request['role'])->first();
-            $data['password'] = bcrypt($data['phone']);
+
+            if($request->has('password')){
+                $data['password'] = bcrypt($data['password']);
+            }else{
+                $data['password'] = bcrypt($data['phone']);
+            }
+
             $user = User::create($data);
 
             $user->addRole($role);

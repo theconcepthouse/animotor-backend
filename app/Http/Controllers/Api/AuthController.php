@@ -51,8 +51,8 @@ class AuthController extends Controller
             'last_name' => 'required|max:50|min:2',
 
             'phone' => 'required|min:3|unique:users',
-            'country_code' => 'required',
-            'country' => 'required',
+            'country_code' => 'nullable',
+            'country' => 'nullable',
             'email' => 'required|max:50|email|unique:users',
             'password'  => 'nullable',
             'role'  => 'required',
@@ -70,6 +70,12 @@ class AuthController extends Controller
             if($request->has('password')){
                 $data['password'] = bcrypt($data['password']);
             }else{
+
+                $request->validate([
+                    'country' => 'required',
+                    'country_code' => 'required',
+                ]);
+
                 $data['password'] = bcrypt($data['phone']);
             }
 

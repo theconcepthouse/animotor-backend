@@ -139,11 +139,11 @@ class BookingController extends Controller
     public function getCars(Request $request, DistanceService $distanceService):JsonResponse
     {
         $user = User::find(auth()->id());
-        if(!$user->region_id){
-            return $this->errorResponse('We cant identify your pickup location');
-        }
-
-        $region_id = $user->region_id;
+//        if(!$user->region_id){
+//            return $this->errorResponse('We cant identify your pickup location');
+//        }
+//
+//        $region_id = $user->region_id;
 
         $request->validate([
             'pick_up_lat' => 'required',

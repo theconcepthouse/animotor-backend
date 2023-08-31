@@ -11,15 +11,36 @@ class CustomerReturn extends Component
     public $damaged_panel = 2;
     public string $damage_type;
     public bool $alloy_wheels_damage;
-    public array $alloy_damages = ['Scuffed alloys' => 2, 'Worn tyres' => 2];
+    public array $alloy_damages = ['scuffed_alloys' => 2, 'worn_tyres' => 2];
     public bool $windscreen_damage;
-    public string $windscreen_damages;
+
+    public array $windscreen_damages = [
+        'Chipped or cracked driver side' => false,
+        'Chipped or cracked passenger side' => true,
+        'Chipped or cracked rear window' => true,
+    ];
     public bool $mirror_damage;
-    public string $mirror_damages;
+    public array $mirror_damages = [
+        'faulty_mirror_electronics' => false,
+        'mirror_glass_both_scratch_or_missing' => false,
+        'mirror_glass_one_scratch_or_missing' => false,
+        'mirror_cover_both_scratch_or_missing' => true,
+        'mirror_cover_one_scratch_or_missing' => false,
+    ];
     public bool $warning_lights;
-    public string $lights_on;
+    public array $lights_on = [
+        'Service due' => true,
+        'Oil Warning' => false,
+        'Engine Management' => false,
+        'Airbag warning' => false,
+        'ABS' => false,
+    ];
     public bool $seat_damage;
-    public string $seat_damages;
+    public array $seat_damages = [
+        'Has stains' => true,
+        'Has tears' => true,
+        'Has burns' => true,
+    ];
     public bool $clean_exterior;
     public string $exterior_images;
     public bool $handbook;
@@ -58,6 +79,9 @@ class CustomerReturn extends Component
     ];
 
 
+    public function mount(){
+
+    }
 
     public function render()
     {
@@ -72,9 +96,61 @@ class CustomerReturn extends Component
         $this->step++;
 
     }
+    public function setDamage($val)
+    {
+
+        $val == 'yes' ? $this->seat_damage = 1 :  $this->seat_damage = 0;
+
+        $this->step++;
+
+    }
+    public function alloyWheelDamage($val)
+    {
+
+        $val == 'yes' ? $this->alloy_wheels_damage = 1 :  $this->alloy_wheels_damage = 0;
+
+        $this->step++;
+
+    }
+    public function warningLights($val)
+    {
+
+        $val == 'yes' ? $this->warning_lights = 1 :  $this->warning_lights = 0;
+
+        $this->step++;
+
+    }
+    public function windscreenDamage($val)
+    {
+
+        $val == 'yes' ? $this->windscreen_damage = 1 :  $this->windscreen_damage = 0;
+
+        $this->step++;
+
+    }
+    public function mirrorDamage($val)
+    {
+
+        $val == 'yes' ? $this->mirror_damage = 1 :  $this->mirror_damage = 0;
+
+        $this->step++;
+
+    }
     public function increaseDamaged()
     {
         $this->damaged_panel++;
+    }
+
+    public function increaseAllow($item)
+    {
+        $this->alloy_damages[$item]++;
+    }
+
+    public function decreaseAllow($item)
+    {
+        if($this->alloy_damages[$item] > 1){
+            $this->alloy_damages[$item]--;
+        }
     }
 
     public function decreaseDamaged()

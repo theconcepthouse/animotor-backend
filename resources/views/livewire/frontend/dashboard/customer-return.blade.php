@@ -14,7 +14,7 @@
                                             @if($step > $loop->index + 1)
                                                 <img src="{{ asset('assets/img/icons/right.png') }}"/>
                                             @else
-                                            <img src="{{ $menu_logos[$loop->index] }}"/>
+                                                <img src="{{ $menu_logos[$loop->index] }}"/>
                                             @endif
                                             <div class="step-text">
                                                 <div class="lead-text">{{ $item }}</div>
@@ -31,6 +31,7 @@
 
                                 <form action="#">
 
+                                    {{ $step }}
 
                                     <div class="s== stepper-steps==">
                                         @if($step > 1)
@@ -45,7 +46,7 @@
 
 
                                     @if($step == 1)
-                                        <div >
+                                        <div>
                                             <h3 class="nk-block-title fw-bold">Is there any damage to the paint <br>
                                                 or bodywork</h3>
                                             <p>Damage includes rust, dent, holes, chips and scratches of any size
@@ -80,10 +81,12 @@
                                                             <a><em class="icon ni ni-check"></em><span>Doors Pillars</span></a>
                                                         </li>
                                                     </ul>
+
                                                     <button type="button" wire:click="paintDamage('no')"
                                                             class="btn {{ !$any_damage ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
                                                         No
                                                     </button>
+
                                                 </div>
                                             </div>
                                             <br>
@@ -100,6 +103,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <div class="form-control-wrap number-spinner-wrap">
+
                                                         <button type="button" wire:click="decreaseDamaged"
                                                                 class="btn btn-icon btn-outline-light number-spinner-btn number-minus"
                                                                 data-number="minus"><em class="icon ni ni-minus"></em>
@@ -166,64 +170,97 @@
                                         </div>
                                     @endif
                                     @if($step == 3)
-                                        <div >
+                                        <div>
+
                                             <h4 class="nk-block-title fw-bold">Any damage to your alloy wheels. wheels
                                                 trim or tyres?</h4>
+
                                             <p>
                                                 Let us know if the alloys or wheel trims are scuffled or the tyres are
                                                 worn/punctured
                                             </p>
+
                                             <div class="row">
+
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="alloyWheelDamage('yes')"
+                                                            class="btn {{ $alloy_wheels_damage  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+
+                                                    <button type="button" wire:click="alloyWheelDamage('no')"
+                                                            class="btn {{ !$alloy_wheels_damage ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                                <h4 class="nk-block-title fw-bold mt-3">What's the damage?</h4>
-                                                <div class="col-sm-12 ">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Scuffed Alloy</label>
-                                                        <p>How many alloy are scuffed</p>
-                                                        <div class="form-control-wrap number-spinner-wrap">
-                                                            <button
-                                                                class="btn btn-icon btn-outline-light number-spinner-btn number-minus"
-                                                                data-number="minus"><em class="icon ni ni-minus"></em>
-                                                            </button>
-                                                            <input type="number" class="form-control number-spinner"
-                                                                   value="2">
-                                                            <button
-                                                                class="btn btn-icon btn-outline-light number-spinner-btn number-plus"
-                                                                data-number="plus"><em class="icon ni ni-plus"></em>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Worn Tyre</label>
-                                                        <p>How many tyre are blow the 1.6mm</p>
-                                                        <div class="form-control-wrap number-spinner-wrap">
-                                                            <button
-                                                                class="btn btn-icon btn-outline-light number-spinner-btn number-minus"
-                                                                data-number="minus"><em class="icon ni ni-minus"></em>
-                                                            </button>
-                                                            <input type="number" class="form-control number-spinner"
-                                                                   value="2">
-                                                            <button
-                                                                class="btn btn-icon btn-outline-light number-spinner-btn number-plus"
-                                                                data-number="plus"><em class="icon ni ni-plus"></em>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                         </div>
                                     @endif
                                     @if($step == 4)
+                                        <div>
 
+                                            <h4 class="nk-block-title fw-bold mt-3">What's the damage?</h4>
+                                            <div class="row">
+
+                                                <div class="col-sm-12 mt-2">
+                                                    <div class="form-group">
+                                                        <p><strong>Scuffed alloys</strong> <br/>
+                                                            How many alloy are scuffed
+                                                        </p>
+                                                        <div class="form-control-wrap number-spinner-wrap">
+                                                            <button
+                                                                type="button"
+                                                                wire:click="decreaseAllow('scuffed_alloys')"
+                                                                class="btn btn-icon btn-outline-light number-spinner-btn number-minus"
+                                                                data-number="minus"><em class="icon ni ni-minus"></em>
+                                                            </button>
+                                                            <input type="number" class="form-control number-spinner"
+                                                                   wire:model="alloy_damages.scuffed_alloys"/>
+                                                            <button type="button"
+                                                                    wire:click="increaseAllow('scuffed_alloys')"
+                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-plus"
+                                                                    data-number="plus"><em class="icon ni ni-plus"></em>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 mt-3">
+                                                    <div class="form-group">
+                                                        <p><strong>Worn Tyre</strong> <br/>
+                                                            How many tyres are blow the 1.6mm tyre tread limit and need
+                                                            replacing
+                                                        </p>
+                                                        <div class="form-control-wrap number-spinner-wrap">
+                                                            <button wire:click="decreaseAllow('worn_tyres')"
+                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-minus"
+                                                                    data-number="minus"><em
+                                                                    class="icon ni ni-minus"></em>
+                                                            </button>
+                                                            <input type="number" class="form-control number-spinner"
+                                                                   wire:model="alloy_damages.worn_tyres"/>
+                                                            <button wire:click="increaseAllow('worn_tyres')"
+                                                                    class="btn btn-icon btn-outline-light number-spinner-btn number-plus"
+                                                                    data-number="plus"><em class="icon ni ni-plus"></em>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-12 mt-5">
+                                                    <button type="button" wire:click="next"
+                                                            class="btn btn-secondary full_button btn-lg mt-3">Next
+                                                    </button>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    @endif
+                                    @if($step == 5)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">I there any windscreen or rear window
                                                 damage?</h4>
@@ -232,44 +269,54 @@
                                             </p>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="windscreenDamage('yes')"
+                                                            class="btn {{ $windscreen_damage  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="windscreenDamage('no')"
+                                                            class="btn {{ !$windscreen_damage ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
 
-                                            <form action="">
-                                                <h4 class="nk-block-title fw-bold mt-3">What's the damage?</h4>
-                                                <div class="col-md-12 col-sm-12">
-                                                    <div class="preview-block">
-                                                        <div class="custom-control custom-checkbox checked">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck1">
-                                                            <label class="custom-control-label" for="customCheck1">Chipped
-                                                                or cracked driver side</label>
-                                                        </div>
-                                                        <br>
-                                                        <div class="custom-control custom-checkbox checked mt-2 mb-2">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck2">
-                                                            <label class="custom-control-label" for="customCheck2">Chipped
-                                                                or cracked passenger side</label>
-                                                        </div>
-                                                        <br>
-                                                        <div class="custom-control custom-checkbox checked">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck3">
-                                                            <label class="custom-control-label" for="customCheck3">Chipped
-                                                                or cracked rear window</label>
-                                                        </div>
+                                        </div>
+                                    @endif
+
+                                    @if($step == 6)
+                                        <div>
+
+                                            <h4 class="nk-block-title fw-bold mt-3">What's the damage?</h4>
+                                            <p class="mt-4">Please select from the following : </p>
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="preview-block">
+                                                    @foreach($windscreen_damages as $item => $key)
+                                                    <div wire:key="windscreen_{{ $loop->index }}" class="custom-control- mt-2">
+                                                        <input wire:model="windscreen_damages.{{ $item }}" type="checkbox"
+                                                               id="windscreen_{{ $loop->index }}">
+                                                        <label class="" for="windscreen_{{ $loop->index }}">
+                                                            {{ $item }}
+                                                        </label>
                                                     </div>
+                                                    <br>
+                                                    @endforeach
+
                                                 </div>
-                                            </form>
+                                            </div>
+
+                                            <div class="col-12 mt-5">
+                                                <button type="button" wire:click="next"
+                                                        class="btn btn-secondary full_button btn-lg mt-3">Next
+                                                </button>
+
+                                            </div>
 
                                         </div>
                                     @endif
-                                    @if($step == 5)
+                                    @if($step == 7)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Are there any problems with the
                                                 mirrors?</h4>
@@ -279,62 +326,73 @@
                                             </p>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="mirrorDamage('yes')"
+                                                            class="btn {{ $mirror_damage  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="mirrorDamage('no')"
+                                                            class="btn {{ !$mirror_damage ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <form action="">
-                                                <h4 class="nk-block-title fw-bold mt-3">What's the damage?</h4>
-                                                <p>Please select from the following:</p>
-                                                <div class="col-md-12 col-sm-12">
-                                                    <div class="preview-block">
-                                                        <strong class="mb-3">Mirror electronics</strong><br>
-                                                        <div class="custom-control custom-checkbox checked">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck4">
-                                                            <label class="custom-control-label" for="customCheck4">Faulty</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="preview-block mt-4">
-                                                        <strong class="mb-3">Mirror glass</strong><br>
-                                                        <div class="custom-control custom-radio checked mt-2">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck5">
-                                                            <label class="custom-control-label" for="customCheck5">One
-                                                                scratched or missing</label>
-                                                        </div>
-                                                        <br>
-                                                        <div class="custom-control custom-radio checked mt-2">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck6">
-                                                            <label class="custom-control-label" for="customCheck6">One
-                                                                scratched or missing</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="preview-block mt-4">
-                                                        <strong class="mb-3">Mirror Cover</strong><br>
-                                                        <div class="custom-control custom-radio checked mt-2">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck7">
-                                                            <label class="custom-control-label" for="customCheck7">One
-                                                                scratched or missing</label>
-                                                        </div>
-                                                        <br>
-                                                        <div class="custom-control custom-radio checked mt-2">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                   id="customCheck8">
-                                                            <label class="custom-control-label" for="customCheck8">One
-                                                                scratched or missing</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
 
                                         </div>
                                     @endif
-                                    @if($step == 6)
+                                    @if($step == 8)
+                                        <div>
+                                            <h4 class="nk-block-title fw-bold mt-3">What's the damage?</h4>
+                                            <p class="mt-3">Please select from the following:</p>
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="preview-block">
+                                                    <strong class="mb-3">Mirror electronics</strong><br>
+                                                    <div class="custom-control">
+                                                        <input wire:model="mirror_damages.faulty_mirror_electronics" type="checkbox" class="" />
+                                                        <label class="">Faulty</label>
+                                                    </div>
+                                                </div>
+                                                <div class="preview-block mt-4">
+                                                    <strong class="mb-3">Mirror glass</strong><br>
+                                                    <div class="custom-control mt-2">
+                                                        <input type="checkbox" wire:model="mirror_damages.mirror_glass_one_scratch_or_missing" class="custom-control-input-" />
+                                                        <label>One scratched or missing</label>
+                                                    </div>
+                                                    <br>
+                                                    <div class="custom-control mt-2">
+                                                        <input type="checkbox" wire:model="mirror_damages.mirror_glass_both_scratch_or_missing" class="" />
+                                                        <label class="custom-control-label-">
+                                                            Both scratched or missing</label>
+                                                    </div>
+                                                </div>
+                                                <div class="preview-block mt-4">
+                                                    <strong class="mb-3">Mirror Cover</strong><br>
+                                                    <div class="custom-control  mt-2">
+                                                        <input type="checkbox" wire:model="mirror_damages.mirror_cover_one_scratch_or_missing" class="" />
+                                                        <label class="custom-control-label-">
+                                                            One scratched or missing</label>
+                                                    </div>
+                                                    <br>
+                                                    <div class="custom-control mt-2">
+                                                        <input type="checkbox" wire:model="mirror_damages.mirror_cover_both_scratch_or_missing" class="" />
+                                                        <label class="custom-control-label-">
+                                                            Both scratched or missing</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 mt-5">
+                                                <button type="button" wire:click="next"
+                                                        class="btn btn-secondary full_button btn-lg mt-3">Next
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+                                    @endif
+                                    @if($step == 9)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Are any of the following warning lights
                                                 on?</h4>
@@ -364,7 +422,7 @@
                                                 <div class="card-inner">
                                                     <p>Tip: Make sure your mileage is exact so that we can give you a
                                                         guaranteed price.</p>
-                                                    <form action="">
+
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <div class="form-control-wrap">
@@ -373,7 +431,7 @@
                                                                         <input type="text" class="form-control"
                                                                                placeholder="8000">
                                                                         <div class="input-group-append">
-                                                                            <button type="submit"
+                                                                            <button type="button"
                                                                                     class="btn btn-lg btn-primary">
                                                                                 Update
                                                                             </button>
@@ -383,63 +441,56 @@
                                                             </div>
 
                                                         </div>
-                                                    </form>
+
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="warningLights('yes')"
+                                                            class="btn {{ $warning_lights  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="warningLights('no')"
+                                                            class="btn {{ !$warning_lights ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
+                                        </div>
+                                    @endif
+
+                                    @if($step == 10)
+                                        <div>
 
                                             <h4 class="nk-block-title fw-bold mt-3">Which lights are still on?</h4>
                                             <p>
                                                 Please select from the following:
                                             </p>
-                                            <form action="">
+
                                                 <div class="preview-block mt-4">
-                                                    <div class="custom-control custom-radio checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck9">
-                                                        <label class="custom-control-label" for="customCheck9">Service
-                                                            due</label>
+                                                    @foreach($lights_on as $item => $key)
+                                                    <div wire:key="{{ $item }}" class="custom-control mt-2">
+                                                        <input type="checkbox" wire:model="lights_on.{{ $item }}" class="" />
+                                                        <label>{{ $item }}</label>
                                                     </div>
                                                     <br>
-                                                    <div class="custom-control custom-radio checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck10">
-                                                        <label class="custom-control-label" for="customCheck10">Oil
-                                                            warning</label>
-                                                    </div>
-                                                    <br>
-                                                    <div class="custom-control custom-radio checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck11">
-                                                        <label class="custom-control-label" for="customCheck11">Engine
-                                                            management</label>
-                                                    </div>
-                                                    <br>
-                                                    <div class="custom-control custom-radio checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck12">
-                                                        <label class="custom-control-label" for="customCheck12">Airbag
-                                                            warning</label>
-                                                    </div>
-                                                    <br>
-                                                    <div class="custom-control custom-radio checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck13">
-                                                        <label class="custom-control-label"
-                                                               for="customCheck13">ABS</label>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
-                                            </form>
+
+
+                                            <div class="col-12 mt-5">
+                                                <button type="button" wire:click="next"
+                                                        class="btn btn-secondary full_button btn-lg mt-3">Next
+                                                </button>
+
+                                            </div>
+
                                         </div>
                                     @endif
-                                    @if($step == 7)
+                                    @if($step == 11)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Any seat, carpet or upholstery
                                                 damage?</h4>
@@ -448,19 +499,29 @@
                                             </p>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setDamage('yes')"
+                                                            class="btn {{ $seat_damage  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setDamage('no')"
+                                                            class="btn {{ !$seat_damage ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
-
+                                        </div>
+                                    @endif
+                                    @if($step == 12)
+                                        <div>
                                             <h4 class="nk-block-title fw-bold mt-3">What’s the damage?</h4>
                                             <p>
                                                 Please select from the following:
                                             </p>
-                                            <form action="">
-                                                <div class="preview-block mt-4">
+
+                                            <div class="preview-block mt-4">
 
                                                     <div class="custom-control custom-checkbox checked mt-2">
                                                         <input type="checkbox" class="custom-control-input"
@@ -483,7 +544,7 @@
                                                             burns</label>
                                                     </div>
                                                 </div>
-                                            </form>
+
                                         </div>
                                     @endif
                                     @if($step == 8)

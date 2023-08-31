@@ -523,27 +523,14 @@
 
                                             <div class="preview-block mt-4">
 
+                                                @foreach($seat_damages as $item => $key)
                                                     <div class="custom-control custom-checkbox checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck14">
-                                                        <label class="custom-control-label" for="customCheck14">Has
-                                                            stains</label>
+                                                        <input type="checkbox" class="custom-control-input" />
+                                                        <label>{{ $item }}</label>
                                                     </div>
                                                     <br>
-                                                    <div class="custom-control custom-checkbox checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck15">
-                                                        <label class="custom-control-label" for="customCheck15">Has
-                                                            tears</label>
-                                                    </div>
-                                                    <br>
-                                                    <div class="custom-control custom-checkbox checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                               id="customCheck16">
-                                                        <label class="custom-control-label" for="customCheck16">Has
-                                                            burns</label>
-                                                    </div>
-                                                </div>
+                                                @endforeach
+                                            </div>
 
                                         </div>
                                     @endif

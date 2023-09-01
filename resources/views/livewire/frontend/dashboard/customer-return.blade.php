@@ -11,7 +11,7 @@
                                     <li wire:key="{{ $loop->index + 1 }}"
                                         class="{{ $step == $loop->index + 1 ? 'active' : '' }}">
                                         <div class="d-flex menu_item">
-                                            @if($step > $loop->index + 1)
+                                            @if($step > $menu_index[$loop->index])
                                                 <img src="{{ asset('assets/img/icons/right.png') }}"/>
                                             @else
                                                 <img src="{{ $menu_logos[$loop->index] }}"/>
@@ -32,8 +32,6 @@
                                 <form action="#">
 
                                     {{ $step }}
-
-                                    {{ $exterior_images }}
 
                                     <div class="s== stepper-steps==">
                                         @if($step > 1)
@@ -580,275 +578,339 @@
 
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
-                                                            <label class="form-label"
-                                                                   for="default-textarea">Description</label>
+                                                            <label class="form-label">Description</label>
                                                             <div class="form-control-wrap">
-                                                                <textarea class="form-control no-resize"
-                                                                          id="default-textarea"></textarea>
+                                                                <textarea wire:model="exterior_description" class="form-control no-resize"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
 
+
+                                            <div class="col-12 mt-5">
+                                                <button type="button" wire:click="next"
+                                                        class="btn btn-secondary full_button btn-lg mt-3">Next
+                                                </button>
+
+                                            </div>
+
                                         </div>
 
                                     @endif
 
-                                    @if($step == 9)
+                                    @if($step == 15)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Handbook?</h4>
 
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setHandbook('yes')"
+                                                            class="btn {{ $handbook  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setHandbook('no')"
+                                                            class="btn {{ !$handbook ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
 
-                                            <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
-                                                description?</h4>
-{{--                                            <form action="">--}}
-                                                <div class="preview-block mt-4">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Upload Images</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-file">
-                                                                    <input type="file" class="form-file-input"
-                                                                           id="customFile2">
-                                                                    <label class="form-file-label" for="customFile2">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="default-textarea2">Description</label>
-                                                            <div class="form-control-wrap">
-                                                                <textarea class="form-control no-resize"
-                                                                          id="default-textarea2"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-{{--                                            </form>--}}
                                         </div>
                                     @endif
-                                    @if($step == 10)
+
+                                    @if($step == 16)
+
+                                        <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
+                                            description?</h4>
+
+
+                                        <div class="preview-block mt-4">
+
+
+                                            @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $handbook_images, 'field' => 'handbook_images'])
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea wire:model="handbook_description" class="form-control no-resize"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 mt-5">
+                                            <button type="button" wire:click="next"
+                                                    class="btn btn-secondary full_button btn-lg mt-3">Next
+                                            </button>
+
+                                        </div>
+
+                                    @endif
+
+                                    @if($step == 17)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Spare Wheels?</h4>
 
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setSpareWheel('yes')"
+                                                            class="btn {{ $spare_wheel  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setSpareWheel('no')"
+                                                            class="btn {{ !$spare_wheel ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
 
-                                            <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
-                                                description?</h4>
-{{--                                            <form action="">--}}
-                                                <div class="preview-block mt-4">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Upload Images</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-file">
-                                                                    <input type="file" class="form-file-input"
-                                                                           id="customFilesp">
-                                                                    <label class="form-file-label" for="customFilesp">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="default-textareaspa">Description</label>
-                                                            <div class="form-control-wrap">
-                                                                <textarea class="form-control no-resize"
-                                                                          id="default-textareaspa"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-{{--                                            </form>--}}
                                         </div>
                                     @endif
-                                    @if($step == 11)
+
+                                    @if($step == 18)
+                                        <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
+                                            description?</h4>
+
+                                        <div class="preview-block mt-4">
+
+
+                                            @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $spare_wheel_images, 'field' => 'spare_wheel_images'])
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea wire:model="spare_wheel_images" class="form-control no-resize"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 mt-5">
+                                            <button type="button" wire:click="next"
+                                                    class="btn btn-secondary full_button btn-lg mt-3">Next
+                                            </button>
+
+                                        </div>
+                                    @endif
+
+                                    @if($step == 19)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Fuel cap?</h4>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setFuelCap('yes')"
+                                                            class="btn {{ $spare_wheel  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setFuelCap('no')"
+                                                            class="btn {{ !$spare_wheel ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
-                                                description?</h4>
-{{--                                            <form action="">--}}
-                                                <div class="preview-block mt-4">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Upload Images</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-file">
-                                                                    <input type="file" class="form-file-input"
-                                                                           id="customFile3">
-                                                                    <label class="form-file-label" for="customFile3">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="default-textarea3">Description</label>
-                                                            <div class="form-control-wrap">
-                                                                <textarea class="form-control no-resize"
-                                                                          id="default-textarea3"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-{{--                                            </form>--}}
                                         </div>
                                     @endif
-                                    @if($step == 12)
+
+                                    @if($step == 20)
+
+                                        <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
+                                            description?</h4>
+
+                                        <div class="preview-block mt-4">
+
+
+                                            @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $fuel_cap_images, 'field' => 'fuel_cap_images'])
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea wire:model="fuel_cap_description" class="form-control no-resize"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 mt-5">
+                                            <button type="button" wire:click="next"
+                                                    class="btn btn-secondary full_button btn-lg mt-3">Next
+                                            </button>
+
+                                        </div>
+                                    @endif
+
+
+
+                                    @if($step == 21)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Aerial?</h4>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setAerial('yes')"
+                                                            class="btn {{ $aerial  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setAerial('no')"
+                                                            class="btn {{ !$aerial ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
-                                                description?</h4>
-{{--                                            <form action="">--}}
-                                                <div class="preview-block mt-4">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Upload Images</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-file">
-                                                                    <input type="file" class="form-file-input"
-                                                                           id="customFile4">
-                                                                    <label class="form-file-label" for="customFile4">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="default-textarea4">Description</label>
-                                                            <div class="form-control-wrap">
-                                                                <textarea class="form-control no-resize"
-                                                                          id="default-textarea4"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-{{--                                            </form>--}}
                                         </div>
                                     @endif
-                                    @if($step == 13)
+
+                                    @if($step == 22)
+
+                                        <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
+                                            description?</h4>
+
+                                        <div class="preview-block mt-4">
+
+
+                                            @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $aerial_images, 'field' => 'aerial_images'])
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea wire:model="aerial_description" class="form-control no-resize"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 mt-5">
+                                            <button type="button" wire:click="next"
+                                                    class="btn btn-secondary full_button btn-lg mt-3">Next
+                                            </button>
+
+                                        </div>
+                                    @endif
+
+
+
+
+                                    @if($step == 23)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Floor mat?</h4>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setFloorMat('yes')"
+                                                            class="btn {{ $floor_mat  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setFloorMat('no')"
+                                                            class="btn {{ !$floor_mat ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
-                                                description?</h4>
-{{--                                            <form action="">--}}
-                                                <div class="preview-block mt-4">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Upload Images</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-file">
-                                                                    <input type="file" class="form-file-input"
-                                                                           id="customFile5">
-                                                                    <label class="form-file-label" for="customFile5">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="default-textarea5">Description</label>
-                                                            <div class="form-control-wrap">
-                                                                <textarea class="form-control no-resize"
-                                                                          id="default-textarea5"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-{{--                                            </form>--}}
                                         </div>
                                     @endif
-                                    @if($step == 14)
+
+                                    @if($step == 24)
+
+                                        <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
+                                            description?</h4>
+
+                                        <div class="preview-block mt-4">
+
+
+                                            @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $floor_mat_images, 'field' => 'floor_mat_images'])
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea wire:model="floor_mat_description" class="form-control no-resize"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 mt-5">
+                                            <button type="button" wire:click="next"
+                                                    class="btn btn-secondary full_button btn-lg mt-3">Next
+                                            </button>
+
+                                        </div>
+                                    @endif
+
+
+                                    @if($step == 25)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Tools?</h4>
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setTools('yes')"
+                                                            class="btn {{ $tools  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setTools('no')"
+                                                            class="btn {{ !$tools ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
+                                        </div>
+                                    @endif
 
-                                            <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
-                                                description?</h4>
-{{--                                            <form action="">--}}
-                                                <div class="preview-block mt-4">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Upload Images</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-file">
-                                                                    <input type="file" class="form-file-input"
-                                                                           id="customFile6">
-                                                                    <label class="form-file-label" for="customFile6">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="default-textarea6">Description</label>
-                                                            <div class="form-control-wrap">
-                                                                <textarea class="form-control no-resize"
-                                                                          id="default-textarea6"></textarea>
-                                                            </div>
-                                                        </div>
+                                    @if($step == 26)
+
+                                        <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
+                                            description?</h4>
+
+                                        <div class="preview-block mt-4">
+
+
+                                            @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $tools_images, 'field' => 'tools_mat_images'])
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Description</label>
+                                                    <div class="form-control-wrap">
+                                                        <textarea wire:model="tools_description" class="form-control no-resize"></textarea>
                                                     </div>
                                                 </div>
-{{--                                            </form>--}}
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 mt-5">
+                                            <button type="button" wire:click="next"
+                                                    class="btn btn-secondary full_button btn-lg mt-3">Next
+                                            </button>
 
                                         </div>
                                     @endif
+
+
+
 
 
                                 </form>

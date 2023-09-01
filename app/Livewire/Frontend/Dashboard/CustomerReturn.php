@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class CustomerReturn extends Component
 {
-    public int $step = 14;
+    public int $step = 1;
     public $any_damage;
     public $damaged_panel = 2;
     public string $damage_type;
@@ -45,9 +45,29 @@ class CustomerReturn extends Component
     ];
     public bool $clean_exterior;
     public string $exterior_images = '';
+    public string $exterior_description;
     public bool $handbook;
     public string $handbook_images;
+    public string $handbook_description;
     public string $spare_wheel;
+    public string $spare_wheel_images;
+    public string $spare_wheel_description;
+
+    public string $fuel_cap;
+    public string $fuel_cap_images;
+    public string $fuel_cap_description;
+
+    public string $floor_mat;
+    public string $floor_mat_images;
+    public string $floor_mat_description;
+
+    public string $aerial;
+    public string $aerial_images;
+    public string $aerial_description;
+
+    public string $tools;
+    public string $tools_images;
+    public string $tools_description;
 
     public array $menu_items = [
         'Paint & bodywork',
@@ -63,6 +83,9 @@ class CustomerReturn extends Component
         'Aerial',
         'Floor mats',
         'Tools'
+    ];
+    public array $menu_index = [
+        1,3,5,7,9,11,13,15,17,19,21,23,25
     ];
     public array $menu_logos = [
         '/assets/img/icons/paint.png',
@@ -117,10 +140,60 @@ class CustomerReturn extends Component
         $this->step++;
 
     }
+    public function setAerial($val)
+    {
+
+        $val == 'yes' ? $this->aerial = 1 :  $this->aerial = 0;
+
+        $this->step++;
+
+    }
+    public function setFloorMat($val)
+    {
+
+        $val == 'yes' ? $this->floor_mat = 1 :  $this->floor_mat = 0;
+
+        $this->step++;
+
+    }
+
+    public function setTools($val)
+    {
+
+        $val == 'yes' ? $this->tools = 1 :  $this->tools = 0;
+
+        $this->step++;
+
+    }
     public function setExteriorClean($val)
     {
 
         $val == 'yes' ? $this->clean_exterior = 1 :  $this->clean_exterior = 0;
+
+        $this->step++;
+
+    }
+    public function setFuelCap($val)
+    {
+
+        $val == 'yes' ? $this->fuel_cap = 1 :  $this->fuel_cap = 0;
+
+        $this->step++;
+
+    }
+
+    public function setHandbook($val)
+    {
+
+        $val == 'yes' ? $this->handbook = 1 :  $this->handbook = 0;
+
+        $this->step++;
+
+    }
+    public function setSpareWheel($val)
+    {
+
+        $val == 'yes' ? $this->spare_wheel = 1 :  $this->spare_wheel = 0;
 
         $this->step++;
 

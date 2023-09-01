@@ -33,6 +33,8 @@
 
                                     {{ $step }}
 
+                                    {{ $exterior_images }}
+
                                     <div class="s== stepper-steps==">
                                         @if($step > 1)
                                             <div wire:click="prev" class="d-flex menu_item back mb-5">
@@ -525,45 +527,57 @@
 
                                                 @foreach($seat_damages as $item => $key)
                                                     <div class="custom-control custom-checkbox checked mt-2">
-                                                        <input type="checkbox" class="custom-control-input" />
+                                                        <input wire:model="seat_damages.{{ $item }}" type="checkbox" />
                                                         <label>{{ $item }}</label>
                                                     </div>
                                                     <br>
                                                 @endforeach
                                             </div>
 
+
+                                            <div class="col-12 mt-5">
+                                                <button type="button" wire:click="next"
+                                                        class="btn btn-secondary full_button btn-lg mt-3">Next
+                                                </button>
+
+                                            </div>
+
                                         </div>
                                     @endif
-                                    @if($step == 8)
+                                    @if($step == 13)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Exterior is clean?</h4>
 
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-secondary btn-lg mt-3">yes</a>
+                                                    <button type="button" wire:click="setExteriorClean('yes')"
+                                                            class="btn {{ $clean_exterior  ? 'btn-secondary' : 'btn-outline-secondary' }} nxt_button btn-lg mt-3">
+                                                        yes
+                                                    </button>
+
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="" class="btn btn-outline-secondary btn-lg mt-3">No</a>
+                                                    <button type="button" wire:click="setExteriorClean('no')"
+                                                            class="btn {{ !$clean_exterior ? 'btn-secondary' : 'btn-outline-secondary' }} prev_button btn-lg mt-3">
+                                                        No
+                                                    </button>
                                                 </div>
                                             </div>
 
+                                        </div>
+                                    @endif
+
+                                    @if($step == 14)
+
+                                        <div>
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
-                                            <form action="">
+
                                                 <div class="preview-block mt-4">
-                                                    <div class="col-sm-12">
-                                                        <div class="form-group">
-                                                            <label class="form-label">Upload Images</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="form-file">
-                                                                    <input type="file" class="form-file-input"
-                                                                           id="customFile">
-                                                                    <label class="form-file-label" for="customFile">Choose
-                                                                        file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
+
+                                                    @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $exterior_images, 'field' => 'exterior_images'])
+
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label class="form-label"
@@ -575,9 +589,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+
                                         </div>
+
                                     @endif
+
                                     @if($step == 9)
                                         <div class="">
                                             <h4 class="nk-block-title fw-bold">Handbook?</h4>
@@ -593,7 +609,7 @@
 
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
-                                            <form action="">
+{{--                                            <form action="">--}}
                                                 <div class="preview-block mt-4">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
@@ -618,7 +634,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+{{--                                            </form>--}}
                                         </div>
                                     @endif
                                     @if($step == 10)
@@ -636,7 +652,7 @@
 
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
-                                            <form action="">
+{{--                                            <form action="">--}}
                                                 <div class="preview-block mt-4">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
@@ -661,7 +677,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+{{--                                            </form>--}}
                                         </div>
                                     @endif
                                     @if($step == 11)
@@ -678,7 +694,7 @@
 
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
-                                            <form action="">
+{{--                                            <form action="">--}}
                                                 <div class="preview-block mt-4">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
@@ -703,7 +719,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+{{--                                            </form>--}}
                                         </div>
                                     @endif
                                     @if($step == 12)
@@ -720,7 +736,7 @@
 
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
-                                            <form action="">
+{{--                                            <form action="">--}}
                                                 <div class="preview-block mt-4">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
@@ -745,7 +761,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+{{--                                            </form>--}}
                                         </div>
                                     @endif
                                     @if($step == 13)
@@ -762,7 +778,7 @@
 
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
-                                            <form action="">
+{{--                                            <form action="">--}}
                                                 <div class="preview-block mt-4">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
@@ -787,7 +803,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+{{--                                            </form>--}}
                                         </div>
                                     @endif
                                     @if($step == 14)
@@ -804,7 +820,7 @@
 
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
-                                            <form action="">
+{{--                                            <form action="">--}}
                                                 <div class="preview-block mt-4">
                                                     <div class="col-sm-12">
                                                         <div class="form-group">
@@ -829,7 +845,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+{{--                                            </form>--}}
 
                                         </div>
                                     @endif
@@ -850,3 +866,12 @@
     </div><!-- .nk-block -->
 </div><!-- .components-preview -->
 </div>
+
+
+@section('js')
+    <script>
+        document.addEventListener('livewire:initialized', () => {
+            // Livewire.dispatch('file-added', 'Helllllllllll')
+        });
+    </script>
+@endsection

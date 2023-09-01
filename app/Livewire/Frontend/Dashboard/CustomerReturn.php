@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Frontend\Dashboard;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
+
 
 class CustomerReturn extends Component
 {
-    public int $step = 1;
+    public int $step = 14;
     public $any_damage;
     public $damaged_panel = 2;
     public string $damage_type;
@@ -42,7 +44,7 @@ class CustomerReturn extends Component
         'Has burns' => true,
     ];
     public bool $clean_exterior;
-    public string $exterior_images;
+    public string $exterior_images = '';
     public bool $handbook;
     public string $handbook_images;
     public string $spare_wheel;
@@ -78,9 +80,28 @@ class CustomerReturn extends Component
         '/assets/img/icons/windscreen.png'
     ];
 
+    #[On('file-manager-event')]
+    public function updateFile($event = null)
+    {
+        $name = $event['name'];
+        $this->$name = $event['file'];
+    }
+
+    #[On('file-uploader-clear')]
+    public function clearFile($event = null)
+    {
+        $name = $event;
+        $this->$name = '';
+    }
+
+
 
     public function mount(){
 
+    }
+
+    public function checkInput(){
+        dd($this->exterior_images);
     }
 
     public function render()
@@ -92,6 +113,14 @@ class CustomerReturn extends Component
     {
 
         $val == 'yes' ? $this->any_damage = 1 :  $this->any_damage = 0;
+
+        $this->step++;
+
+    }
+    public function setExteriorClean($val)
+    {
+
+        $val == 'yes' ? $this->clean_exterior = 1 :  $this->clean_exterior = 0;
 
         $this->step++;
 
@@ -145,6 +174,8 @@ class CustomerReturn extends Component
     {
         $this->alloy_damages[$item]++;
     }
+
+
 
     public function decreaseAllow($item)
     {

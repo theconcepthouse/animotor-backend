@@ -182,3 +182,12 @@ function menuItems(){
     }
     return $menus;
 }
+
+
+function imageStringArray($images): array
+{
+    if(!$images){
+        return [];
+    }
+    return explode(',', $images);
+}

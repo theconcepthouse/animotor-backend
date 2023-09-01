@@ -751,7 +751,7 @@
 
 
 
-@livewireScripts
+{{--@livewireScripts--}}
 
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -821,6 +821,7 @@
     $('.lfm').filemanager('image');
 </script>
 
+@yield('js')
 
 </body>
 

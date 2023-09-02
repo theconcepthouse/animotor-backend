@@ -52,6 +52,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ $active == 'home_banner' ? 'active' : '' }}" data-bs-toggle="tab" href="#home_banner"><em class="icon ni ni-code"></em><span>Home Banner</span></a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $active == 'footer' ? 'active' : '' }}" data-bs-toggle="tab" href="#footer"><em class="icon ni ni-code"></em><span>Footer setting</span></a>
+                                </li>
 {{--                                <li class="nav-item">--}}
 {{--                                    <a class="nav-link  {{ $active == 'app' ? 'active' : '' }}" data-bs-toggle="tab" href="#app"><em class="icon ni ni-mobile"></em><span>Mobile App setting </span></a>--}}
 {{--                                </li>--}}
@@ -72,6 +76,19 @@
                                     @include('admin.settings.partials.home_banner')
 
                                 </div><!--tab pan -->
+
+                              <div class="tab-pane {{ $active == 'footer' ? 'active' : '' }}" id="footer">
+                                    @include('admin.settings.partials.footer')
+
+                                </div><!--tab pan -->
+
+
+
+
+
+
+
+
                                 <div class="tab-pane  {{ $active == 'app' ? 'active' : '' }}" id="app">
                                     @include('admin.settings.partials.app')
 

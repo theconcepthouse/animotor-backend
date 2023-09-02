@@ -100,7 +100,7 @@ class AdminController extends Controller
 //       return $request->all();
 
 
-        $data = $request->except('active_setting');
+        $data = $request->except('active_setting','_token');
 
        if($request->has('active_methods')){
            $dt['active_methods']  = json_encode($request->get('active_methods'));
@@ -132,6 +132,7 @@ class AdminController extends Controller
                     }
                 }
             }
+
 
             settings($data);
         }

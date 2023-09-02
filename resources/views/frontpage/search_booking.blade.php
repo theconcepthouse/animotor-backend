@@ -51,7 +51,9 @@
                                     </div>
                                 </div>
 
-                                  <div class="col-lg-12">
+
+
+                                    <div class="col-lg-12">
                                     <div class="input__grp">
                                         <label for="reference">Booking reference number</label>
                                         <input required type="text" class="form-control" name="reference" value="{{ old('reference') }}" id="reference" placeholder="Your booking reference here">

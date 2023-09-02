@@ -11825,3 +11825,7 @@ p a {
     width: 100%;
     border-radius: 10px;
 }
+
+.form_border_10 .form-control {
+    border-radius: 10px;
+}

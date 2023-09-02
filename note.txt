@@ -25,12 +25,12 @@ php artisan module:make-seed HotelAdmins Hotel
 
 
 
-
+php artisan module:make Post
 
 php artisan module:make-factory HotelFactory Hotel
  php artisan module:make-migration create_hotels_table Hotel
 php artisan module:migrate Hotel
 
-
+ php artisan module:make-model VehicleDefect -m AdvanceRental
 
  php artisan make:migration create_pcns_table --path=database/migration/addon

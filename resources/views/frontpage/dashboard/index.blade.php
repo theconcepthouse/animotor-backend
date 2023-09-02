@@ -16,7 +16,7 @@
                 </a>
             </div>
             <div class="col-12 mt-4 justify-content-center">
-                <a href="#" class="cmn__btn">
+                <a href="{{ route('rental.report_defect', ['id' => \App\Models\Car::first()->id]) }}" class="cmn__btn">
                     <span>Report vehicle defect</span>
                 </a>
             </div>

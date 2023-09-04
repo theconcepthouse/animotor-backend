@@ -11830,7 +11830,9 @@ p a {
     border-radius: 10px;
 }
 
-.small__logo img {
-    width: 200px;
-    height: auto;
+.header-wrapper .small__logo img {
+     max-width: 160px;
+     height: 100%;
+    -o-object-fit: contain;
+    object-fit: contain;
 }

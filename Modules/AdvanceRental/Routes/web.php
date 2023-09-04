@@ -23,6 +23,7 @@ Route::prefix('advancerental')->group(function() {
     Route::get('/report-vehicle-defect/{id}', [VehicleDefectController::class,'reportDefect'])->name('rental.report_defect');
     Route::get('/return-vehicle/{id}', [VehicleReturnController::class,'returnVehicle'])->name('return.vehicle');
     Route::get('/return-vehicle/store', [VehicleReturnController::class,'vehicleReturnStore'])->name('vehicle_return.store');
+    Route::get('/return-vehicle/car_damage_report/{booking_id}/{car_id}', [VehicleReturnController::class,'vehicleReturnCarDamageReport'])->name('vehicle_return.car_damage_report');
     Route::post('report-vehicle-defect/store', [AdvanceRentalController::class,'store'])->name('rental.report_defect.store');
 
     Route::get('/report-incident/{id}', [IncidentController::class,'reportIncident'])->name('rental.report_incident');

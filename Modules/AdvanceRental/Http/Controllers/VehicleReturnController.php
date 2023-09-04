@@ -26,13 +26,18 @@ class VehicleReturnController extends Controller
         ]);
 
         $return = VehicleReturn::where('booking_id', $request->booking_id)->first();
+        $booking_id = $request->input('booking_id');
         if(!$return){
-            VehicleReturn::create([
+            $return = VehicleReturn::create([
                 'booking_id' => $request->booking_id,
                 'reason' => $request->reason,
                 'date_time' => $request->date_time,
             ]);
         }
-        return view('advancerental::return_vehicle', compact('return', 'return'));
+        return redirect()->route('vehicle_return.car_damage_report', ['booking_id' => $booking_id,'return_id' =>  $return->id]);
+    }
+
+    public function vehicleReturnCarDamageReport($booking_id, $return_id){
+        return $return_id;
     }
 }

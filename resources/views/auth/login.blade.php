@@ -1,49 +1,29 @@
+@extends('layouts.app')
 
-<!DOCTYPE html>
-<html lang="zxx" class="js">
+@section('page_title','Login')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="author" content="Softnio">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="{{ settings('site_name') }}">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ settings('favicon') }}">
-    <!-- Page Title  -->
-    <title>Login | {{ settings('site_name', env('APP_NAME')) }} Dashboard </title>
-    <!-- StyleSheets  -->
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/dashlite.css?ver=3.1.1') }}">
-    <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/css/theme.css?ver=3.1.1') }}">
-</head>
+@section('content')
 
-<body class="nk-body bg-white npc-general pg-auth">
-<div class="nk-app-root">
-    <!-- main @s -->
-    <div class="nk-main ">
-        <!-- wrap @s -->
-        <div class="nk-wrap nk-wrap-nosidebar">
-            <!-- content @s -->
-            <div class="nk-content ">
-                <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
-                    <div class="brand-logo pb-4 text-center">
-                        <a href="#" class="logo-link">
-                            <img height="150" src="{{ settings('light_logo',asset('default/logo.png')) }}" />
-{{--                            <h3 style="font-weight: bolder" class="text-capitalize">{{ env('APP_NAME') }}</h3>--}}
-                            {{--                            <img class="logo-light logo-img logo-img-lg" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">--}}
-                            {{--                            <img class="logo-dark logo-img logo-img-lg" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">--}}
-                            {{--                        --}}
-                        </a>
-                    </div>
-                    <div class="card card-bordered">
-                        <div class="card-inner card-inner-lg">
-                            <div class="nk-block-head">
-                                <div class="nk-block-head-content">
-                                    <h4 class="nk-block-title">Sign-In</h4>
+    @if(!request()->has('app'))
+        @include('frontpage.partials.layout.header')
+    @endif
 
-                                </div>
-                            </div>
-                            <form action="{{ route('login') }}" method="POST">
-                                @csrf
+    <!-- signUp here -->
+    <section class="signup__section bluar__shape">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="signup__boxes">
+                        <h4>
+                            Sign in to {{ settings('site_name') }}
+                        </h4>
+                        <p class="head__pra mb__30">
+                            Sign in to your account and make your utility payments faster
+                        </p>
+                        <form method="post" action="{{ route('login') }}" class="signup__form">
+                            @csrf
+
+                            <div class="row g-4">
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
@@ -53,53 +33,47 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <div class="form-group">
-                                    <div class="form-label-group">
-                                        <label class="form-label" for="default-01">Email</label>
-                                    </div>
-                                    <div class="form-control-wrap">
-                                        <input type="email" name="email" class="form-control form-control-lg" id="default-01" placeholder="Enter your email address">
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <label for="email">Enter Your Email ID</label>
+                                        <input type="email" name="email" value="{{ old('email') }}" id="email" placeholder="Your email here">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-label-group">
-                                        <label class="form-label" for="password">Passcode</label>
-                                        @if (Route::has('password.request'))
-                                            <a class="link link-primary link-sm" href="{{ route('password.request') }}">
-                                                {{ __('Forgot Code?') }}
-                                            </a>
-                                        @endif
-                                    </div>
-                                    <div class="form-control-wrap">
-                                        <a href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">
-                                            <em class="passcode-icon icon-show icon ni ni-eye"></em>
-                                            <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
-                                        </a>
-                                        <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter your passcode">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-lg btn-primary btn-block">Sign in</button>
-                                </div>
-                            </form>
-                            {{--                            <div class="form-note-s2 text-center pt-4"> New on our platform? <a href="html/pages/auths/auth-register-v2.html">Create an account</a>--}}
-                            {{--                            </div>--}}
+                                <div class="col-lg-12">
+                                    <div class="input__grp password-toggle">
+                                        <label for="pass">Enter Your Password</label>
+                                        <input name="password" type="password" id="password"  placeholder="Your Password">
+                                        <div class="toggle-btn" id="togglePassword">
+                                            <i class="fa fa-eye"></i>
 
-                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{{ route('password.request') }}" class="forgot">
+                                    Forgot Password?
+                                </a>
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <button type="submit" class="cmn__btn">
+                              <span>
+                                 Sign In
+                              </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
+                <div class="col-xl-5 col-lg-6">
+                    <div class="signup__thumb">
+                        <img src="/assets/img/signup/signup.png" alt="img">
+                    </div>
+                </div>
             </div>
-            <!-- wrap @e -->
         </div>
-        <!-- content @e -->
-    </div>
-    <!-- main @e -->
-</div>
-<!-- app-root @e -->
-<!-- JavaScript -->
-<script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}"></script>
-<script src="{{ asset('admin/assets/js/scripts.js?ver=3.1.1') }}"></script>
-<!-- select region modal -->
+    </section>
+    <!-- signUp End -->
 
-</html>
+
+@endsection

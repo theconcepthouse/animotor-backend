@@ -1,47 +1,79 @@
 @extends('layouts.app')
 
+
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    @if(!request()->has('app'))
+        @include('frontpage.partials.layout.header')
+    @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+    <!-- signUp here -->
+    <section class="signup__section bluar__shape">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="signup__boxes">
+                        <h4>
+                            Reset password
+                        </h4>
+                        <p class="head__pra mb__30">
+                            Enter your email address to reset your password
+                        </p>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <form method="post" action="{{ route('password.email') }}" class="signup__form">
+                            @csrf
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <div class="row g-4">
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                @if (session('status'))
+                                    <div class="alert alert-success" >
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <label for="email">Enter Your Email ID</label>
+                                        <input class="form-control" type="email" name="email" value="{{ old('email') }}" id="email" placeholder="Your email here">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <button type="submit" class="cmn__btn">
+                              <span>
+                                {{ __('Send Password Reset Link') }}
+                              </span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </form>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-6">
+                    <div class="signup__thumb">
+                        <img src="/assets/img/signup/signup.png" alt="img">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    <!-- signUp End -->
+
+
 @endsection
+
+

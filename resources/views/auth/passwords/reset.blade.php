@@ -1,65 +1,87 @@
 @extends('layouts.app')
 
+
+
+
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
+    @if(!request()->has('app'))
+        @include('frontpage.partials.layout.header')
+    @endif
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+    <section class="signup__section bluar__shape">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xl-6 col-lg-6">
+                    <div class="signup__boxes">
+                        <h4>
+                            {{ __('Reset Password') }}
+                        </h4>
+                        <p class="head__pra mb__30">
+                            Enter your email address to reset your password
+                        </p>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <form method="post" action="{{ route('password.update') }}" class="signup__form">
+                            @csrf
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                            <input type="hidden" name="token" value="{{ $token }}">
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="row g-4">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <label for="email">Enter Your Email ID</label>
+                                        <input value="{{ $email ?? old('email') }}" type="email" name="email" id="email" placeholder="Your email here">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <label for="password">New password</label>
+                                        <input type="password" name="password" id="password" placeholder="Your new password">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <label for="password">Confirm password</label>
+                                        <input type="password" name="password_confirmation" id="password" required placeholder="Confirm password">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="input__grp">
+                                        <button type="submit" class="cmn__btn">
+                              <span>
+                                 {{ __('Reset Password') }}
+                              </span>
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
+                        </form>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-6">
+                    <div class="signup__thumb">
+                        <img src="/assets/img/signup/signup.png" alt="img">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+
 @endsection
+

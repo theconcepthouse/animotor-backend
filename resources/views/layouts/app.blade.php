@@ -1,85 +1,140 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ settings('site_name') }} | @yield('page_title')</title>
 
-    <title>{{ settings('site_name') }}</title>
-
-    <meta name="description" content="{{ settings('site_slogan') }}">
-    <!-- Fav Icon  -->
+    <!--Favicon img-->
     <link rel="shortcut icon" href="{{ settings('favicon') }}">
-    <!-- Page Title  -->
+    <!--nice select css-->
+    <link rel="stylesheet" href="{{ asset('/assets/css/nice-select.css') }}">
+    <!--datepicker css-->
+    <link rel="stylesheet" href="{{ asset('/assets/css/datepickerboot.css') }}">
+    <!--main css-->
+    <link rel="stylesheet" href="{{ asset('/assets/css/main.css') }}">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    @yield('style')
+
+    <style>
+        .footer__logo img {
+            /*height: 40px;*/
+            width: 100%;
+        }
+        /*#e7323c*/
+
+        .cmn__btn:hover {
+            background-color: #6a1d1d!important;
+        }
+        .outline__btn:hover {
+            background-color: #6a1d1d!important;
+        }
+
+        .cmn__btn::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 50%;
+            background: #a31313;
+        }
+        .password-toggle {
+            position: relative;
+        }
+
+        .password-toggle input[type="password"] {
+            padding-right: 30px; /* Make room for the toggle button */
+        }
+
+        .password-toggle .toggle-btn {
+            position: absolute;
+            top: 65px;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+
+    {!! settings('head_section') !!}
+
+    @livewireStyles
 </head>
+
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+{{--@include('partials.loader')--}}
 
-                    </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+@yield('content')
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+@if(!request()->has('app'))
+    @include('frontpage.partials.layout.footer')
+@endif
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+<script src="{{ asset('/assets/js/jquery-3.6.0.min.js') }}"></script>
+
+<script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
+<!--Viewport Jquery Js-->
+<script src="{{ asset('/assets/js/viewport.jquery.js') }}"></script>
+<!--Odometer min Js-->
+<script src="{{ asset('/assets/js/odometer.min.js') }}"></script>
+<!--date picker Js-->
+<script src="{{ asset('/assets/js/bootstrap-datepicker.js') }}"></script>
+<!--Magnifiw Popup Js-->
+<script src="{{ asset('/assets/js/jquery.magnific-popup.min.js') }}"></script>
+<!--nice select Js-->
+{{--<script src="{{ asset('/assets/js/jquery.nice-select.min.js') }}"></script>--}}
+<!--Wow min Js-->
+<script src="{{ asset('/assets/js/wow.min.js') }}"></script>
+<!--Owl carousel min Js-->
+<script src="{{ asset('/assets/js/owl.carousel.min.js') }}"></script>
+<!--Prijm Js-->
+<script src="{{ asset('/assets/js/prism.js') }}"></script>
+<!--main Js-->
+<script src="{{ asset('/assets/js/main.js') }}"></script>
+
+<script src="/vendor/sweetalert/sweetalert.min.js"></script>
+
+
+
+
+@livewireScripts
+
+
+@include('partials.alerts')
+
+
+<script>
+    // document.addEventListener('livewire:navigated', function () {
+    //     setTimeout(function(){
+    //         $('.preloader__wrap').fadeOut();
+    //     }, 1000);
+    // });
+
+</script>
+
+
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const passwordInput = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // Toggle eye icon
+        const eyeIcon = this.querySelector('i');
+        eyeIcon.classList.toggle('fa-eye');
+        eyeIcon.classList.toggle('fa-eye-slash');
+    });
+</script>
 </body>
+
 </html>

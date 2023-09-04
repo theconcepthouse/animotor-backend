@@ -12,12 +12,12 @@ class FrontPageController extends Controller
 {
 
 
-    public function __construct()
-    {
-//        if (env('disable_front', false)) {
-            return redirect('/admin/dashboard');
-//        }
-    }
+//    public function __construct()
+//    {
+////        if (env('disable_front', false)) {
+//            return redirect('/admin/dashboard');
+////        }
+//    }
 
     public function home(){
         if(settings('enable_frontpage') != 'yes'){

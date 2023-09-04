@@ -53,7 +53,7 @@ Route::group(['prefix' => 'customer', 'middleware' => ['auth']], function(){
 
 
 Route::get('/home', function () {
-    return redirect()->route('admin.dashboard');
+    return redirect()->route('dashboard');
 });
 
 Route::get('/{slug}', [FrontPageController::class,'page'])->name('page.show');

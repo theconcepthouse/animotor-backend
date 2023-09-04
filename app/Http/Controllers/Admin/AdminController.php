@@ -195,25 +195,20 @@ class AdminController extends Controller
 //        ));
 
         $path = app()->environmentFilePath();
+        $escapedKey = preg_quote($key, '/');
 
-        if (file_exists($path)) {
-            // Read the contents of the .env file
-            $content = file_get_contents($path);
+        // Read the current contents of the .env file.
+        $contents = file_get_contents($path);
 
-            // Create a regular expression pattern to match the key-value pair
-            $pattern = "/^{$key}=(.*?)\r?$/m";
+        $pattern = "/^{$escapedKey}=(.*)/m";
 
-            // Check if the pattern exists in the file content
-            if (preg_match($pattern, $content, $matches)) {
-                // Replace the value with the new value while preserving the quotes
-                $oldValue = $matches[1];
-                $newValue = str_replace($oldValue, $value, $matches[0]);
-                $updatedContent = str_replace($matches[0], $newValue, $content);
+        $newContents = preg_replace(
+            $pattern,
+            "{$key}=\"{$value}\"",
+            $contents
+        );
 
-                // Update the .env file with the updated content
-                file_put_contents($path, $updatedContent);
-            }
-        }
+        file_put_contents($path, $newContents);
 
     }
 

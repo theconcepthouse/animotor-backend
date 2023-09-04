@@ -9,7 +9,7 @@
     <title>{{ settings('site_name') }} </title>
 
     <!--Favicon img-->
-    <link rel="shortcut icon" href="{{ asset('assets/img/logo/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ settings('favicon') }}">
     <!--nice select css-->
     <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
     <!--datepicker css-->

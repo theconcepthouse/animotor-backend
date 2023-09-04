@@ -192,6 +192,17 @@ function imageStringArray($images): array
     return explode(',', $images);
 }
 
+function customRound($number): float|int
+{
+    if ($number >= 1000) {
+        return round($number / 100) * 100;
+    } elseif ($number >= 100) {
+        return round($number / 10) * 10;
+    } else {
+        return round($number / 10) * 10;
+    }
+}
+
     function default_footer(): string
 {
     return <<<HTML

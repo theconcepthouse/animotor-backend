@@ -52,9 +52,9 @@ class Service extends Model
         if($this->discount > 0){
             $discount = $this->discount;
             $discounted = ($discount / 100) * $fee;
-            return round($fee - $discounted);
+            return customRound($fee - $discounted);
         }
-        return round($fee);
+        return customRound($fee);
     }
 
     public function commission($fee): float|int

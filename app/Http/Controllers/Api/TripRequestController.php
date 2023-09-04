@@ -47,7 +47,9 @@ class TripRequestController extends Controller
         $type = $request['type'];
 
         $service_types =  Service::where('types', 'LIKE', '%'.$type.'%')
-            ->where('region_id', $region_id)->get();
+            ->where('region_id', $region_id)
+            ->where('is_active', true)
+            ->get();
 
         foreach ($service_types as $type) {
             $d_km = $distanceService->getDistance($o_lat, $o_lng, $d_lat, $d_lng);

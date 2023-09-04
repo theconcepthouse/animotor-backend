@@ -7,7 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ settings('site_name') }}</title>
+
+    <meta name="description" content="{{ settings('site_slogan') }}">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="{{ settings('favicon') }}">
+    <!-- Page Title  -->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">

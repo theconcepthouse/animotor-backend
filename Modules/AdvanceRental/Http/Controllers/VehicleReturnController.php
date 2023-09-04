@@ -22,10 +22,17 @@ class VehicleReturnController extends Controller
         $request->validate([
             'date_time' => 'required',
             'reason' => 'required',
-            'booking_id' => 'required',
+            'booking_id' => 'required|exists:bookings,id',
         ]);
 
-        $return = VehicleReturn::where('booking_id',$id);
-        return view('advancerental::return_vehicle', compact('booking', 'return'));
+        $return = VehicleReturn::where('booking_id', $request->booking_id)->first();
+        if(!$return){
+            VehicleReturn::create([
+                'booking_id' => $request->booking_id,
+                'reason' => $request->reason,
+                'date_time' => $request->date_time,
+            ]);
+        }
+        return view('advancerental::return_vehicle', compact('return', 'return'));
     }
 }

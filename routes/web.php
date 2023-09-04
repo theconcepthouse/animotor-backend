@@ -40,6 +40,8 @@ Route::get('/search', [FrontPageController::class,'search'])->name('search');
 
 Route::group(['prefix' => 'customer', 'middleware' => ['auth']], function(){
     Route::get('/dashboard', [DashboardController::class,'dashboard'])->name('dashboard');
+    Route::get('/bookings', [DashboardController::class,'bookings'])->name('bookings');
+    Route::get('/booking/view/{id}', [DashboardController::class,'bookingView'])->name('booking.view');
     Route::get('/return', [DashboardController::class,'return'])->name('return');
     Route::get('/profile', [DashboardController::class,'profile'])->name('profile');
     Route::get('/notifications', [DashboardController::class, 'notifications'])->name('notifications');

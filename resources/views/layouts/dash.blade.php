@@ -54,6 +54,10 @@
             padding: 20px;
             border-radius: 20px;
         }
+
+        .link {
+            color: var(--base) !important;
+        }
     </style>
 
     {!! settings('head_section') !!}

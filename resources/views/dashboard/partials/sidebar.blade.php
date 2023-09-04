@@ -22,6 +22,19 @@
                 </a>
             </li>
 
+            @if(hasRental())
+            <li class="nav-item">
+                <a  wire:navigate href="{{ route('bookings') }}" class="nav-link {{ request()->routeIs('bookings') ? ' active' : '' }}">
+                     <span class="icon">
+                        <img src="/assets/img/svg/log.svg" alt="login">
+                     </span>
+                    <span>
+                        Bookings
+                     </span>
+                </a>
+            </li>
+            @endif
+
             <li class="nav-item">
                 <a wire:navigate href="{{ route('top_up') }}" class="nav-link {{ request()->routeIs('top_up') ? ' active' : '' }}">
                      <span class="icon">

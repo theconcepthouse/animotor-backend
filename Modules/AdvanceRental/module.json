@@ -1,0 +1,11 @@
+{
+    "name": "AdvanceRental",
+    "alias": "advancerental",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AdvanceRental\\Providers\\AdvanceRentalServiceProvider"
+    ],
+    "files": []
+}

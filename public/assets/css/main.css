@@ -11836,3 +11836,16 @@ p a {
     -o-object-fit: contain;
     object-fit: contain;
 }
+
+.booking_view .vehicle {
+    background-color: #67849d82;
+    border-radius: 10px;
+    width: 400px;
+}
+
+.booking_view .vehicle .vehicle_no{
+    background-color: yellow;
+    border-radius: 5px;
+    /*flex-direction: row;*/
+    padding: 10px;
+}

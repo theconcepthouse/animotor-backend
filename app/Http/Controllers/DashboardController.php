@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\TripRequest;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,17 @@ class DashboardController extends Controller
     public function dashboard(){
         $bookings = TripRequest::where('customer_id', auth()->id())->paginate(10);
         return view('dashboard.index', compact('bookings'));
+    }
+
+    public function bookings(){
+        $bookings = Booking::paginate(10);
+        return view('dashboard.bookings', compact('bookings'));
+    }
+
+    public function bookingView($id){
+        $booking = Booking::findOrFail($id);
+        return view('dashboard.booking_view', compact('booking'));
+
     }
 
     public function return(){

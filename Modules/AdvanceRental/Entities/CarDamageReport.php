@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace Modules\AdvanceRental\Entities;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CarDamageReport extends Model
 {
@@ -11,6 +11,7 @@ class CarDamageReport extends Model
 
     protected $fillable = [
         'car_id',
+        'booking_id',
         'any_damage',
         'damaged_panel',
         'damage_type',
@@ -35,4 +36,9 @@ class CarDamageReport extends Model
         'tools',
         'images',
     ];
+
+    protected static function newFactory()
+    {
+        return \Modules\AdvanceRental\Database\factories\CarDamageReportFactory::new();
+    }
 }

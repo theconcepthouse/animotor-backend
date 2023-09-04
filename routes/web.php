@@ -38,9 +38,15 @@ Route::get('/checkout', [FrontPageController::class,'checkout'])->name('checkout
 Route::get('/search', [FrontPageController::class,'search'])->name('search');
 
 
-Route::group(['prefix' => 'customer'], function(){
+Route::group(['prefix' => 'customer', 'middleware' => ['auth']], function(){
     Route::get('/dashboard', [DashboardController::class,'dashboard'])->name('dashboard');
     Route::get('/return', [DashboardController::class,'return'])->name('return');
+    Route::get('/profile', [DashboardController::class,'profile'])->name('profile');
+    Route::get('/notifications', [DashboardController::class, 'notifications'])->name('notifications');
+    Route::get('/transactions', [DashboardController::class, 'transactions'])->name('transactions');
+    Route::get('/top_up', [DashboardController::class, 'topUp'])->name('top_up');
+
+    Route::post('/payment', [PaymentController::class,'payment_initialize'])->name('payment.init');
 
 });
 

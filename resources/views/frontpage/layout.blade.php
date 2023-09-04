@@ -29,6 +29,124 @@
         .services {
             padding-top: 10px!important;
         }
+        .btn_rounded {
+            border-radius: 50px;
+            padding-right: 50px;
+            padding-left: 50px;
+            width: 100%;
+        }
+        .input_btn {
+            width: 50%;
+        }
+
+
+
+
+        .step-form {
+            display: flex;
+            justify-content: space-between;
+            /*background-color: #f7f7f8;*/
+            padding: 10px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #e9ecef;
+        }
+
+        .step.active {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .step.prev {
+            background-color: #22D187;
+            color: #ffffff;
+        }
+
+        .step:first-child {
+            border-bottom-left-radius: 30px;
+            border-top-left-radius: 30px;
+        }
+        .step:last-child {
+            border-bottom-right-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .active p {
+            color: #ffffff;
+        }
+
+
+
+        /* CSS */
+        .image-picker {
+            border: 1px dashed #ccc;
+            position: relative;
+            padding: 20px;
+            min-height: 150px;
+            cursor: pointer;
+
+        }
+
+        .picker_img{
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.5;
+            min-height: 150px;
+
+        }
+
+        .image-preview {
+            display: none;
+        }
+
+        .dropzone-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            /*color: #aaa;*/
+            color: red;
+            font-weight: 600;
+        }
+
+
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .delete-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 8px;
+            cursor: pointer;
+        }
+
+        .image-picker.active .dropzone-placeholder {
+            display: none;
+        }
+
+        .image-picker.active .image-preview {
+            display: block;
+        }
+
+
     </style>
 
 </head>
@@ -95,6 +213,9 @@
         });
     });
 </script>
+
+
+@yield('js')
 
 </body>
 

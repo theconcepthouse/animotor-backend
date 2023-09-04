@@ -84,27 +84,35 @@
                         <img src="{{ settings('front_logo') }}" alt="logo">
                     </a>
                     <a href="/" class="small__logo d-xl-none">
-                        <img src="{{ settings('front_logo') }}" alt="logo">
+                        <img src="{{ settings('front_sm_logo') }}" alt="logo">
                     </a>
                 </div>
                 <div class="menu__right__components d-flex align-items-center">
                     <div class="sigup__grp d-lg-none">
-                        <a href="#" class="cmn__btn outline__btn">
+                        @guest()
+                        <a href="{{ route('login') }}" class="cmn__btn outline__btn">
                      <span>
                         Signin
                      </span>
                         </a>
-                        <a href="#" class="cmn__btn">
+                        @else
+                            <a href="{{ route('dashboard') }}" class="cmn__btn outline__btn">
                      <span>
-                        Signup
+                        Dashboard
                      </span>
-                        </a>
+                            </a>
+                        @endguest
+{{--                        <a href="#" class="cmn__btn">--}}
+{{--                     <span>--}}
+{{--                        Signup--}}
+{{--                     </span>--}}
+{{--                        </a>--}}
                     </div>
-                    <div class="header-bar d-lg-none">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+{{--                    <div class="header-bar d-lg-none">--}}
+{{--                        <span></span>--}}
+{{--                        <span></span>--}}
+{{--                        <span></span>--}}
+{{--                    </div>--}}
                 </div>
 
                 @if(is_array(menuItems()))

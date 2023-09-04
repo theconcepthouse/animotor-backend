@@ -201,15 +201,14 @@ class AdminController extends Controller
             $content = file_get_contents($path);
 
             // Create a regular expression pattern to match the key-value pair
-            $pattern = "/^{$key}=(.*)$/m";
+            $pattern = "/^{$key}=(.*?)\r?$/m";
 
             // Check if the pattern exists in the file content
             if (preg_match($pattern, $content, $matches)) {
                 // Replace the value with the new value while preserving the quotes
                 $oldValue = $matches[1];
-                $escapedValue = preg_quote($oldValue, '/');
                 $newValue = str_replace($oldValue, $value, $matches[0]);
-                $updatedContent = preg_replace("/^{$key}={$escapedValue}$/m", $newValue, $content);
+                $updatedContent = str_replace($matches[0], $newValue, $content);
 
                 // Update the .env file with the updated content
                 file_put_contents($path, $updatedContent);

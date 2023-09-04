@@ -192,14 +192,16 @@ function imageStringArray($images): array
     return explode(',', $images);
 }
 
-function customRound($number): float|int
+function customRound($number): int
 {
-    if ($number >= 1000) {
-        return round($number / 100) * 100;
-    } elseif ($number >= 100) {
-        return round($number / 10) * 10;
+    $remainder = $number % 100;
+
+    if ($remainder > 50) {
+        // Round up to the nearest hundred
+        return $number + (100 - $remainder);
     } else {
-        return round($number / 10) * 10;
+        // Round down to the nearest hundred
+        return $number - $remainder;
     }
 }
 

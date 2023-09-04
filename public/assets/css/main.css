@@ -864,7 +864,7 @@ p {
   }
 }
 .header-wrapper .logo-menu .logo img {
-  width: 100%;
+  /*width: 100%;*/
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;

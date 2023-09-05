@@ -127,6 +127,12 @@ class AdminController extends Controller
                $this->setEnvironmentValue(strtoupper($item)."_SECRET_KEY", $request[strtoupper($item)."_SECRET_KEY"]);
            }
 
+           if (hasMonify()) {
+               $this->setEnvironmentValue("MONIFY_PUBLIC_KEY", $request["MONIFY_PUBLIC_KEY"]);
+               $this->setEnvironmentValue("MONIFY_SECRET_KEY", $request["MONIFY_SECRET_KEY"]);
+               $this->setEnvironmentValue("CONTRACT_CODE", $request["CONTRACT_CODE"]);
+           }
+
            settings($dt);
 
            Artisan::call('config:clear');

@@ -11,6 +11,7 @@ use App\Services\CarService;
 use App\Services\DriverDocumentService;
 use App\Services\Firebase\FirestoreService;
 use App\Services\ImageService;
+use App\Services\MonifyService;
 use App\Services\OTPService;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -280,6 +281,10 @@ class AuthController extends Controller
             $user->save();
         }
 
+        $monify = new MonifyService();
+
+        $user = $monify->checkMonify($user);
+
         if($user->hasRole('driver') && count($user->documents) < 1){
             $driverDocumentService->createRequired($user);
 
@@ -318,10 +323,13 @@ class AuthController extends Controller
 
         }
 
-
         $user = User::where('phone', $phone)->first();
 
         if($user){
+
+            $monify = new MonifyService();
+
+            $user = $monify->checkMonify($user);
 
             if($user->hasRole('driver')){
                 if(!$user->service){

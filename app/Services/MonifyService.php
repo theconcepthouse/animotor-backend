@@ -34,7 +34,7 @@ class MonifyService
 //        if(env('APP_DEBUG')){
 //            return [];
 //        }
-//        if(!$user->monify_account){
+        if(!$user->monify_account){
             $monnifyData = [
                 "accountReference" => $user['email'],
                 'accountName' => $user['first_name'] . ' ' .$user['last_name'],
@@ -62,8 +62,8 @@ class MonifyService
             $user->save();
 
             return $user;
-//        }
-//        return [];
+        }
+        return $user;
     }
 
     public function createBankAccount($data)

@@ -69,7 +69,7 @@ class OTPService
             $this->saveOTP($code, $number);
 
             $data['status'] = true;
-            $data['code'] = $code;
+//            $data['code'] = $code;
 
         }catch (Exception $e){
             $data['status'] = false;

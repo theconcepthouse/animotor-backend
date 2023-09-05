@@ -47,7 +47,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         'remember_token',
     ];
 
-    protected $with = ['documents','car','region','service','company'];
+    protected $with = ['documents','car','region','service','company','bank'];
 
     protected $appends = ['unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
 

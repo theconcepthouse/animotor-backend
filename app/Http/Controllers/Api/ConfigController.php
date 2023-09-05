@@ -81,6 +81,8 @@ class ConfigController extends Controller
         $data['country_id'] = settings('country_id');
         $data['has_rental'] = settings('enable_rental', 'yes');
         $data['enable_withdrawal'] = settings('enable_withdrawal', 'yes') == 'yes';
+        $data['enable_support'] = settings('enable_support', 'yes') == 'yes';
+        $data['support_link'] = route('search');
         $data['withdrawal_link'] = route('dashboard');
         $data['enable_mobile_slider'] = settings('enable_mobile_slider', 'yes');
         $data['in_app_notification_sound'] = settings('enable_in_app_notification', 'yes') == 'yes';

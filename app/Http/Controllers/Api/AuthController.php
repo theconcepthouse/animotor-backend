@@ -315,7 +315,7 @@ class AuthController extends Controller
 
             $otp = new OTPService();
 
-            $res = $otp->verifyOTP($code, $phone);
+            $res = $otp->verifyOTP($code, $country.$phone);
 
             if(!$res['status']){
                 return $this->errorResponse($res['message']);

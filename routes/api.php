@@ -98,6 +98,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::get('vehicle/types', [ConfigController::class, 'getVehicleTypes']);
 
         Route::post('check/firebase', [ConfigController::class, 'checkFB']);
+        Route::post('check/monify', [ConfigController::class, 'testMonify']);
 
         Route::post('get/lats', [UserController::class, 'getLats']);
     });

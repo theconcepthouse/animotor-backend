@@ -15,6 +15,7 @@ use App\Models\VehicleType;
 use App\Services\Firebase\FirebaseOTPService;
 use App\Services\Firebase\FirestoreService;
 
+use App\Services\MonifyService;
 use App\Services\WalletService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -112,6 +113,19 @@ class ConfigController extends Controller
         }
 
         return $data;
+    }
+
+    public function testMonify(Request $request){
+        $phone = $request->input('phone');
+        $user = User::where('phone', $phone)->first();
+
+        if($user){
+            $monify = new MonifyService();
+
+            return $monify->createMonify($user);
+        }
+
+        return 'not found';
     }
 
     public function checkFB(Request $request, WalletService $walletService){

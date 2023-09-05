@@ -11,6 +11,7 @@ use App\Services\CarService;
 use App\Services\DriverDocumentService;
 use App\Services\Firebase\FirestoreService;
 use App\Services\ImageService;
+use App\Services\OTPService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
@@ -36,7 +37,7 @@ class AuthController extends Controller
     {
         $this->middleware('auth:sanctum', ['except' => ['login','delete','checkPhone','testSendBlue',
             'loginUser','forgotPass','sendVerifyEmail','verifyResetCode','resetPass',
-            'verifyPhone',
+            'verifyPhone','resendOTP',
             'locations','register']]);
     }
 
@@ -125,6 +126,7 @@ class AuthController extends Controller
     {
         $phone = $request['phone'];
         $role = $request->input('role');
+        $country_code = $request->input('country_code');
 
         if(!$role){
             return $this->errorResponse('Please update to latest version');
@@ -133,6 +135,7 @@ class AuthController extends Controller
         if(!$phone){
             return $this->errorResponse('Please enter a valid phone');
         }
+
         $user = User::where('phone', $phone)->first();
         if($user){
             $data['user_exist'] = true;
@@ -157,10 +160,73 @@ class AuthController extends Controller
         }else {
             $data['user_exist'] = false;
         }
-        $data['auto_verify_code'] = mt_rand(100000,999999);
-        return $this->successResponse('check phone response', $data);
+
+        $message = 'check phone response';
+
+        if(settings('otp_provider') == 'disabled'){
+            $data['auto_verify_code'] = mt_rand(100000,999999);
+        }else{
+            if(!$country_code){
+                return $this->errorResponse('Please upgrade to latest version to login');
+            }
+
+            $otp = new OTPService();
+
+            $res = $otp->sendOTP($country_code.$phone);
+
+            if(!$res['status']){
+
+                return $this->errorResponse($res['message']);
+            }
+
+            if(isset($data['message'])){
+                $message = $data['message'];
+            }else{
+                $message = 'OTP successfully sent to your number';
+            }
+
+        }
+
+        return $this->successResponse($message, $data);
     }
 
+
+    public function resendOTP(Request $request): JsonResponse
+    {
+
+        $request->validate([
+            'phone' => 'required',
+        ]);
+
+        $phone = $request['phone'];
+        $country = $request['country_code'];
+
+        if(!$phone){
+            return $this->errorResponse('Please enter a valid phone');
+        }
+
+        if(!$country){
+            return $this->errorResponse('Please upgrade to latest version');
+        }
+
+
+        $otp = new OTPService();
+
+        $res = $otp->sendOTP($country.$phone);
+
+        if(!$res['status']){
+            return $this->errorResponse($res['message']);
+        }
+
+        if(isset($data['message'])){
+            $message = $data['message'];
+        }else{
+            $message =  'OTP successfully sent to your number';
+        }
+
+        return $this->successResponse($message, $res);
+
+    }
 
 
     public function login(Request $request): JsonResponse

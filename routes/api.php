@@ -37,6 +37,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::post('update/online', [AuthController::class, 'setOnline']);
 
+        Route::post('resend/otp', [AuthController::class, 'resendOTP']);
+
 
         Route::post('user/update', [AuthController::class, 'update']);
 

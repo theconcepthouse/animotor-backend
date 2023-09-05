@@ -63,6 +63,7 @@ class AdminController extends Controller
     public function settings(Request $request){
        $data = [];
        $active = $request->get('active') ?? 'general';
+       $otp_providers = ['firebase','disabled'];
        $countries = Country::where('is_active',true)->get();
 //       return settings('active_methods',[]);
 
@@ -74,8 +75,10 @@ class AdminController extends Controller
             $active_methods = [];
         }
 
-//       $active_methods =  json_decode(settings('active_methods','none'), true);
-        return view('admin.settings', compact('data', 'countries','active','active_methods'));
+        if(settings('enable_sendchamp') == 'yes'){
+            $otp_providers[] = 'sendchamp';
+        }
+        return view('admin.settings', compact('data', 'countries','active','active_methods','otp_providers'));
     }
 
     public function ServicesSettings(){

@@ -45,7 +45,7 @@
                     @include('admin.partials.form.text', ['attributes' => 'required', 'value' => settings('privacy_url'), 'colSize' => 'col-md-12 mt-3', 'fieldName' => 'privacy_url','title' => 'Privacy link'])
                     @include('admin.partials.form.text', ['colSize' => 'col-md-12 mt-3', 'value' => settings('about_url'), 'fieldName' => 'about_url','title' => 'About us link'])
 
-                    @include('admin.partials.image-upload',['field' => 'app_logo', 'colSize' => 'col-12 mt-3',  'image' => settings('app_logo'), 'id' => 'favicon','title' => 'In app logo'])
+                    @include('admin.partials.image-upload',['field' => 'app_logo', 'colSize' => 'col-12 mt-3',  'image' => settings('app_logo'), 'id' => 'app_logo','title' => 'In app logo'])
 
                 </fiv>
             </div>

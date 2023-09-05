@@ -294,12 +294,31 @@ class AuthController extends Controller
     {
         $phone = $request['phone'];
         $code = $request['code'];
+        $country = $request['country_code'];
         if(!$phone){
             return $this->errorResponse('Something went wrong, we cant, find your phone number');
         }
         if(!$code){
             return $this->errorResponse('Invalid or expired code, please try again');
         }
+
+
+        if(settings('otp_provider') != 'disabled'){
+            if(!$country){
+                return $this->errorResponse('Please upgrade to latest version');
+            }
+
+            $otp = new OTPService();
+
+            $res = $otp->verifyOTP($code, $phone);
+
+            if(!$res['status']){
+                return $this->errorResponse($res['message']);
+            }
+
+        }
+
+
         $user = User::where('phone', $phone)->first();
 
         if($user){

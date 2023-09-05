@@ -19,7 +19,7 @@ class OTPService
                 'sender' => settings('sender_name','SAlert'),
                 'token_type' => 'numeric',
                 'token_length' => 6,
-                'expiration_time' => 10,
+                'expiration_time' => 2,
                 'customer_mobile_number' => $phone,
             ],
             'headers' => [
@@ -44,8 +44,6 @@ class OTPService
 
     public function sendOTP($number): array
     {
-        $phone = $this->getOTPNo($number);
-
         $data = [];
 
         $existing = OtpVerify::where('phone',$number)->first();
@@ -64,7 +62,7 @@ class OTPService
 
         try {
 
-            $res = $this->otpRequest($phone);
+            $res = $this->otpRequest($number);
 
             $code = $res['data']['token'];
 
@@ -76,7 +74,7 @@ class OTPService
         }catch (Exception $e){
             $data['status'] = false;
             $data['info'] = $e->getMessage();
-            $data['message'] = "something went wrong, please contact support";
+            $data['message'] = "something went wrong, please contact support ".$e->getMessage();
         }
 
         return $data;
@@ -107,10 +105,6 @@ class OTPService
 
     public function getOTPNo($phone): string
     {
-        $number = $phone;
-        if (str_starts_with($number, '0')) {
-            return '234' . substr($number, 1); // Replace '0' with '+234'
-        }
-        return '234'.$phone;
+        return $phone;
     }
 }

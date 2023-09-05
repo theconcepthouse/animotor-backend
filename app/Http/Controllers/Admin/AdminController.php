@@ -134,8 +134,7 @@ class AdminController extends Controller
        }elseif($request->get('active_setting') == 'smtp'){
             $this->storeSmtp($request);
         }elseif($request->get('active_setting') == 'api'){
-            $this->apiKey($request);
-
+          $this->apiKey($request);
 
 
            Artisan::call('config:clear');
@@ -209,14 +208,21 @@ class AdminController extends Controller
     public function setEnvironmentValue($key, $value)
     {
 //        $path = app()->environmentFilePath();
+//        $escapedKey = preg_quote($key, '/');
 //
-//        $escaped = preg_quote('='.env($key), '/');
+//        // Read the current contents of the .env file.
+//        $contents = file_get_contents($path);
 //
-//        file_put_contents($path, preg_replace(
-//            "/^{$key}{$escaped}/m",
-//            "{$key}={$value}",
-//            file_get_contents($path)
-//        ));
+//        $pattern = "/^{$escapedKey}=(.*)/m";
+//
+//        $newContents = preg_replace(
+//            $pattern,
+//            "{$key}=\"{$value}\"",
+//            $contents
+//        );
+//
+//        file_put_contents($path, $newContents);
+
 
         $path = app()->environmentFilePath();
         $escapedKey = preg_quote($key, '/');
@@ -226,9 +232,12 @@ class AdminController extends Controller
 
         $pattern = "/^{$escapedKey}=(.*)/m";
 
-        $newContents = preg_replace(
+        // Use preg_replace_callback to handle special characters in the replacement.
+        $newContents = preg_replace_callback(
             $pattern,
-            "{$key}=\"{$value}\"",
+            function ($match) use ($key, $value) {
+                return "{$key}=\"{$value}\"";
+            },
             $contents
         );
 

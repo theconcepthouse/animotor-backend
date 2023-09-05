@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Bank;
 use App\Models\Service;
 use App\Models\Withdraw;
 use App\Notifications\EmailVerify;
@@ -359,6 +360,35 @@ class AuthController extends Controller
         $data = $this->updateData($request);
         $user = user::find(auth()->user()->id);
         $message = "Account updated";
+
+        if($request->has('update_bank')){
+            $request->validate([
+                'bank_name' => 'required',
+                'account_number' => 'required',
+                'account_name' => 'required',
+            ]);
+
+            $bank = Bank::where('user_id', $user->id)->first();
+
+            if ($bank) {
+                $bank->update([
+                    'bank_name' => $request->input('bank_name'),
+                    'account_number' => $request->input('account_number'),
+                    'bank_code' => $request->input('bank_code'),
+                    'holder_name' => $request->input('account_name'),
+                ]);
+            } else {
+                Bank::create([
+                    'user_id' => $user->id,
+                    'bank_name' => $request->input('bank_name'),
+                    'bank_code' => $request->input('bank_code'),
+                    'account_number' => $request->input('account_number'),
+                    'holder_name' => $request->input('account_name'),
+                ]);
+            }
+
+        }
+
         if($request->has('car_status')){
             if($user->unapproved_documents > 0){
                 $user->status = 'pending';

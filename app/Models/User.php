@@ -56,6 +56,11 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     {
         return $this->belongsTo(Region::class,'region_id');
     }
+    public function bank(): hasOne
+    {
+        return $this->hasOne(Bank::class);
+    }
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class,'company_id');

@@ -61,6 +61,16 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->belongsTo(Company::class,'company_id');
     }
 
+
+    public function getMonifyAccountAttribute($val)
+    {
+        if($val){
+            return json_decode($val);
+        }
+        return null;
+    }
+
+
     public function getCurrencyAttribute(): ?string
     {
         return $this->region?->currency_symbol;

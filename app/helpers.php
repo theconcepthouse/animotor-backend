@@ -47,6 +47,11 @@ function hasTrips(): bool
    return settings('enable_instant_ride') == 'yes';
 }
 
+function hasMonify(): bool
+{
+   return env('HAS_MONIFY', false);
+}
+
 function hasFleet(): bool
 {
    return settings('enable_fleet') == 'yes';

@@ -13,7 +13,7 @@ class VehicleReturnController extends Controller
     public function returnVehicle($id)
     {
         $booking = Booking::findOrFail($id);
-        $return = VehicleReturn::where('booking_id',$id);
+        $return = VehicleReturn::where('booking_id',$id)->first();
         return view('advancerental::return_vehicle', compact('booking', 'return'));
     }
 

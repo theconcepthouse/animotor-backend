@@ -1,4 +1,5 @@
 {
     "Hotel": true,
-    "AdvanceRental": true
+    "AdvanceRental": false,
+    "Monify": true
 }

@@ -34,3 +34,5 @@ php artisan module:migrate Hotel
  php artisan module:make-model VehicleDefect -m AdvanceRental
 
  php artisan make:migration create_pcns_table --path=database/migration/addon
+
+php artisan module:disable AdvanceRental

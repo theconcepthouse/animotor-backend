@@ -89,3 +89,5 @@ Route::group(['prefix' => 'payment'], function(){
 
 Route::any('/paystack/callback', [PaystackPaymentController::class, 'callback']);
 Route::any('/flutterwave/payment/callback', [FlutterwavePaymentController::class, 'callback']);
+
+Route::post('/monify/webhook', [UserController::class, 'webhook'])->name('monify.webhook');

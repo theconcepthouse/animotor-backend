@@ -25,7 +25,7 @@
                                     <a class="nav-link  {{ $active == 'app' ? 'active' : '' }}" data-bs-toggle="tab" href="#app"><em class="icon ni ni-mobile"></em><span>Mobile App setting </span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link  {{ $active == 'api' ? 'active' : '' }}" data-bs-toggle="tab" href="#api"><em class="icon ni ni-code"></em><span>Firebase  & API setting </span></a>
+                                    <a class="nav-link  {{ $active == 'api' ? 'active' : '' }}" data-bs-toggle="tab" href="#api"><em class="icon ni ni-code"></em><span>Firebase, MAP & SMS API settings </span></a>
                                 </li>
                                  <li class="nav-item">
                                     <a class="nav-link  {{ $active == 'payment-methods' ? 'active' : '' }}" data-bs-toggle="tab" href="#payment-methods"><em class="icon ni ni-money"></em><span>Payment Methods </span></a>

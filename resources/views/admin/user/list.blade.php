@@ -50,6 +50,9 @@
                                                     <th>S/N</th>
                                                     <th>Area</th>
                                                     <th>Full name</th>
+                                                    @if(settings('enable_monify_virtual_account') == 'yes')
+                                                        <th>Monify Account</th>
+                                                    @endif
                                                     <th>Phone</th>
                                                     <th>Email Address</th>
                                                     <th>Status</th>
@@ -63,6 +66,9 @@
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td>{{ $item?->region?->name ?? 'Not set' }}</td>
                                                         <td>{{ $item->name }}</td>
+                                                        @if(settings('enable_monify_virtual_account') == 'yes')
+                                                            <th>{{ $item->monify_account ? 'enabled' : 'missing' }}</th>
+                                                        @endif
                                                         <td>{{ $item->phone }}</td>
                                                         <td>{{ $item->email }}</td>
 

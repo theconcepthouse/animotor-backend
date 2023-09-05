@@ -2,34 +2,61 @@
 
 namespace App\Services;
 
-
+use App\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Http;
 
 class MonifyService
 {
-    public function createMonify($user){
-        if(!$user['monify_account']){
+    public string $base_url;
+    public function __construct()
+    {
+        if(env('APP_DEBUG')){
+            $this->base_url = 'https://sandbox.monnify.com';
+        }else{
+            $this->base_url = 'https://api.monnify.com';
+        }
+    }
 
+    public function checkMonify(User $user): User
+    {
+        if(!$user->monify_account){
+
+            $this->createMonify($user);
+
+            return User::find($user->id);
+        }
+        return $user;
+    }
+
+    public function createMonify($user){
+//        if(env('APP_DEBUG')){
+//            return [];
+//        }
+        if(!$user->monify_account){
             $monnifyData = [
                 "accountReference" => $user['email'],
                 'accountName' => $user['first_name'] . ' ' .$user['last_name'],
                 "currencyCode" => "NGN",
-                "contractCode" => "117397640931",
+                "contractCode" => env('CONTRACT_CODE'),
                 "customerEmail" => $user['email'],
                 "customerName" => $user['first_name'] . ' ' .$user['last_name'],
-                "getAllAvailableBanks"=> false,
-                "preferredBanks"=> ["035","232"]
+                "getAllAvailableBanks"=> true,
             ];
 
             try {
+
                 $result = $this->createBankAccount($monnifyData);
 
-                $user->monify_account = json_encode($result);
+                if(isset($result['status'])){
+                    return $result;
+                }else{
+                    $user->monify_account = json_encode($result);
+                }
 
             }catch (\Exception $e){
-                return $user;
+                return $e->getMessage();
             }
 
             $user->save();
@@ -39,13 +66,15 @@ class MonifyService
         return [];
     }
 
-
     public function createBankAccount($data)
     {
         try {
             $token = $this->MonnifyToken();
+            if(!$token){
+                return ['status' => 'failed', 'message' => "can generate token"];
+            }
             $client = new Client();
-            $response = $client->request('POST', 'https://api.monnify.com/api/v2/bank-transfer/reserved-accounts', [
+            $response = $client->request('POST', $this->base_url.'/api/v2/bank-transfer/reserved-accounts', [
                 'headers' => [
                     'Authorization' => "Bearer $token",
                     'Content-Type' => 'application/json',
@@ -54,29 +83,34 @@ class MonifyService
             ]);
 
             $response = json_decode($response->getBody()->getContents());
-            if ($response->requestSuccessful == true) {
-                return $response->responseBody->accounts;
+            if ($response->requestSuccessful) {
+                return $response?->responseBody->accounts;
             } else {
-                return null;
+                return ['status' => 'failed', 'message' => $response];
             }
         } catch (ClientException $th) {
-            return ['status' => 'failed'];
+            return ['status' => 'failed', 'message' => $th->getMessage()];
         }
     }
 
     private function MonnifyToken()
     {
-        $monnify_key = env('MONI_KEY');
-        $monnify_secret = env('MONI_SECRET');
+        $monnify_key = env('MONIFY_PUBLIC_KEY');
+        $monnify_secret = env('MONIFY_SECRET_KEY');
         $auth = base64_encode($monnify_key . ':' . $monnify_secret);
 
         $response = Http::withHeaders([
             'Authorization' => 'Basic ' . $auth,
             'Content-Type' => 'application/json',
-        ])->post('https://api.monnify.com/api/v1/auth/login');
+        ])->post($this->base_url.'/api/v1/auth/login');
 
-        $response = $response->json();
-        return $response['responseBody']['accessToken'];
+
+        $response = json_decode($response->getBody()->getContents());
+        if ($response->requestSuccessful) {
+            return $response?->responseBody?->accessToken;
+        } else {
+            return false;
+        }
     }
 
 }

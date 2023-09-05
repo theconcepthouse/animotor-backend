@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Rawilk\Settings\Models\Setting;
 
 class AdminController extends Controller
 {
@@ -91,7 +92,19 @@ class AdminController extends Controller
             'enable_mobile_slider',
             'enable_mobile_carlisting',
         ];
-        return view('admin.settings.booking_services', compact('title','settings'));
+
+        $payment_methods = [];
+
+        if (hasMonify()) {
+            $payment_methods[] = 'enable_monify_virtual_account';
+        }
+
+        $sms_methods = [
+            'enable_sendchamp'
+        ];
+
+
+        return view('admin.settings.booking_services', compact('title','settings','payment_methods','sms_methods'));
     }
 
    public function storeSettings(Request $request)
@@ -119,7 +132,11 @@ class AdminController extends Controller
             $this->storeSmtp($request);
         }elseif($request->get('active_setting') == 'api'){
             $this->apiKey($request);
-        }else{
+
+
+
+           Artisan::call('config:clear');
+       }else{
             if($request->has('country_id')){
                 if($request->get('country_id') != settings('country_id')){
                     $country = Country::findOrFail($request->get('country_id'));
@@ -132,7 +149,6 @@ class AdminController extends Controller
                     }
                 }
             }
-
 
             settings($data);
         }
@@ -179,6 +195,11 @@ class AdminController extends Controller
        $this->setEnvironmentValue('FIREBASE_API_KEY', $request['FIREBASE_API_KEY'] ?? '');
        $this->setEnvironmentValue('MAP_API_KEY', $request['MAP_API_KEY']);
 
+       if(isset($request['SENDCHAM_PUBLIC_KEY'])){
+           $this->setEnvironmentValue('SENDCHAM_PUBLIC_KEY', $request['SENDCHAM_PUBLIC_KEY']);
+
+           settings('sendcham_sender_name', $request['sendcham_sender_name']);
+       }
    }
 
 

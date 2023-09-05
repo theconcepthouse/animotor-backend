@@ -1,0 +1,11 @@
+{
+    "name": "Monify",
+    "alias": "monify",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Monify\\Providers\\MonifyServiceProvider"
+    ],
+    "files": []
+}

@@ -152,8 +152,6 @@ trait FillableTraits
         'push_token',
         'last_notification',
         'monify_account',
-
-
     ];
 
     protected array $trip_request = [

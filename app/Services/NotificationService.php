@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use App\Notifications\AccountNotification;
 use Illuminate\Support\Facades\Http;
 
 class NotificationService
@@ -26,16 +28,21 @@ class NotificationService
         return $response->body();
     }
 
-    public function notifyOne($user, $data)
+    public function notify($message, $type, $title, User $user, $sendSms = false, $sendEmail = false): void
     {
+        $data['type'] = $type;
+        $data['message'] = $message;
+        $data['title'] = $title;
+
+        $user->notify(new AccountNotification($data));
 
         if($user->push_token){
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
             ])->post('https://exp.host/--/api/v2/push/send', [
                 'to' => $user->push_token,
-                'title' => $data['title'],
-                'body' => $data['message'],
+                'title' => $title,
+                'body' => $message,
             ]);
             $response->body();
         }

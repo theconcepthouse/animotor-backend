@@ -44,9 +44,22 @@
 
             @endforeach
 
+            @if(hasMonify() && settings('enable_monify_virtual_account') == 'yes')
             <div class="col-md-6">
+                <h5 class="title -nk-block-title text-capitalize">
+                    Monify setup
+                </h5>
+                <div class="row mt-2">
+                @include('admin.partials.form.text', ['value' => env('MONIFY_PUBLIC_KEY'), 'colSize' => 'col-md-12', 'fieldName' => 'MONIFY_PUBLIC_KEY','title' => 'PUBLIC KEY'])
+                @include('admin.partials.form.text', ['value' => env('MONIFY_SECRET_KEY'), 'colSize' => 'col-md-12 mt-4', 'fieldName' => 'MONIFY_SECRET_KEY','title' => 'SECRET KEY'])
+                @include('admin.partials.form.text', ['value' => env('CONTRACT_CODE'), 'colSize' => 'col-md-12 mt-4', 'fieldName' => 'CONTRACT_CODE','title' => 'CONTRACT CODE'])
 
+                    <div class="col-12">
+                        <p>Webhook url : {{ route('monify.webhook') }}</p>
+                    </div>
+                </div>
             </div>
+            @endif
         </div>
 
         <div class="row g-3">

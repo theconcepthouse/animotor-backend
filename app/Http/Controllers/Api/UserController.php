@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TripRequest;
 use App\Models\User;
 use App\Services\RegionService;
+use App\Services\WalletService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -123,5 +124,59 @@ class UserController extends Controller
         ];
 
         return $bounds;
+    }
+
+
+    public function webhook(Request $request)
+    {
+
+        $input = $request->getContent();
+
+        if($input){
+
+            // parse event (which is json string) as object
+            $event = json_decode($input, true);
+
+            $reference = $event['eventData']['transactionReference'];
+
+            $email = $event['eventData']['customer']['email'];
+            $amount = $event['eventData']['amountPaid'];
+
+        }else{
+
+            return response()->json(['Nothing in the request!!']);
+        }
+
+//        $transaction = Transaction::where('trx', $reference)->first();
+//
+//        if(!is_null($transaction)){
+//            return response()->json(['failed!!']);
+//        }
+
+
+        $user = User::whereEmail($email)->first();
+
+        if(!$user){
+            return response()->json(['No User Existing']);
+        }
+
+        $wallet = new WalletService();
+
+        $wallet->fundWallet($user, $amount, 'virtual account deposit of '.$amount);
+
+
+//        $transaction = new Transaction();
+//        $transaction->user_id = $user->id;
+//        $transaction->amount = $amount;
+//        $transaction->post_balance = $user->wallet;
+//        $transaction->charge = $amount;
+//        $transaction->trx_type = '-';
+//        $transaction->status = 'Success';
+//        $transaction->details = 'Requested for wallet service';
+//        $transaction->trx =  $reference;
+//        $transaction->save();
+
+
+        return response()->json(['success']);
     }
 }

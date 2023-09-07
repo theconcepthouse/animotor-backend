@@ -11,25 +11,25 @@
 
                <div class="row">
                    <div class="col-12">
-                       <p><span class="text-title">{{ $car->title }} </span>or similar car</p>
+                       <p class=" text-truncate"><span class="text-title">{{ $car->title  }} </span>or similar car</p>
                    </div>
 
-                   <div class="col-6 mt-2">
+                   <div class="col-6 mt-3">
                        <p><img src="/assets/img/icons/profile.png" />
                            {{ $car?->seats }} seats </p>
                    </div>
 
-                   <div class="col-6 mt-2">
+                   <div class="col-6 mt-3">
                        <p class="text-capitalize"><img src="/assets/img/icons/gear.png" />
                            {{ $car?->gear }}</p>
                    </div>
 
-                   <div class="col-6 mt-2">
+                   <div class="col-6 mt-3">
                        <p><img src="/assets/img/icons/bag.png" />
                            {{ $car?->bags ?? 'Not allowed' }}</p>
                    </div>
 
-                   <div class="col-6 mt-2">
+                   <div class="col-6 mt-3">
                        <p><img src="/assets/img/icons/signpost.png" />
                            {{ $car?->mileage }} miles per rental</p>
                    </div>
@@ -41,7 +41,7 @@
                    </div>
 
                    <div class="col-6 mt-3">
-                       <p class="text-primary"><a href="">{{ $car?->pick_up_location ?? 'Pickup Not set' }}</a></p>
+                       <p class="text-primary text-truncate"><a href="">{{ $car?->pick_up_location ?? 'Pickup Not set' }}</a></p>
                        <p class="mt-2">{{ $car?->type }}</p>
                    </div>
 
@@ -82,7 +82,7 @@
 
         <div  class="col-12 d-flex justify-content-between mt-2">
             <div class="">
-                <img style="max-height: 40px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
+                <img style="max-height: 30px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
             </div>
             <div>
                 <p>

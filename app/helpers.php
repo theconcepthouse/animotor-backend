@@ -210,6 +210,20 @@ function customRound($number): int
     }
 }
 
+if (!function_exists('formatImagesError')) {
+    function formatImagesError($fieldName): string
+    {
+        return ucfirst(str_replace('_', ' ', str_replace('images.', '', $fieldName)));
+    }
+}
+
+if (!function_exists('formatArrayError')) {
+    function formatArrayError($text, $field): string
+    {
+        return ucfirst(str_replace('_', ' ', str_replace($field, '', $text)));
+    }
+}
+
     function default_footer(): string
 {
     return <<<HTML

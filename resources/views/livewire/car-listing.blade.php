@@ -1,13 +1,13 @@
 <div class="container">
 
 
-    @if(count($filteredCars) < 1)
+    @if($total_cars < 1)
         <div class="hotelbooking__categoris__wrap mt-3">
 
         <div class="row booking-info">
             <div class="col-md-12 col-sm-12">
                 <h5>No cars available</h5>
-                <p>We’re sorry, but the companies we work with in Nigeria don’t have any cars available.</p>
+                <p>We’re sorry, but the companies we work with in {{ $location->name }} don’t have any cars available.</p>
 
                 <p class="mt-3">What can I do ?</p>
                 <p class="mt-3">You could try</p>
@@ -30,37 +30,14 @@
     </div>
     @endif
 
-        @if(count($filteredCars) > 0)
+
+        @if($total_cars > 0)
             <div class="row g-4 justify-content-center">
         <div class="col-xxl-3 col-xl-3 col-lg-3">
             <div class="common__filter__wrapper">
-                <h3 class="filltertext borderb text-start pb__20 mb__20">
+                <h5 class="filltertext borderb text-start pb__20 mb__20">
                     Filter
-                </h3>
-                <div class="search__item borderb pb__10 mb__20">
-                    {{ $loading }}
-                    @if($loading)
-                        <p>Loading</p>
-                    @else
-                        Not loading
-                    @endif
-                    <div class="common__sidebar__head">
-                        <button class="w-100 fw-400 lato dtext fz-24 d-flex align-items-center justify-content-between">
-                            Car Name
-                            <img src="assets/img/svg/dropdown.svg" alt="svg">
-                        </button>
-                    </div>
-                    <div class="common__sidebar__content">
-                        <form action="#" class="d-flex align-items-center justify-content-between">
-                            <input wire:model.live="search" type="text" placeholder="Search by Flight name">
-                            <button class="search">
-                                <i class="material-symbols-outlined">
-                                    search
-                                </i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                </h5>
 
 
                 <div class="search__item borderb pb__10 mb__20">
@@ -70,36 +47,17 @@
                             <img src="assets/img/svg/dropdown.svg" alt="svg">
                         </button>
                     </div>
-                    <div class="common__sidebar__content">
-                        <div class="range__barcustom">
-                            <div class="slider">
-                                <div class="progress"></div>
-                            </div>
-                            <div class="range-input mb__10">
-                                <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
-                                <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
-                            </div>
-                            <div class="price-input">
-                                <div class="field">
-                                    <span>$</span>
-                                    <input type="number" class="input-min" value="2500">
-                                </div>
-                                <div class="separator">-</div>
-                                <div class="field">
-                                    <span>$</span>
-                                    <input type="number" class="input-max" value="7500">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                    <input min="0" max="5" wire:model.live="price" type="range" class="custom-range" id="customRange1">
+
                 </div>
 
 
                 @foreach($filters as $filter => $items)
                     <div class="search__item borderb pb__10 mb__20">
                         <div class="common__sidebar__head">
-                            <button class="w-100 fw-400 lato dtext fz-24 d-flex align-items-center justify-content-between">
-                                {{ $filter }}
+                            <button class="w-100 fw-400 lato dtext fz-24 d-flex text-capitalize align-items-center justify-content-between">
+                                {{ convertToWord($filter) }}
                                 <img src="assets/img/svg/dropdown.svg" alt="svg">
                             </button>
                         </div>
@@ -108,10 +66,8 @@
                                 @foreach($items as $i)
                                 <div class="type__radio mb__10 d-flex align-items-center justify-content-between">
                                     <div class="radio__left d-flex align-items-center gap-2">
-                                        <input class="form-check-input"
-
-                                               wire:model.live="selectedFilters.{{ $filter }}.{{ $i }}"
-                                               type="checkbox" id="{{ $i }}">
+                                        <input wire:key="{{ $filter }}_{{ $i }}" class="form-check-input" wire:model.live="selected_{{ $filter }}"
+                                               type="checkbox" value="{{ $i }}" id="{{ $i }}">
                                         <label class="form-check-label" for="{{ $i }}">
                               <span class="fz-16 lato fw-400 dtext">
                                  {{ $i }}
@@ -130,17 +86,33 @@
             </div>
         </div>
 
-        <div class="col-xxl-9 col-xl-9 col-lg-9">
+                <div class="col-xxl-9 col-xl-9 col-lg-9">
+{{--                <div class="col-xxl-9 col-xl-9 col-lg-9" style="position: relative; overflow: hidden;">--}}
+                    <!-- Your content here -->
+
+{{--                    <span wire:loading>--}}
+{{--                        <div class="d-flex justify-content-end">--}}
+{{--                            <div class="spinner-border text-primary" role="status">--}}
+{{--                                <span class="sr-only">Loading...</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                    </span>--}}
+
 
             <section class="hotel__bookslider1 pb-5">
 
+                @if($total_cars > 1)
                 <div class="mb-4">
-                    <h2 class="text-title">London Heathrow Airport: 12 cars available</h2>
+                    <h2 class="text-title">{{ $location->name }}: over {{ $total_cars }} car(s) available in this location</h2>
                 </div>
+                @endif
 
-                <div class="alert alert-success alert-dismissible mb-4">
-                    <p>In the last 24 hours, over 20 customers have booked a car in this location</p>
-                </div>
+                    @if($total_booking > 0)
+                        <div class="alert alert-success alert-dismissible mb-4">
+                            <p>In the last 24 hours, over {{ $total_booking }} customers have booked a car in this location</p>
+                        </div>
+                        @endif
 
                 <div class="car_categories owl-theme owl-carousel">
                     @foreach($services as $item)
@@ -152,15 +124,50 @@
                 </div>
             </section>
 
+            @if(count($filteredCars) > 0)
             <div class="row">
                 @foreach($filteredCars as $car)
                     <div class="col-sm-12 col-md-6">
                         @include('frontpage.partials.car_item',['car' => $car,'days' => $booking_day])
                     </div>
                 @endforeach
+
+                <div class="col-12 justify-content-center">
+                    <div class="d-flex justify-content-center">
+                        {{ $filteredCars->links() }}
+
+                    </div>
+                </div>
             </div>
+            @else
+                <div class="row booking-info">
+                    <div class="col-md-12 col-sm-12">
+                        <h5>No cars available</h5>
+                        <p>We don’t have any cars available for the applied filter.</p>
+
+                        <p class="mt-3">What can I do ?</p>
+                        <p class="mt-3">You could try</p>
+                        <ul class="ferrari__list d-flex- mx-3">
+                            <li class="fz-16 fw-400 pratext lato mt-1">
+                                Changing your filter options
+                            </li>
+                            <li class="fz-16 fw-400 pratext lato mt-1">
+                                Changing your drop-off time or date
+                            </li>
+                            <li class="fz-16 fw-400 pratext lato mt-1">
+                                Searching for a car in a nearby location
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            @endif
 
         </div>
+
+
     </div>
         @endif
 

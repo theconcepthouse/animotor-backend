@@ -30,11 +30,11 @@
                     <span>Documents</span>
                 </a>
             </div>
-            <div class="col-12 mt-4 justify-content-center">
-                <a href="#" class="cmn__btn">
-                    <span>Change of address</span>
-                </a>
-            </div>
+{{--            <div class="col-12 mt-4 justify-content-center">--}}
+{{--                <a href="#" class="cmn__btn">--}}
+{{--                    <span>Change of address</span>--}}
+{{--                </a>--}}
+{{--            </div>--}}
             <div class="col-12 mt-4 justify-content-center">
                 <a href="#" class="cmn__btn">
                     <span>PCNs</span>
@@ -42,7 +42,7 @@
             </div>
             <div class="col-12 mt-4 justify-content-center">
                 <a href="#" class="cmn__btn">
-                    <span>Monthly Maintanance</span>
+                    <span>Monthly Maintenance</span>
                 </a>
             </div>
         </div>

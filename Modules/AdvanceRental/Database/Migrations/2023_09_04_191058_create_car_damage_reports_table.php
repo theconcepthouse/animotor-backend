@@ -42,6 +42,18 @@ return new class extends Migration
             $table->boolean('tools')->default(true);
             $table->json('images')->nullable();
 
+            $table->json('spare_wheel_images')->nullable();
+            $table->text('spare_wheel_description')->nullable();
+            $table->json('fuel_cap_images')->nullable();
+            $table->text('fuel_cap_description')->nullable();
+            $table->json('floor_mat_images')->nullable();
+            $table->text('floor_mat_description')->nullable();
+            $table->json('aerial_images')->nullable();
+            $table->text('aerial_description')->nullable();
+            $table->json('tools_images')->nullable();
+            $table->text('tools_description')->nullable();
+
+
 
             $table->foreign('car_id')->references('id')->on('cars')
                 ->onDelete('cascade')

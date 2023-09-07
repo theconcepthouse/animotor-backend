@@ -5,8 +5,12 @@
             <div class="card card-bordered-">
                 <div class="row g-0 col-sep col-sep-md- col-sep-xl-">
                     <div class="col-md-3 col-xl-3">
+                        <a class="mt-3 h6" href="{{ route('booking.view', $carDamageReport->booking_id ) }}">
+                            <-
+                            Back to booking dashboard</a>
                         <div class="card-inner">
                             <ul class="nk-stepper-nav step_menu nk-stepper-nav-s1 s is-vr">
+
                                 @foreach($menu_items as $item)
                                     <li wire:key="{{ $loop->index + 1 }}"
                                         class="{{ $step == $loop->index + 1 ? 'active' : '' }}">
@@ -29,9 +33,9 @@
                         <div class="card-inner">
                             <div class="nk-stepper-content">
 
-                                <form action="#">
+                                <form method="post" wire:submit="saveUpdate">
 
-                                    {{ $step }}
+{{--                                    {{ $step }}--}}
 
                                     <div class="s== stepper-steps==">
                                         @if($step > 1)
@@ -418,32 +422,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="card card-bordered">
-                                                <div class="card-inner">
-                                                    <p>Tip: Make sure your mileage is exact so that we can give you a
-                                                        guaranteed price.</p>
 
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="form-control-wrap">
-                                                                    <p style="text-align: left">80000 miles</p>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control"
-                                                                               placeholder="8000">
-                                                                        <div class="input-group-append">
-                                                                            <button type="button"
-                                                                                    class="btn btn-lg btn-primary">
-                                                                                Update
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                </div>
-                                            </div>
                                             <div class="row">
                                                 <div class="col-6">
                                                     <button type="button" wire:click="warningLights('yes')"
@@ -571,7 +550,7 @@
                                             <h4 class="nk-block-title fw-bold mt-3">Upload images and write your
                                                 description?</h4>
 
-                                                <div class="preview-block mt-4">
+                                                <div class="preview-block mt-4" wire:ignore>
 
 
                                                     @include('admin.partials.livewire_image_uploader', ['name' => 'Upload images', 'images' => $exterior_images, 'field' => 'exterior_images'])

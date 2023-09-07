@@ -12,10 +12,11 @@ use Modules\AdvanceRental\Entities\VehicleDefect;
 class VehicleDefectController extends Controller
 {
 
-    public function reportDefect($car_id)
+    public function reportDefect($id)
     {
-        $car = Car::findOrFail($car_id);
-        return view('advancerental::report_vehicle_defect', compact('car'));
+        $booking = Booking::findOrFail($id);
+        $report = VehicleDefect::where('booking_id',$id)->first();
+        return view('advancerental::report_vehicle_defect', compact('booking','report'));
     }
 
 

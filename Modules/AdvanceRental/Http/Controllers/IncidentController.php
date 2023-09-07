@@ -18,17 +18,55 @@ class IncidentController extends Controller
             'Our Driver','Witness Details','Third Party','Police Details','Accident Details','Weather & Diagram'
         ];
 
+        $incident = Incident::where('booking_id', $booking_id)->first();
+
+
         $step = request()->get('page') ?? 1;
-        return view('advancerental::report_incident', compact('booking','steps','step','booking_id'));
+        return view('advancerental::report_incident', compact('booking','steps','incident','step','booking_id'));
     }
 
 
     public function store(Request $request){
-//        $validatedData = $this->validateData($request);
-//        Incident::create($validatedData);
+        $incident = Incident::where('booking_id', $request->input('booking_id'))->first();
         $step = $request->input('step');
+
+        if($step == 1){
+            $validatedData = $this->validateData($request);
+
+            if($incident){
+                $incident->update($validatedData);
+            }else{
+                Incident::create($validatedData);
+            }
+        }
+
+        if($step == 2){
+            $incident->update(['witnesses' => $request->input('witnesses')]);
+        }
+
+        if($step == 3){
+            $incident->update(['third_party' => $request->input('third_party')]);
+        }
+
+        if($step == 4){
+            $incident->update(['police_details' => $request->input('police_details')]);
+        }
+        if($step == 5){
+            $incident->update(['accident_details' => $request->input('accident_details')]);
+        }
+        if($step == 6){
+            $incident->update([
+                'weather' => $request->input('weather'),
+                'diagrams' => $request->input('diagrams'),
+                'date' => $request->input('date'),
+                'signature' => $request->input('signature'),
+            ]);
+
+            return redirect()->route('booking.view',$incident->booking_id)->with('success','Incident report successfully submitted');
+        }
+
         $booking_id = $request->input('booking_id');
-        return redirect()->route('rental.report_incident',['id' => $booking_id, 'page' => $step+1])->with('success', ' successfully submitted.');
+        return redirect()->route('rental.report_incident',['id' => $booking_id, 'page' => $step+1]);
     }
 
     protected function validateData(Request $request): array {

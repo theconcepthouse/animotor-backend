@@ -9,7 +9,18 @@
 
 
     <section class="pt-120 pb-120 booking_view">
-        <div class="row- justify-content-center- text-center">
+        <div class="container ">
+        <div class="row justify-content-center- text-center">
+
+{{--            <div class="col-12">--}}
+{{--                @if(session()->has('success'))--}}
+{{--                    <div class="alert alert-success">--}}
+{{--                        {{ session()->get('success') }}--}}
+{{--                    </div>--}}
+{{--                @endif--}}
+{{--            </div>--}}
+
+
             <div class="col-12 justify-content-center d-flex mb-3">
                 <div class="vehicle p-3">
                     <div class="d-flex justify-content-center">
@@ -36,29 +47,29 @@
                 </a>
             </div>
             <div class="col-12 mt-4 justify-content-center">
-                <a href="#" class="cmn__btn">
+                <a href="{{ route('booking.documents', $booking->id) }}" class="cmn__btn">
                     <span>Documents</span>
                 </a>
             </div>
-            <div class="col-12 mt-4 justify-content-center">
-                <a href="#" class="cmn__btn">
-                    <span>Change of address</span>
-                </a>
-            </div>
+{{--            <div class="col-12 mt-4 justify-content-center">--}}
+{{--                <a href="#" class="cmn__btn">--}}
+{{--                    <span>Change of address</span>--}}
+{{--                </a>--}}
+{{--            </div>--}}
             <div class="col-12 mt-4 justify-content-center">
                 <a href="#" class="cmn__btn">
                     <span>PCNs</span>
                 </a>
             </div>
             <div class="col-12 mt-4 justify-content-center">
-                <a href="#" class="cmn__btn">
-                    <span>Monthly Maintanance</span>
+                <a href="{{ route('vehicle_inspection.create',$booking->id) }}" class="cmn__btn">
+                    <span>Monthly Maintenance</span>
                 </a>
             </div>
+        </div>
         </div>
     </section>
 
 
-    <div class="voucher_page_footer_bg"></div>
 
 @endsection

@@ -6,11 +6,11 @@
     <meta charset="utf-8">
 {{--    <meta name="author" content="HMO">--}}
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="HMO">
+    <meta name="description" content="{{ settings('site_slogan') }}">
     <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="{{ asset('admin/assets/fav.png') }}">
+    <link rel="shortcut icon" href="{{ settings('favicon') }}">
     <!-- Page Title  -->
-    <title>{{ env('APP_NAME') }} | Dashboard</title>
+    <title>{{ settings('site_name') }} | Dashboard</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

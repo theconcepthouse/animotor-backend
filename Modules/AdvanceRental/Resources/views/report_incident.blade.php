@@ -122,9 +122,40 @@
                 </div>
             </div>
         </div>
+
     </section>
+
+
+    <div class="modal fade" id="termsModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h5 class="modal-title text-center">Warning</h5>
+{{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+                </div>
+                <div class="modal-body">
+                    <!-- Accordion -->
+
+                    <iframe src="{{ url('/accident_report_warning') }}?app" frameborder="0" style="width: 100%; height: 70vh;"></iframe>
+
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success btn-lg" data-bs-dismiss="modal">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('js')
     @include('advancerental::partials.upload')
+
+    @if($step == 1)
+    <script>
+        $(document).ready(function () {
+            $('#termsModal').modal('show');
+        });
+    </script>
+    @endif
+
 @endsection

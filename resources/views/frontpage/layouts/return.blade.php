@@ -760,15 +760,26 @@
 
 {{--document.addEventListener('DOMContentLoaded', function () {--}}
 
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         initializeToggleSwitches();
+
+        Livewire.on('init-lfm', () => {
+            $('.lfm').filemanager('image');
+            alert('hell');
+        })
     });
 
     document.addEventListener('livewire:navigated', function () {
         initializeToggleSwitches();
         $('.lfm').filemanager('image');
     });
+
+
 
     function initializeToggleSwitches() {
         let toggleSwitches = document.querySelectorAll('.custom-control-input');
@@ -814,7 +825,6 @@
 
 </script>
 
-<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 
 
 <script>

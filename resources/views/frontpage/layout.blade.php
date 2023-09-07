@@ -147,6 +147,42 @@
         }
 
 
+        .header_simple {
+            border-bottom: 1px solid #7180962b;
+            padding: 18px 0px;
+        }
+
+        .vehicle {
+            background-color: #67849d82;
+            border-radius: 10px;
+            width: 400px;
+        }
+
+         .vehicle .vehicle_no{
+            background-color: yellow;
+            border-radius: 5px;
+            /*flex-direction: row;*/
+            padding: 10px;
+        }
+
+         .car_categories .owl-item p {
+             color: #3F3F3F;
+         }
+
+         .car_section .text-title {
+             font-size: 1.0em;
+         }
+
+         /*.common__filter__wrapper .search__item {*/
+         /*    max-height: 300px;*/
+         /*    overflow: auto;*/
+         /*}*/
+         .common__filter__wrapper .common__sidebar__content {
+             max-height: 300px;
+             overflow: auto;
+         }
+
+
     </style>
 
 </head>

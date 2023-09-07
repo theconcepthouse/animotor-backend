@@ -232,10 +232,10 @@
                                                     <div class="nk-tb-col tb-col-sm">
                                                         <div class="user-card">
                                                             <div class="user-avatar user-avatar-sm bg-purple">
-                                                                <img src="{{ $item->customer->avatar }}" />
+                                                                <img src="{{ $item?->customer?->avatar }}" />
                                                             </div>
                                                             <div class="user-name">
-                                                                <span class="tb-lead">{{ $item->customer->name }}</span>
+                                                                <span class="tb-lead">{{ $item?->customer?->name }}</span>
                                                             </div>
                                                         </div>
                                                     </div>

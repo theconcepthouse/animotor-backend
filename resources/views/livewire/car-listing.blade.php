@@ -48,7 +48,13 @@
                         </button>
                     </div>
 
-                    <input min="0" max="5" wire:model.live="price" type="range" class="custom-range" id="customRange1">
+
+                    <div class="col-12 mt-2">
+                        <input wire:model.live="priceRange" type="range" class="custom-range w-100" id="customRange1" min="{{ $min_price }}" max="{{ $max_price }}">
+
+                        <p>PRICE : {{ amt($priceRange) }} - {{ amt($max_price) }}</p>
+
+                    </div>
 
                 </div>
 

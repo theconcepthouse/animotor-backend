@@ -85,6 +85,7 @@
                             <th><input type="checkbox" wire:model.live="selectAll"></th>
                             <th>{{ __('admin.sn') }}</th>
                             <th>{{ __('admin.service_area') }}</th>
+                            <th>{{ __('admin.vrm') }}</th>
                             <th>{{ __('admin.title') }}</th>
                             <th>{{ __('admin.make') }}</th>
                             <th>{{ __('admin.is_available') }}</th>
@@ -103,6 +104,7 @@
                                 <td><input type="checkbox" wire:model.live="selected_items" value="{{ $item->id }}"></td>
                                 <td>{{ $loop->index+1 }}</td>
                                 <td>{{ $item?->region?->name ?? "Not set" }}</td>
+                                <td><a href="{{ route('admin.cars.edit',$item->id) }}" class="btn btn-warning"> {{ $item->registration_number }}</a></td>
                                 <td>{{ $item->title }}</td>
                                 <td>{{ $item->make }}</td>
                                 <td>

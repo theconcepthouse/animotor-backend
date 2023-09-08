@@ -34,13 +34,13 @@ class CarListing extends Component
 
 
     public $search;
-    public int $min_price = 10;
-    public int $max_price = 100;
+    public $priceRange = 10;
+    public int $min_price = 0;
+    public int $max_price = 10;
     public int $booking_day = 0;
     public int $total_cars = 0;
     public int $total_booking = 0;
     public Region $location;
-
 
 
 
@@ -71,8 +71,9 @@ class CarListing extends Component
     public function updatedSearch(){
         dd($this->max_price);
     }
-//    public function updatedSelectedCarSpecs(){
-//        dd($this->selected_transmissions);
+//    public function updatedPriceRange(){
+////        list($min, $max) = explode(',', $this->priceRange);
+//        dd($this->priceRange);
 //    }
 
     public function mount(){
@@ -115,9 +116,12 @@ class CarListing extends Component
         $this->filters['car_makes'] = array_unique($filteredCars->pluck('make')->toArray());
         $this->filters['car_models'] = array_unique($filteredCars->pluck('model')->toArray());
 
+        $this->min_price = $filteredCars->min('price_per_day');
+//        $this->priceRange = $filteredCars->min('price_per_day');
+        $this->max_price = $filteredCars->max('price_per_day');
 
 
-        $filteredCars->whereBetween('price_per_day', [$this->min_price, $this->max_price]);
+        $filteredCars->whereBetween('price_per_day', [$this->priceRange, $this->max_price]);
 
         $filteredCars->when(count($this->selected_transmissions) > 0, function ($query) {
 //            dd($this->selected_transmissions);

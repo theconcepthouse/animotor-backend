@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Cars;
 
+use App\Models\Addons\pcn;
 use App\Models\Car;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
@@ -147,8 +148,20 @@ class Form extends Component
     public $car_makes;
     public $car_models;
 
+    public $pcn_no;
+    public $date_time;
+    public $offence_type;
+    public $location;
+    public $notice_issue_date;
+    public $payment_dead_line;
+    public $appeal_dead_line;
+    public $status = "Representation made";
+    public $booking_id;
+
+
+
     #[Computed]
-    public int $step = 14;
+    public int $step = 1;
 
 
     public function updatedMake()
@@ -157,6 +170,12 @@ class Form extends Component
         $make_id = $make->id ?? null;
         if ($make_id) {
             $this->car_models = VehicleModel::where('make_id', $make_id)->get();
+        }
+    }
+
+    public function goBack(){
+        if($this->step > 1){
+            $this->step--;
         }
     }
 
@@ -178,7 +197,11 @@ class Form extends Component
         $this->car_models = $car_models;
         if ($car) {
             $this->car = $car;
-            $this->fill($car->toArray());
+
+            $this->booking_id = $car->bookings?->first()?->id;
+
+
+                $this->fill($car->toArray());
 
             if ($car->carExtra) {
                 $carExtra = $car->carExtra;
@@ -396,6 +419,37 @@ class Form extends Component
             'repair_type' => '',
             'total_cost' => '',
         ];
+
+        return true;
+    }
+    public function addPCN(): bool
+    {
+        $validated = $this->validate([
+            'pcn_no' => ['required', 'string'],
+            'booking_id' => ['required', 'string'],
+            'date_time' => ['required', 'string'],
+            'offence_type' => ['required', 'string'],
+            'location' => ['required', 'string'],
+            'notice_issue_date' => ['required', 'string'],
+            'payment_dead_line' => ['required', 'string'],
+            'appeal_dead_line' => ['required', 'string'],
+            'status' => ['required', 'string'],
+        ]);
+
+        $validated['car_id'] = $this->car->id;
+        $validated['vrm'] = $this->car->registration_number;
+
+        pcn::create($validated);
+
+        $this->successMsg();
+
+        $this->pcn_no  = '';
+        $this->date_time = '';
+        $this->offence_type = '';
+        $this->location = '';
+        $this->notice_issue_date = '';
+        $this->payment_dead_line = '';
+        $this->appeal_dead_line = '';
 
         return true;
     }

@@ -54,6 +54,7 @@ return [
     'booking_status' => 'Booking Status',
     'confirm_booking' => 'Confirm Booking',
     'payment_status' => 'Payment Status',
+    'booking_type' => 'Booking type',
     'payment_method' => 'Payment Method',
     'booked_on' => 'Booked on',
     'booking_not_confirmed_please_confirm_booking' => 'Booking not confirmed please confirm booking',

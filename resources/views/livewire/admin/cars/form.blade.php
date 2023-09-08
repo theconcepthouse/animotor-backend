@@ -1412,21 +1412,21 @@
                                             <th>{{ __('admin.status') }}</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        @foreach($car->carExtra->repairs as $item)
-                                            <tr>
-                                                <td>{{ $loop->index+1 }}</td>
-                                                <td>{{ $item['booking_id'] }}</td>
-                                                <td>{{ $item['booking_date'] }}</td>
-                                                <td>{{ $item['date_time'] }}</td>
-                                                <td>{{ $item['mileage_at_repair'] }}</td>
-                                                <td>{{ $item['workshop_name'] }}</td>
-                                                <td>{{ $item['repair_type'] }}</td>
-                                                <td>{{ $item['total_cost'] }}</td>
-                                                <td>{{ $item['vat'] }}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
+{{--                                        <tbody>--}}
+{{--                                        @foreach($car->carExtra->repairs as $item)--}}
+{{--                                            <tr>--}}
+{{--                                                <td>{{ $loop->index+1 }}</td>--}}
+{{--                                                <td>{{ $item['booking_id'] }}</td>--}}
+{{--                                                <td>{{ $item['booking_date'] }}</td>--}}
+{{--                                                <td>{{ $item['date_time'] }}</td>--}}
+{{--                                                <td>{{ $item['mileage_at_repair'] }}</td>--}}
+{{--                                                <td>{{ $item['workshop_name'] }}</td>--}}
+{{--                                                <td>{{ $item['repair_type'] }}</td>--}}
+{{--                                                <td>{{ $item['total_cost'] }}</td>--}}
+{{--                                                <td>{{ $item['vat'] }}</td>--}}
+{{--                                            </tr>--}}
+{{--                                        @endforeach--}}
+{{--                                        </tbody>--}}
                                     </table>
 
                                 </div>

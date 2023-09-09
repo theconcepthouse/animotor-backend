@@ -66,6 +66,7 @@
 
                         <input name="step" type="hidden" value="{{ $step }}" />
                         <input name="booking_id" type="hidden" value="{{ $booking_id }}" />
+                        <input name="company_id" type="hidden" value="{{ $booking->company_id }}" />
 
                         @if ($errors->any())
                             <div class="alert alert-danger">

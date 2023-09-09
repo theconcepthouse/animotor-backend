@@ -36,3 +36,9 @@ Route::prefix('advancerental')->middleware('auth')->group(function() {
     Route::post('/report-incident/store', [IncidentController::class,'store'])->name('rental.report_incident.store');
 
 });
+
+Route::prefix('admin/rental')->middleware(['auth', 'role:admin|superadmin|owner|manager'])->group(function() {
+    Route::get('/vehicle/defects', [VehicleDefectController::class, 'all'])->name('admin.rental.vehicle_defects');
+    Route::get('/vehicle/checks', [VehicleDefectController::class, 'vehicleChecks'])->name('admin.rental.vehicle_checks');
+    Route::get('/vehicle/incidents', [IncidentController::class, 'incidents'])->name('admin.rental.vehicle_incidents');
+});

@@ -26,12 +26,29 @@ class IncidentController extends Controller
     }
 
 
+    public function incidents()
+    {
+
+        if(isOwner()){
+            $data = Incident::where('company_id', companyId())->latest()->paginate(100);
+        }else if (isAdmin()){
+            $data = Incident::latest()->paginate(100);
+        }else{
+            $data = [];
+        }
+
+        return view('advancerental::admin.vehicle_incidents', compact('data'));
+    }
+
+
     public function store(Request $request){
         $incident = Incident::where('booking_id', $request->input('booking_id'))->first();
         $step = $request->input('step');
 
         if($step == 1){
             $validatedData = $this->validateData($request);
+
+            $validatedData['user_id'] = auth()->id();
 
             if($incident){
                 $incident->update($validatedData);
@@ -72,6 +89,7 @@ class IncidentController extends Controller
     protected function validateData(Request $request): array {
         $rules = [
             'booking_id' => 'required',
+            'company_id' => 'required',
             'owner_name' => 'required',
             'title' => 'required',
             'first_name' => 'required',

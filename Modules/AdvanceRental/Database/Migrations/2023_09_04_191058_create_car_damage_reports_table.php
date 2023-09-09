@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('car_id');
             $table->uuid('booking_id')->nullable();
+            $table->uuid('company_id')->nullable();
             $table->uuid('return_id')->nullable();
             $table->boolean('any_damage')->default(true);
             $table->integer('damaged_panel')->default(0);

@@ -17,7 +17,7 @@
                 <div class="col-12 justify-content-center d-flex mb-3">
                     <div class="vehicle p-3">
                         <div class="d-flex justify-content-center">
-                            <p class="vehicle_no">{{ $booking?->car?->car?->registration_number }}</p>
+                            <p class="vehicle_no">{{ $booking?->car?->registration_number }}</p>
 
                         </div>
                         <h6 class="vehicle_name mt-2">{{ $booking?->car?->title }}</h6>
@@ -51,6 +51,7 @@
 
                             <input type="hidden" name="car_id" value="{{ $booking->car_id }}">
                             <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                            <input type="hidden" name="company_id" value="{{ $booking->company_id }}">
 
                             @include('frontpage.components.form.text', ['attributes' => 'required', 'type' => 'date', 'colSize' => 'col-md-4', 'value' => $report?->date, 'fieldName' => 'date','title' => 'Date'])
                             @include('frontpage.components.form.text', ['attributes' => 'required', 'colSize' => 'col-md-5', 'value' => $report?->location_of_vehicle, 'fieldName' => 'location_of_vehicle','title' => 'Location of vehicle'])

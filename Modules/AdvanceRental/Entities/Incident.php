@@ -2,16 +2,23 @@
 
 namespace Modules\AdvanceRental\Entities;
 
+use App\Models\Booking;
+use App\Models\Car;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Incident extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'booking_id',
         'owner_name',
+        'company_id',
+        'user_id',
         'title',
         'first_name',
         'last_name',
@@ -84,6 +91,22 @@ class Incident extends Model
     public function setWeatherAttribute($value)
     {
         $this->attributes['weather'] = json_encode($value);
+    }
+
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function booking(): BelongsTo
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+    public function car(): BelongsTo
+    {
+        return $this->belongsTo(Car::class);
     }
 
 

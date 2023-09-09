@@ -770,7 +770,6 @@
 
         Livewire.on('init-lfm', () => {
             $('.lfm').filemanager('image');
-            alert('hell');
         })
     });
 

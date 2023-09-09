@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('incidents', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('booking_id');
+            $table->uuid('company_id')->nullable();
             $table->uuid('user_id')->nullable();
             $table->string('owner_name');
             $table->string('title');

@@ -12,6 +12,7 @@ class CustomerReturn extends Component
     public int $step = 1;
     public $any_damage;
     public $booking_id;
+    public $companyId;
     public $car_id;
     public $carDamageReport;
     public $return_id;
@@ -307,6 +308,7 @@ class CustomerReturn extends Component
             $this->carDamageReport->update([
                 'any_damage' => $this->any_damage,
                 'booking_id' => $this->booking_id,
+                'company_id' => $this->companyId,
                 'return_id' => $this->return_id,
                 'damaged_panel' => $this->damaged_panel,
                 'damage_type' => $this->damage_type,
@@ -346,6 +348,7 @@ class CustomerReturn extends Component
             $carDamageReport = CarDamageReport::create([
                 'any_damage' => $this->any_damage,
                 'booking_id' => $this->booking_id,
+                'company_id' => $this->companyId,
                 'car_id' => $this->car_id,
                 'return_id' => $this->return_id,
                 'damaged_panel' => $this->damaged_panel,

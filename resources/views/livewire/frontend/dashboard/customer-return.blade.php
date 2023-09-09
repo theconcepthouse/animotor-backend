@@ -5,9 +5,10 @@
             <div class="card card-bordered-">
                 <div class="row g-0 col-sep col-sep-md- col-sep-xl-">
                     <div class="col-md-3 col-xl-3">
-                        <a class="mt-3 h6" href="{{ route('booking.view', $carDamageReport->booking_id ) }}">
-                            <-
+                        <a class="mt-3 h6" href="{{ route('booking.view', $booking_id ) }}">
+                            <img src="{{ asset('assets/img/icons/arrow-left.png') }}" />
                             Back to booking dashboard</a>
+                        {{ $companyId }}
                         <div class="card-inner">
                             <ul class="nk-stepper-nav step_menu nk-stepper-nav-s1 s is-vr">
 

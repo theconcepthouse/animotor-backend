@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('car_id');
             $table->uuid('booking_id')->nullable();
+            $table->uuid('company_id')->nullable();
             $table->uuid('user_id')->nullable();
             $table->date('date')->nullable();
             $table->string('location_of_vehicle')->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->text('reporter_phone')->nullable();
             $table->text('reporter_email')->nullable();
             $table->string('severity')->comment('low, high, medium')->nullable();
+            $table->string('status')->comment('open, closed, assigned')->default('open');
 
             $table->foreign('car_id')->references('id')->on('cars')
                 ->onDelete('cascade')

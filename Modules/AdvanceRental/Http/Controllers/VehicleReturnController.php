@@ -50,8 +50,10 @@ class VehicleReturnController extends Controller
     public function vehicleReturnCarDamageReport($booking_id, $return_id){
         $booking = Booking::findOrFail($booking_id);
         $car_id = $booking->car_id;
+        $company_id = $booking->company_id;
+
         $carDamageReport = CarDamageReport::where('booking_id',$booking_id)->where('return_id', $return_id)->first();
-        return view('advancerental::car_damage_report', compact('booking','booking_id','return_id','car_id', 'carDamageReport'));
+        return view('advancerental::car_damage_report', compact('booking','booking_id','return_id','car_id','company_id','carDamageReport'));
     }
 
     public function vehicleReturnDamageReportImages($id){

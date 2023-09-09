@@ -27,6 +27,7 @@ class AdvanceRentalController extends Controller
     public function store(Request $request)
     {
         $validated = $this->validateData($request);
+        $validated['user_id'] = auth()->id();
         $report = VehicleDefect::where('booking_id',$validated['booking_id'])->first();
         if($report){
             $report->update($validated);
@@ -44,6 +45,7 @@ class AdvanceRentalController extends Controller
         $rules = [
             'car_id' => 'required',
             'booking_id' => 'required',
+            'company_id' => 'nullable',
             'date' => 'required',
             'location_of_vehicle' => 'required',
             'postal_code' => 'required',

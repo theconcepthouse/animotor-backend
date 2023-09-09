@@ -331,6 +331,8 @@
         'route' => 'bookings-index',
         'icon' => 'ni ni-calendar-booking',
     ];
+
+
     $menuArray[] = [
         'url' => "#",
         'text' => 'Fleet Planning',
@@ -339,21 +341,21 @@
     ];
 
     $menuArray[] = [
-        'url' => "#",
+        'url' => route('admin.rental.vehicle_checks'),
         'text' => 'Vehicle Checks',
         'route' => 'cars-read',
         'icon' => 'ni ni-calendar-check-fill',
     ];
 
     $menuArray[] = [
-        'url' => "#",
+        'url' => route('admin.rental.vehicle_incidents'),
         'text' => 'Reported Incidents',
         'route' => 'cars-read',
         'icon' => 'ni ni-file-docs',
     ];
 
     $menuArray[] = [
-        'url' => "#",
+        'url' => route('admin.rental.vehicle_defects'),
         'text' => 'vehicle Defects',
         'route' => 'cars-read',
         'icon' => 'ni ni-linux-server',

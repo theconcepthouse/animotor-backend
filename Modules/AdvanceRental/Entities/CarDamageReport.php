@@ -2,9 +2,12 @@
 
 namespace Modules\AdvanceRental\Entities;
 
+use App\Models\Booking;
+use App\Models\Car;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CarDamageReport extends Model
 {
@@ -14,6 +17,7 @@ class CarDamageReport extends Model
     protected $fillable = [
         'car_id',
         'booking_id',
+        'company_id',
         'return_id',
         'any_damage',
         'damaged_panel',
@@ -208,6 +212,16 @@ class CarDamageReport extends Model
         $this->attributes['tools_images'] = json_encode($value);
     }
 
+
+    public function booking(): BelongsTo
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+    public function car(): BelongsTo
+    {
+        return $this->belongsTo(Car::class);
+    }
 
 
     protected static function newFactory()

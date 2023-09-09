@@ -17,6 +17,8 @@ class VehicleInspectionController extends Controller
     }
 
 
+
+
     public function store(Request $request){
         $validatedData = $this->validateData($request);
         VehicleInspection::create($validatedData);

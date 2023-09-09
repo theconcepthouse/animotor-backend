@@ -25,7 +25,7 @@
                         <div class="col-12 justify-content-center d-flex mb-3 mt-5">
                             <div class="vehicle p-4">
                                 <div class="d-flex justify-content-center">
-                                    <p class="vehicle_no">{{ $booking?->car?->car?->registration_number }}</p>
+                                    <p class="vehicle_no">{{ $booking?->car?->registration_number }}</p>
 
                                 </div>
                                 <h6 class="vehicle_name mt-3">{{ $booking?->car?->title }}</h6>
@@ -35,7 +35,7 @@
                         <div class="col-12 justify-content-center mt-5 text-center">
                             <h4>Choose return date and time</h4>
 
-                            <p class="{{ $booking->completed ? 'btn btn-success' : 'btn-warning btn' }} mt-3">{{ $return->status }}</p>
+                            <p class="{{ $booking?->completed ? 'btn btn-success' : 'btn-warning btn' }} mt-3">{{ $return?->status }}</p>
                         </div>
 
                         @if ($errors->any())

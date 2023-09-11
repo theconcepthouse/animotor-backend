@@ -200,7 +200,7 @@ class UserController extends Controller
             $data['title'] = "Account approved";
             $data['message'] = "Congrats, your account is now approved";
 
-            $notificationService->notify($user, $data);
+            $notificationService->notify('Congrats, your account is now approved','notification','Account approved',$user, $data);
         }
         $user->status = $status;
         $user->save();

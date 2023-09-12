@@ -9,7 +9,7 @@
     @endif
 
     <!-- signUp here -->
-    <section class="signup__section bluar__shape">
+    <section class="signup__section bluar__shape___">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-xl-6 col-lg-6">
@@ -36,16 +36,21 @@
                                 <div class="col-lg-12">
                                     <div class="input__grp">
                                         <label for="email">Enter Your Email ID</label>
-                                        <input type="email" name="email" value="{{ old('email') }}" id="email" placeholder="Your email here">
+                                        <div class="form-group mt-2">
+                                            <input class="form-control" type="email" name="email" value="{{ old('email') }}" id="email" placeholder="Your email here">
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="input__grp password-toggle">
                                         <label for="pass">Enter Your Password</label>
-                                        <input name="password" type="password" id="password"  placeholder="Your Password">
+                                        <div class="form-group mt-2">
+                                        <input class="form-control" name="password" type="password" id="password"  placeholder="Your Password">
                                         <div class="toggle-btn" id="togglePassword">
                                             <i class="fa fa-eye"></i>
 
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

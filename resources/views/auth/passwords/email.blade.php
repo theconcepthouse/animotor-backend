@@ -9,7 +9,7 @@
     @endif
 
     <!-- signUp here -->
-    <section class="signup__section bluar__shape">
+    <section class="signup__section bluar__shape___">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-xl-6 col-lg-6">

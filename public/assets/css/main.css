@@ -3635,10 +3635,10 @@ p {
   border-radius: 5px;
 }
 
-.bluar__shape {
+.bluar__shape__ {
   position: relative;
 }
-.bluar__shape::before {
+.bluar__shape__::before {
   position: absolute;
   left: 0;
   top: 50%;

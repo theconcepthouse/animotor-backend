@@ -817,9 +817,9 @@ $(document).ready(function () {
 	});
 	//--Header Menu--//
 
-	//--Nice Select--//
-	$('select-').niceSelect();
-	//--Nice Select--//
+	// //--Nice Select--//
+	// $('select-').niceSelect();
+	// //--Nice Select--//
 
 
 

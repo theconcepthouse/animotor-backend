@@ -10,7 +10,7 @@
         @include('frontpage.partials.layout.header')
     @endif
 
-    <section class="signup__section bluar__shape">
+    <section class="signup__section bluar__shape__">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-xl-6 col-lg-6">

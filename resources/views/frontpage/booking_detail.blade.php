@@ -28,7 +28,7 @@
                                 <p class="">
                                     <a href="{{ route('voucher',['id' => $booking->id]) }}">
                                         <img src="/assets/img/icons/document.png" />
-                                        Access your Voucher
+                                        Access your voucher
                                     </a>
                                 </p>
 
@@ -70,7 +70,7 @@
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/profile.png" />
-                                                {{ $booking->car->seats }} seats </p>
+                                                {{ $booking->car->seats }} Seats </p>
                                         </div>
 
                                         <div class="col-6 mt-2">

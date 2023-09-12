@@ -8,7 +8,7 @@
     @endif
 
     <!-- signUp here -->
-    <section class="signup__section bluar__shape__">
+    <section class="signup__section bluar__shape___">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-xl-6 col-lg-6">
@@ -47,7 +47,9 @@
                                 <div class="col-lg-12">
                                     <div class="input__grp">
                                         <label for="email">Enter Your Email</label>
-                                        <input type="email" required class="form-control" name="email" value="{{ old('email') }}" id="email" placeholder="Your email here">
+                                        <div class="form-group">
+                                            <input type="email" required class="form-control" name="email" value="{{ old('email') }}" id="email" placeholder="Your email here">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -56,7 +58,9 @@
                                     <div class="col-lg-12">
                                     <div class="input__grp">
                                         <label for="reference">Booking reference number</label>
-                                        <input required type="text" class="form-control" name="reference" value="{{ old('reference') }}" id="reference" placeholder="Your booking reference here">
+                                        <div class="form-group">
+                                            <input required type="text" class="form-control" name="reference" value="{{ old('reference') }}" id="reference" placeholder="Your booking reference here">
+                                        </div>
                                     </div>
                                 </div>
 

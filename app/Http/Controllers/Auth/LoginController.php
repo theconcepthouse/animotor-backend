@@ -39,6 +39,13 @@ class LoginController extends Controller
      */
     protected $redirectTo;
 
+    protected function authenticated($request, $user){
+        if($user->hasRole(['superadmin|admin|owner|manager'])){
+            return redirect('/admin/dashboard');
+        } else return redirect('/dashboard');
+    }
+
+
 
 
     /**

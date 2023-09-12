@@ -45,7 +45,7 @@ class FrontPageController extends Controller
 
         $booking = Booking::where('reference',$reference)->first();
         if(!$booking){
-            return redirect()->back()->withInput()->with('error','Can find any booking record with the provided reference number');
+            return redirect()->back()->withInput()->with('error',"Can't find any booking record with the provided reference number");
         }
         $user = User::find($booking->customer_id);
         if(!$user || $user?->email != $email){

@@ -154,7 +154,7 @@ class UserController extends Controller
         ];
         $data = $request->validate($rules);
         if($request->input('password')){
-            $data['password'] = Hash::make($data['pass']);
+            $data['password'] = Hash::make($data['password']);
         }
 
         $user = User::findOrFail($id);

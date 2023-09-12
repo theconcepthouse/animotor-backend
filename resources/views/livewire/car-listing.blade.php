@@ -76,7 +76,7 @@
                                                type="checkbox" value="{{ $i }}" id="{{ $i }}">
                                         <label class="form-check-label" for="{{ $i }}">
                               <span class="fz-16 lato fw-400 dtext">
-                                 {{ $i }}
+                                 {{ convertToWord($i) }}
                               </span>
                                         </label>
                                     </div>
@@ -110,7 +110,7 @@
 
                 @if($total_cars > 1)
                 <div class="mb-4">
-                    <h2 class="text-title">{{ $location->name }}: over {{ $total_cars }} car(s) available in this location</h2>
+                    <h2 class="text-title">{{ $location->name }}: Over {{ $total_cars }} car(s) available in this location</h2>
                 </div>
                 @endif
 

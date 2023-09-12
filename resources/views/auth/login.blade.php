@@ -18,7 +18,7 @@
                             Sign in to {{ settings('site_name') }}
                         </h4>
                         <p class="head__pra mb__30">
-                            Sign in to your account and make your utility payments faster
+                            Sign in to your account
                         </p>
                         <form method="post" action="{{ route('login') }}" class="signup__form">
                             @csrf

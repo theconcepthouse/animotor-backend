@@ -35,8 +35,8 @@ class CarListing extends Component
 
     public $search;
     public $priceRange = 10;
-    public int $min_price = 0;
-    public int $max_price = 10;
+    public  $min_price = 0;
+    public  $max_price = 10;
     public int $booking_day = 0;
     public int $total_cars = 0;
     public int $total_booking = 0;

@@ -3,7 +3,7 @@
         <div class="hotelbooking__categoris__wra">
 
             <div class="dating__body text-center">
-                <p class="text-title">save time, save money!</p>
+                <p class="text-title">Save Time, Save Money!</p>
                 <p class="text-center my-4">sign up and we'll send the best deals to you</p>
                 <div class="row">
                     <div class="col"></div>

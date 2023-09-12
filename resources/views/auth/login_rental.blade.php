@@ -14,9 +14,21 @@
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/dashlite.css?ver=3.1.1') }}">
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/css/theme.css?ver=3.1.1') }}">
+
+    <style>
+        .nk-auth-body {
+            padding: 4rem 7rem;
+        }
+        @media (min-width: 576px){
+            .wide-xs {
+                max-width: 720px !important;
+            }
+        }
+
+    </style>
 </head>
 
-<body class="nk-body bg-white npc-general pg-auth">
+<body class="nk-body bg-gray-100 npc-general pg-auth">
 <div class="nk-app-root">
     <!-- main @s -->
     <div class="nk-main ">
@@ -24,9 +36,9 @@
         <div class="nk-wrap nk-wrap-nosidebar">
             <!-- content @s -->
             <div class="nk-content ">
-                <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
+                <div class="nk-block nk-block-middle nk-auth-body  wide-xs shadow bg-white">
                     <div class="brand-logo pb-4 text-center">
-                        <a href="#" class="logo-link">
+                        <a href="/" class="logo-link">
                             <img height="150" src="{{ settings('light_logo',asset('default/logo.png')) }}" />
 {{--                            <h3 style="font-weight: bolder" class="text-capitalize">{{ env('APP_NAME') }}</h3>--}}
                             {{--                            <img class="logo-light logo-img logo-img-lg" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">--}}
@@ -38,7 +50,7 @@
                         <div class="card-inner card-inner-lg">
                             <div class="nk-block-head">
                                 <div class="nk-block-head-content">
-                                    <h4 class="nk-block-title">Sign-In</h4>
+                                    <h4 class="nk-block-title text-center">Login to get started</h4>
 
                                 </div>
                             </div>
@@ -63,10 +75,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="form-label-group">
-                                        <label class="form-label" for="password">Passcode</label>
+                                        <label class="form-label" for="password">Password</label>
                                         @if (Route::has('password.request'))
                                             <a class="link link-primary link-sm" href="{{ route('password.request') }}">
-                                                {{ __('Forgot Code?') }}
+                                                {{ __('Forgot password?') }}
                                             </a>
                                         @endif
                                     </div>
@@ -75,15 +87,21 @@
                                             <em class="passcode-icon icon-show icon ni ni-eye"></em>
                                             <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
                                         </a>
-                                        <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter your passcode">
+                                        <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-lg btn-primary btn-block">Sign in</button>
                                 </div>
                             </form>
-                            {{--                            <div class="form-note-s2 text-center pt-4"> New on our platform? <a href="html/pages/auths/auth-register-v2.html">Create an account</a>--}}
-                            {{--                            </div>--}}
+
+                            <div class="form-note-s2 text-center pt-4">
+                               <p>OR</p>
+
+                                <a href="/register" class="btn btn-lg btn-primary">Sign Up</a>
+
+                                <p class="mt-3">By signing in you agree to our <a href="/terms">Terms & Conditions</a>  and <a href="/privacy"> Privacy Policy</a></p>
+                            </div>
 
                         </div>
                     </div>
@@ -102,4 +120,23 @@
 <script src="{{ asset('admin/assets/js/scripts.js?ver=3.1.1') }}"></script>
 <!-- select region modal -->
 
+<script>
+    $(document).ready(function() {
+        // Select the password input field
+        var passwordInput = $('#password');
+
+        // Listen for keyup events on the password input
+        passwordInput.on('keyup', function() {
+            // Get the current value of the input
+            var inputValue = $(this).val();
+
+            // Remove spaces from the input value
+            var trimmedValue = inputValue.replace(/\s/g, '');
+
+            // Update the input field with the trimmed value
+            $(this).val(trimmedValue);
+        });
+    });
+</script>
+</body>
 </html>

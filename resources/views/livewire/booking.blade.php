@@ -37,7 +37,7 @@
 
             <div class="dating__body">
                 <h5 class="hoteltitle">
-                    <strong>Book a Car</strong>
+                    <strong>Book a car</strong>
                 </h5>
 {{--                @if($errors->any())--}}
 {{--                    <div class="alert alert-danger">--}}

@@ -191,6 +191,9 @@
             cursor: pointer;
             padding: 5px 10px;
         }
+        .invest-data-history .title {
+            text-transform: capitalize;
+        }
 
     </style>
 

@@ -64,7 +64,7 @@
                                         <div class="card-inner">
                                             <div class="card-title-group">
                                                 <div class="card-title">
-                                                    <h6 class="title">Recent customers</h6>
+                                                    <h6 class="title">Recent Customers</h6>
                                                 </div>
                                                 <div class="card-tools">
                                                     <a href="{{ route('admin.riders') }}" class="link">View All</a>
@@ -108,7 +108,7 @@
                                         <div class="card-inner">
                                             <div class="card-title-group">
                                                 <div class="card-title">
-                                                    <h6 class="title">Recent drivers</h6>
+                                                    <h6 class="title">Recent Drivers</h6>
                                                 </div>
                                                 <div class="card-tools">
                                                     <a href="{{ route('admin.drivers.index',['status' => 'unapproved']) }}" class="link">View All</a>

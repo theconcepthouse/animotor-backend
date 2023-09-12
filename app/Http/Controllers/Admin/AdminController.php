@@ -30,6 +30,7 @@ class AdminController extends Controller
         $users = User::whereHasRole(['user','customer'])->latest()->paginate(10);
         $riders = User::whereHasRole(['rider'])->latest()->paginate(5);
         $riders_count = User::whereHasRole(['rider'])->count();
+        $drivers_count = User::whereHasRole(['driver'])->count();
         $total_complains = Complaint::count();
         $ride_counts = TripRequest::count();
         $rides = TripRequest::select('customer_id','reference','created_at','grand_total','status','id')->latest()->paginate(5);
@@ -41,6 +42,7 @@ class AdminController extends Controller
             'riders','ride_counts','riders_count','total_complains',
             'un_approved_drivers_count','approved_drivers_count',
             'tripsStatistics',
+            'drivers_count',
             'bookingsStatistics'
         ));
     }

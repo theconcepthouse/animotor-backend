@@ -74,24 +74,24 @@
 
 
 
-                    <div class="personal__infobody">
-                        <div class="personal__info__box">
-                            <div class="per__ittle border__bottom pb__20 d-flex align-items-center">
-                                <h5>
-                                    Credit or Debit Cards
-                                </h5>
-                            </div>
-                            <div class="debit__creadit d-flex align-items-center">
+{{--                    <div class="personal__infobody">--}}
+{{--                        <div class="personal__info__box">--}}
+{{--                            <div class="per__ittle border__bottom pb__20 d-flex align-items-center">--}}
+{{--                                <h5>--}}
+{{--                                    Credit or Debit Cards--}}
+{{--                                </h5>--}}
+{{--                            </div>--}}
+{{--                            <div class="debit__creadit d-flex align-items-center">--}}
 
-                                <a wire:navigate href="{{ route('top_up') }}" class="card__boxed">
-                                    <img src="/assets/img/payment/payplus.png" alt="img">
-                                    <span>
-                           Account top up
-                        </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+{{--                                <a wire:navigate href="{{ route('top_up') }}" class="card__boxed">--}}
+{{--                                    <img src="/assets/img/payment/payplus.png" alt="img">--}}
+{{--                                    <span>--}}
+{{--                           Account top up--}}
+{{--                        </span>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
 
                 </div>

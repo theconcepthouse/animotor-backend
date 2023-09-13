@@ -157,7 +157,7 @@ class TripRequestController extends Controller
 
             $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-'.date('Ymd-Hm').'-'.mt_rand(100000,9999999);
 
-            $tripRequest = TripRequest::create($data);
+            $tripRequest['data'] = TripRequest::create($data);
 
             if($tripRequest){
                 $tripRequest = TripRequest::find($tripRequest->id);

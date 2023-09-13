@@ -14,7 +14,7 @@ class DashboardController extends Controller
     }
 
     public function bookings(){
-        $bookings = Booking::paginate(10);
+        $bookings = Booking::where('customer_id', auth()->id())->paginate(10);
         return view('dashboard.bookings', compact('bookings'));
     }
 

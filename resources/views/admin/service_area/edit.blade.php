@@ -340,7 +340,7 @@
                 dataType: 'json',
                 success: function (data) {
 
-                    console.log(data);
+                    console.log('all_zine',data);
                     for(var i=0; i<data.length;i++)
                     {
                         polygons.push(new google.maps.Polygon({
@@ -357,7 +357,8 @@
                 },
             });
         }
-        $(document).on('ready', function(){
+
+        $(document).ready(function(){
             set_all_zones();
             $("#zone_form").on('keydown', function(e){
                 if (e.keyCode === 13) {

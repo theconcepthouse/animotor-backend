@@ -136,15 +136,16 @@ class RegionController extends Controller
     }
 
 
-    public function update(Request $request, Region $region): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Region $region)
     {
 
         $validatedData = $this->validateData($request, $region);
 
         $polygon = [];
 
+//        return   $value = $request->coordinates;
         if($request->has('coordinates')){
-            $value = $request->coordinates;
+          $value = $request->coordinates;
 
             foreach(explode('),(',trim($value,'()')) as $index=>$single_array){
                 if($index == 0)
@@ -152,13 +153,20 @@ class RegionController extends Controller
                     $lastcord = explode(',',$single_array);
                 }
                 $coords = explode(',',$single_array);
-                $polygon[] = new Point($coords[0], $coords[1]);
+                $polygon[] = new Point((float)$coords[0], (float)$coords[1]);
             }
 
-            $polygon[] = new Point($lastcord[0], $lastcord[1]);
+            $polygon[] = new Point((float)$lastcord[0], (float)$lastcord[1]);
+
+//            return  count($polygon);
+            if(count($polygon) > 2){
+                $validatedData['coordinates'] = new Polygon([new LineString($polygon)]);
+            }else{
+                $validatedData['coordinates'] = $region->coordinates;
+            }
+
         }
 
-        $validatedData['coordinates'] = new Polygon([new LineString($polygon)]);
 
         $region->update($validatedData);
 

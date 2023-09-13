@@ -44,7 +44,7 @@ return [
     'service_area' => 'Service Area',
     'company' => 'Company',
     'car' => 'Car',
-    'booking_no' => 'Booking no',
+    'booking_no' => 'Booking No',
     'car_listings' => 'Car Listings',
     'reference' => 'Reference',
     'pickup_date' => 'Pickup Date',
@@ -78,7 +78,7 @@ return [
     'total_claim_cost' => 'Total claim cost',
 
     'booking_id' => 'Booking id',
-    'booking_date' => 'Booking date',
+    'booking_date' => 'Booking Date',
     'date_time' => 'Date time',
     'date_and_time' => 'Date & time',
     'mileage_at_repair' => 'Mileage at repair',

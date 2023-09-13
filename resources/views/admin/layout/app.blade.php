@@ -359,7 +359,7 @@
 
     $menuArray[] = [
         'url' => route('admin.rental.vehicle_defects'),
-        'text' => 'vehicle Defects',
+        'text' => 'Vehicle Defects',
         'route' => 'cars-read',
         'icon' => 'ni ni-linux-server',
     ];
@@ -458,7 +458,7 @@
     ];
 
     $menuArray[] = [
-        'text' => 'CMS setup',
+        'text' => 'CMS Setup',
         'icon' => 'ni ni-layers-fill',
         'route' => 'website-pages',
         'submenu' => [
@@ -558,9 +558,9 @@
 
 
                         <ul class="nk-menu">
-                            <li class="nk-menu-item search-in-menu">
-                                <input class="form-control" placeholder="search in menu" />
-                            </li>
+{{--                            <li class="nk-menu-item search-in-menu">--}}
+{{--                                <input class="form-control" placeholder="search in menu" />--}}
+{{--                            </li>--}}
                             @foreach ($menuArray as $menu)
 
 

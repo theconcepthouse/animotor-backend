@@ -157,7 +157,7 @@ class TripRequestController extends Controller
 
             $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-'.date('Ymd-Hm').'-'.mt_rand(100000,9999999);
 
-            $tripRequest['data'] = TripRequest::create($data);
+            $tripRequest = TripRequest::create($data);
 
             if($tripRequest){
                 $tripRequest = TripRequest::find($tripRequest->id);
@@ -170,6 +170,8 @@ class TripRequestController extends Controller
             event(new NewTrip($tripRequest));
 
 //            $this->notifyOnlineDrivers($tripRequest);
+
+            $tripRequest['data'] = $tripRequest;
 
             return $this->successResponse('success', $tripRequest);
 

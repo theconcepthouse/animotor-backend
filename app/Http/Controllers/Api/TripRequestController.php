@@ -171,9 +171,9 @@ class TripRequestController extends Controller
 
 //            $this->notifyOnlineDrivers($tripRequest);
 
-            $tripRequest['data'] = $tripRequest;
+            $data['data'] = $tripRequest;
 
-            return $this->successResponse('success', $tripRequest);
+            return $this->successResponse('success', $data);
 
         } catch (ValidationException $e) {
             return $this->errorResponse($e->errors(), 400);

@@ -17,6 +17,7 @@
                             </div>
                             <div class="nk-block-head-content">
                                 <a href="{{ url()->previous() }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                <a href="{{ route('admin.trip.delete',$trip->id) }}" class="btn btn-danger bg-white d-none d-sm-inline-flex"><span>Delete Trip</span></a>
                                 <a href="{{ url()->previous() }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                             </div>
                         </div>

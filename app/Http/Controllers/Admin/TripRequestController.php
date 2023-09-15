@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\TripRequest;
+use App\Services\Firebase\FirestoreService;
 use Illuminate\Http\Request;
 
 class TripRequestController extends Controller
@@ -31,6 +32,12 @@ class TripRequestController extends Controller
 
 
         return view('admin.trips.list', compact('data','title'));
+    }
+
+    public function deleteTrip($id, FirestoreService $firestoreService){
+        $trip = TripRequest::findOrFail($id);
+        $firestoreService->deleteTrip($trip);
+        return redirect()->back()->with('success','Trip successfully deleted');
     }
 
     public function show($id){

@@ -38,7 +38,7 @@ class TripRequestController extends Controller
         $trip = TripRequest::findOrFail($id);
         $firestoreService->deleteTrip($trip);
         $trip->delete();
-        return redirect()->back()->with('success','Trip successfully deleted');
+        return redirect()->route('admin.trips.index', ['status' => 'pending'])->with('success','Trip successfully deleted');
     }
 
     public function show($id){

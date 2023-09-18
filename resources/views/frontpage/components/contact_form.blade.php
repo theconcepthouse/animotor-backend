@@ -18,6 +18,15 @@
                 </div>
             </div>
 
+            <div class="col-md-4">
+                <div class="input__grp">
+                    <label for="last_name">Last Name </label>
+                    <div class="form-group mt-2">
+                        <input required class="form-control" value="" name="last_name" type="text" id="email" placeholder="Last Name">
+                    </div>
+                </div>
+            </div>
+
 
             <div class="col-md-12">
                 <div class="input__grp">

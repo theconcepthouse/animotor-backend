@@ -21,7 +21,7 @@
 
                     <input name="active_setting" value="app" type="hidden" />
 
-                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'value' => settings('otp_provider','firebase'), 'colSize' => 'col-md-12', 'fieldName' => 'otp_provider','title' => 'OTP Provider (disabled for testing)', 'options' => $otp_providers])
+                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'value' => settings('otp_provider','firebase'), 'colSize' => 'col-md-12', 'fieldName' => 'otp_provider','title' => 'OTP Provider (disabled for testing)', 'options' => isset($otp_providers) ? $otp_providers : []])
                     @include('admin.partials.form.text', ['attributes' => 'required', 'value' => settings('site_name'), 'colSize' => 'col-md-12 mt-3', 'fieldName' => 'site_name','title' => 'Site Name'])
                     @include('admin.partials.form.text', ['attributes' => 'required', 'value' => settings('site_logan'), 'colSize' => 'col-md-12 mt-3', 'fieldName' => 'site_logan','title' => 'Site Slogan'])
                     @include('admin.partials.form.text', ['colSize' => 'col-md-12 mt-3', 'value' => settings('contact_email'), 'fieldName' => 'contact_email','title' => 'Contact Email'])

@@ -28,7 +28,7 @@
         @endif
     @endforeach
 
-    @include('frontpage.components.subscribe')
+{{--    @include('frontpage.components.subscribe')--}}
 
 
 @endsection

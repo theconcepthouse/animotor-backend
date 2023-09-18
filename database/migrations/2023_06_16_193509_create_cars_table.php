@@ -15,7 +15,7 @@ return new class extends Migration
 //            $table->id();
             $table->uuid('id')->primary();
 
-            $table->uuid('driver_id');
+            $table->uuid('driver_id')->nullable();
             $table->string('title')->nullable();
             $table->string('make')->nullable();
             $table->boolean('is_available')->default(true);

@@ -9,12 +9,20 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function dashboard(){
-        $bookings = TripRequest::where('customer_id', auth()->id())->paginate(10);
+        if(isAdmin()){
+            $bookings = TripRequest::paginate(10);
+        }else{
+            $bookings = TripRequest::where('customer_id', auth()->id())->paginate(10);
+        }
         return view('dashboard.index', compact('bookings'));
     }
 
     public function bookings(){
-        $bookings = Booking::where('customer_id', auth()->id())->paginate(10);
+        if(isAdmin()) {
+            $bookings = Booking::paginate(10);
+        }else{
+            $bookings = Booking::where('customer_id', auth()->id())->paginate(10);
+        }
         return view('dashboard.bookings', compact('bookings'));
     }
 

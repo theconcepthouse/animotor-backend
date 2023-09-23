@@ -56,7 +56,7 @@ class HotelController extends Controller
 
     //API
     public function getTrendingHotels(){
-        $hotels = Hotel::paginate(10);
+        $hotels = Hotel::with('region')->paginate(10);
         return response()->json($hotels);
     }
 }

@@ -14,6 +14,7 @@ class Hotel extends Model
 
     protected $guarded;
 
+    protected $appends = ['app_url'];
 
     public function getImagesAttribute($value)
     {
@@ -28,6 +29,10 @@ class Hotel extends Model
             return [];
         }
         return json_decode($value, true);
+    }
+    public function getAppUrlAttribute()
+    {
+        return route('hotel.show', $this->id).'?app';
     }
 
     public function region(): BelongsTo

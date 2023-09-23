@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Modules\Hotel\Http\Controllers\HotelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,11 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/hotel', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['prefix' => 'v1/'], function ($router) {
+
+    Route::group(['prefix' => 'config'], function () {
+        Route::get('home_data', [HotelController::class, 'getTrendingHotels']);
+    });
 });

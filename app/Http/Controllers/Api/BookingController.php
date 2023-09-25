@@ -168,7 +168,7 @@ class BookingController extends Controller
 
         $diffInDays = $endDate->diffInDays($startDate);
 
-        $data = Car::all();
+        $data = Car::latest()->paginate(10);
 
 
         if($diffInDays < 2){

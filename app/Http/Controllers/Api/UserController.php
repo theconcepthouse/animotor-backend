@@ -57,6 +57,15 @@ class UserController extends Controller
         return $this->successResponse('transactions', $transactions);
     }
 
+    public function getNotification(): JsonResponse
+    {
+        $notifications = auth()->user()->notifications()->latest()->paginate(50);
+        foreach ($notifications as $notification) {
+            $notification->formatted_created_at = $notification->created_at->diffForHumans();
+        }
+        return $this->successResponse('notifications', $notifications);
+    }
+
     public function getEarnings(Request $request): JsonResponse
     {
         $user_id = auth()->id();

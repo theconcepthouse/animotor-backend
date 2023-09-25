@@ -57,6 +57,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('update/lat_lng', [UserController::class, 'updateLatLng']);
         Route::post('transactions', [UserController::class, 'getTransactions']);
         Route::post('earnings', [UserController::class, 'getEarnings']);
+        Route::post('notifications', [UserController::class, 'getNotification']);
+
     });
 
     Route::group(['prefix' => 'driver','middleware' => ['auth:sanctum']], function () {

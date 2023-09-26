@@ -145,7 +145,7 @@ class BookingController extends Controller
 //
 //        $region_id = $user->region_id;
 
-        $request->validate([
+        $validated = $request->validate([
             'pick_up_lat' => 'required',
             'pick_up_lng' => 'required',
             'pick_location' => 'required',
@@ -153,6 +153,7 @@ class BookingController extends Controller
             'pick_up_date' => 'nullable',
             'drop_off_time' => 'nullable',
             'drop_off_date' => 'nullable',
+            'filter' => 'nullable',
         ]);
 
         $pick_up_lat = $request['pick_up_lat'];
@@ -167,6 +168,12 @@ class BookingController extends Controller
         $endDate = Carbon::parse($drop_off_date);
 
         $diffInDays = $endDate->diffInDays($startDate);
+
+        $filter =  $validated['filter'];
+
+        if(count($filter) > 0){
+            return $filter;
+        }
 
         $data = Car::latest()->paginate(10);
 

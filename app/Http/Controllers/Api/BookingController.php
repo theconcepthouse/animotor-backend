@@ -207,6 +207,26 @@ class BookingController extends Controller
             $item->booking = $booking;
         }
 
+        $data['filter'] =  [
+        'car_specs' => [
+            'Air conditioning',
+            '4+ door',
+        ],
+        'electric_cars' => [
+            'fully_electric',
+            'hybrid',
+            'plug_in_hybrid',
+        ],
+        'mileage' => [
+            'limited',
+            'unlimited',
+        ],
+        'transmissions' => [
+            'automatic',
+            'manual',
+        ],
+    ];
+
 
         return $this->successResponse('available cars', $data);
     }

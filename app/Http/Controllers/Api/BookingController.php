@@ -211,7 +211,9 @@ class BookingController extends Controller
             $item->booking = $booking;
         }
 
-        $data['filter'] =  [
+        $response['cars'] = $data;
+
+        $response['filter'] =  [
         'car_specs' => [
             'Air conditioning',
             '4+ door',
@@ -232,7 +234,7 @@ class BookingController extends Controller
     ];
 
 
-        return $this->successResponse('available cars', $data);
+        return $this->successResponse('available cars', $response);
     }
 
     public function myActiveRide(): JsonResponse

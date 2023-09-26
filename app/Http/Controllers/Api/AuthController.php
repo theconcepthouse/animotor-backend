@@ -75,7 +75,7 @@ class AuthController extends Controller
             }else{
 
                 $request->validate([
-                    'country' => 'required',
+//                    'country' => 'required',
                     'country_code' => 'required',
                 ]);
 

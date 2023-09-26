@@ -177,9 +177,6 @@ class BookingController extends Controller
             return $this->successResponse('resut',$selectedFiltersArray);
         }
 
-        if(count($filter) > 0){
-            return $filter;
-        }
 
         $data = Car::latest()->paginate(10);
 

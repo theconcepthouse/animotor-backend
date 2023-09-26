@@ -178,7 +178,7 @@ class BookingController extends Controller
         }
 
 
-        return $this->successResponse('resuts',$filter);
+        return $this->successResponse('resuts',$selectedFiltersArray);
 
 
         $data = Car::latest()->paginate(10);

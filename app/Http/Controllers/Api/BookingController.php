@@ -171,6 +171,12 @@ class BookingController extends Controller
 
         $filter =  $validated['filter'];
 
+        $selectedFiltersArray = json_decode($filter, true);
+
+        if (!empty($selectedFiltersArray)) {
+            return $this->successResponse('resut',$selectedFiltersArray);
+        }
+
         if(count($filter) > 0){
             return $filter;
         }

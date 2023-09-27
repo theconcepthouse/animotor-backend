@@ -169,7 +169,7 @@ class BookingController extends Controller
 
         $diffInDays = $endDate->diffInDays($startDate);
 
-//        $filter =  json_decode($validated['filter']);
+        $filter =  json_decode($validated['filter']);
 
 //        $selectedFiltersArray = json_encode($filter, true);
 
@@ -239,6 +239,7 @@ class BookingController extends Controller
         }
 
         $response['cars'] = $data;
+        $response['filters'] = $filter;
 
         $response['filter'] =  [
         'car_specs' => [

@@ -278,6 +278,7 @@ class BookingController extends Controller
         $response['car_types'] = array_values(array_unique($data->pluck('type')->toArray()));
         $response['filter']['transmissions'] = array_values(array_unique($data->pluck('gear')->toArray()));
 
+        array_unshift($response['car_types'], 'all');
 
         return $this->successResponse('available cars', $response);
     }

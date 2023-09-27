@@ -66,7 +66,7 @@ class BookingController extends Controller
         return $this->successResponse('cars', $data);
     }
 
-    public function setBooking(Request $request): JsonResponse
+    public function setBooking(Request $request)
     {
         $user = User::find(auth()->id());
         if(!$user->region_id){
@@ -136,7 +136,7 @@ class BookingController extends Controller
     }
 
 
-    public function getCars(Request $request, DistanceService $distanceService):JsonResponse
+    public function getCars(Request $request, DistanceService $distanceService)
     {
         $user = User::find(auth()->id());
 //        if(!$user->region_id){
@@ -169,19 +169,33 @@ class BookingController extends Controller
 
         $diffInDays = $endDate->diffInDays($startDate);
 
-        $filter =  $validated['filter'];
+        $filter =  json_decode($validated['filter']);
 
         $selectedFiltersArray = json_encode($filter, true);
 
-        if (!empty($selectedFiltersArray)) {
-            return $this->successResponse('resut',$selectedFiltersArray);
+//        if (!empty($selectedFiltersArray)) {
+//            return $this->successResponse('resut',$selectedFiltersArray);
+//        }
+
+        foreach ($filter as $category => $values) {
+
+
+            foreach ($values as $value) {
+                // $value is a filter option (e.g., "fully_electric")
+
+//                return $this->successResponse('resuts',$values);
+
+                // Perform your desired processing here
+                // For example, you can apply the filter or store the selected filters in your database
+            }
         }
 
 
-        return $this->successResponse('resuts',$selectedFiltersArray);
+//        return $this->successResponse('resuts',$filter);
 
+        $query = Car::query();
 
-        $data = Car::latest()->paginate(10);
+        $data = $query->paginate(10);
 
 
         if($startDate > $endDate){
@@ -245,6 +259,12 @@ class BookingController extends Controller
             'manual',
         ],
     ];
+
+        $response['filter']['car_types'] = array_unique($data->pluck('type')->toArray());
+
+        $response['filter']['car_makes'] = array_unique($data->pluck('make')->toArray());
+        $response['filter']['car_models'] = array_unique($data->pluck('model')->toArray());
+
 
 
         return $this->successResponse('available cars', $response);

@@ -139,11 +139,6 @@ class BookingController extends Controller
     public function getCars(Request $request, DistanceService $distanceService)
     {
         $user = User::find(auth()->id());
-//        if(!$user->region_id){
-//            return $this->errorResponse('We cant identify your pickup location');
-//        }
-//
-//        $region_id = $user->region_id;
 
         $validated = $request->validate([
             'pick_up_lat' => 'required',
@@ -175,40 +170,45 @@ class BookingController extends Controller
             $filter =  $validated['filter'];
         }
 
-//        $selectedFiltersArray = json_encode($filter, true);
-
-//        if (!empty($selectedFiltersArray)) {
-//            return $this->successResponse('resut',$selectedFiltersArray);
-//        }
-
-//        foreach ($filter as $category => $values) {
-//
-//
-//            foreach ($values as $value) {
-//                // $value is a filter option (e.g., "fully_electric")
-//
-////                return $this->successResponse('resuts',$values);
-//
-//                // Perform your desired processing here
-//                // For example, you can apply the filter or store the selected filters in your database
-//            }
-//        }
-
-
-//        return $this->successResponse('resuts',$filter);
-
-        $query = Car::query();
-
-        $data = $query->paginate(10);
-
 
         if($startDate > $endDate){
             return $this->errorResponse('Invalid pickup and drop-off date', 422);
         }
-//
-//        if($diffInDays < 2){
-//            return $this->errorResponse('Your drop off date cant be same as pickup', 422);
-//        }
+
+        $query = Car::query();
+
+
+        foreach ($filter as $category => $values) {
+
+            if($category == 'car_makes'){
+                $query->whereIn('make', $values);
+            }
+            if($category == 'car_models'){
+                $query->whereIn('model', $values);
+            }
+            if($category == 'car_types'){
+                $query->whereIn('type', $values);
+            }
+            if($category == 'transmissions'){
+                $query->whereIn('gear', $values);
+            }
+            if($category == 'electric_cars'){
+                $query->whereIn('fuel_type', $values);
+            }
+
+            if($category == 'mileage'){
+                if(in_array('unlimited', $values)){
+                    $query->where('mileage', 0);
+                }
+            }
+
+            if($category == 'car_specs'){
+                if (in_array('4+ door', $values)) {
+                    $query->where('door', '>', 3);
+                }
+            }
+
+        }
 
         $booking = [
             "days" => $diffInDays,
@@ -221,6 +221,7 @@ class BookingController extends Controller
             "drop_off_time" => $drop_off_time
         ];
 
+        $data = $query->paginate(10);
 
         foreach ($data as $item){
 
@@ -243,7 +244,6 @@ class BookingController extends Controller
         }
 
         $response['cars'] = $data;
-        $response['filters'] = $filter;
 
         $response['filter'] =  [
         'car_specs' => [
@@ -258,11 +258,7 @@ class BookingController extends Controller
         'mileage' => [
             'limited',
             'unlimited',
-        ],
-        'transmissions' => [
-            'automatic',
-            'manual',
-        ],
+        ]
     ];
 
 
@@ -270,6 +266,7 @@ class BookingController extends Controller
         $response['filter']['car_models'] = array_unique($data->pluck('model')->toArray());
 
         $response['filter']['car_types'] = array_values(array_unique($data->pluck('type')->toArray()));
+        $response['filter']['transmissions'] = array_values(array_unique($data->pluck('gear')->toArray()));
 
 
         return $this->successResponse('available cars', $response);

@@ -181,19 +181,29 @@ class BookingController extends Controller
         foreach ($filter as $category => $values) {
 
             if($category == 'car_makes'){
-                $query->whereIn('make', $values);
+                if(count($values) > 0) {
+                    $query->whereIn('make', $values);
+                }
             }
             if($category == 'car_models'){
-                $query->whereIn('model', $values);
+                if(count($values) > 0) {
+                    $query->whereIn('model', $values);
+                }
             }
             if($category == 'car_types'){
-                $query->whereIn('type', $values);
+                if(count($values) > 0) {
+                    $query->whereIn('type', $values);
+                }
             }
             if($category == 'transmissions'){
-                $query->whereIn('gear', $values);
+                if(count($values) > 0) {
+                    $query->whereIn('gear', $values);
+                }
             }
             if($category == 'electric_cars'){
-                $query->whereIn('fuel_type', $values);
+                if(count($values) > 0){
+                    $query->whereIn('fuel_type', $values);
+                }
             }
 
             if($category == 'mileage'){

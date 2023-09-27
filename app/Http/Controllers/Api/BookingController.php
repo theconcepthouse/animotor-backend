@@ -159,6 +159,8 @@ class BookingController extends Controller
         $drop_off_time = $request['drop_off_time'];
         $drop_off_date = $request['drop_off_date'];
 
+        $car_type = $request['car_type'] ?? 'all';
+
         $startDate = Carbon::parse($pick_up_date);
         $endDate = Carbon::parse($drop_off_date);
 
@@ -218,6 +220,10 @@ class BookingController extends Controller
                 }
             }
 
+        }
+
+        if($car_type != 'all'){
+            $query->where('type',$car_type);
         }
 
         $booking = [

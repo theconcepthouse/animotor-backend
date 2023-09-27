@@ -169,7 +169,11 @@ class BookingController extends Controller
 
         $diffInDays = $endDate->diffInDays($startDate);
 
-        $filter =  json_decode($validated['filter']);
+        if(is_string($validated['filter'])){
+            $filter =  json_decode($validated['filter']);
+        }else{
+            $filter =  $validated['filter'];
+        }
 
 //        $selectedFiltersArray = json_encode($filter, true);
 

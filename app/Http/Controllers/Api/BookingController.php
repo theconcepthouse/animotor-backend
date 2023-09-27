@@ -169,26 +169,26 @@ class BookingController extends Controller
 
         $diffInDays = $endDate->diffInDays($startDate);
 
-        $filter =  json_decode($validated['filter']);
+//        $filter =  json_decode($validated['filter']);
 
-        $selectedFiltersArray = json_encode($filter, true);
+//        $selectedFiltersArray = json_encode($filter, true);
 
 //        if (!empty($selectedFiltersArray)) {
 //            return $this->successResponse('resut',$selectedFiltersArray);
 //        }
 
-        foreach ($filter as $category => $values) {
-
-
-            foreach ($values as $value) {
-                // $value is a filter option (e.g., "fully_electric")
-
-//                return $this->successResponse('resuts',$values);
-
-                // Perform your desired processing here
-                // For example, you can apply the filter or store the selected filters in your database
-            }
-        }
+//        foreach ($filter as $category => $values) {
+//
+//
+//            foreach ($values as $value) {
+//                // $value is a filter option (e.g., "fully_electric")
+//
+////                return $this->successResponse('resuts',$values);
+//
+//                // Perform your desired processing here
+//                // For example, you can apply the filter or store the selected filters in your database
+//            }
+//        }
 
 
 //        return $this->successResponse('resuts',$filter);

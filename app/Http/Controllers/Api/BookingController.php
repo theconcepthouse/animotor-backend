@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\TripRequest;
 
 use App\Models\User;
+use App\Models\VehicleType;
 use App\Services\DistanceService;
 use App\Services\Firebase\FirestoreService;
 use App\Services\TripRequestService;
@@ -237,7 +238,13 @@ class BookingController extends Controller
             "drop_off_time" => $drop_off_time
         ];
 
+        if($car_type != 'all'){
+            $query->where('type',$car_type);
+        }
+
         $data = $query->paginate(10);
+
+
 
         foreach ($data as $item){
 
@@ -281,10 +288,12 @@ class BookingController extends Controller
         $response['filter']['car_makes'] = array_values(array_unique($data->pluck('make')->toArray()));
         $response['filter']['car_models'] = array_values(array_unique($data->pluck('model')->toArray()));
 
-        $response['car_types'] = array_values(array_unique($data->pluck('type')->toArray()));
+        $response['car_types'] = array_values(array_unique(VehicleType::pluck('name')->toArray()));
         $response['filter']['transmissions'] = array_values(array_unique($data->pluck('gear')->toArray()));
 
         array_unshift($response['car_types'], 'all');
+
+
 
         return $this->successResponse('available cars', $response);
     }

@@ -260,7 +260,7 @@ class BookingController extends Controller
         ],
     ];
 
-//        $response['filter']['car_types'] = array_unique($data->pluck('type')->toArray());
+        $response['filter']['car_types'] = array_unique($data->pluck('type')->toArray());
 
         $response['filter']['car_makes'] = array_unique($data->pluck('make')->toArray());
         $response['filter']['car_models'] = array_unique($data->pluck('model')->toArray());

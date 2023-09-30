@@ -106,8 +106,8 @@ Route::group(['prefix' => 'v1/'], function ($router) {
     });
 
 
-//    Route::group(['prefix' => 'booking','middleware' => ['auth:sanctum']], function () {
-    Route::group(['prefix' => 'booking'], function () {
+    Route::group(['prefix' => 'booking','middleware' => ['auth:sanctum']], function () {
+//    Route::group(['prefix' => 'booking'], function () {
         Route::post('cars', [BookingController::class, 'getCars']);
         Route::post('set/booking', [BookingController::class, 'setBooking']);
         Route::post('car/listings', [BookingController::class, 'getAllCars']);

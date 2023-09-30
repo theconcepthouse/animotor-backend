@@ -95,6 +95,7 @@ class ConfigController extends Controller
         $data['privacy_url'] = settings('privacy_url').'?app';
         $data['about_url'] = settings('about_url').'?app';
         $data['faqs_url'] = settings('faqs_url').'?app';
+        $data['contact_url'] = settings('contact_url').'?app';
         $data['change_password_url'] = settings('change_password_url').'?app';
         $data['dial_min'] = (int)settings('dial_min');
         $data['dial_max'] = (int)settings('dial_max');

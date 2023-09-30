@@ -7,6 +7,7 @@ use App\Models\Car;
 use App\Models\Page;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class FrontPageController extends Controller
 {
@@ -33,6 +34,20 @@ class FrontPageController extends Controller
 
     public function builder(){
         return view('frontpage.home');
+    }
+  public function token(Request $request){
+      if ($request->has('token')) {
+          $token = $request->input('token');
+
+          $tk = PersonalAccessToken::findToken($token);
+
+          if ($tk) {
+                $user = $tk->tokenable()->first();
+              auth()->login($user);
+          }
+          return $user;
+      }
+      return 'not found';
     }
 
     public function manageBooking(){

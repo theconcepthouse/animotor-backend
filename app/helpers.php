@@ -190,7 +190,7 @@ function menuItems(){
 
 function is_app(): bool
 {
-    if (request()->has('app')){
+    if (request()->has('app') ||  request()->header('X-WebView') === 'ReactNative'){
         return true;
     }else{
         return false;

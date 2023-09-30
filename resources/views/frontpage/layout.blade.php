@@ -208,7 +208,7 @@
 
 @yield('content')
 
-@if(!request()->has('app'))
+@if(!is_app())
 @include('frontpage.partials.layout.footer')
 @endif
 

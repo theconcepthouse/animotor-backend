@@ -206,6 +206,7 @@
 <!-- Preloader End Here -->
 
 
+{{ request()->header('X-WebView') }}
 @yield('content')
 
 @if(!is_app())

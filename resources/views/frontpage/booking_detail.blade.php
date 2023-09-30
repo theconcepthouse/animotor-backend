@@ -3,7 +3,7 @@
 
 @section('content')
 
-    @if(!request()->has('app'))
+    @if(!is_app())
         @include('frontpage.partials.layout.header')
     @endif
 
@@ -325,7 +325,9 @@
     </section>
 
 
-    @include('frontpage.components.subscribe')
+    @if(!is_app())
+        @include('frontpage.components.subscribe')
+    @endif
 
 
 @endsection

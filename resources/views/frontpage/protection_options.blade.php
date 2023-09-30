@@ -11,7 +11,9 @@
     <!-- hotel list here -->
     <section class="flight__onewaysection pb__60 pt__60">
 
-        @include('frontpage.components.home_booking')
+        @if(!is_app())
+            @include('frontpage.components.home_booking')
+        @endif
 
 
         <div class="container">
@@ -163,7 +165,8 @@
     </section>
 
 
-    <section class="flight__onewaysection">
+    @if(!is_app())
+        <section class="flight__onewaysection">
         <div class="container p-5">
         <div class="hotelbooking__categoris__wra">
 
@@ -182,6 +185,6 @@
         </div>
     </div>
     </section>
-
+    @endif
 
 @endsection

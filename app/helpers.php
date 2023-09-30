@@ -188,6 +188,14 @@ function menuItems(){
     return $menus;
 }
 
+function is_app(): bool
+{
+    if (request()->has('app')){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 function imageStringArray($images): array
 {

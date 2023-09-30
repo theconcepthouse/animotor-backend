@@ -249,7 +249,7 @@ class AuthController extends Controller
             if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
                 $user = User::where('email', $request->email)->first();
 
-                $data['user'] = $user;
+                $data = $user;
 
                 if($request['platform']){
                     $user->platform = $request['platform'];

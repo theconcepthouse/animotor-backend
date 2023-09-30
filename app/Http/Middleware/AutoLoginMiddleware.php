@@ -14,6 +14,10 @@ class AutoLoginMiddleware
 
     public function handle(Request $request, Closure $next) : Response
     {
+        if($request->header('X-WebView') === 'ReactNative'){
+            session(['is_webview' => true]);
+        }
+
         if ($request->has('token')) {
            $token = $request->input('token');
 

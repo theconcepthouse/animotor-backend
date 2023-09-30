@@ -12,7 +12,12 @@ class AutoLoginRequiredMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
+
         if ($request->has('token')) {
+            if($request->header('X-WebView') === 'ReactNative'){
+                session(['is_webview' => true]);
+            }
+
             $token = $request->input('token');
 
             $tk = PersonalAccessToken::findToken($token);

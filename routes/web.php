@@ -21,25 +21,26 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', [FrontPageController::class, 'home']);
-Route::get('/token', [FrontPageController::class, 'token']);
-Route::get('/manage/booking', [FrontPageController::class, 'manageBooking'])->name('manage_booking');
-Route::post('/search/booking', [FrontPageController::class, 'searchBooking'])->name('search_booking');
-Route::get('/builder', [FrontPageController::class, 'builder']);
-Route::get('/booking/{id}', [FrontPageController::class, 'booking'])->name('booking');
-Route::get('/voucher/{id}', [FrontPageController::class, 'voucher'])->name('voucher');
-Route::get('/builder2', [FrontPageController::class, 'builder2']);
-Route::get('/list', [FrontPageController::class, 'list']);
-Route::get('/flight', [FrontPageController::class, 'flight']);
-Route::get('/deal', [FrontPageController::class, 'deal'])->name('deal');
-Route::get('/protection_option', [FrontPageController::class, 'protectionOption'])->name('protection');
-Route::get('/checkout', [FrontPageController::class, 'checkout'])->name('checkout');
-
+Route::group(['middleware' => ['auto_login']], function () {
+    Route::get('/', [FrontPageController::class, 'home']);
+    Route::get('/token', [FrontPageController::class, 'token']);
+    Route::get('/manage/booking', [FrontPageController::class, 'manageBooking'])->name('manage_booking');
+    Route::post('/search/booking', [FrontPageController::class, 'searchBooking'])->name('search_booking');
+    Route::get('/builder', [FrontPageController::class, 'builder']);
+    Route::get('/booking/{id}', [FrontPageController::class, 'booking'])->name('booking');
+    Route::get('/voucher/{id}', [FrontPageController::class, 'voucher'])->name('voucher');
+    Route::get('/builder2', [FrontPageController::class, 'builder2']);
+    Route::get('/list', [FrontPageController::class, 'list']);
+    Route::get('/flight', [FrontPageController::class, 'flight']);
+    Route::get('/deal', [FrontPageController::class, 'deal'])->name('deal');
+    Route::get('/protection_option', [FrontPageController::class, 'protectionOption'])->name('protection');
+    Route::get('/checkout', [FrontPageController::class, 'checkout'])->name('checkout');
+});
 
 Route::get('/search', [FrontPageController::class, 'search'])->name('search');
 
 
-Route::group(['middleware' => ['auto_login']], function () {
+Route::group(['middleware' => ['auto_login_required']], function () {
     Route::group(['prefix' => 'customer'], function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
         Route::get('/bookings', [DashboardController::class, 'bookings'])->name('bookings');

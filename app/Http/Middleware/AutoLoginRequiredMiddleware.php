@@ -2,20 +2,18 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\PersonalAccessToken;
 use Symfony\Component\HttpFoundation\Response;
 
-class AutoLoginMiddleware
+class AutoLoginRequiredMiddleware
 {
-
-    public function handle(Request $request, Closure $next) : Response
+    public function handle(Request $request, Closure $next): Response
     {
         if ($request->has('token')) {
-           $token = $request->input('token');
+            $token = $request->input('token');
 
             $tk = PersonalAccessToken::findToken($token);
 
@@ -29,7 +27,10 @@ class AutoLoginMiddleware
             }
         }
 
-        return $next($request);
-
+        if(\auth()->check()){
+            return $next($request);
+        }else{
+            return redirect()->route('login');
+        }
     }
 }

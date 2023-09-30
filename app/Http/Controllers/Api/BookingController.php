@@ -229,6 +229,7 @@ class BookingController extends Controller
 
         $booking = [
             "days" => $diffInDays,
+            "booking_day" => $diffInDays,
             "pick_location" => $pick_location,
             "pick_up_time" => $pick_up_time,
             "pick_up_date" => $pick_up_date,
@@ -238,6 +239,16 @@ class BookingController extends Controller
             "drop_off_time" => $drop_off_time
         ];
 
+//        car_id=99fb0a79-0ea1-44db-adc2-af2e6481f8f1&
+//    pick_up_location_id=99e9a6c8-139e-4a18-8758-76e1a3fcb79f&
+//    drop_off_location_id=99e94927-d0ad-4634-af11-6acce7a3a063&
+//    pick_up_location=Brisbane%2C+Queensland&
+//    drop_off_location=Calgary%2C+Alberta&
+//    pick_up_time=12%3A00&
+//    pick_up_date=2023-09-30&
+//    drop_off_date=2023-10-02&
+//    booking_day=2
+
         if($car_type != 'all'){
             $query->where('type',$car_type);
         }
@@ -245,8 +256,13 @@ class BookingController extends Controller
         $data = $query->paginate(10);
 
 
-
         foreach ($data as $item){
+
+            $booking['car_id'] = $item->id;
+
+            $queryString = http_build_query($booking);
+
+            $booking['book_url'] = route('protection').'?'.$queryString;
 
             $tax = ($item->price_per_day * $diffInDays) * 0.075;
 
@@ -261,6 +277,7 @@ class BookingController extends Controller
                 ['name' => 'Total', 'val' => ($item->price_per_day * $diffInDays)],
                 ['name' => 'Grand total', 'val' => ($item->price_per_day * $diffInDays) + $tax],
             ];
+
 
             $item->price = $price;
             $item->booking = $booking;

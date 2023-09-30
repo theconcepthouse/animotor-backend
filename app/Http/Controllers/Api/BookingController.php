@@ -229,6 +229,7 @@ class BookingController extends Controller
 
         $booking = [
             "days" => $diffInDays,
+            "app" => true,
             "booking_day" => $diffInDays,
             "pick_location" => $pick_location,
             "pick_up_time" => $pick_up_time,

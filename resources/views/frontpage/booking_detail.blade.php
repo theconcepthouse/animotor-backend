@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="bg-primary col-3 p-3  mt-3 border-radius-10">
+                                <div class="bg-primary col-md-3 col-12 p-3  mt-3 border-radius-10">
                                     <p>Booking number</p>
                                     <div class="d-flex mt-4">
                                         <img src="/assets/img/icons/copy.png" /><p class="mx-3">{{ $booking->booking_number }}</p>

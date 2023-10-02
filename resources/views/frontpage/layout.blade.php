@@ -182,12 +182,15 @@
              overflow: auto;
          }
 
+         .is_app_top .flight__onewaysection {
+             padding-top: 90px!important;
+         }
 
     </style>
 
 </head>
 
-<body>
+<body class="{{ is_app() ? 'is_app_top' : '' }}">
 
 <!-- Preloader Start Here -->
 <div class="preloader__wrap">

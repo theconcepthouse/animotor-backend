@@ -9,7 +9,7 @@
 
 
     <!-- hotel list here -->
-    <section class="flight__onewaysection pb__60 pt__60">
+    <section class="flight__onewaysection pb__60 pt__60 ">
 
         @if(!is_app())
             @include('frontpage.components.home_booking')
@@ -21,21 +21,21 @@
             <div class="row">
 
                 <div class="d-flex booking_stage align-items-center justify-content-between">
-                    <div>
+                    <div class=" d-none d-md-block">
                         <a href="javascript:void(0)" class="btn-white">
                             <img src="/assets/img/icons/check.png"><span class="mx-3">Your deal</span>
                         </a>
                     </div>
-                    <div>
+                    <div class=" d-none d-md-block">
                         <img src="/assets/img/icons/dot.png" />
                     </div>
 
-                    <div>
+                    <div class=" d-none d-md-block">
                         <a href="javascript:void(0)" class="btn-white">
                             <img src="/assets/img/icons/shield.png"><span class="mx-3">Protection option</span>
                         </a>
                     </div>
-                    <div>
+                    <div class=" d-none d-md-block">
                         <img src="/assets/img/icons/dot.png" />
                     </div>
 

@@ -9,7 +9,7 @@
 
 
     <!-- hotel list here -->
-    <section class="flight__onewaysection pb__60 pt__60">
+    <section class="flight__onewaysection pb__60 pt__60 ">
 
         @if(!is_app())
             @include('frontpage.components.home_booking')

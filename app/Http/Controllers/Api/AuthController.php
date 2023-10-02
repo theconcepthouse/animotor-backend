@@ -654,7 +654,7 @@ class AuthController extends Controller
 
         if (!(Hash::check($request->get('current_password'), auth()->user()->password))) {
             // The passwords matches
-            return $this->errorResponse('Your current password does not matches with the password you provided. Please try again.', 500);
+            return $this->errorResponse('Your current password does not match with the password you provided. Please try again.', 500);
         }
         if(strcmp($request->get('current_password'), $request->get('new_password')) == 0){
             //Current password and new password are same

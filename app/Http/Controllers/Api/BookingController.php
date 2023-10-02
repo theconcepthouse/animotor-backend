@@ -652,16 +652,16 @@ class BookingController extends Controller
             }
     }
 
-    public function bookingHistory(): JsonResponse
+    public function bookingHistory(Request $request): JsonResponse
     {
         $is_driver = auth()->user()->hasRole('driver');
         $msg = 'Customers completed bookings';
-        if($is_driver){
-            $msg = 'Drivers completed trips';
-            $bookings = [];
-        }else{
-            $bookings = Booking::where('customer_id', auth()->id())->latest()->paginate(100);
-        }
+
+        $status = $request->get('status') ?? 'all';
+
+        $bookings = Booking::where('customer_id', auth()->id())->latest()->paginate(100);
+
+
         return $this->successResponse($msg, $bookings);
 
     }

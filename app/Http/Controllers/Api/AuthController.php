@@ -654,18 +654,18 @@ class AuthController extends Controller
 
         if (!(Hash::check($request->get('current_password'), auth()->user()->password))) {
             // The passwords matches
-            return response()->json('Your current password does not matches with the password you provided. Please try again.', 500);
+            return $this->errorResponse('Your current password does not matches with the password you provided. Please try again.', 500);
         }
         if(strcmp($request->get('current_password'), $request->get('new_password')) == 0){
             //Current password and new password are same
-            return response()->json('New Password cannot be same as your current password. Please choose a different password', 500);
+            return $this->errorResponse('New Password cannot be same as your current password. Please choose a different password', 500);
         }
 
         //Change Password
         $user = auth()->user();
         $user->password = bcrypt($request->get('new_password'));
         $user->save();
-        return response()->json('success');
+        return $this->successResponse('password successfully updated', $user);
     }
 
     public function guard() {

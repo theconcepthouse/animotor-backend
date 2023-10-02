@@ -41,11 +41,11 @@ class Booking extends Model
         return $endDate->diffInDays($startDate);
     }
 
-    public function getBookingInfoUrlinkAttribute(): int
+    public function getBookingInfoUrlinkAttribute(): string
     {
         return route('booking', $this->id);
     }
-  public function getBookingInfoUrlAttribute(): int
+  public function getBookingInfoUrlAttribute(): string
     {
         return route('booking', $this->id);
     }

@@ -26,7 +26,7 @@ class Booking extends Model
 
 //    protected  $with = ['car'];
 
-    protected $appends = ['days'];
+    protected $appends = ['days','booking_info_urlink','booking_info_url'];
 
     public function car(): BelongsTo
     {
@@ -39,6 +39,15 @@ class Booking extends Model
         $endDate = Carbon::parse($this->drop_off_date);
 
         return $endDate->diffInDays($startDate);
+    }
+
+    public function getBookingInfoUrlinkAttribute(): int
+    {
+        return route('booking', $this->id);
+    }
+  public function getBookingInfoUrlAttribute(): int
+    {
+        return route('booking', $this->id);
     }
 
 

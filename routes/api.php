@@ -34,6 +34,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('register', [AuthController::class, 'register']);
 
         Route::post('user', [AuthController::class, 'user']);
+        Route::post('change/password', [AuthController::class, 'changePassword']);
 
         Route::post('update/online', [AuthController::class, 'setOnline']);
 

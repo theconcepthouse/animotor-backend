@@ -27,9 +27,17 @@ class AdminController extends Controller
         $bookingsStatistics = $statisticsService->getBookingsStatistics();
 
 
-        $users = User::whereHasRole(['user','customer'])->latest()->paginate(10);
+        if (isAdmin()){
+            $users = User::whereHasRole(['user','customer'])->latest()->paginate(10);
+            $riders_count = User::whereHasRole(['rider'])->count();
+
+        }else{
+            $users = User::where('company_id', companyId())->whereHasRole(['user','customer'])->latest()->paginate(10);
+
+            $riders_count = User::where('company_id', companyId())->whereHasRole(['rider'])->count();
+
+        }
         $riders = User::whereHasRole(['rider'])->latest()->paginate(5);
-        $riders_count = User::whereHasRole(['rider'])->count();
         $drivers_count = User::whereHasRole(['driver'])->count();
         $total_complains = Complaint::count();
         $ride_counts = TripRequest::count();

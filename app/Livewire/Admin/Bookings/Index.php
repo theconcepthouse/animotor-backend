@@ -19,10 +19,10 @@ class Index extends Component
 
     public function render()
     {
-        if(isAdmin()){
-            $query = Booking::query();
-        }else{
-            $query = Booking::where('company_id', companyId());
+        $query = Booking::query();
+
+        if (!isAdmin()) {
+            $query->where('company_id', companyId());
         }
 
         $status = $this->status;

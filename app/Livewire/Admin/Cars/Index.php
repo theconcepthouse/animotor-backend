@@ -25,11 +25,7 @@ class Index extends Component
 
     public function render()
     {
-        $data = Car::where(function ($query) {
-            $query->where('title', 'like', '%' . $this->search . '%')
-                ->orWhere('make', 'like', '%' . $this->search . '%')
-                ->orWhere('model', 'like', '%' . $this->search . '%');
-        })->paginate(10);
+        $data = $this->getPaginate();
 
         $this->carsWithoutRegionCount = $data->where('region_id', null)->count();
 
@@ -52,11 +48,9 @@ class Index extends Component
 
     protected function getData()
     {
-        return Car::where(function ($query) {
-            $query->where('title', 'like', '%' . $this->search . '%')
-                ->orWhere('make', 'like', '%' . $this->search . '%')
-                ->orWhere('model', 'like', '%' . $this->search . '%');
-        })->paginate(10);
+        $data = $this->getPaginate();
+
+        return $data;
     }
 
     public function updatedSelectAll()
@@ -76,5 +70,27 @@ class Index extends Component
     public function resetPageData()
     {
         $this->resetPage();
+    }
+
+
+    protected function getPaginate(): \Illuminate\Contracts\Pagination\LengthAwarePaginator|array
+    {
+        $query = Car::query();
+
+        if (!isOwner() && !isAdmin()) {
+            return [];
+        }
+
+        if (!isAdmin()) {
+            $query->where('company_id', companyId());
+        }
+
+        $query->where(function ($query) {
+            $query->where('title', 'like', '%' . $this->search . '%')
+                ->orWhere('make', 'like', '%' . $this->search . '%')
+                ->orWhere('model', 'like', '%' . $this->search . '%');
+        });
+
+        return $query->paginate(10);
     }
 }

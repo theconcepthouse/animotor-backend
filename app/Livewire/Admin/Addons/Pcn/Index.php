@@ -23,10 +23,14 @@ class Index extends Component
 
     public function render()
     {
-        $data = pcn::where(function ($query) {
-            $query->where('vrm', 'like', '%' . $this->search . '%')
-                ->orWhere('pcn_no', 'like', '%' . $this->search . '%');
-        })->paginate(10);
+
+//
+//        $data = pcn::where(function ($query) {
+//            $query->where('vrm', 'like', '%' . $this->search . '%')
+//                ->orWhere('pcn_no', 'like', '%' . $this->search . '%');
+//        })->paginate(10);
+
+        $data = $this->getPaginated();
 
         return view('livewire.admin.addons.pcn.index',[
             'data' => $data,
@@ -47,11 +51,29 @@ class Index extends Component
 
     protected function getData()
     {
-        return pcn::where(function ($query) {
-            $query->where('title', 'like', '%' . $this->search . '%')
-                ->orWhere('make', 'like', '%' . $this->search . '%')
-                ->orWhere('model', 'like', '%' . $this->search . '%');
-        })->paginate(10);
+        return $this->getPaginated();
+    }
+
+    protected function getPaginated(){
+
+        $query = pcn::query();
+
+        if (!isOwner() && !isAdmin()) {
+            return []; // Return an empty array if neither owner nor admin
+        }
+
+        if (!isAdmin()) {
+            $booking_ids = auth()->user()?->company?->bookings?->pluck('id');
+
+            $query->whereIn('booking_id', $booking_ids);
+        }
+
+        $query->where(function ($query) {
+            $query->where('vrm', 'like', '%' . $this->search . '%')
+                ->orWhere('pcn_no', 'like', '%' . $this->search . '%');
+        });
+
+        return $query->paginate(10);
     }
 
     public function updatedSelectAll()

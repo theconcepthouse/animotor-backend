@@ -19,7 +19,7 @@ class StatisticsService
 
     public function getBookingsStatistics()
     {
-        return Cache::remember('bookings_statistics', now()->addMinutes(30), function () {
+        return Cache::remember('bookings_statistic', now()->addMinutes(30), function () {
             return $this->calculateBookingsStatistics();
         });
     }
@@ -48,10 +48,19 @@ class StatisticsService
     #[ArrayShape(['total' => "mixed", 'pending' => 'mixed', 'this_month' => "mixed", 'this_week' => "mixed", 'today' => "mixed"])]
     public function calculateBookingsStatistics(): array
     {
-        $totalBookings = Booking::count();
-        $totalBookingThisWeek = Booking::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
-        $totalBookingThisMonth = Booking::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
-        $totalBookingToday = Booking::whereDate('created_at', now())->count();
+        if(isAdmin()){
+            $totalBookings = Booking::count();
+            $totalBookingThisWeek = Booking::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
+            $totalBookingThisMonth = Booking::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
+            $totalBookingToday = Booking::whereDate('created_at', now())->count();
+
+        }else{
+            $totalBookings = Booking::where('company_id', companyId())->count();
+            $totalBookingThisWeek = Booking::where('company_id', companyId())->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
+            $totalBookingThisMonth = Booking::where('company_id', companyId())->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
+            $totalBookingToday = Booking::where('company_id', companyId())->whereDate('created_at', now())->count();
+
+        }
 
         return [
             'total' => $totalBookings,

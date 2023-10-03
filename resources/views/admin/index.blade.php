@@ -43,7 +43,10 @@
                     </div>
 
 
-                    @include('admin.components.widgets.alerts')
+                    @if(isAdmin())
+                        @include('admin.components.widgets.alerts')
+
+                    @endif
 
                     <div class="nk-block">
 
@@ -263,6 +266,7 @@
                                 </div><!-- .card -->
                             </div><!-- .col -->
 
+                            @section('hide')
                             <div class="col-md-6 col-xxl-4">
                                 <div class="card card-bordered card-full">
                                     <div class="card-inner border-bottom">
@@ -317,6 +321,7 @@
                                     </ul>
                                 </div><!-- .card -->
                             </div><!-- .col -->
+                            @endsection
                         </div>
                     </div><!-- .nk-block -->
                 </div>

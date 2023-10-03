@@ -12,14 +12,16 @@ class StatisticsService
 {
     public function getTripsStatistics()
     {
-        return Cache::remember('trips_statistics', now()->addMinutes(30), function () {
+        $key = auth()->id().'_trips_statistics';
+        return Cache::remember($key, now()->addMinutes(30), function () {
             return $this->calculateTripsStatistics();
         });
     }
 
     public function getBookingsStatistics()
     {
-        return Cache::remember('bookings_statistic', now()->addMinutes(30), function () {
+        $key = auth()->id().'_bookings_statistic';
+        return Cache::remember($key, now()->addMinutes(30), function () {
             return $this->calculateBookingsStatistics();
         });
     }

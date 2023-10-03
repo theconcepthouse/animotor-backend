@@ -3,6 +3,7 @@ php artisan db:seed --class=CompanySeeder
  php artisan db:seed --class=CarSeeder
  php artisan db:seed --class=BookingSeeder
  php artisan db:seed --class=CustomerSeeder
+ php artisan db:seed --class=DriverSeeder
  php artisan db:seed --class=PCNSeeder
 
 MODULES TO REMOVE

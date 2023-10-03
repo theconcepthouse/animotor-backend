@@ -22,6 +22,8 @@
 {{--    <link rel="stylesheet" href="/vendor/toastr/toastr.min.css">--}}
     <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">
 
+    <script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}"></script>
+
 
     @livewireStyles
 
@@ -199,6 +201,33 @@
 
     @yield('style')
 
+    <script>
+        document.addEventListener('notify-success', (event) => {
+            const message = event.detail.message;
+            if(message){
+                NioApp.Toast(message, 'success', {
+                    position: 'top-right'
+                });
+            }
+        });
+
+          document.addEventListener('notify-error', (event) => {
+            const message = event.detail.message;
+            if(message){
+                NioApp.Toast(message, 'error', {
+                    position: 'top-right'
+                });
+            }
+        });
+
+        document.addEventListener('livewire:navigated', function () {
+            initializeToggleSwitches();
+            $('.lfm').filemanager('image');
+        });
+
+
+    </script>
+
 </head>
 
 @php
@@ -223,70 +252,80 @@
         ],
     ];
 
+//
+//    if (hasTrips()) {
+//    $menuArray[] = [
+//        'text' => 'Trips',
+//        'icon' => 'ni ni-tranx',
+//        'route' => 'trips-read',
+//        'submenu' => [
+//            [
+//                'url' => route('admin.trips.index', ['status' => 'pending']),
+//                'route' => 'trips-read',
+//                'text' => 'Pending',
+//            ],
+//            [
+//                'url' => route('admin.trips.index', ['status' => 'completed']),
+//                'text' => 'Completed',
+//                'route' => 'trips-read',
+//            ],
+//            [
+//                'url' => route('admin.trips.index', ['status' => 'scheduled']),
+//                'text' => 'Scheduled',
+//                'route' => 'trips-read',
+//            ],
+//            [
+//                'url' => route('admin.trips.index', ['status' => 'cancelled']),
+//                'text' => 'Cancelled',
+//                'route' => 'trips-read',
+//            ],
+//        ],
+//    ];
+//
+//    $menuArray[] = [
+//        'text' => 'Drivers',
+//        'icon' => 'ni ni-users-fill',
+//        'route' => 'drivers-read',
+//        'submenu' => [
+//            [
+//                'url' => route('admin.drivers.index', ['status' => 'approved']),
+//                'text' => 'Active',
+//                'route' => 'drivers-read',
+//            ],
+//            [
+//                'url' => route('admin.drivers.index', ['status' => 'unapproved']),
+//                'text' => 'Inactive',
+//                'route' => 'drivers-read',
+//
+//            ],
+//            [
+//                'url' => route('admin.drivers.index', ['status' => 'online']),
+//                'text' => 'Online',
+//                'route' => 'drivers-read',
+//            ],
+//            [
+//                'url' => 'html/crm/organizations.html',
+//                'route' => 'drivers-read',
+//                'text' => 'Withdrawal requests',
+//            ],
+//            [
+//                'url' => route('admin.drivers.index', ['status' => 'negative_balance']),
+//                'text' => 'Negative balance',
+//                 'route' => 'drivers-read',
+//            ],
+//        ],
+//    ];
+//}
 
     if (hasTrips()) {
-    $menuArray[] = [
-        'text' => 'Trips',
-        'icon' => 'ni ni-tranx',
-        'route' => 'trips-read',
-        'submenu' => [
-            [
-                'url' => route('admin.trips.index', ['status' => 'pending']),
-                'route' => 'trips-read',
-                'text' => 'Pending',
-            ],
-            [
-                'url' => route('admin.trips.index', ['status' => 'completed']),
-                'text' => 'Completed',
-                'route' => 'trips-read',
-            ],
-            [
-                'url' => route('admin.trips.index', ['status' => 'scheduled']),
-                'text' => 'Scheduled',
-                'route' => 'trips-read',
-            ],
-            [
-                'url' => route('admin.trips.index', ['status' => 'cancelled']),
-                'text' => 'Cancelled',
-                'route' => 'trips-read',
-            ],
-        ],
-    ];
-
-    $menuArray[] = [
+          $menuArray[] = [
+        'url' => route('admin.drivers'),
+        'route' => 'drivers-read',
         'text' => 'Drivers',
         'icon' => 'ni ni-users-fill',
-        'route' => 'drivers-read',
-        'submenu' => [
-            [
-                'url' => route('admin.drivers.index', ['status' => 'approved']),
-                'text' => 'Active',
-                'route' => 'drivers-read',
-            ],
-            [
-                'url' => route('admin.drivers.index', ['status' => 'unapproved']),
-                'text' => 'Inactive',
-                'route' => 'drivers-read',
-
-            ],
-            [
-                'url' => route('admin.drivers.index', ['status' => 'online']),
-                'text' => 'Online',
-                'route' => 'drivers-read',
-            ],
-            [
-                'url' => 'html/crm/organizations.html',
-                'route' => 'drivers-read',
-                'text' => 'Withdrawal requests',
-            ],
-            [
-                'url' => route('admin.drivers.index', ['status' => 'negative_balance']),
-                'text' => 'Negative balance',
-                 'route' => 'drivers-read',
-            ],
-        ],
     ];
-}
+
+    }
 
     $menuArray[] = [
         'url' => route('admin.riders'),
@@ -879,7 +918,6 @@
 
 
 {{--<script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}" data-navigate-track></script>--}}
-<script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/scripts.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/charts/gd-default.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/libs/datatable-btns.js?ver=3.1.1') }}"></script>
@@ -939,10 +977,6 @@
         initializeToggleSwitches();
     });
 
-    document.addEventListener('livewire:navigated', function () {
-        initializeToggleSwitches();
-        $('.lfm').filemanager('image');
-    });
 
     function initializeToggleSwitches() {
         let toggleSwitches = document.querySelectorAll('.custom-control-input');

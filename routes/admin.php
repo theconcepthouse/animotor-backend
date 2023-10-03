@@ -86,6 +86,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('trip/{id}', [TripRequestController::class,'show'])->name('trip.show');
     Route::get('trip/delete/{id}', [TripRequestController::class,'deleteTrip'])->name('trip.delete');
     Route::get('drivers/{status}', [DriversController::class,'index'])->name('drivers.index');
+    Route::get('drivers', [DriversController::class,'all'])->name('drivers');
     Route::get('driver/{id}/documents', [DriversController::class,'documents'])->name('driver.documents');
     Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
 

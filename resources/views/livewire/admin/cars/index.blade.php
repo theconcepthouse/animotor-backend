@@ -75,7 +75,7 @@
                 </div>
 
 
-                <div class="datatable-wrap- my-3">
+                <div class="datatable-wrap- table-responsive my-3">
 
 
 

@@ -38,6 +38,10 @@ class DriversController extends Controller
         return view('admin.driver.list', compact('drivers', 'title'));
     }
 
+    public function all(){
+        return view('admin.driver.index');
+    }
+
     public function documents($driver_id, DriverDocumentService $driverDocumentService){
         $driver = User::findOrFail($driver_id);
 

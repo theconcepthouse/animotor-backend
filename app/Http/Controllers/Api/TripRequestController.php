@@ -142,7 +142,7 @@ class TripRequestController extends Controller
 
             $data['base_price'] = $service->price;
 
-            $data['fee'] = $data['time_price'] + $data['distance_price'] + $service->price;
+            $data['fee'] = customRound($data['time_price'] + $data['distance_price'] + $service->price);
 
             $tax_percent = ($service->tax / 100);
 

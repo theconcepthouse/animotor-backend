@@ -10,7 +10,7 @@
                     <div class="nk-block">
 
 
-                            <livewire:admin.user.index role="rider" />
+                            <livewire:admin.user.index role="driver" />
 
 
                     </div><!-- .nk-block -->

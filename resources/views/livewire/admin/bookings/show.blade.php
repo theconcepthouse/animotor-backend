@@ -9,7 +9,11 @@
                         <li>{{ __('admin.booked_on') }} : <span class="text-base">{{ $booking->created_at->format('d-M-Y H:i:s') }}</span></li>
                     </ul>
 
-                    @if(!$booking->is_confirmed)
+                    @if($booking->is_confirmed)
+                        <p class="text-success"><strong>{{ __('admin.booking_confirmed') }}</strong></p>
+                        <p class="text-success"><strong>{{ __('admin.confirmation_no') }} : {{ $booking->confirmation_no }}</strong></p>
+                    @else
+
                     <p class="text-danger">{{ __('admin.booking_not_confirmed_please_confirm_booking') }}</p>
                     @endif
                 </div>
@@ -17,6 +21,11 @@
             <div class="nk-block-head-content">
                 <a wire:navigate href="{{ request()->has('back_url') ? request()->get('back_url') : route('admin.bookings.index')  }}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>{{ __('admin.back') }}</span></a>
                 <a  wire:navigate href="{{ request()->has('back_url') ? request()->get('back_url') : route('admin.bookings.index')  }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+
+
+                @if(!$booking->is_confirmed)
+                <a  data-bs-toggle="modal" href="#{{ 'delete_'.$booking->id }}"  class="btn btn-danger">Confirm Booking</a>
+                @endif
             </div>
         </div>
     </div><!-- .nk-block-head -->
@@ -45,14 +54,16 @@
                                 <div class="profile-balance-group gx-4">
                                     <div class="profile-balance-sub">
                                         <div class="profile-balance-amount">
-                                            <form method="POST" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('admin.bookings.update_status') }}" enctype="multipart/form-data">
+                                                @csrf
                                                 <div class="row">
+                                                    <input type="hidden" name="id" value="{{ $booking->id }}" />
                                                     <div class="form-group">
                                                         <label class="form-label" for="fuel_type">{{ __('admin.booking_status') }}</label>
                                                         <div class="form-control-wrap">
-                                                            <select wire:model="booking.status" class="form-select form-control form-control-lg" id="fuel_type">
-                                                                    <option value="pending">Pending</option>
-                                                                    <option value="completed">Completed</option>
+                                                            <select name="status" class="form-select form-control form-control-lg" id="fuel_type">
+                                                                    <option {{ $booking->status == 'pending' ? 'selected' : '' }} value="pending">Pending</option>
+                                                                    <option {{ $booking->status == 'completed' ? 'selected' : '' }}  value="completed">Completed</option>
                                                             </select>
                                                             @error("booking.status") <span class="invalid">{{ $message }}</span>@enderror
 
@@ -236,4 +247,19 @@
             </div><!-- .card-aside-wrap -->
         </div><!-- .card -->
     </div><!-- .nk-block -->
+
+
+    @component('admin.components.delete_modal', [
+    'modalId' => 'delete_'.$booking->id, // Unique ID for the modal
+    'button' => 'Yes confirm it',
+    'method' => 'POST',
+    'title' => 'Are you sure you want to confirm this booking?',
+    'action' => route('admin.bookings.confirm', $booking->id), // Form action URL for the delete action
+    'message' => 'This booking will be confirmed and mail sent to customer.', // Message to display in the modal
+])
+    @endcomponent
+
 </div>
+
+
+

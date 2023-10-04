@@ -22,8 +22,6 @@
 {{--    <link rel="stylesheet" href="/vendor/toastr/toastr.min.css">--}}
     <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">
 
-    <script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}"></script>
-
 
     @livewireStyles
 
@@ -619,7 +617,7 @@
 {{--                                <p>{{ $menu['route'] }}</p>--}}
                                     <li class="nk-menu-item{{ isset($menu['submenu']) ? ' has-sub' : '' }}">
 {{--                                        @if ($url)--}}
-                                            <a  href="{{ $url }}" {{ isset($menu['submenu']) ? '' : 'wire:navigate' }}  class="nk-menu-link{{ isset($menu['submenu']) ? ' nk-menu-toggle' : '' }}">
+                                            <a  href="{{ $url }}" {{ isset($menu['submenu']) ? '' : 'wire:navigate_' }}  class="nk-menu-link{{ isset($menu['submenu']) ? ' nk-menu-toggle' : '' }}">
                                                 @if (isset($menu['icon']))
                                                     <span class="nk-menu-icon"><em class="icon ni {{ $menu['icon'] }}"></em></span>
                                                 @endif
@@ -639,7 +637,7 @@
                                                     @endphp
                                                     @if ($submenuUrl)
                                                         <li class="nk-menu-item">
-                                                            <a  href="{{ $submenuUrl }}" wire:navigate class="nk-menu-link">
+                                                            <a  href="{{ $submenuUrl }}" wire:navigate_ class="nk-menu-link">
                                                                 <span class="nk-menu-text">{{ $submenu['text'] }}</span>
                                                             </a>
                                                         </li>
@@ -917,8 +915,13 @@
 <!-- JavaScript -->
 
 
-{{--<script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}" data-navigate-track></script>--}}
+<script  src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}"></script>
+
 <script src="{{ asset('admin/assets/js/scripts.js?ver=3.1.1') }}"></script>
+
+
+
+{{--<script src="{{ asset('admin/assets/js/bundle.js?ver=3.1.1') }}" data-navigate-track></script>--}}
 <script src="{{ asset('admin/assets/js/charts/gd-default.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/libs/datatable-btns.js?ver=3.1.1') }}"></script>
 <script src="{{ asset('admin/assets/js/libs/datatable-btns.js?ver=3.1.1') }}"></script>

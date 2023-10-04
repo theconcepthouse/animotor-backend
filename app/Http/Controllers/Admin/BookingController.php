@@ -33,9 +33,10 @@ class BookingController extends Controller
         return view('admin.bookings.show', compact('booking'));
     }
 
-    public function updateStatus(Request $request, $id): RedirectResponse
+    public function updateStatus(Request $request): RedirectResponse
     {
 
+        $id = $request->input('id');
         $booking = Booking::findOrFail($id);
         $booking->status = $request->input('status');
         $booking->comment = $request->input('comment');
@@ -44,5 +45,18 @@ class BookingController extends Controller
         $booking->save();
 
         return redirect()->back()->with('success','Status updated');
+    }
+
+    public function confirmBooking($id) : RedirectResponse
+    {
+
+        $booking = Booking::findOrFail($id);
+
+        $booking->is_confirmed = true;
+        $booking->confirmation_no = getUniqueBookingConfirmationNo();
+
+        $booking->save();
+
+        return redirect()->back()->with('success','Booking successfully confirmed');
     }
 }

@@ -158,6 +158,9 @@ return [
     'Driver' => 'Driver',
     'account_balance' => 'Account Balance',
     'email_address' => 'Email Address',
+    'booking_confirmed' => 'Booking Confirmed',
+    'confirmation_code' => 'Confirmation Code',
+    'confirmation_no' => 'Confirmation No',
 
     'add_new_car' => 'Add New Car',
     'notice' => 'Notice',

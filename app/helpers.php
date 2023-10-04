@@ -171,6 +171,13 @@ function getUniqueBookingNumber(): float|int|string
 
     return $currentTimestamp + $milliseconds;
 }
+function getUniqueBookingConfirmationNo(): float|int|string
+{
+    $currentTimestamp = now()->timestamp;
+    $milliseconds = round(microtime(true) * 10);
+
+    return $currentTimestamp + $milliseconds;
+}
 
 function getUniqueReferenceCode(): string
 {

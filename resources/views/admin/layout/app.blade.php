@@ -251,69 +251,35 @@
     ];
 
 //
-//    if (hasTrips()) {
-//    $menuArray[] = [
-//        'text' => 'Trips',
-//        'icon' => 'ni ni-tranx',
-//        'route' => 'trips-read',
-//        'submenu' => [
-//            [
-//                'url' => route('admin.trips.index', ['status' => 'pending']),
-//                'route' => 'trips-read',
-//                'text' => 'Pending',
-//            ],
-//            [
-//                'url' => route('admin.trips.index', ['status' => 'completed']),
-//                'text' => 'Completed',
-//                'route' => 'trips-read',
-//            ],
-//            [
-//                'url' => route('admin.trips.index', ['status' => 'scheduled']),
-//                'text' => 'Scheduled',
-//                'route' => 'trips-read',
-//            ],
-//            [
-//                'url' => route('admin.trips.index', ['status' => 'cancelled']),
-//                'text' => 'Cancelled',
-//                'route' => 'trips-read',
-//            ],
-//        ],
-//    ];
-//
-//    $menuArray[] = [
-//        'text' => 'Drivers',
-//        'icon' => 'ni ni-users-fill',
-//        'route' => 'drivers-read',
-//        'submenu' => [
-//            [
-//                'url' => route('admin.drivers.index', ['status' => 'approved']),
-//                'text' => 'Active',
-//                'route' => 'drivers-read',
-//            ],
-//            [
-//                'url' => route('admin.drivers.index', ['status' => 'unapproved']),
-//                'text' => 'Inactive',
-//                'route' => 'drivers-read',
-//
-//            ],
-//            [
-//                'url' => route('admin.drivers.index', ['status' => 'online']),
-//                'text' => 'Online',
-//                'route' => 'drivers-read',
-//            ],
-//            [
-//                'url' => 'html/crm/organizations.html',
-//                'route' => 'drivers-read',
-//                'text' => 'Withdrawal requests',
-//            ],
-//            [
-//                'url' => route('admin.drivers.index', ['status' => 'negative_balance']),
-//                'text' => 'Negative balance',
-//                 'route' => 'drivers-read',
-//            ],
-//        ],
-//    ];
-//}
+    if (hasTrips()) {
+    $menuArray[] = [
+        'text' => 'Trips',
+        'icon' => 'ni ni-tranx',
+        'route' => 'trips-read',
+        'submenu' => [
+            [
+                'url' => route('admin.trips.index', ['status' => 'pending']),
+                'route' => 'trips-read',
+                'text' => 'Pending',
+            ],
+            [
+                'url' => route('admin.trips.index', ['status' => 'completed']),
+                'text' => 'Completed',
+                'route' => 'trips-read',
+            ],
+            [
+                'url' => route('admin.trips.index', ['status' => 'scheduled']),
+                'text' => 'Scheduled',
+                'route' => 'trips-read',
+            ],
+            [
+                'url' => route('admin.trips.index', ['status' => 'cancelled']),
+                'text' => 'Cancelled',
+                'route' => 'trips-read',
+            ],
+        ],
+    ];
+}
 
     if (hasTrips()) {
           $menuArray[] = [

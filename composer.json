@@ -17,7 +17,7 @@
         "livewire/livewire": "^3.0@beta",
         "matanyadaev/laravel-eloquent-spatial": "^3.2",
         "nwidart/laravel-modules": "^10.0",
-        "rawilk/laravel-settings": "^2.2",
+        "rawilk/laravel-settings": "^3.1",
         "santigarcor/laratrust": "^8.2",
         "unicodeveloper/laravel-paystack": "^1.1",
         "unisharp/laravel-filemanager": "^2.6"

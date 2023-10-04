@@ -56,6 +56,11 @@ class Booking extends Model
         return $this->belongsTo(User::class, 'customer_id');
     }
 
+    public function driver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'driver_id');
+    }
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class, 'company_id');

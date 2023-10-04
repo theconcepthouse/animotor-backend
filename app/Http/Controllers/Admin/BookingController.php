@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\BookingConfirmed;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\RedirectResponse;
@@ -52,10 +53,17 @@ class BookingController extends Controller
 
         $booking = Booking::findOrFail($id);
 
+        if(!$booking->customer){
+            return redirect()->back()->with('failure','Invalid Booking');
+
+        }
+
         $booking->is_confirmed = true;
         $booking->confirmation_no = getUniqueBookingConfirmationNo();
 
         $booking->save();
+
+        event(new BookingConfirmed($booking));
 
         return redirect()->back()->with('success','Booking successfully confirmed');
     }

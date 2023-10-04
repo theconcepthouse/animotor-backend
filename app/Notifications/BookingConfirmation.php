@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Booking;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,12 +12,11 @@ class BookingConfirmation extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
+    protected Booking $booking;
+
+    public function __construct($booking)
     {
-        //
+        $this->booking = $booking;
     }
 
     /**
@@ -35,9 +35,10 @@ class BookingConfirmation extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Car Booking Confirmation')
+            ->markdown('emails.car_booking_confirmation', [
+                'booking' => $this->booking,
+            ]);
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\BookingConfirmed;
 use App\Events\NewTrip;
+use App\Listeners\BookingConfirmationListener;
 use App\Listeners\NotifyOnlineDrivers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,6 +25,10 @@ class EventServiceProvider extends ServiceProvider
 
         NewTrip::class => [
             NotifyOnlineDrivers::class,
+        ],
+
+        BookingConfirmed::class => [
+            BookingConfirmationListener::class,
         ],
     ];
 

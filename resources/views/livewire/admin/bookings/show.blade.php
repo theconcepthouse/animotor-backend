@@ -23,9 +23,9 @@
                 <a  wire:navigate href="{{ request()->has('back_url') ? request()->get('back_url') : route('admin.bookings.index')  }}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
 
 
-                @if(!$booking->is_confirmed)
+{{--                @if(!$booking->is_confirmed)--}}
                 <a  data-bs-toggle="modal" href="#{{ 'delete_'.$booking->id }}"  class="btn btn-danger">Confirm Booking</a>
-                @endif
+{{--                @endif--}}
             </div>
         </div>
     </div><!-- .nk-block-head -->

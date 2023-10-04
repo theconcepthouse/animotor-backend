@@ -37,3 +37,7 @@ php artisan module:migrate Hotel
  php artisan make:migration create_pcns_table --path=database/migration/addon
 
 php artisan module:disable AdvanceRental
+
+
+
+/opt/php81/bin/php /var/www/sospremier/data/www/animotor.co.uk/artisan queue:work --tries=3

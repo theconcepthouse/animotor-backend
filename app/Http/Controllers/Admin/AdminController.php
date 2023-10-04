@@ -8,6 +8,7 @@ use App\Models\Complaint;
 use App\Models\Country;
 
 
+use App\Models\Currency;
 use App\Models\TripRequest;
 use App\Models\User;
 
@@ -160,10 +161,19 @@ class AdminController extends Controller
                     $country = Country::findOrFail($request->get('country_id'));
                     if($country){
                         $data['country_code'] = $country->dial_code;
-                        $data['currency'] = $country->currency_symbol;
                         $data['country'] = $country->name;
                         $data['dial_min'] = $country->dial_min_length;
                         $data['dial_max'] = $country->dial_max_length;
+                    }
+                }
+            }
+
+            if($request->has('currency_id')){
+                if($request->get('currency_id') != settings('currency_id')){
+                    $cur = Currency::findOrFail($request->get('currency_id'));
+                    if($cur){
+                        $data['currency_symbol'] = $cur->symbol;
+                        $data['currency_code'] = $cur->code;
                     }
                 }
             }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('symbol');
             $table->string('code');
             $table->decimal('rate')->default(0);
-            $table->integer('no_decimal')->default(2);
+            $table->integer('no_of_decimal')->default(2);
             $table->timestamps();
         });
     }

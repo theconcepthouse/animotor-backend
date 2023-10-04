@@ -57,8 +57,8 @@
                             <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Booking search">
                         </div>
                     </div>
-                    <div class="datatable-wrap- my-3">
-                        <table class="nowrap table-condensed table-striped table">
+                    <div class="table-responsive my-3">
+                        <table class="nowrap table-condensed table-bordered table-striped table">
                             <thead>
                             <tr>
                                 <th>{{ __('admin.sn') }}</th>
@@ -67,6 +67,7 @@
                                 <th>{{ __('admin.car') }}</th>
                                 <th>{{ __('admin.booking_no') }}</th>
                                 <th>{{ __('admin.reference') }}</th>
+                                <th>{{ __('admin.confirmation') }}</th>
                                 <th>{{ __('admin.booking_date') }}</th>
                                 <th>{{ __('admin.period') }}</th>
                                 <th>{{ __('admin.customer_name') }}</th>
@@ -91,6 +92,13 @@
                                             {{ $item->booking_number }}</a>
                                     </td>
                                     <td>{{ $item->reference }}</td>
+                                    <td>
+                                        @if($item->is_confirmed)
+                                            <span class="badge bg-success rounded-pill">confirmed</span>
+                                        @else
+                                            <span class="badge bg-danger rounded-pill">pending</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $item->created_at->format('Y-m-d H:i:s') }}</td>
                                     <td>{{ $item->days }} {{ __('admin.booking_days') }}</td>
                                     <td>

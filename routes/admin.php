@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ComplaintsController;
 use App\Http\Controllers\Admin\CountriesController;
+use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\FaqsController;
@@ -90,6 +91,8 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('driver/{id}/documents', [DriversController::class,'documents'])->name('driver.documents');
     Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
 
+    Route::resource('currencies', CurrencyController::class);
+    Route::post('currency/delete/all', [CurrencyController::class,'deleteAll'])->name('currencies.delete_all');
     Route::resource('services', ServiceController::class);
     Route::resource('companies', CompanyController::class);
 

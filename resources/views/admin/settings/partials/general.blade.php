@@ -44,7 +44,19 @@
                 <a class="mt-2" href="{{ route('admin.countries.index') }}">{{ count($countries) }} active countries (enable supported countries only)</a>
 
 
+
                 <div class="row">
+
+                    @if(settings('currency_code'))
+                        @include('admin.partials.form.text', ['attributes' => 'disabled', 'value' => settings('currency_symbol'), 'colSize' => 'col-md-6 mt-2', 'fieldName' => 'currency_id', 'title' => 'Currency Symbol'])
+                        @include('admin.partials.form.text', ['attributes' => 'disabled', 'value' => settings('currency_code'), 'colSize' => 'col-md-6 mt-2', 'fieldName' => 'currency_id', 'title' => 'Currency Code'])
+
+                    @endif
+
+                    @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'colSize' => 'col-md-12 mb-2 mt-2','value' => settings('currency_id'), 'fieldName' => 'currency_id','title' => 'Default currency','options' => \App\Models\Currency::all()])
+
+
+
                     @include('admin.partials.image-upload',['field' => 'front_logo', 'colSize' => 'col-md-6 mb-2', 'image' => settings('front_logo'), 'id' => 'front_logo','title' => 'Frontend logo'])
                     @include('admin.partials.image-upload',['field' => 'front_sm_logo', 'colSize' => 'col-md-6 mb-2', 'image' => settings('front_sm_logo'), 'id' => 'front_sm_logo','title' => 'Frontend logo (sm)'])
 

@@ -425,6 +425,11 @@
                 'route' => 'roles-index',
             ],
             [
+                'url' => route('admin.currencies.index'),
+                'text' => 'Currencies',
+                'route' => 'settings-services',
+            ],
+            [
                 'url' => route('admin.vehicle_types.index'),
                 'text' => 'Vehicle types',
                 'route' => 'vehicle_types-read',

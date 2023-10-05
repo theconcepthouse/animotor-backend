@@ -58,11 +58,14 @@ class AuthController extends Controller
             'country' => 'nullable',
             'email' => 'required|max:50|email|unique:users',
 //            'password'  => 'nullable',
-            'password' => $request->has('password') ? 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8' : 'nullable',
             'role'  => 'required',
+            'password' => $request->has('password') ? 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8' : 'nullable',
+
 //            'referral'  => 'nullable',
             'avatar'  => 'nullable',
 //            'repeat_password' => 'required|same:password',
+        ],[
+            'password.regex' => 'The password must contain at least one capital letter, one small letter, one special character, and one number.',
         ]);
 
         try {
@@ -74,8 +77,10 @@ class AuthController extends Controller
             if($request->has('password')){
 //                $request->validate([
 //                    'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8',
+//                ], [
+//                    'password.regex' => 'The password must contain at least one capital letter, one small letter, one special character, and one number.',
 //                ]);
-////
+//
 
                 $data['password'] = bcrypt($data['password']);
             }else{

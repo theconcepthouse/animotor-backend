@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\RolesController;
@@ -92,6 +94,9 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
 
     Route::resource('currencies', CurrencyController::class);
+    Route::resource('menus', MenuController::class)->only('store','update');
+    Route::resource('menu_items', MenuItemController::class)->except('index');
+    Route::post('menu/delete', [MenuController::class,'delete'])->name('menus.delete');
     Route::post('currency/delete/all', [CurrencyController::class,'deleteAll'])->name('currencies.delete_all');
     Route::resource('services', ServiceController::class);
     Route::resource('companies', CompanyController::class);

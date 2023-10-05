@@ -1,11 +1,4 @@
-@php
-    $menu_items = settings('frontpage_menu','default');
-    if(is_string($menu_items)){
-               $menus = json_decode(settings('frontpage_menu','default'), true);
-    }else{
-        $menus = [];
-    }
-@endphp
+
 
 <nav class="navbar navbar-expand-lg- header-nav">
     <div class="navbar-header">
@@ -14,20 +7,20 @@
         </a>
     </div>
 
-    @if(is_array($menus))
+    @if(count(menus('frontpage-top-menu')) > 0)
         <ul class="nav header-navbar-rht">
-            @foreach($menus as $menu)
-                @if(isset($menu['title']) && isset($menu['url']))
+            @foreach(menus('frontpage-top-menu') as $menu)
+                @if(isset($menu['label']) && isset($menu['url']))
                 <li class="nav-item head-menu">
-                    <a class="nav-link header-login" href="{{ $menu['url'] }}"><span><i class="{{ isset($menu['icon']) ? $menu['icon'] : '' }} mx-2"></i></span>{{ $menu['title'] }}</a>
+                    <a class="nav-link header-login" href="{{ $menu['url'] }}"><span><i class="{{ isset($menu['icon']) ? $menu['icon'] : '' }} mx-2"></i></span>{{ $menu['label'] }}</a>
                 </li>
-                @elseif(isset($menu['title']))
-                    @if($menu['title'] == 'lang')
+                @elseif(isset($menu['label']))
+                    @if($menu['label'] == 'lang')
                         <li class="nav-item head-menu">
                             <img class="nav-link-img" src="/default/lang.png" style="height: 20px" />
                         </li>
                     @endif
-                        @if($menu['title'] == 'currency')
+                        @if($menu['label'] == 'currency')
                             <li class="nav-item head-menu">
                                 <a class="nav-link header-login" href="#">EUR</a>
                             </li>

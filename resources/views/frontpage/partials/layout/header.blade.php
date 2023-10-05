@@ -116,15 +116,15 @@
                         {{--                    </div>--}}
                     </div>
 
-                    @if(is_array(menuItems()))
+                    @if(count(menus('frontpage-top-menu')) > 0)
                         <div class="sigin__grp d-flex align-items-center">
-                            @foreach(menuItems() as $item)
+                            @foreach(menus('frontpage-top-menu') as $item)
                                 <a href="{{ isset($item['url']) ? $item['url'] : "#" }}" class="">
                                     @if(isset($item['img']))
                                         <img src="{{ $item['img'] }}">
                                     @endif
-                                    @if(isset($item['title']))
-                                        <span>{{ $item['title'] }}</span>
+                                    @if(isset($item['label']))
+                                        <span>{{ $item['label'] }}</span>
                                     @endif
                                 </a>
                             @endforeach

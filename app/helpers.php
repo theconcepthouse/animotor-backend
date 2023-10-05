@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Menu;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -162,6 +164,16 @@ function listTime(): array
 function amt($amt): string
 {
     return settings('currency_symbol','$').number_format($amt);
+}
+
+
+if (!function_exists('menus')) {
+    function menus($slug) {
+        return Cache::remember('menu_items_' . $slug, now()->addHours(1), function () use ($slug) {
+            $menu = Menu::where('slug', $slug)->first();
+            return $menu ? $menu->items : [];
+        });
+    }
 }
 
 function getUniqueBookingNumber(): float|int|string

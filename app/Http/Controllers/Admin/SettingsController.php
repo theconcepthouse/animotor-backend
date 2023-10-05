@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use App\Models\Page;
 use App\Models\PageContent;
 use App\Models\ThemeComponent;
@@ -154,17 +155,8 @@ class SettingsController extends Controller
         return view('admin.settings.cms.head_foot');
     }
     public function menuSetup(Request $request){
-        if($request->has('frontpage_menu')){
-            $validatedData = $request->validate([
-                'frontpage_menu' => 'required|json',
-            ]);
-
-            settings()->set('frontpage_menu', $validatedData['frontpage_menu']);
-
-            return redirect()->back()->with('success', 'Menu successfully updated');
-
-        }
-        return view('admin.settings.cms.menu_setup');
+        $menus = Menu::all();
+        return view('admin.settings.cms.menu_setup', compact('menus'));
     }
 
     public function cssEditorSave(Request $request){

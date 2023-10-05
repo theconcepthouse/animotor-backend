@@ -124,6 +124,7 @@ class Checkout extends Component
             ]);
         }
         $this->countries = Country::all();
+        $this->country = $this->countries?->first()?->name;
         $this->car = Car::findOrFail(request()->query('car_id'));
         $this->booking_day = request()->query('booking_day');
         $this->pick_up_date = request()->query('pick_up_date');

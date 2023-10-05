@@ -10,9 +10,20 @@ class DashboardController extends Controller
 {
     public function dashboard(){
         if(isAdmin()){
-            $bookings = TripRequest::paginate(10);
+            if(hasTrips()){
+
+                $bookings = TripRequest::paginate(10);
+            }else{
+
+                $bookings = Booking::paginate(10);
+            }
         }else{
-            $bookings = TripRequest::where('customer_id', auth()->id())->paginate(10);
+            if(hasTrips()) {
+                $bookings = TripRequest::where('customer_id', auth()->id())->paginate(10);
+            }else{
+
+                $bookings = Booking::where('customer_id', auth()->id())->paginate(10);
+            }
         }
         return view('dashboard.index', compact('bookings'));
     }

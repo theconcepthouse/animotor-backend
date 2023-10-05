@@ -60,23 +60,27 @@
 
 
         <div class="row justify-content-between mt-3">
-            <div class="col">
-                <div class="d-flex align-items-center justify-content-center-">
+            <div class="col-12">
+                <div class="d-flex align-items-center justify-content-between">
 
-                    <img style="max-height: 80px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
 
-                    <div class="review_count">
-                        7.7
+                    <img style="max-height: 40px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
+
+                    <div class="d-flex">
+                        <div class="review_count">
+                            7.7
+                        </div>
+                        <div class="review_text">
+                            <p>Good</p>
+                            <p>30 reviews</p>
+                        </div>
                     </div>
-                    <div class="review_text">
-                        <p>Good</p>
-                        <p>30 reviews</p>
-                    </div>
+
                 </div>
             </div>
 
 
-            <div class="col d-flex justify-content-end">
+            <div class="col-12 mt-2 d-flex justify-content-end-">
                 <div class="d-flex align-items-center">
                     <p class="text-primary mb-0">Important info</p>
                     <img src="assets/img/icons/info.png" class="mx-3" alt="cars">
@@ -145,15 +149,7 @@
                     <div class="error"><span class="text-danger">{{ $message }}</span></div>
                     @enderror
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-6">
-                    <div class="input__grp">
-                        <label for="address">Address</label>
-                        <input wire:model="address" class="form-control form-control-lg"  type="text" id="address" placeholder="Enter Address">
-                    </div>
-                    @error('address')
-                    <div class="error"><span class="text-danger">{{ $message }}</span></div>
-                    @enderror
-                </div>
+
                 <div class="col-xl-6 col-lg-6 col-md-6">
                     <div class="input__grp">
                         <label for="address">City</label>
@@ -164,10 +160,20 @@
                     @enderror
                 </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="input__grp">
+                    <label for="address">Address</label>
+                    <input wire:model="address" class="form-control form-control-lg"  type="text" id="address" placeholder="Enter Address">
+                </div>
+                @error('address')
+                <div class="error"><span class="text-danger">{{ $message }}</span></div>
+                @enderror
+            </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12">
                     <div class="input__grp">
-                        <p for="address">is this business booking?</p>
-                        <input wire:model="is_business" type="checkbox" name="is_business" value="yes"> yes
+                        <p for="address">Is this business booking?</p>
+                        <input wire:model="is_business" type="checkbox" name="is_business" value="yes"> Yes
                         <input wire:model="is_business" type="checkbox" name="is_business" value="no"> No
                     </div>
                 </div>

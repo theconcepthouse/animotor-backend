@@ -114,13 +114,13 @@ class ConfigController extends Controller
         $active_methods =  json_decode(settings('active_methods'), true);
 
         $data = [];
-        foreach ($active_methods as $item){
-            $data[] = [
-                'name' => $item,
-                'link' => 'http://'.$item,
-                'logo' => asset("default/payment_methods/$item-logo.png")
-            ];
-        }
+//        foreach ($active_methods as $item){
+//            $data[] = [
+//                'name' => $item,
+//                'link' => 'http://'.$item,
+//                'logo' => asset("default/payment_methods/$item-logo.png")
+//            ];
+//        }
 
         return $data;
     }

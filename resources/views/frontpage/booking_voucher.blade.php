@@ -31,7 +31,7 @@
 
                             <div class="mt-5">
                                 <div class="voucher_title d-inline-block">
-                                    <p>To the  Ani motors Rental Desk</p>
+                                    <p>To the  {{ settings('site_name') }} Rental Desk</p>
                                 </div>
 
                                 <div class="d-flex justify-content-between mt-3">
@@ -60,7 +60,7 @@
 
                             <div class="mt-5">
                                 <div class="voucher_title d-inline-block">
-                                    <p>To the  Ani motors Rental Desk</p>
+                                    <p>To the  {{ settings('site_name') }} Rental Desk</p>
                                 </div>
 
 
@@ -247,7 +247,7 @@
                             <p class="mt-5">
                                 This Rental Voucher contains the most important information about your booking.
                                 For further details please refer to the confirmation email
-                                sent to your registered email address or login to your account at ani motors.com
+                                sent to your registered email address or login to your account at {{ settings('site_name') }}
                             </p>
                         </div>
 

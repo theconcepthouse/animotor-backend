@@ -1,5 +1,12 @@
 @extends('frontpage.layout')
 
+@section('style')
+    <style>
+        .is_app_top .flight__onewaysection {
+            padding-top: 20px!important;
+        }
+    </style>
+@endsection
 
 @section('content')
 
@@ -163,9 +170,9 @@
                             </div>
                             <div class="mt-3">
                                 <p>Main Driver</p>
-                                <p class="mt-3 mb-3">
+                                <p class="mt-3 mb-3 text-capitalize">
                                     <img class="mx-3" src="{{ $booking?->customer?->avatar }}" height="30" width="30">
-                                    <strong>{{ $booking?->customer?->email }}</strong>
+                                    <strong>{{ $booking?->customer?->name }}</strong>
                                 </p>
                                 <p>{{ $booking?->customer?->email }}</p>
                             </div>
@@ -179,7 +186,7 @@
                         <div class="p-3">
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">Term and Conditions</p>
-                                <p><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">View Ani motors rental terms</a></p>
+                                <p><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">View {{ settings('site_name') }} rental terms</a></p>
 
                             </div>
                             <div class="mt-3">

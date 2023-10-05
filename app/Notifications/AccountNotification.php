@@ -13,11 +13,11 @@ class AccountNotification extends Notification
 {
     use Queueable;
 
-    public $data;
+    public $message;
 
-    public function __construct($data)
+    public function __construct($message)
     {
-        $this->data = $data;
+        $this->message = $message;
     }
 
     /**
@@ -27,7 +27,7 @@ class AccountNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -36,9 +36,11 @@ class AccountNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject($this->message['title'])
+            ->markdown('emails.account_notify', [
+                'message' => $this->message,
+                'user' => $notifiable
+            ]);
     }
 
     /**
@@ -49,10 +51,10 @@ class AccountNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            "title"      =>  $this->data['title'],
-            "message"      =>  $this->data['message'],
-            "type"      =>  $this->data['type'],
-            "time"   =>  Carbon::now()
+//            "title"      =>  $this->data['title'],
+//            "message"      =>  $this->data['message'],
+//            "type"      =>  $this->data['type'],
+//            "time"   =>  Carbon::now()
         ];
     }
 }

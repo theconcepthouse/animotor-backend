@@ -94,9 +94,9 @@
                                     <td>{{ $item->reference }}</td>
                                     <td>
                                         @if($item->is_confirmed)
-                                            <span class="badge bg-success rounded-pill">confirmed</span>
+                                            <span class="badge bg-success rounded-pill">Yes</span>
                                         @else
-                                            <span class="badge bg-danger rounded-pill">pending</span>
+                                            <span class="badge bg-danger rounded-pill">No</span>
                                         @endif
                                     </td>
                                     <td>{{ $item->created_at->format('Y-m-d H:i:s') }}</td>
@@ -111,7 +111,16 @@
                                     </td>
 
                                     {{--    <td></td>--}}
-                                    <td>{{ $item->status }}</td>
+                                    <td>
+                                        @if($item->cancelled)
+                                            <span class="badge bg-danger rounded-pill">cancelled</span>
+                                        @elseif($item->status == 'completed')
+                                            <span class="badge bg-success rounded-pill">completed</span>
+                                        @else
+
+                                            <span class="badge bg-warning rounded-pill">{{ $item->status }}</span>
+                                        @endif
+                                        </td>
 
                                     <td>{{ amt($item->grand_total) }}</td>
                                     <td>{{ $item->payment_status }}</td>

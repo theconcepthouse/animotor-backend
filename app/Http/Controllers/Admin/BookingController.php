@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Events\BookingConfirmed;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Notifications\AccountNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -34,16 +35,69 @@ class BookingController extends Controller
         return view('admin.bookings.show', compact('booking'));
     }
 
-    public function updateStatus(Request $request): RedirectResponse
+    public function updateStatus(Request $request)
     {
 
         $id = $request->input('id');
+        $notify = $request->input('notify_customer') == 'yes';
         $booking = Booking::findOrFail($id);
         $booking->status = $request->input('status');
         $booking->comment = $request->input('comment');
         $booking->picked = $request->input('picked');
 
+        if($booking->status == 'cancelled'){
+            $booking->cancelled = true;
+            $booking->cancelled_by = auth()->user()->email;
+            $booking->save();
+
+            if($notify){
+//            return $booking->customer;
+                if($booking->customer){
+                    $user = $booking->customer;
+
+                    $message['title'] = "Booking cancelled";
+                    $message['link'] = route('booking',$booking->id);
+                    $message['link_text'] = 'View booking';
+                    $message['message'] = $request->input('comment') ?? 'Your booking has been cancelled';
+
+                    $message['lines'] = [
+                        "<strong>Please contact support for more details</strong>",
+                    ];
+
+                    $user->notify(new AccountNotification($message));
+
+
+                }else{
+                    return redirect()->back()->with('failure','Invalid booking');
+                }
+            }
+            return redirect()->back()->with('success','Booking successfully cancelled');
+        }
+
         $booking->save();
+
+        if($notify){
+//            return $booking->customer;
+            if($booking->customer){
+                $user = $booking->customer;
+
+                $message['title'] = "Booking status update";
+                $message['link'] = route('booking',$booking->id);
+                $message['link_text'] = 'View booking';
+                $message['message'] = $request->input('comment') ?? 'Your booking status has been updated';
+
+                $message['lines'] = [
+                    "<strong>Current Booking Status</strong>",
+                    "Booking status : ".$booking->status,
+                    "Booking Confirmed : ".($booking->is_confirmed ? 'Yes' : 'No'),
+                    "Picked : ".$booking->picked,
+                ];
+
+                $user->notify(new AccountNotification($message));
+            }else{
+                return redirect()->back()->with('failure','Invalid booking');
+            }
+        }
 
         return redirect()->back()->with('success','Status updated');
     }

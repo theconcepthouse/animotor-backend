@@ -57,38 +57,44 @@
                             <div class="profile-balance">
                                 <div class="profile-balance-group gx-4">
                                     <div class="profile-balance-sub">
-                                        <div class="profile-balance-amount">
-                                            <form method="POST" action="{{ route('admin.bookings.update_status') }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="row">
-                                                    <input type="hidden" name="id" value="{{ $booking->id }}" />
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="fuel_type">{{ __('admin.booking_status') }}</label>
-                                                        <div class="form-control-wrap">
-                                                            <select name="status" class="form-select form-control form-control-lg" id="fuel_type">
+                                        @if(!$booking->cancelled)
+                                            <div class="profile-balance-amount">
+                                                <form method="POST" action="{{ route('admin.bookings.update_status') }}" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="row">
+                                                        <input type="hidden" name="id" value="{{ $booking->id }}" />
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="fuel_type">{{ __('admin.booking_status') }}</label>
+                                                            <div class="form-control-wrap">
+                                                                <select name="status" class="form-select form-control form-control-lg" id="fuel_type">
                                                                     <option {{ $booking->status == 'pending' ? 'selected' : '' }} value="pending">Pending</option>
                                                                     <option {{ $booking->status == 'completed' ? 'selected' : '' }}  value="completed">Completed</option>
-                                                            </select>
-                                                            @error("booking.status") <span class="invalid">{{ $message }}</span>@enderror
+                                                                    <option {{ $booking->status == 'cancelled' ? 'selected' : '' }}  value="cancelled">Cancelled</option>
+                                                                    <option {{ $booking->status == 'active' ? 'selected' : '' }}  value="active">Active</option>
+                                                                </select>
+                                                                @error("booking.status") <span class="invalid">{{ $message }}</span>@enderror
 
+                                                            </div>
                                                         </div>
+
+
+                                                        @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3_', 'value' => $booking->picked,'fieldName' => 'picked','title' => __('admin.vehicle_picked'),'options' => ['yes','no']])
+                                                        @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3', 'value' => 'no','fieldName' => 'notify_customer','title' => __('admin.notify_customer'),'options' => ['yes','no']])
+
+                                                        @include('admin.partials.form.textarea', ['colSize' => 'col-md-12 mt-3 mb-3', 'value' => $booking->comment, 'fieldName' => 'comment','title' => __('admin.status_comment')])
+
+
+                                                        <div class="form-group mt-3">
+                                                            <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.update') }}</button>
+                                                        </div>
+
                                                     </div>
+                                                </form>
 
 
-                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3', 'value' => $booking->picked,'fieldName' => 'picked','title' => __('admin.vehicle_picked'),'options' => ['yes','no']])
+                                            </div>
 
-                                                    @include('admin.partials.form.textarea', ['colSize' => 'col-md-12 mt-3 mb-3', 'value' => $booking->comment, 'fieldName' => 'comment','title' => __('admin.status_comment')])
-
-
-                                                    <div class="form-group mt-3">
-                                                        <button type="submit" class="btn btn-lg btn-primary">{{ __('admin.update') }}</button>
-                                                    </div>
-
-                                                </div>
-                                            </form>
-
-
-                                        </div>
+                                        @endif
 
                                     </div>
                                 </div>

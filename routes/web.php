@@ -59,6 +59,9 @@ Route::group(['middleware' => ['auto_login_required']], function () {
 Route::get('/home', function () {
     return redirect()->route('dashboard');
 });
+Route::get('test/email', function () {
+    return view('emails.account_notify');
+});
 
 Route::get('/{slug}', [FrontPageController::class, 'page'])->name('page.show');
 

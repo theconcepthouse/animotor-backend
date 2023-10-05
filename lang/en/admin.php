@@ -165,6 +165,7 @@ return [
     'add_new_car' => 'Add New Car',
     'notice' => 'Notice',
     'confirmation' => 'Confirmation',
+    'notify_customer' => 'Notify Customer',
     'booking_days' => 'Booking days',
     'car_without_service_area_message' => 'cars without service area, note that cars without service areas will likely not show up on search results',
 ];

@@ -48,9 +48,6 @@
 
                     <div class="nk-block nk-block-lg">
 
-                        @foreach(menus('frontpage-top-menu') as $item)
-                            <a href="{{ $item->url }}">{{ $item->label }}</a>
-                        @endforeach
 
                         <div class="card card-bordered card-preview">
                             <div class="card-inner">

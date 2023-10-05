@@ -669,7 +669,7 @@ class BookingController extends Controller
         if($status == 'past'){
             $bookings->where('status','completed');
         }
-        if($status == 'past'){
+        if($status == 'cancelled'){
             $bookings->where('cancelled',true);
         }
 

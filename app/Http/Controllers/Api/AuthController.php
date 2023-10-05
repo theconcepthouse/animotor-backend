@@ -57,7 +57,8 @@ class AuthController extends Controller
             'country_code' => 'nullable',
             'country' => 'nullable',
             'email' => 'required|max:50|email|unique:users',
-            'password'  => 'nullable',
+//            'password'  => 'nullable',
+            'password' => $request->has('password') ? 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8' : 'nullable',
             'role'  => 'required',
 //            'referral'  => 'nullable',
             'avatar'  => 'nullable',
@@ -71,10 +72,10 @@ class AuthController extends Controller
             $role = Role::where('name', $request['role'])->first();
 
             if($request->has('password')){
-                $request->validate([
-                    'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8',
-                ]);
-//
+//                $request->validate([
+//                    'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8',
+//                ]);
+////
 
                 $data['password'] = bcrypt($data['password']);
             }else{

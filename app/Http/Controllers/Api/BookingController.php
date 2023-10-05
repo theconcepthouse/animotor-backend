@@ -659,10 +659,24 @@ class BookingController extends Controller
 
         $status = $request->get('status') ?? 'all';
 
-        $bookings = Booking::where('customer_id', auth()->id())->latest()->paginate(100);
+        $bookings = Booking::query()
+            ->where('customer_id', auth()->id());
+
+        if($status == 'active'){
+            $bookings->whereIn('status',['pending','active']);
+        }
+
+        if($status == 'past'){
+            $bookings->where('status','completed');
+        }
+        if($status == 'past'){
+            $bookings->where('cancelled',true);
+        }
+
+        $data = $bookings->latest()->paginate(100);
 
 
-        return $this->successResponse($msg, $bookings);
+        return $this->successResponse($msg, $data);
 
     }
 

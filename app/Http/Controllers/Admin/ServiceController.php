@@ -12,9 +12,17 @@ class ServiceController extends Controller
 {
     public function index()
     {
+//        $customRecord = [
+//            'id' => 'all',
+//            'name' => 'All region',
+//            'country' => null
+//        ];
         $data = Service::all();
         $title = "Services & Fee setup";
-        $regions = Region::select('name','id')->get();
+        $regions = Region::select('name','id')->get()->toArray();
+
+//        $regions = array_merge([$customRecord], $db_regions);
+
         return view('admin.services.list', compact('data','title','regions'));
     }
 
@@ -31,6 +39,10 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service): \Illuminate\Http\RedirectResponse
     {
         $validatedData = $this->validateService($request, $service);
+
+//        if ($validatedData['region_id'] == 'all'){
+//            $validatedData['region_id'] = null;
+//        }
 
         $service->update($validatedData);
 

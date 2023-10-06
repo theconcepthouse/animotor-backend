@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\TripRequest;
 use App\Models\User;
+use App\Services\Firebase\FirestoreService;
 use App\Services\RegionService;
 use App\Services\WalletService;
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
 {
-    public function updateLatLng(Request $request, RegionService $regionService): JsonResponse
+    public function updateLatLng(Request $request, RegionService $regionService, FirestoreService $firestoreService): JsonResponse
     {
         $user = User::find(auth()->id());
         $request->validate([
@@ -31,6 +32,11 @@ class UserController extends Controller
         $region = $regionService->getRegionByLatLng($lat, $lng);
 
         if(!$region){
+
+            $user->is_online = false;
+            $user->save();
+            $firestoreService->updateUser($user);
+
             $error_data['title'] = $address.' is not supported by our service';
             $error_data['message'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
             return $this->errorResponse($error_data);

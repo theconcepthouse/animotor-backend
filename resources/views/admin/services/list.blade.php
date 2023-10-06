@@ -128,7 +128,7 @@
 
                         <div class="row gy-4 pt-4">
 
-                            @include('admin.partials.form.select_w_object', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'region_id', 'title' => 'Service Region','options' => $regions])
+                            @include('admin.partials.form.select_array', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'key' => 'name', 'fieldName' => 'region_id', 'title' => 'Service Region','options' => $regions])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6',  'fieldName' => 'name','title' => 'Service name'])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'capacity', 'title' => 'Capacity'])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'price', 'title' => 'Base Fare'])
@@ -188,7 +188,7 @@
                         <div class="row gy-4 pt-4">
 
 
-                            @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'value' => $item->region_id ,'colSize' => 'col-md-6', 'fieldName' => 'region_id',  'id' => $item->id, 'title' => 'Service Region','options' => $regions])
+                            @include('admin.partials.form.select_array', ['attributes' => 'required', 'key' => 'name', 'value' => $item->region_id ,'colSize' => 'col-md-6', 'fieldName' => 'region_id',  'id' => $item->id, 'title' => 'Service Region','options' => $regions])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'value' => $item->name, 'fieldName' => 'name','title' => 'Service name'])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'capacity', 'value' => $item->capacity, 'title' => 'Capacity'])
                             @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'fieldName' => 'price', 'value' => $item->price, 'title' => 'Base Fare'])

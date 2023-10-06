@@ -52,6 +52,10 @@ class Region extends Model
         return $this->hasMany(Booking::class);
     }
 
+    public function scopeContains($query,$abc){
+        return $query->whereRaw("ST_Distance_Sphere(coordinates, POINT({$abc}))");
+    }
+
     public function country(){
         return $this->belongsTo(Country::class, 'country_id');
     }

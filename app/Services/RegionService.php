@@ -9,7 +9,7 @@ class RegionService
 {
     public function getRegionByLatLng($lat, $lng){
 
-        $zones = Region::contains('coordinates', new Point($lat, $lng, env('POINT_SRID',0)))->latest()->get(['id', 'name']);
+        $zones = Region::whereContains('coordinates', new Point($lat, $lng, env('POINT_SRID',0)))->latest()->get(['id', 'name']);
 //        if(count($zones) < 1)
 //        {
 //            return

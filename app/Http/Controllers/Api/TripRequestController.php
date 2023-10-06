@@ -46,6 +46,14 @@ class TripRequestController extends Controller
 
         $type = $request['type'];
 
+        $tripRequestService = new TripRequestService();
+
+        $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
+
+        return response()->json(['data' => $region], 200);
+
+        return $region;
+
         $service_types =  Service::where('types', 'LIKE', '%'.$type.'%')
             ->where('region_id', $region_id)
             ->where('is_active', true)

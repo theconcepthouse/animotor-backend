@@ -57,7 +57,7 @@
                                         <label class="form-label" for="first_name">First Name</label>
                                     </div>
                                     <div class="form-control-wrap">
-                                        <input type="text" name="first_name" class="form-control @error('first_name') error @enderror form-control-lg" id="first_name" placeholder="Enter your first name">
+                                        <input value="{{ old('first_name') }}" type="text" name="first_name" class="form-control @error('first_name') error @enderror form-control-lg" id="first_name" placeholder="Enter your first name">
                                         @error('first_name')
                                         <p class="error">{{ $message }}</p>
                                         @enderror
@@ -68,7 +68,7 @@
                                         <label class="form-label" for="last_name">Last Name</label>
                                     </div>
                                     <div class="form-control-wrap">
-                                        <input type="text" name="last_name" class="form-control @error('last_name') error @enderror form-control-lg" id="last_name" placeholder="Enter your last name">
+                                        <input value="{{ old('last_name') }}" type="text" name="last_name" class="form-control @error('last_name') error @enderror form-control-lg" id="last_name" placeholder="Enter your last name">
                                         @error('last_name')
                                         <p class="error">{{ $message }}</p>
                                         @enderror
@@ -79,8 +79,19 @@
                                         <label class="form-label" for="email">Email</label>
                                     </div>
                                     <div class="form-control-wrap">
-                                        <input type="email" name="email" class="form-control @error('email') error @enderror form-control-lg" id="email" placeholder="Enter your email address">
+                                        <input value="{{ old('email') }}" type="email" name="email" class="form-control @error('email') error @enderror form-control-lg" id="email" placeholder="Enter your email address">
                                         @error('email')
+                                        <p class="error">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-label-group">
+                                        <label class="form-label" for="phone">Phone</label>
+                                    </div>
+                                    <div class="form-control-wrap">
+                                        <input value="{{ old('phone') }}" type="tel" name="phone" class="form-control @error('phone') error @enderror form-control-lg" id="phone" placeholder="Enter your phone number">
+                                        @error('phone')
                                         <p class="error">{{ $message }}</p>
                                         @enderror
                                     </div>

@@ -48,13 +48,15 @@ class TripRequestController extends Controller
 
         $tripRequestService = new TripRequestService();
 
-        if($user->email == 'Rider@gmail.com'){
+//        if($user->email == 'Rider@gmail.com'){
             $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
 
-            return response()->json(['data' => $region], 200);
+            if(!$region){
+                return $this->errorResponse('Your pickup address is not supported by our service');
+            }
 
-            return $region;
-        }
+//            return $region;
+//        }
 
 
 

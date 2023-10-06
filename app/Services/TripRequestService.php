@@ -9,8 +9,8 @@ class TripRequestService
         $regionService = new RegionService();
         $region = $regionService->getRegionByLatLng($lat, $lng);
         if($region){
-            $user->region_id = $region->id;
-            $user->save();
+//            $user->region_id = $region->id;
+//            $user->save();
 
             return $region;
         }else{

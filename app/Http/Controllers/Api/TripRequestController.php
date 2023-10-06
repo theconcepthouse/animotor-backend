@@ -48,11 +48,15 @@ class TripRequestController extends Controller
 
         $tripRequestService = new TripRequestService();
 
-        $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
+        if($user->email == 'Rider@gmail.com'){
+            $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
 
-        return response()->json(['data' => $region], 200);
+            return response()->json(['data' => $region], 200);
 
-        return $region;
+            return $region;
+        }
+
+
 
         $service_types =  Service::where('types', 'LIKE', '%'.$type.'%')
             ->where('region_id', $region_id)

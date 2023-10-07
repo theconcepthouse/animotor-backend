@@ -18,7 +18,7 @@ class FirestoreService
     }
 
 
-    public function updateTripRequest($trip_data, $drivers_id = null): void
+    public function updateTripRequest($trip_data, $drivers_id = null)
     {
         $firestoreClient = $this->firestoreClient;
 
@@ -88,7 +88,7 @@ class FirestoreService
         }
 
         if(!env('APP_DEBUG')) {
-            $firestoreClient->updateDocument("rideRequests/" . $trip_data->id, $data);
+           return $firestoreClient->updateDocument("rideRequests/" . $trip_data->id, $data);
         }
 
     }

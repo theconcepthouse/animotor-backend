@@ -163,12 +163,15 @@ class AuthController extends Controller
 //                }
             }
 
-            if($role == 'driver' && !$user->hasRole('driver')){
-                $user->addRole('driver');
-
+            if($role == 'driver'){
                 if(!$v){
                     return $this->errorResponse('Please upgrade to the latest version');
                 }
+            }
+            if($role == 'driver' && !$user->hasRole('driver')){
+                $user->addRole('driver');
+
+
 
 //                if($user->hasRole('rider')){
 //                    return $this->errorResponse('This account is already registered as a customer, please download the customer app');

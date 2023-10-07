@@ -76,7 +76,7 @@ class DistanceService
         }
 
         // Sort the users by distance
-        $users = $users->sortBy('distance')->take(5);
+        $users = $users->sortBy('distance')->take(settings('max_drivers_notify', 2));
 
 
         $closetDrivers = $users->filter(function ($user) {

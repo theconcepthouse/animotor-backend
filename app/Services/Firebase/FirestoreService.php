@@ -18,7 +18,7 @@ class FirestoreService
     }
 
 
-    public function updateTripRequest($trip_data): void
+    public function updateTripRequest($trip_data, $drivers_id = null): void
     {
         $firestoreClient = $this->firestoreClient;
 
@@ -64,7 +64,7 @@ class FirestoreService
             'ride_type' => $trip_data->ride_type,
 
             'currency' => $trip_data->currency,
-            'drivers' => User::select('id')->limit(4)->pluck('id')->toArray(),
+            'drivers' => $drivers_id ?? [],
 
             'customer_avatar' => $trip_data?->customer?->avatar,
             'customer_phone' => $trip_data?->customer?->full_phone,

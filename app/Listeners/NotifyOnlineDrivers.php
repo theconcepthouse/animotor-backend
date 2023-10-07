@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\NewTrip;
 use App\Services\DistanceService;
+use App\Services\Firebase\FirestoreService;
 use App\Services\NotificationService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -25,6 +26,7 @@ class NotifyOnlineDrivers
     {
 
         $distanceService = new DistanceService();
+        $firestoreService = new FirestoreService();
 
         $trip = $event->trip;
 
@@ -35,7 +37,12 @@ class NotifyOnlineDrivers
 
         $notificationService = new NotificationService();
 
-        $notificationService->notifyMany($drivers, $data);
+        if(count($drivers) > 0){
+            $firestoreService->updateTripRequest($trip, $drivers->pluck('od'));
+
+            $notificationService->notifyMany($drivers, $data);
+        }
+
 
     }
 }

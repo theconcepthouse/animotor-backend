@@ -140,6 +140,7 @@ class AuthController extends Controller
         $phone = $request['phone'];
         $role = $request->input('role');
         $country_code = $request->input('country_code');
+        $v = $request->input('v');
 
         if(!$role){
             return $this->errorResponse('Please update to latest version');
@@ -164,6 +165,11 @@ class AuthController extends Controller
 
             if($role == 'driver' && !$user->hasRole('driver')){
                 $user->addRole('driver');
+
+                if(!$v){
+                    return $this->errorResponse('Please upgrade to the latest version');
+                }
+
 //                if($user->hasRole('rider')){
 //                    return $this->errorResponse('This account is already registered as a customer, please download the customer app');
 //                }else{

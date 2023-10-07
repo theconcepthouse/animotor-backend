@@ -154,19 +154,21 @@ class AuthController extends Controller
             $data['user_exist'] = true;
 
             if($role == 'rider' && !$user->hasRole('rider')){
-                if($user->hasRole('driver')){
-                    return $this->errorResponse('This account is already registered as a driver, please download the drivers app');
-                }else{
-                    return $this->errorResponse('Only customers can login here');
-                }
+                $user->addRole('rider');
+//                if($user->hasRole('driver')){
+//                    return $this->errorResponse('This account is already registered as a driver, please download the drivers app');
+//                }else{
+//                    return $this->errorResponse('Only customers can login here');
+//                }
             }
 
             if($role == 'driver' && !$user->hasRole('driver')){
-                if($user->hasRole('rider')){
-                    return $this->errorResponse('This account is already registered as a customer, please download the customer app');
-                }else{
-                    return $this->errorResponse('Only drivers can login here');
-                }
+                $user->addRole('driver');
+//                if($user->hasRole('rider')){
+//                    return $this->errorResponse('This account is already registered as a customer, please download the customer app');
+//                }else{
+//                    return $this->errorResponse('Only drivers can login here');
+//                }
             }
 
 

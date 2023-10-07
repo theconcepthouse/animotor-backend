@@ -39,6 +39,8 @@
 
 
                                                 <div class="row gy-4">
+                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->service_id, 'fieldName' => 'service_id','title' => 'Service Type','options' => $services])
+
                                                     @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->region_id, 'fieldName' => 'region_id','title' => 'Service Area','options' => $regions])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->first_name, 'fieldName' => 'first_name','title' => 'First Name'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->last_name, 'fieldName' => 'last_name','title' => 'Last Name'])

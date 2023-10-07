@@ -118,6 +118,9 @@
                         <tr>
                             <th><input type="checkbox" wire:model.live="selectAll"></th>
                             <th>{{ __('admin.sn') }}</th>
+                            @if($role == 'driver')
+                            <th>{{ __('admin.service_type') }}</th>
+                            @endif
                             <th>{{ __('admin.service_area') }}</th>
                             <th>{{ __('admin.full_name') }}</th>
                             @if(settings('enable_monify_virtual_account') == 'yes')
@@ -142,6 +145,9 @@
                                 <td><input type="checkbox" wire:model.live="selected_items" value="{{ $item->id }}"></td>
 
                                 <td>{{ $loop->index + 1 }}</td>
+                                @if($role == 'driver')
+                                <td>{{ $item?->service?->name ?? 'Not set' }}</td>
+                                @endif
                                 <td>{{ $item?->region?->name ?? 'Not set' }}</td>
                                 <td>{{ $item->name }}</td>
                                 @if(settings('enable_monify_virtual_account') == 'yes')

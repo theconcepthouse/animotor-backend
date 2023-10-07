@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Region;
 use App\Models\Role;
+use App\Models\Service;
 use App\Models\User;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
@@ -67,6 +68,7 @@ class UserController extends Controller
         $car_makes = [];
         $car_types = [];
         if($role == 'driver'){
+
             $car_makes = VehicleMake::all();
             $car_types = VehicleType::all();
             $car_models = VehicleModel::where('make_id', $car_makes?->first()?->id)->get();
@@ -85,18 +87,22 @@ class UserController extends Controller
         $car_makes = [];
         $car_types = [];
         $regions = Region::select('name','id')->get();
+        $services = Service::select('name','id')->get();
 
         if($user->hasRole('driver')){
+            if(!$user->car){
+                $user->car()->firstOrNew();
+            }
             $car_makes = VehicleMake::all();
             $car_types = VehicleType::all();
-            if($user->car->model){
+            if($user?->car?->model){
                 $car_models = VehicleModel::where('name', $user?->car?->model)->get();
             }else{
                 $car_models = VehicleModel::where('name', $car_makes?->first()?->id)->get();
             }
         }
 
-        return view('admin.user.edit', compact('departments','regions','user','car_types','car_models','car_makes'));
+        return view('admin.user.edit', compact('departments','regions','user','car_types','car_models','car_makes','services'));
     }
 
     public function store(Request $request, CarService $carService)
@@ -149,10 +155,12 @@ class UserController extends Controller
             'status' => 'nullable',
             'comment' => 'nullable',
             'region_id' => 'nullable',
+            'service_id' => 'nullable',
             'avatar' => 'nullable',
-            'password' => 'nullable',
+//            'password' => 'nullable',
         ];
         $data = $request->validate($rules);
+//        return $data;
         if($request->input('password')){
             $data['password'] = Hash::make($data['password']);
         }

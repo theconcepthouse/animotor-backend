@@ -2,6 +2,7 @@
 
 namespace App\Services\Firebase;
 
+use App\Models\User;
 use MrShan0\PHPFirestore\Fields\FirestoreGeoPoint;
 use MrShan0\PHPFirestore\FirestoreClient;
 
@@ -63,6 +64,7 @@ class FirestoreService
             'ride_type' => $trip_data->ride_type,
 
             'currency' => $trip_data->currency,
+            'drivers' => User::select('id')->limit(4)->pluck('id')->toArray(),
 
             'customer_avatar' => $trip_data?->customer?->avatar,
             'customer_phone' => $trip_data?->customer?->full_phone,

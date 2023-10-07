@@ -87,6 +87,7 @@ class DistanceService
 
 
         if($closetDrivers->count() < 1){
+            info('returned users : '. count($users));
             return $users;
         }
 

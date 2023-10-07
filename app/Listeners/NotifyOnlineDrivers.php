@@ -38,7 +38,8 @@ class NotifyOnlineDrivers
         $notificationService = new NotificationService();
 
         if(count($drivers) > 0){
-            $firestoreService->updateTripRequest($trip, $drivers->pluck('od'));
+            info('notified : '. json_encode($drivers));
+            $firestoreService->updateTripRequest($trip, $drivers->pluck('id'));
 
             $notificationService->notifyMany($drivers, $data);
         }

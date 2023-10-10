@@ -80,7 +80,7 @@ class DistanceService
 
 
         $closetDrivers = $users->filter(function ($user) {
-            return $user->distance < 5;
+            return $user->distance < (int)settings('max_distance_drivers_notify', 5);
         });
 
         info('closetDrivers : '. count($closetDrivers));

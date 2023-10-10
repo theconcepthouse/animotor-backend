@@ -37,6 +37,12 @@
                                 </li>
                                 @endif
 
+                                @if(hasTrips())
+                                <li class="nav-item">
+                                    <a class="nav-link  {{ $active == 'trip' ? 'active' : '' }}" data-bs-toggle="tab" href="#trip"><em class="icon ni ni-bookmark"></em><span>Trip Setting </span></a>
+                                </li>
+                                @endif
+
 {{--                                <li class="nav-item">--}}
 {{--                                    <a class="nav-link" data-bs-toggle="tab" href="#email"><em class="icon ni ni-mail-fill"></em><span>Email settings </span> </a>--}}
 {{--                                </li>--}}
@@ -63,6 +69,9 @@
 
                                 <div class="tab-pane  {{ $active == 'slider' ? 'active' : '' }}" id="slider">
                                     @include('admin.settings.partials.slider')
+                                </div> <!-- .tab-pane -->
+                                <div class="tab-pane  {{ $active == 'trip' ? 'active' : '' }}" id="trip">
+                                    @include('admin.settings.partials.trip')
                                 </div> <!-- .tab-pane -->
 
                             </div><!-- .tab-content -->

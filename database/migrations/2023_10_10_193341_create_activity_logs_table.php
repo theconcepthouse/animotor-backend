@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dateTime('last_location_update')->nullable();
-            $table->text('services')->default([]);
+        Schema::create('activity_logs', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('info')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_location_update','services');
-        });
+        Schema::dropIfExists('activity_logs');
     }
 };

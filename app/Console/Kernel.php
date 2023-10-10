@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\SetInactiveDriversOffline;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,13 +17,17 @@ class Kernel extends ConsoleKernel
 
 
     protected $commands = [
-        Commands\PendingWithdrawalUpdate::class,
+        SetInactiveDriversOffline::class
     ];
 
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('pending_withdrawal:cron')->everyThirtyMinutes();
+        // Schedule the queue:work command to run without overlapping and with 3 tries
+        $schedule->command('queue:work --tries=3 --stop-when-empty')->withoutOverlapping();
+
+        $schedule->command('app:set-inactive-drivers-offline')->everyMinute();
+        $schedule->command('app:delete-pending-trips')->everyThirtyMinutes();
+        $schedule->command('app:clear-activity-log')->weekly();
     }
 
     /**

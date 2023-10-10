@@ -101,6 +101,18 @@ if(!function_exists('show_item')){
     }
 }
 
+if(!function_exists('log_activity')){
+    function log_activity($title, $info): void
+    {
+
+        \App\Models\ActivityLog::create([
+            'title' => $title,
+            'info' => $info,
+        ]);
+
+    }
+}
+
 function convertToWord($input): string
 {
     return ucwords(str_replace('_', ' ', $input));

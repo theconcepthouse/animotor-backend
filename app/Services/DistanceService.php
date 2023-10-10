@@ -57,25 +57,55 @@ class DistanceService
         }
     }
 
-    public function getDriversByDistance($lat, $lng, $region_id)
+    public function getDriversByDistance($lat, $lng, $region_id, $service_id)
     {
         $distanceService = new DistanceService();
 
-        $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email','map_lat','map_lng')
-            ->where('is_online', true)
-            ->where('region_id', $region_id)
-            ->whereNotNull('push_token')
-            ->whereNotNull('map_lng')
-            ->whereNotNull('map_lat')
-            ->get();
+        $restrict_drivers = settings('restrict_rides_to_service_type','no');
 
-        info('region_id :'.$region_id);
-        info('drivers by distance : '. count($users));
+        if($restrict_drivers != 'yes') {
+            $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
+                ->where('is_online', true)
+                ->where('region_id', $region_id)
+                ->whereNotNull('push_token')
+                ->whereNotNull('map_lng')
+                ->whereNotNull('map_lat')
+                ->get();
+
+            info('drivers by distance : '. count($users));
+        }
+
+        else{
+            $query = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
+                ->where('is_online', true)
+                ->where('region_id', $region_id)
+                ->whereNotNull('push_token')
+                ->whereNotNull('map_lng')
+                ->whereNotNull('map_lat');
+
+            $users = $query->where(function ($query) use ($service_id) {
+                $query->where('service_id', $service_id)
+                    ->orWhereJsonContains('services', $service_id);
+            })->get();
+
+            info('drivers by distance & service_type : '. count($users));
+
+        }
+
+//        info('region_id :'.$region_id);
+//        info('drivers by distance : '. count($users));
 
         // Calculate the distance between each user's coordinates and the supplied coordinates
         foreach ($users as $user) {
-//            $user->distance = $distanceService->getDistance($user->map_lat, $user->map_lng, $lat, $lng);
-            $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
+            $distance = $distanceService->getDistance($user->map_lat, $user->map_lng, $lat, $lng);
+//            $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
+
+            if(isset($distance['distance'])) {
+                $dist = $distance['distance']['value'] / 1000;
+                $user->distance = $dist > 0 ? $dist : 1;
+            }else{
+                $user->distance = 0;
+            }
 
         }
 
@@ -86,21 +116,23 @@ class DistanceService
         // Sort the users by distance
         $users = $users->sortBy('distance')->take(settings('max_drivers_notify', 2));
 
-        info('returned drivers :');
-        foreach ($users as $user) {
-            info('driver returned:'.$user->email.' _ '.$user->distance);
-        }
+        $current_user = auth()->user();
+
 
         $closetDrivers = $users->filter(function ($user) {
             return $user->distance < (int)settings('max_distance_drivers_notify', 5);
         });
 
-        info('closetDrivers : '. count($closetDrivers));
-
 
         if($closetDrivers->count() < 1){
-            info('returned users : '. count($users));
+            log_activity('driver_trip_notification', 'no close drivers available, notified '.count($users).' drivers outside set radius');
             return $users;
+        }
+
+        foreach ($closetDrivers as $user) {
+            $msg = $user->email.' notified for a nearby trip request of '.$user->distance.'km estimated distance, trip by '.$current_user?->email;
+            log_activity('driver_trip_notification', $msg);
+            info('driver returned:'.$user->email.' _ '.$user->distance);
         }
 
         return $closetDrivers;

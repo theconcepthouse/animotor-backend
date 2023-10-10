@@ -61,7 +61,7 @@ class DistanceService
     {
         $distanceService = new DistanceService();
 
-        $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id')
+        $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email')
             ->where('is_online', true)
             ->where('region_id', $region_id)
             ->whereNotNull('push_token')
@@ -73,6 +73,8 @@ class DistanceService
         // Calculate the distance between each user's coordinates and the supplied coordinates
         foreach ($users as $user) {
             $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
+
+            info('driver :'.$user->email.'_'.$user->distance);
         }
 
         // Sort the users by distance

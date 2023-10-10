@@ -61,10 +61,12 @@ class DistanceService
     {
         $distanceService = new DistanceService();
 
-        $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email')
+        $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email','map_lat','map_lng')
             ->where('is_online', true)
             ->where('region_id', $region_id)
             ->whereNotNull('push_token')
+            ->whereNotNull('map_lng')
+            ->whereNotNull('map_lat')
             ->get();
 
         info('region_id :'.$region_id);

@@ -75,7 +75,10 @@ class DistanceService
             $user->distance = $distanceService->getDistance($user->map_lat, $user->map_lng, $lat, $lng);
 //            $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
 
-            info('driver :'.$user->email.' _ '.$user->distance);
+        }
+
+        foreach ($users as $user){
+            info('driver init:'.$user->email.' _ '.$user->distance);
         }
 
         // Sort the users by distance

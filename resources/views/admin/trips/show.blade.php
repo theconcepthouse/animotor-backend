@@ -56,6 +56,22 @@
                                             </div>
                                         </div><!-- .card-inner -->
 
+                                        <div class="card-inner">
+                                            <div class="overline-title-alt mb-2"> To Address</div>
+                                            <div class="profile-balance">
+                                                <div class="profile-balance-group gx-4">
+                                                    <div class="profile-balance-sub">
+                                                        <div class="profile-balance-amount">
+                                                            <div class="">
+                                                                {{ $trip->destination }}
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- .card-inner -->
+
                                         @if($trip->driver)
                                         <div class="card-inner">
                                             <div class="overline-title-alt mb-2"> Driver</div>

@@ -108,10 +108,10 @@ class DistanceService
             }
 
         }
-
-        foreach ($users as $user){
-            info('driver init:'.$user->email.' _ '.$user->distance);
-        }
+//
+//        foreach ($users as $user){
+//            info('driver init:'.$user->email.' _ '.$user->distance);
+//        }
 
         // Sort the users by distance
         $users = $users->sortBy('distance')->take(settings('max_drivers_notify', 2));
@@ -132,7 +132,7 @@ class DistanceService
         foreach ($closetDrivers as $user) {
             $msg = $user->email.' notified for a nearby trip request of '.$user->distance.'km estimated distance, trip by '.$current_user?->email;
             log_activity('driver_trip_notification', $msg);
-            info('driver returned:'.$user->email.' _ '.$user->distance);
+//            info('driver returned:'.$user->email.' _ '.$user->distance);
         }
 
         return $closetDrivers;

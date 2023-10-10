@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dateTime('last_location_update')->nullable();
-            $table->text('services')->default([]);
+            $table->text('services')->nullable();
         });
     }
 

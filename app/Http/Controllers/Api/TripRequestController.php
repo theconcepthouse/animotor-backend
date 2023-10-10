@@ -15,6 +15,7 @@ use App\Services\TripRequestService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 class TripRequestController extends Controller
@@ -43,6 +44,14 @@ class TripRequestController extends Controller
         $d_lng = $request['destination_lng'];
         $o_lng = $request['origin_lng'];
         $o_lat = $request['origin_lat'];
+
+        // Generate a cache key based on the latitudes and longitudes
+        $cacheKey = "your_unique_cache_key_prefix_{$d_lat}_{$d_lng}_{$o_lat}_{$o_lng}_{$type}";
+
+        // Check if the data is cached
+        if (Cache::has($cacheKey)) {
+            return response()->json(['data' => []], 200);
+        }
 
         $type = $request['type'];
 
@@ -90,6 +99,7 @@ class TripRequestController extends Controller
             }
         }
 
+        Cache::put($cacheKey, [], 1);
 
         return response()->json(['data' => $service_types], 200);
     }

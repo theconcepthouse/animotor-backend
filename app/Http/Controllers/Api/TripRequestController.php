@@ -45,6 +45,8 @@ class TripRequestController extends Controller
         $o_lng = $request['origin_lng'];
         $o_lat = $request['origin_lat'];
 
+        $type = $request['type'];
+
         // Generate a cache key based on the latitudes and longitudes
         $cacheKey = "your_unique_cache_key_prefix_{$d_lat}_{$d_lng}_{$o_lat}_{$o_lng}_{$type}";
 
@@ -53,7 +55,7 @@ class TripRequestController extends Controller
             return response()->json(['data' => []], 200);
         }
 
-        $type = $request['type'];
+//        $type = $request['type'];
 
         $tripRequestService = new TripRequestService();
 

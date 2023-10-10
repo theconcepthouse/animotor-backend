@@ -17,4 +17,9 @@ class TripRequestService
             return false;
         }
     }
+
+
+    public function deletePendingTrips(){
+
+    }
 }

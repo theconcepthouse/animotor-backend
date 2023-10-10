@@ -119,6 +119,7 @@
                             <th><input type="checkbox" wire:model.live="selectAll"></th>
                             <th>{{ __('admin.sn') }}</th>
                             @if($role == 'driver')
+                            <th>{{ __('admin.is_online') }}</th>
                             <th>{{ __('admin.service_type') }}</th>
                             @endif
                             <th>{{ __('admin.service_area') }}</th>
@@ -146,6 +147,13 @@
 
                                 <td>{{ $loop->index + 1 }}</td>
                                 @if($role == 'driver')
+                                    <td>
+                                        @if($item->is_online)
+                                            <span class="badge badge-dim bg-success">Yes</span>
+                                        @else
+                                            <span class="badge badge-dim bg-danger">No</span>
+                                        @endif
+                                    </td>
                                 <td>{{ $item?->service?->name ?? 'Not set' }}</td>
                                 @endif
                                 <td>{{ $item?->region?->name ?? 'Not set' }}</td>
@@ -153,7 +161,7 @@
                                 @if(settings('enable_monify_virtual_account') == 'yes')
                                     <th>{{ $item->monify_account ? 'enabled' : 'missing' }}</th>
                                 @endif
-                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->full_phone }}</td>
                                 <td>{{ amt($item->balance) }}</td>
                                 <td>{{ $item->email }}</td>
 

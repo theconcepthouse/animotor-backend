@@ -27,7 +27,7 @@ class UserController extends Controller
 
         $lat = $request['lat'];
         $lng = $request['lng'];
-        $address = $request['address'] ?? 'Your current location ';
+        $address = $request['address'] ?? $user->address;
 
         $region = $regionService->getRegionByLatLng($lat, $lng);
 
@@ -46,6 +46,8 @@ class UserController extends Controller
             'map_lat' => $request['lat'],
             'map_lng' => $request['lng'],
             'region_id' => $region->id,
+            'address' => $address,
+            'last_location_update' => Carbon::now()->addMinutes(2),
         ]);
 
         return $this->successResponse('updated lat & lng', $user);

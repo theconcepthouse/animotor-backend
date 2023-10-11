@@ -186,7 +186,7 @@
                                             <span class="badge badge-dim bg-danger">No</span>
                                         @endif
                                     </td>
-                                <td>{{ $item?->last_location_update ? $item?->last_location_update->format('Y-m-d-H:s') : 'offline' }}
+                                <td>{{ $item?->last_location_update ? $item?->last_location_update->format('H:s') : 'offline' }}
                                </td>
                                 <td>{{ $item?->service?->name ?? 'Not set' }}</td>
                                 @endif

@@ -65,7 +65,7 @@ class DistanceService
         $restrict_drivers = settings('restrict_rides_to_service_type','no');
 
         if($restrict_drivers != 'yes') {
-            $users = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
+            $users = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
                 ->whereNotNull('push_token')
@@ -79,7 +79,7 @@ class DistanceService
         }
 
         else{
-            $query = User::whereHasRole('driver')->select('id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
+            $query = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
                 ->whereNotNull('push_token')

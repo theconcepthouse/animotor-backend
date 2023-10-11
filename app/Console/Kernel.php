@@ -19,7 +19,6 @@ class Kernel extends ConsoleKernel
 
 
     protected $commands = [
-        SetInactiveDriversOffline::class,
         ClearActivityLog::class,
         DeletePendingTrips::class,
         SetInactiveDriversOffline::class,

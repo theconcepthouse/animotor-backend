@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ClearActivityLog;
+use App\Console\Commands\DeletePendingTrips;
 use App\Console\Commands\SetInactiveDriversOffline;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -17,7 +19,10 @@ class Kernel extends ConsoleKernel
 
 
     protected $commands = [
-        SetInactiveDriversOffline::class
+        SetInactiveDriversOffline::class,
+        ClearActivityLog::class,
+        DeletePendingTrips::class,
+        SetInactiveDriversOffline::class,
     ];
 
     protected function schedule(Schedule $schedule)

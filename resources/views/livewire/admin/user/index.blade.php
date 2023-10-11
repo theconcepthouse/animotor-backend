@@ -97,7 +97,7 @@
 
     </div>
 
-    <div class="card card-bordered card-preview">
+    <div class="card card-bordered card-preview" wire:poll.30s>
 
         <div class="card-inner">
             <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">

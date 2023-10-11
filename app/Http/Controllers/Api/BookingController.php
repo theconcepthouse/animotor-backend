@@ -282,6 +282,8 @@ class BookingController extends Controller
 
             $item->price = $price;
             $item->booking = $booking;
+
+            $item->price_per_day = amt($item->price_per_day);
         }
 
         $response['cars'] = $data;

@@ -55,6 +55,10 @@
                                             <td><strong>Pick-up Location:</strong></td>
                                             <td>{{ $booking?->pick_location }}</td>
                                         </tr>
+                                        <tr>
+                                            <td><strong>Drop-off Location:</strong></td>
+                                            <td>{{ $booking?->drop_off_location ?? $booking?->pick_location }}</td>
+                                        </tr>
                                         @if($booking?->driver)
                                             <tr>
                                                 <td><strong>Driver:</strong></td>

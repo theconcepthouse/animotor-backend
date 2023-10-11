@@ -102,8 +102,8 @@
 
 
                                         <div class="col-6 mt-3">
-                                            <p>Price for {{ request()->query('booking_day') }}days</p>
-                                            <p class="mt-2 text-title">{{ amt(request()->query('booking_day') * $booking->car->price_per_day) }}</p>
+                                            <p>Price for {{ $booking->days }}days</p>
+                                            <p class="mt-2 text-title">{{ amt($booking->fee) }}</p>
                                         </div>
 
                                         <div style="height: 50px"></div>
@@ -183,7 +183,7 @@
                         <div class="p-3">
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">Driver details</p>
-                                <p><a href="">Edit details</a></p>
+{{--                                <p><a href="">Edit details</a></p>--}}
                             </div>
                             <div class="mt-3">
                                 <p>Main Driver</p>

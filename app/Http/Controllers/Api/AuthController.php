@@ -440,6 +440,7 @@ class AuthController extends Controller
         $status = (bool)$request['status'];
         $user = user::find(auth()->user()->id);
         $user->is_online = $status;
+        $user->last_location_update = Carbon::now()->addMinutes(2);
         $user->save();
         $firestoreService->updateUser($user);
         return $this->successResponse('status updated',$user);

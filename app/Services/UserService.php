@@ -13,7 +13,8 @@ class UserService
         $firestoreService = new FirestoreService();
         $time = settings('set_driver_offline_after', 30);
         $date_time = Carbon::now()->subMinutes();
-        $users = User::whereHasRole()->whereDate('last_location_update', '<', $date_time)->get();
+        $users = User::whereHasRole()->whereDate('last_location_update', '<', $date_time)
+            ->orWhereNull('last_location_update')->get();
 
         if(count($users) > 0){
             $message = count($users).' drivers automatically logged out after '.$time.' minutes of inactivity';

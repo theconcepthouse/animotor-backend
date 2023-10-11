@@ -59,7 +59,7 @@ class AdminController extends Controller
     public function testQuery(){
         $time = settings('set_driver_offline_after', 30);
         $date_time = Carbon::now()->subMinutes($time);
-        $users = User::whereHasRole('driver')->where('is_online', true)->whereDate('last_location_update', '<', $date_time)
+        $users = User::whereHasRole('driver')->where('is_online', true)->where('last_location_update', '<', $date_time)
             ->orWhereNull('last_location_update')->get();
 
         return [

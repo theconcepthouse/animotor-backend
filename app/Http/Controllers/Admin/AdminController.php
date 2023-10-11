@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\View\View;
 use Rawilk\Settings\Models\Setting;
 
 class AdminController extends Controller
@@ -69,6 +70,10 @@ class AdminController extends Controller
             'users' => $users,
 
         ];
+    }
+
+    public function activityLog(){
+        return view('admin.activity-log');
     }
 
     public function admins()

@@ -10,7 +10,7 @@
                     <div class="nk-block">
 
 
-                            <livewire:admin.cars.index />
+                            <livewire:admin.activity-log />
 
 
                     </div><!-- .nk-block -->

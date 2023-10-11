@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::get('testquery', [AdminController::class, 'testQuery'])->name('test');
+    Route::get('activity/logs', [AdminController::class, 'activityLog'])->name('activity.log');
 
     Route::get('/user/admins', [AdminController::class, 'admins'])->name('user.admins');
 

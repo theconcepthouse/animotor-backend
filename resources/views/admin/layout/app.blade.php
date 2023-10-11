@@ -458,6 +458,14 @@
     ];
 
 
+    $menuArray[] = [
+        'url' => route('admin.activity.log'),
+        'text' => 'Activity Log',
+        'route' => 'settings-read',
+        'icon' => 'ni ni-activity-round-fill',
+    ];
+
+
 
     $menuArray[] = [
         'text' => 'CMS Section',

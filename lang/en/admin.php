@@ -1,12 +1,15 @@
 <?php
 
 return [
-    'title' => '',
+    'title' => 'Title',
     'booking_title' => 'Bookings List',
     'filtered_by' => 'Filtered By',
     'completed' => 'Completed',
     'pending' => 'Pending',
     'confirmed' => 'Confirmed',
+    'activity_log' => 'Activity Log',
+    'created_at' => 'Created at',
+    'info' => 'Info',
     'unconfirmed' => 'Unconfirmed',
     'paid' => 'paid',
     'unpaid' => 'Unpaid',

@@ -186,7 +186,10 @@
                                             <span class="badge badge-dim bg-danger">No</span>
                                         @endif
                                     </td>
-                                <td>{{ $item?->last_location_update ? $item?->last_location_update->diffForHumans() : 'offline' }}</td>
+                                <td>{{ $item?->last_location_update ? $item?->last_location_update->diffForHumans() : 'offline' }}
+                                <br/>
+                                    {{ $item?->last_location_update ? $item?->last_location_update->format('Y-m-d-H:i:s') : '' }}
+                                </td>
                                 <td>{{ $item?->service?->name ?? 'Not set' }}</td>
                                 @endif
                                 <td>{{ $item?->region?->name ?? 'Not set' }}</td>

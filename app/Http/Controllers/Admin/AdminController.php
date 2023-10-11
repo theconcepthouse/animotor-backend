@@ -65,7 +65,7 @@ class AdminController extends Controller
         return [
             'users_count' => count($users),
             'time' => $time,
-            'date_time' => $date_time,
+            'date_time' => $date_time->format('Y-m-d : H:i:s'),
             'users' => $users,
 
         ];

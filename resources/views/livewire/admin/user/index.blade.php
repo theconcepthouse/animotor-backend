@@ -1,4 +1,4 @@
-<div class="nk-block nk-block-lg">
+<div class="nk-block nk-block-lg" wire:poll.30s>
 
     <div class="nk-block-head">
         <div class="nk-block-between">
@@ -97,7 +97,7 @@
 
     </div>
 
-    <div class="card card-bordered card-preview" wire:poll.30s>
+    <div class="card card-bordered card-preview">
 
         <div class="card-inner">
             <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -186,7 +186,7 @@
                                             <span class="badge badge-dim bg-danger">No</span>
                                         @endif
                                     </td>
-                                <td>{{ $item?->last_location_update ? $item?->last_location_update->diffForHumans() : 'offline' }}
+                                <td>{{ $item?->last_location_update ? $item?->last_location_update->format('Y-m-d-H:s') : 'offline' }}
                                </td>
                                 <td>{{ $item?->service?->name ?? 'Not set' }}</td>
                                 @endif

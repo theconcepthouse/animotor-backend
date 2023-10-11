@@ -165,9 +165,7 @@
                                 <th>Monify Account</th>
                             @endif
                             @if($role == 'driver')
-                                <th>Car Type</th>
                                 <th>Document </th>
-
                             @endif
                             <th>{{ __('admin.status') }}</th>
                             <th>{{ __('admin.action') }}</th>

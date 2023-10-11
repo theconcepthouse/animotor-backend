@@ -135,7 +135,7 @@ class DistanceService
         }
 
         foreach ($closetDrivers as $user) {
-            $msg = $user->email.' notified for a nearby trip request of '.$user->distance.'km estimated distance, trip by '.$current_user?->email;
+            $msg = 'Trip request by '.$current_user?->email. ' sent to '.$user->email.' last_seen_at '.$user->last_location_update.' at '.Carbon::now().' while '.$user->distance.'km away from pickup location';
             log_activity('driver_trip_notification', $msg);
 //            info('driver returned:'.$user->email.' _ '.$user->distance);
         }

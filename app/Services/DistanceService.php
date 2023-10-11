@@ -82,6 +82,7 @@ class DistanceService
                 ->where('region_id', $region_id)
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
+                ->whereNotNull('last_location_update')
                 ->whereNotNull('map_lat');
 
             $users = $query->where(function ($query) use ($service_id) {

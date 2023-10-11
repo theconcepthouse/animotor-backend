@@ -39,7 +39,8 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
 
     protected $casts = [
-        'is_online' => 'bool'
+        'is_online' => 'bool',
+        'last_location_update' => 'date',
     ];
 
     protected $hidden = [

@@ -11,6 +11,7 @@ return [
     'paid' => 'paid',
     'unpaid' => 'Unpaid',
     'scheduled' => 'Scheduled',
+    'last_seen' => 'Last seen',
     'all' => 'All',
     'export_title' => 'Bookings Export',
     'sn' => 'SN',

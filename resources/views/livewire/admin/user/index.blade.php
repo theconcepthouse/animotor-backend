@@ -45,6 +45,7 @@
 
 {{--                            @if($role == 'driver')--}}
 
+
                                 <li>
                                     <div class="drodown">
                                         <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-bs-toggle="dropdown" aria-expanded="false">Filter</a>
@@ -52,6 +53,7 @@
                                             <ul class="link-list-opt no-bdr">
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('all')"><span>All </span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('active')"><span>Active</span></a></li>
+                                                <li class="text-center-"><a  wire:click.stop="setStatus('online')"><span>Online</span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('pending')"><span>Pending</span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('banned')"><span>Banned</span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('negative_balance')"><span>Negative Balance</span></a></li>
@@ -106,6 +108,33 @@
                         </div>
                         <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Car search">
                     </div>
+
+                    <li class="ms-3">
+                        <div class="drodown">
+                            <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-bs-toggle="dropdown" aria-expanded="false">Service type</a>
+                            <div class="dropdown-menu dropdown-menu-end" style="">
+                                <ul class="link-list-opt no-bdr">
+                                    <li class="text-center-"><a  wire:click.stop="setServiceType('')"><span>All</span></a></li>
+                                    @foreach(\App\Models\Service::all() as $service)
+                                        <li class="text-center-"><a  wire:click.stop="setServiceType('{{ $service->id }}')"><span>{{ $service->name }} </span></a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="ms-3">
+                        <div class="drodown">
+                            <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-bs-toggle="dropdown" aria-expanded="false">Service area</a>
+                            <div class="dropdown-menu dropdown-menu-end" style="">
+                                <ul class="link-list-opt no-bdr">
+                                    <li class="text-center-"><a  wire:click.stop="setServiceArea('')"><span>All</span></a></li>
+                                    @foreach(\App\Models\Region::select('name','id')->get() as $service)
+                                        <li class="text-center-"><a  wire:click.stop="setServiceArea('{{ $service->id }}')"><span>{{ $service->name }} </span></a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
                 </div>
 
 
@@ -120,20 +149,25 @@
                             <th>{{ __('admin.sn') }}</th>
                             @if($role == 'driver')
                             <th>{{ __('admin.is_online') }}</th>
+                            <th>{{ __('admin.last_seen') }}</th>
                             <th>{{ __('admin.service_type') }}</th>
                             @endif
                             <th>{{ __('admin.service_area') }}</th>
                             <th>{{ __('admin.full_name') }}</th>
-                            @if(settings('enable_monify_virtual_account') == 'yes')
-                                <th>Monify Account</th>
+                            @if($role == 'driver')
+                                <th>Car Type</th>
+                                <th>Verification </th>
                             @endif
                             <th>{{ __('admin.phone') }}</th>
                             <th>{{ __('admin.account_balance') }}</th>
                             <th>{{ __('admin.email_address') }}</th>
+                            @if(settings('enable_monify_virtual_account') == 'yes')
+                                <th>Monify Account</th>
+                            @endif
                             @if($role == 'driver')
                                 <th>Car Type</th>
                                 <th>Document </th>
-                                <th>Verification </th>
+
                             @endif
                             <th>{{ __('admin.status') }}</th>
                             <th>{{ __('admin.action') }}</th>
@@ -154,25 +188,13 @@
                                             <span class="badge badge-dim bg-danger">No</span>
                                         @endif
                                     </td>
+                                <td>{{ $item?->last_location_update ? $item?->last_location_update->diffForHumans() : 'offline' }}</td>
                                 <td>{{ $item?->service?->name ?? 'Not set' }}</td>
                                 @endif
                                 <td>{{ $item?->region?->name ?? 'Not set' }}</td>
                                 <td>{{ $item->name }}</td>
-                                @if(settings('enable_monify_virtual_account') == 'yes')
-                                    <th>{{ $item->monify_account ? 'enabled' : 'missing' }}</th>
-                                @endif
-                                <td>{{ $item->full_phone }}</td>
-                                <td>{{ amt($item->balance) }}</td>
-                                <td>{{ $item->email }}</td>
-
                                 @if($role == 'driver')
                                     <td>{{ $item?->car?->type }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.driver.documents', ['id' => $item->id]) }}" class="btn btn-outline-primary">
-                                            <i class="icon ni ni-book"></i>
-                                        </a>
-                                    </td>
-
                                     <td>
                                         <a href="{{ route('admin.driver.documents', ['id' => $item->id]) }}">
                                             @if($item->unapproved_documents < 1)
@@ -180,6 +202,23 @@
                                             @else
                                                 <span class="badge badge-dim bg-danger">{{$item->unapproved_documents }} pending</span>
                                             @endif
+                                        </a>
+                                    </td>
+
+                                @endif
+
+                                <td>{{ $item->full_phone }}</td>
+                                <td>{{ amt($item->balance) }}</td>
+                                <td>{{ $item->email }}</td>
+
+                                @if(settings('enable_monify_virtual_account') == 'yes')
+                                    <th>{{ $item->monify_account ? 'enabled' : 'missing' }}</th>
+                                @endif
+
+                                @if($role == 'driver')
+                                    <td>
+                                        <a href="{{ route('admin.driver.documents', ['id' => $item->id]) }}" class="btn btn-outline-primary">
+                                            <i class="icon ni ni-book"></i>
                                         </a>
                                     </td>
 

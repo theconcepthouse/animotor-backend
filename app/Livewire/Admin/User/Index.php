@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\User;
 
 use App\Models\User;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,13 @@ class Index extends Component
 
     use WithPagination;
 
+    #[Url]
     public string $search = '';
+    #[Url]
+    public $service_type = '';
+    #[Url]
+    public $service_area = '';
+    #[Url]
     public string $status = 'all';
 
     public string $role = 'rider';
@@ -21,6 +28,7 @@ class Index extends Component
     #[Computed]
     public array $selected_items = [];
 
+    #[Url]
     public bool $selectAll = false;
 
     protected string $paginationTheme = 'bootstrap';
@@ -32,6 +40,10 @@ class Index extends Component
         return view('livewire.admin.user.index',[
             'data' => $data,
         ]);
+    }
+
+    public function mount(){
+        $this->updatedSelectAll();
     }
 
 //    public function toggleAvailable($itemId)
@@ -113,6 +125,18 @@ class Index extends Component
             $query->where('status', 'active');
         }
 
+        if($this->status == 'online'){
+            $query->where('is_online', true);
+        }
+
+        if($this->service_type){
+            $query->where('service_id', $this->service_type);
+        }
+
+        if($this->service_area){
+            $query->where('region_id', $this->service_area);
+        }
+
         $query->where(function ($query) {
             $query->where('first_name', 'like', '%' . $this->search . '%')
                 ->orWhere('last_name', 'like', '%' . $this->search . '%')
@@ -125,6 +149,17 @@ class Index extends Component
 
     public function setStatus($status){
         $this->status = $status;
+    }
+
+    public function setServiceType($id){
+//        if(!$id){
+//            $this->reset('service_type');
+//        }
+        $this->service_type = $id;
+    }
+
+    public function setServiceArea($id){
+        $this->service_area = $id;
     }
 
 }

@@ -13,7 +13,7 @@ class UserService
         $firestoreService = new FirestoreService();
         $time = settings('set_driver_offline_after', 30);
         $date_time = Carbon::now()->subMinutes($time);
-        $users = User::whereHasRole('driver')->whereDate('last_location_update', '<', $date_time)
+        $users = User::whereHasRole('driver')->where('is_online', true)->whereDate('last_location_update', '<', $date_time)
             ->orWhereNull('last_location_update')->get();
 
         if(count($users) > 0){
@@ -21,6 +21,7 @@ class UserService
             log_activity('drivers_auto_logout', $message);
             foreach ($users as $user){
                 $user->is_online = false;
+                $user->last_location_update = Carbon::now();
                 $user->save();
                 $firestoreService->updateUser($user);
             }

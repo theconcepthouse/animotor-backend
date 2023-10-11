@@ -63,6 +63,7 @@ class AdminController extends Controller
             ->orWhereNull('last_location_update')->get();
 
         return [
+            'users_count' => count($users),
             'users' => $users,
             'time' => $time,
             'date_time' => $date_time,

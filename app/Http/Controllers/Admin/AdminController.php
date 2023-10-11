@@ -56,6 +56,19 @@ class AdminController extends Controller
         ));
     }
 
+    public function testQuery(){
+        $time = settings('set_driver_offline_after', 30);
+        $date_time = Carbon::now()->subMinutes($time);
+        $users = User::whereHasRole('driver')->whereDate('last_location_update', '<', $date_time)
+            ->orWhereNull('last_location_update')->get();
+
+        return [
+            'users' => $users,
+            'time' => $time,
+            'date_time' => $date_time,
+        ];
+    }
+
     public function admins()
     {
         if(isOwner()){

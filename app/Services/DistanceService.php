@@ -72,7 +72,7 @@ class DistanceService
                 ->whereNotNull('map_lng')
                 ->whereNotNull('map_lat')
                 ->whereNotNull('last_location_update')
-                ->whereDate('last_location_update', '>', Carbon::now()->subMinutes(20))
+                ->where('last_location_update', '>', Carbon::now()->subMinutes(20))
                 ->get();
 
             info('drivers by distance : '. count($users));
@@ -85,7 +85,7 @@ class DistanceService
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('last_location_update')
-                ->whereDate('last_location_update', '>', Carbon::now()->subMinutes(20))
+                ->where('last_location_update', '>', Carbon::now()->subMinutes(20))
                 ->whereNotNull('map_lat');
 
             $users = $query->where(function ($query) use ($service_id) {

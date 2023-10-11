@@ -87,7 +87,7 @@
                                     <div class="accordion-item wow fadeInUp" data-wow-duration="0.9s" style="visibility: visible; animation-duration: 0.9s; animation-name: fadeInUp;">
                                         <h2 class="accordion-header" id="headingOne">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                The Car’s excess
+                                                The Car’s Excess
                                             </button>
                                         </h2>
                                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
@@ -100,13 +100,13 @@
                                     <div class="accordion-item wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
                                         <h2 class="accordion-header" id="headingTwo">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                Windows, mirrors, wheels & tyres
+                                                Security Deposit Information
                                             </button>
                                         </h2>
                                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
                                             <div class="accordion-body">
                                                 <p>
-                                                    .....
+                                                    {!! $car->security_deposit !!}
                                                 </p>
                                             </div>
                                         </div>
@@ -115,13 +115,13 @@
                                     <div class="accordion-item wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
                                         <h2 class="accordion-header" id="heading3">
                                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapseTwo">
-                                                Administration and breakdown charges
+                                                Mileage Information
                                             </button>
                                         </h2>
                                         <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample" style="">
                                             <div class="accordion-body">
                                                 <p>
-                                                    .....
+                                                    {!! $car->mileage_text !!}
                                                 </p>
                                             </div>
                                         </div>

@@ -224,7 +224,7 @@
                             No thanks, count me out.
                         </p>
                         <p class="mt-2">
-                            Our <a href="/privacy">Privacy Statement</a> tells you how to Subscribe .
+                            Our <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Statement</a> tells you how to Subscribe .
                             It also explains how we use and protect your personal information.
                         </p>
                     </div>
@@ -234,7 +234,7 @@
                         <p>
                             By clicking ‘Book now’, you are confirming that you have read,
                             understood and accepted our Terms of service,
-                            <a href="/policy"> Policy Terms </a> and the Drivalia rental terms.
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal"> Policy Terms </a> and the {{ $car?->company?->name }} rental terms.
                         </p>
                     </div>
                 </div>

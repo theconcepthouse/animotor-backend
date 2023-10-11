@@ -145,4 +145,8 @@ class Car extends Model
         ];
     }
 
+    public function requirements(){
+        return explode(',', $this->requirements);
+    }
+
 }

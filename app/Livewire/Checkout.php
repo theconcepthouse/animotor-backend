@@ -21,6 +21,7 @@ class Checkout extends Component
     public $phone;
     public $email;
     public $password;
+    public $booking_type;
 
     public $countries;
     public $car;
@@ -75,7 +76,16 @@ class Checkout extends Component
         $data['region_id'] = $this->region_id;
         $data['car_id'] = $this->car->id;
         $data['fee'] =  $this->car->price_per_day * $this->booking_day;
-        $data['grand_total'] =  $data['fee'] + $tax;
+
+        if($this->booking_type == 'with_full_protection'){
+            $data['insurance_fee'] = $this->car?->insurance_fee;
+        }else{
+            $data['insurance_fee'] = 0;
+        }
+
+        $data['tax'] =  $tax;
+
+        $data['grand_total'] =  $data['fee'] + $tax + $data['insurance_fee'];
 
 
         $data['reference'] = getUniqueReferenceCode();
@@ -87,6 +97,7 @@ class Checkout extends Component
         $data['payment_method'] = 'cash';
 
         $data['pick_up_date'] = $this->pick_up_date;
+        $data['booking_type'] = $this->booking_type;
         $data['pick_up_time'] = $this->pick_up_time;
         $data['drop_off_date'] = $this->drop_off_date;
         $data['drop_off_time'] = $this->drop_off_time;
@@ -104,8 +115,6 @@ class Checkout extends Component
         }
 
         return redirect()->route('booking', ['id' => $booking->id])->with('success','booking successfully submitted');
-
-
 
 
     }
@@ -134,6 +143,7 @@ class Checkout extends Component
         $this->pick_location = request()->query('pick_up_location');
         $this->drop_off_location = request()->query('drop_off_location');
         $this->region_id = request()->query('region_id');
+        $this->booking_type = request()->query('book_type');
     }
 
     public function render()

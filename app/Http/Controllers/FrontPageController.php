@@ -119,6 +119,13 @@ class FrontPageController extends Controller
         }else{
             $user = null;
         }
+        $booking_day = $request->get('booking_day');
+
+        $car->total = $car->price_per_day * $booking_day;
+
+        if($request->get('book_type') == 'with_full_protection'){
+            $car->total += $car->insurance_fee;
+        }
 
         return view('frontpage.checkout', compact('car','user'));
     }

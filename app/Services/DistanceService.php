@@ -70,6 +70,7 @@ class DistanceService
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('map_lat')
+                ->whereNotNull('last_location_update')
                 ->get();
 
             info('drivers by distance : '. count($users));

@@ -57,6 +57,12 @@
             </div>
         </div>
 
+
+
+            @include('frontpage.partials.terms_modal')
+
+
+
     </section>
 
 

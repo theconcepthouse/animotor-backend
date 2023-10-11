@@ -122,8 +122,26 @@
                     <div class="car__driverdetails mb__40">
                         <div class="p-3">
                             <div class="d-flex justify-content-between">
+                                <p class="text-heading">What you need at pick-up</p>
+                            </div>
+                            <div class="mt-3">
+
+                                @foreach($booking->car->requirements() as $i)
+                                    <p class="text-capitalize">
+                                        {{ $i }}
+                                    </p>
+                                @endforeach
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="car__driverdetails mb__40">
+                        <div class="p-3">
+                            <div class="d-flex justify-content-between">
                                 <p class="text-heading">Your car rental booking</p>
-                                <p><a href=""> View ‘what you need at pick-up’</a></p>
                             </div>
                             <div class="mt-3">
                                 <p>
@@ -140,21 +158,20 @@
                         <div class="p-3">
 
                             <div class="d-flex justify-content-between">
-                                <p class="text-heading">Your car rental booking</p>
-                                <p><a href=""> View ‘what you need at pick-up’</a></p>
+                                <p class="text-heading">Your car rental instruction</p>
                             </div>
 
                                 <div style="gap: 20px 35px;" class=" flex-wrap mt-5 d-flex align-items-center-">
 
-                                    <img style="height: 100%" src="/assets/img/icons/dot_v.png">
+{{--                                    <img style="height: 100%" src="/assets/img/icons/dot_v.png">--}}
                                     <div class="carferrari__content">
-                                        <p class="m2">2023-08-16,10:00</p>
-                                        <p class="mt-1"></p>
-                                        <p class="mt-2"><a href="">View pick-up instructions</a> </p>
+                                        <p class="m2">{{ $booking->pick_up_date.', '.$booking->pick_up_time }}</p>
+                                        <p class="mt-1">{{ $booking->pick_location }}</p>
+                                        <p class="mt-2"><a href="#" data-bs-toggle="modal" data-bs-target="#pickup_instructions">View pick-up instructions</a> </p>
 
-                                        <p class="mt-2">2023-08-18, </p>
-                                        <p class="mt-1">Anguilla</p>
-                                        <p class="mt-2"><a href="">View Drop-off instructions</a> </p>
+                                        <p class="mt-2">{{ $booking->drop_off_date.', '.$booking->drop_off_time }}</p>
+                                        <p class="mt-1">{{ $booking->drop_off_location }}</p>
+                                        <p class="mt-2"><a href="#" data-bs-toggle="modal" data-bs-target="#dropoff_instructions">View Drop-off instructions</a> </p>
                                     </div>
                                 </div>
 
@@ -213,15 +230,15 @@
                             <!--Accordion items-->
                             <div class="accordion-item wow fadeInUp" data-wow-duration="0.9s" style="visibility: visible; animation-duration: 0.9s; animation-name: fadeInUp;">
                                 <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <button class="accordion-button text-capitalize" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         The Car’s excess
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
                                     <div class="accordion-body">
                                         <p>
-                                            At the counter, the car hire company will block a deposit amount on your credit card.
-                                            You could lose your whole deposit if the car is damaged or stolen, but as long as you have our Full Protection
+
+                                            {{ $booking?->car?->damage_excess }}
                                         </p>
                                     </div>
                                 </div>
@@ -230,13 +247,13 @@
                             <div class="accordion-item wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Windows, mirrors, wheels &amp; tyres
+                                        Security Deposit Information
                                     </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
                                     <div class="accordion-body">
                                         <p>
-                                            .....
+                                            {!! $booking?->car?->security_deposit !!}
                                         </p>
                                     </div>
                                 </div>
@@ -245,13 +262,13 @@
                             <div class="accordion-item wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
                                 <h2 class="accordion-header" id="heading3">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapseTwo">
-                                        Administration and breakdown charges
+                                        Mileage Information
                                     </button>
                                 </h2>
                                 <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample" style="">
                                     <div class="accordion-body">
                                         <p>
-                                            .....
+                                            {!! $booking?->car?->mileage_text !!}
                                         </p>
                                     </div>
                                 </div>
@@ -278,13 +295,29 @@
                         <div class="carferrari__item flex-wrap mt-3 align-items-center-">
                             <div class="carferrari__content">
                                 <div class="d-flex justify-content-between">
-                                    <p class="m2">Car hire charge</p>
+                                    <p class="m2">Booking fee</p>
                                     <p class="">{{ amt($booking->fee) }}</p>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <p class="m2">Tax</p>
+                                    <p class="">{{ amt($booking->tax) }}</p>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <p class="m2">Insurance fee</p>
+                                    <p class="">{{ amt($booking->tax) }}</p>
                                 </div>
 
                                 <div class="d-flex mt-2 justify-content-between">
                                     <p class="m2">Grand total</p>
                                     <p class="text-heading">{{ amt($booking->grand_total) }}</p>
+                                </div>
+
+
+                                <div class="d-flex mt-2 justify-content-between">
+                                    <p class="m2">Payment status</p>
+                                    <p class="text-heading">{{ $booking->payment_status }}</p>
                                 </div>
 
 
@@ -327,6 +360,45 @@
 
         @include('frontpage.partials.terms_modal')
 
+
+        <div class="modal fade" id="pickup_instructions">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Pickup instruction</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Accordion -->
+                        <p>
+                            {!! $booking?->car?->pickup_instruction !!}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="dropoff_instructions">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Drop-off instruction</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Accordion -->
+                        <p>
+                            {!! $booking?->car?->drop_off_instruction !!}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </section>

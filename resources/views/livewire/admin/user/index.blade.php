@@ -187,9 +187,7 @@
                                         @endif
                                     </td>
                                 <td>{{ $item?->last_location_update ? $item?->last_location_update->diffForHumans() : 'offline' }}
-                                <br/>
-                                    {{ $item?->last_location_update ? $item?->last_location_update->format('Y-m-d-H:i:s') : '' }}
-                                </td>
+                               </td>
                                 <td>{{ $item?->service?->name ?? 'Not set' }}</td>
                                 @endif
                                 <td>{{ $item?->region?->name ?? 'Not set' }}</td>

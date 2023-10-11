@@ -12,7 +12,7 @@ class UserService
     {
         $firestoreService = new FirestoreService();
         $time = settings('set_driver_offline_after', 30);
-        $date_time = Carbon::now()->subMinutes();
+        $date_time = Carbon::now()->subMinutes($time);
         $users = User::whereHasRole()->whereDate('last_location_update', '<', $date_time)
             ->orWhereNull('last_location_update')->get();
 

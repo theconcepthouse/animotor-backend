@@ -7,7 +7,7 @@
                 <ul class="align-items-center">
                     <li class="column-group-main-2 mb-3">
                         <div class="form-group">
-                            <label>Pickup Location</label>
+                            <label>Pick-up Location</label>
                             <div class="group-img">
                                 <input type="text" class="form-control" placeholder="Enter City, Airport, or Address">
                                 <span><i class="feather-map-pin"></i></span>
@@ -27,7 +27,7 @@
 
                     <li class="column-group-main ">
                         <div class="form-group">
-                            <label>Pickup Date</label>
+                            <label>Pick-up Date</label>
                         </div>
                         <div class="form-group-wrapp">
                             <div class="form-group date-widget">

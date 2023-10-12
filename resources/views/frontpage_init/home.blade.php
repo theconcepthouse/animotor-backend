@@ -33,7 +33,7 @@
                     <ul class="align-items-center">
                         <li class="column-group-main">
                             <div class="form-group">
-                                <label>Pickup Location</label>
+                                <label>Pick-up Location</label>
                                 <div class="group-img">
                                     <input type="text" class="form-control" placeholder="Enter City, Airport, or Address">
                                     <span><i class="feather-map-pin"></i></span>
@@ -42,7 +42,7 @@
                         </li>
                         <li class="column-group-main">
                             <div class="form-group">
-                                <label>Pickup Date</label>
+                                <label>Pick-up Date</label>
                             </div>
                             <div class="form-group-wrapp">
                                 <div class="form-group date-widget">
@@ -194,7 +194,7 @@
                                 <div class="listing-owl-img">
                                     <img src="/assets/img/cars/mp-vehicle-04.png" class="img-fluid" alt="Popular Cartypes">
                                 </div>
-                                <h6>Pickup</h6>
+                                <h6>Pick-up</h6>
                                 <p>17 Cars</p>
                             </div>
                         </div>
@@ -325,7 +325,7 @@
                                     <img src="/assets/img/icons/bx-user-check.svg" alt>
                                 </div>
                                 <div class="choose-content">
-                                    <h4>Many Pickup Location</h4>
+                                    <h4>Many Pick-up Location</h4>
                                     <p>Enthusiastically magnetic initiatives with cross-platform sources. Dynamically target testing procedures through effective.</p>
                                 </div>
                             </div>

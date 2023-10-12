@@ -31,7 +31,7 @@ class TripRequestController extends Controller
     {
         $user = User::find(auth()->id());
         if(!$user->region_id){
-            return $this->errorResponse('We cant identify your pickup location');
+            return $this->errorResponse('We cant identify your pick-up location');
         }
 
         $region_id = $user->region_id;
@@ -63,7 +63,7 @@ class TripRequestController extends Controller
             $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
 
             if(!$region){
-                return $this->errorResponse('Your pickup address is not supported by our service');
+                return $this->errorResponse('Your pick-up address is not supported by our service');
             }
 
 //            return $region;
@@ -135,7 +135,7 @@ class TripRequestController extends Controller
 
             $region = $tripRequestService->getRegion($user, $request['origin_lat'], $request['origin_lng']);
             if(!$region){
-                return $this->errorResponse('Your pickup address is not supported by our service');
+                return $this->errorResponse('Your pick-up address is not supported by our service');
             }
 
             $request['region_id'] = $region->id;

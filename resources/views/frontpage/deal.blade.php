@@ -92,7 +92,7 @@
                                         </div>
 
                                         <div class="col-6 mt-3">
-                                            <p class="text-primary">{{ $car?->pick_up_location ?? 'Pickup Not set' }}</p>
+                                            <p class="text-primary">{{ $car?->pick_up_location ?? 'Pick-up Not set' }}</p>
                                             <p class="mt-2">{{ $car?->type }}</p>
                                         </div>
 

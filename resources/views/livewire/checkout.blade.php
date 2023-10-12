@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="col-6 mt-3">
-                            <p class="text-primary">{{ $car?->pick_up_location ?? 'Pickup Not set' }}</p>
+                            <p class="text-primary">{{ $car?->pick_up_location ?? 'Pick-up Not set' }}</p>
                             <p class="mt-2">{{ $car?->type }}</p>
                         </div>
 
@@ -173,8 +173,8 @@
                 <div class="col-xl-12 col-lg-12 col-md-12">
                     <div class="input__grp">
                         <p for="address">Is this business booking?</p>
-                        <input wire:model="is_business" type="checkbox" name="is_business" value="yes"> Yes
-                        <input wire:model="is_business" type="checkbox" name="is_business" value="no"> No
+                        <input wire:model="is_business" type="radio" name="is_business" value="yes"> Yes
+                        <input wire:model="is_business" type="radio" name="is_business" value="no"> No
                     </div>
                 </div>
 
@@ -220,7 +220,7 @@
                         </p>
 
                         <p class="mt-2">
-                            <input type="checkbox" name="money_idea">
+                            <input type="checkbox" />
                             No thanks, count me out.
                         </p>
                         <p class="mt-2">

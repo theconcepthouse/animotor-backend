@@ -5,7 +5,7 @@
             <div class="hotelbooking__categoris__wrap mt-5">
             <div class="row booking-info">
                 <div class="col-md-4 col-sm-6 pickup-address">
-                    <h6>Pickup</h6>
+                    <h6>Pick-up</h6>
                     <p>{{ $pick_up_location }}</p>
                     <span>Date &amp; time : {{ $pick_up_date }} : {{ $pick_up_time }}</span>
                 </div>

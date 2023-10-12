@@ -32,7 +32,7 @@ class BookingController extends Controller
     {
         $user = User::find(auth()->id());
         if(!$user->region_id){
-            return $this->errorResponse('We cant identify your pickup location');
+            return $this->errorResponse('We cant identify your Pick-up location');
         }
 
         $region_id = $user->region_id;
@@ -71,7 +71,7 @@ class BookingController extends Controller
     {
         $user = User::find(auth()->id());
         if(!$user->region_id){
-            return $this->errorResponse('We cant identify your pickup location');
+            return $this->errorResponse('We cant identify your Pick-up location');
         }
 
         $region_id = $user->region_id;
@@ -103,7 +103,7 @@ class BookingController extends Controller
 
 
         if($diffInDays < 2){
-            return $this->errorResponse('Your drop off date cant be same as pickup', 422);
+            return $this->errorResponse('Your drop off date cant be same as pick-up', 422);
         }
 
         $booking = [
@@ -175,7 +175,7 @@ class BookingController extends Controller
 
 
         if($startDate > $endDate){
-            return $this->errorResponse('Invalid pickup and drop-off date', 422);
+            return $this->errorResponse('Invalid pick-up and drop-off date', 422);
         }
 
         $query = Car::query();
@@ -372,7 +372,7 @@ class BookingController extends Controller
             $diffInDays = $endDate->diffInDays($startDate);
 
             if($diffInDays < 2){
-                return $this->errorResponse('Your drop off date cant be same as pickup', 422);
+                return $this->errorResponse('Your drop off date cant be same as pick-up', 422);
             }
 
             $tax = ($car->price_per_day * $diffInDays) * 0.075;
@@ -383,7 +383,7 @@ class BookingController extends Controller
 
 
             if($user->account_balance < $data['grand_total']){
-                return $this->errorResponse('Your drop off date cant be same as pickup', 422);
+                return $this->errorResponse('Your drop off date cant be same as pick-up', 422);
             }
 
             $data['reference'] = substr(settings('site_name', 'TRIP'), 0, 4).'-CAR-'.date('Hm').'-'.mt_rand(100,999);

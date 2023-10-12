@@ -26,7 +26,7 @@
             <div class="search-box-banner">
             <div class="row booking-info">
                 <div class="col-md-4 col-sm-6 pickup-address">
-                    <h5>Pickup</h5>
+                    <h5>Pick-up</h5>
                     <p>45, 4th Avanue Mark Street USA</p>
                     <span>Date &amp; time : 11 Jan 2023</span>
                 </div>
@@ -49,7 +49,7 @@
                     <ul class="align-items-center">
                         <li class="column-group-main-2 mb-3">
                             <div class="form-group">
-                                <label>Pickup Location</label>
+                                <label>Pick-up Location</label>
                                 <div class="group-img">
                                     <input type="text" class="form-control" placeholder="Enter City, Airport, or Address">
                                     <span><i class="feather-map-pin"></i></span>
@@ -69,7 +69,7 @@
 
                         <li class="column-group-main ">
                             <div class="form-group">
-                                <label>Pickup Date</label>
+                                <label>Pick-up Date</label>
                             </div>
                             <div class="form-group-wrapp">
                                 <div class="form-group date-widget">
@@ -490,7 +490,7 @@
                                             <div class="listing-owl-img">
                                                 <img src="assets/img/cars/mp-vehicle-04.png" class="img-fluid" alt="Popular Cartypes">
                                             </div>
-                                            <h6>Pickup</h6>
+                                            <h6>Pick-up</h6>
                                             <p>17 Cars</p>
                                         </div>
                                     </div>

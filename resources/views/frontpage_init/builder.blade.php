@@ -49,7 +49,7 @@
                     <ul class="align-items-center">
                         <li class="column-group-main mb-3-">
                             <div class="form-group">
-                                <label>Pickup Location</label>
+                                <label>Pick-up Location</label>
                                 <div class="group-img">
                                     <input type="text" class="form-control" placeholder="Enter City, Airport, or Address">
                                     <span><i class="feather-map-pin"></i></span>

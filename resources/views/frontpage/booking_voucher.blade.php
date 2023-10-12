@@ -60,22 +60,22 @@
 
                             <div class="mt-5">
                                 <div class="voucher_title d-inline-block">
-                                    <p>To the  {{ settings('site_name') }} Rental Desk</p>
+                                    <p>Important Information</p>
                                 </div>
 
 
                                 <div class="d-flex justify-content-between mt-3">
-                                    <p>Deposit</p>
+                                    <p>Grand total</p>
                                     <p>
-                                        £ 1,205.00 including tax
+                                        {{ amt($booking->grand_total) }}
                                     </p>
                                 </div>
 
                                 <div class="d-flex- justify-content-between- mt-3">
-                                    <p class="heading text-bold">Fuel Policy Like for Like</p>
-                                    <p>Mileage / Kilometres</p>
-                                    <p>Your rental includes 100 free miles per rental. If you drive more than this,
-                                        you'll pay £ 0.30 (including tax) for each additional mile when you drop your car off.</p>
+                                    <p class="heading text-bold">Mileage / Kilometres</p>
+                                    <p>
+                                        {!! $booking?->car?->mileage_text !!}
+                                    </p>
                                 </div>
 
                             </div>
@@ -101,16 +101,16 @@
                                 <div class="d-flex justify-content-between mt-3">
                                     <div>
                                         <p class="text-bold">Pick-up</p>
-                                        <p class="mt-4">{{ $booking?->pick_up_date }} at {{ $booking->pick_up_time }}</p>
+                                        <p class="mt-4">{{ $booking?->pick_up_date }}  {{ $booking->pick_up_time ?? ' at '.$booking->pick_up_time }}</p>
 
                                         <p class="mt-4">{{ $booking?->pick_location }} </p>
                                     </div>
 
                                     <div>
                                         <p class="text-bold">Drop-off</p>
-                                        <p class="mt-4">{{ $booking?->drop_off_date }} at {{ $booking->drop_off_time }}</p>
+                                        <p class="mt-4">{{ $booking?->drop_off_date }}  {{ $booking->drop_off_time ?? ' at '.$booking->drop_off_time }}</p>
 
-                                        <p class="mt-4">{{ $booking?->drop_location }} </p>
+                                        <p class="mt-4">{{ $booking?->drop_off_location }} </p>
                                     </div>
 
                                 </div>
@@ -139,9 +139,9 @@
                                 </div>
                                 <div class="mt-5">
                                     <p class="text-bold heading">Pick-up instructions</p>
-                                    <p>A shuttle will take you to the rental counter.
-                                        From T1: Exit Arrivals, turn left and wait at bus stop E. From T2: Exit Arrivals via the ground level, continue straight and wait at bus
-                                        stop F. From T3: Go to T1 and follow the instructions for that terminal.</p>
+                                    <p>
+                                        {!! $booking?->car?->pickup_instruction !!}
+                                    </p>
                                 </div>
 
                                 <div class="mt-3">
@@ -161,12 +161,12 @@
                 <div class="col-12">
                     <div class="d-block" style="">
                         <div class="d-inline-block voucher_title">
-                            <p>Car</p>
+                            <p>Vehicle Information</p>
                         </div>
 
 
                         <div class="">
-                            <p class="heading text-bold">Mini (Volkswagen Up! or similar)</p>
+                            <p class="heading text-bold">{{ $booking?->car?->title }}</p>
 
                             <p>{{ $booking?->car?->seat }} Seats</p>
                             <p>{{ $booking?->car?->door }} Doors</p>

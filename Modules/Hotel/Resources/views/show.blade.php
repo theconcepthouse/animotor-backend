@@ -254,7 +254,7 @@
                                                 <input class="form-check-input" type="checkbox" id="proper3">
                                                 <label class="form-check-label" for="proper3">
                                     <span class="fz-16 lato fw-400 dtext">
-                                       Airport Pickup
+                                       Airport Pick-up
                                     </span>
                                                 </label>
                                             </div>

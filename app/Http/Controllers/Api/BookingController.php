@@ -158,8 +158,18 @@ class BookingController extends Controller
             return $this->errorResponse('Your pick-up location is not supported by our service');
         }
 
+        if($request['drop_off_lng'] && $request['drop_off_lat']){
+            $drop_location = $bookingRequestService->getRegion($request['drop_off_lat'], $request['drop_off_lng']);
+            if(!$drop_location){
+                return $this->errorResponse('Your drop-off location is not supported by our service');
+            }
+        }else{
+            $drop_location = $region;
+        }
+
         $pick_up_lat = $request['pick_up_lat'];
         $pick_up_location_id = $region->id;
+        $drop_off_location_id = $drop_location->id;
         $pick_up_lng = $request['pick_up_lng'];
         $pick_location = $request['pick_location'];
         $drop_off_location = $request['drop_off_location'];
@@ -241,6 +251,7 @@ class BookingController extends Controller
             "app" => true,
             "booking_day" => $diffInDays,
             "pick_up_location_id" => $pick_up_location_id,
+            "drop_off_location_id" => $drop_off_location_id,
             "pick_location" => $pick_location,
             "drop_off_location" => $drop_off_location ?? $pick_location,
             "pick_up_time" => $pick_up_time,

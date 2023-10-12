@@ -11,6 +11,7 @@ use App\Models\TripRequest;
 
 use App\Models\User;
 use App\Models\VehicleType;
+use App\Services\BookingRequestService;
 use App\Services\DistanceService;
 use App\Services\Firebase\FirestoreService;
 use App\Services\TripRequestService;
@@ -137,7 +138,7 @@ class BookingController extends Controller
     }
 
 
-    public function getCars(Request $request, DistanceService $distanceService)
+    public function getCars(Request $request, BookingRequestService $bookingRequestService)
     {
         $user = User::find(auth()->id());
 
@@ -152,9 +153,16 @@ class BookingController extends Controller
             'filter' => 'nullable',
         ]);
 
+        $region = $bookingRequestService->getRegion($request['pick_up_lat'], $request['pick_up_lng']);
+        if(!$region){
+            return $this->errorResponse('Your pick-up location is not supported by our service');
+        }
+
         $pick_up_lat = $request['pick_up_lat'];
+        $pick_up_location_id = $region->id;
         $pick_up_lng = $request['pick_up_lng'];
         $pick_location = $request['pick_location'];
+        $drop_off_location = $request['drop_off_location'];
         $pick_up_time = $request['pick_up_time'];
         $pick_up_date = $request['pick_up_date'];
         $drop_off_time = $request['drop_off_time'];
@@ -179,7 +187,7 @@ class BookingController extends Controller
             return $this->errorResponse('Invalid pick-up and drop-off date', 422);
         }
 
-        $query = Car::query();
+        $query = Car::where('region_id', $region->id);
 
 
         foreach ($filter as $category => $values) {
@@ -232,7 +240,9 @@ class BookingController extends Controller
             "days" => $diffInDays,
             "app" => true,
             "booking_day" => $diffInDays,
+            "pick_up_location_id" => $pick_up_location_id,
             "pick_location" => $pick_location,
+            "drop_off_location" => $drop_off_location ?? $pick_location,
             "pick_up_time" => $pick_up_time,
             "pick_up_date" => $pick_up_date,
             "drop_off_date" => $drop_off_date,

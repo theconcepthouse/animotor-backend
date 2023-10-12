@@ -253,6 +253,7 @@ class BookingController extends Controller
             "pick_up_location_id" => $pick_up_location_id,
             "drop_off_location_id" => $drop_off_location_id,
             "pick_location" => $pick_location,
+            "pick_up_location" => $pick_location,
             "drop_off_location" => $drop_off_location ?? $pick_location,
             "pick_up_time" => $pick_up_time,
             "pick_up_date" => $pick_up_date,

@@ -279,7 +279,8 @@ class BookingController extends Controller
             $tax = ($item->price_per_day * $diffInDays) * 0.075;
 
 
-            $booking['price_in_days'] =  $item->price_per_day * $diffInDays;
+            $booking['price_text'] =  "Price for $diffInDays days";
+            $booking['price_in_days'] =  amt($item->price_per_day * $diffInDays);
             $booking['grand_total'] =  ($item->price_per_day * $diffInDays) + $tax;
 
 

@@ -159,6 +159,7 @@ class BookingController extends Controller
         $pick_up_date = $request['pick_up_date'];
         $drop_off_time = $request['drop_off_time'];
         $drop_off_date = $request['drop_off_date'];
+        $sort_by = $request['sort_by'];
 
         $car_type = $request['car_type'] ?? 'all';
 
@@ -253,6 +254,16 @@ class BookingController extends Controller
         if($car_type != 'all'){
             $query->where('type',$car_type);
         }
+
+
+        if($sort_by == 'lowest_price'){
+            $query->orderBy('price_per_day','asc');
+        }
+
+        if($sort_by == 'highest_price'){
+            $query->orderBy('price_per_day','desc');
+        }
+
 
         $data = $query->paginate(10);
 

@@ -175,7 +175,7 @@ function listTime(): array
 
 function amt($amt): string
 {
-    return settings('currency_symbol','$').number_format($amt);
+    return settings('currency_symbol','$').number_format($amt, 2);
 }
 
 

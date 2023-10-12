@@ -26,25 +26,47 @@
 
                 <div class="d-flex mt-2 justify-content-between">
                     <p class="m2">Price for {{ request()->query('booking_day') }}days</p>
-                    <p class="text-heading">{{ amt(request()->query('booking_day') * $car->price_per_day) }}</p>
+                    <p class="text-heading_">{{ amt(request()->query('booking_day') * $car->price_per_day) }}</p>
                 </div>
 
                 @if(request()->get('book_type') == 'with_full_protection')
                 <div class="d-flex mt-2 justify-content-between">
                     <p class="m2">Full protection fee </p>
-                    <p class="text-heading">{{ amt($car->insurance_fee ) }}</p>
+                    <p class="text-heading_">{{ amt($car->insurance_fee ) }}</p>
                 </div>
                 @endif
+
+
+                @if($car->tax)
+                    <div class="d-flex mt-2 justify-content-between">
+                        <p class="m2">Tax </p>
+                        <p class="text-heading_">{{ amt($car->tax) }}</p>
+                    </div>
+
+                @endif
+
+
+
+                @if($car->total)
+                    <div class="d-flex mt-2 justify-content-between">
+                        <p class="m2 text-heading">Total </p>
+                        <p class="text-heading">{{ amt($car->total) }}</p>
+                    </div>
+
+                @endif
+
 
 
             </div>
         </div>
 
     </div>
+    @if($car->total)
     <div class="hotel__confirm__invocie bg-primary mt-4 car__confirmdetails__right">
         <p class="text-heading mt-2">This car is costing you just {{ amt($car->total) }} - a real bargain...</p>
 
     </div>
+    @endif
 </div>
 
 

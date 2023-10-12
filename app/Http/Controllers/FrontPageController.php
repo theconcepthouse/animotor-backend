@@ -102,12 +102,32 @@ class FrontPageController extends Controller
     public function deal(Request $request){
         $id = $request->get('car_id');
         $car = Car::findOrFail($id);
+        $booking_day = $request->get('booking_day');
+
+        $car->total = $car->price_per_day * $booking_day;
+
+        $car->tax = ($car->price_per_day * $booking_day) * settings('tax',0.075);
+
+        $car->total += $car->tax;
+
         return view('frontpage.deal', compact('car'));
     }
 
     public function protectionOption(Request $request){
         $id = $request->get('car_id');
         $car = Car::findOrFail($id);
+        $booking_day = $request->get('booking_day');
+
+        $car->total = $car->price_per_day * $booking_day;
+
+        $car->tax = ($car->price_per_day * $booking_day) * settings('tax',0.075);
+
+        $car->total += $car->tax;
+
+        if($request->get('book_type') == 'with_full_protection'){
+            $car->total += $car->insurance_fee;
+        }
+
         return view('frontpage.protection_options', compact('car'));
     }
 
@@ -120,8 +140,9 @@ class FrontPageController extends Controller
             $user = null;
         }
         $booking_day = $request->get('booking_day');
-
+        $car->tax = ($car->price_per_day * $booking_day) * settings('tax',0.075);
         $car->total = $car->price_per_day * $booking_day;
+        $car->total += $car->tax;
 
         if($request->get('book_type') == 'with_full_protection'){
             $car->total += $car->insurance_fee;

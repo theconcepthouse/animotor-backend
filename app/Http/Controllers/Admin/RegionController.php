@@ -177,7 +177,7 @@ class RegionController extends Controller
     {
         $region->delete();
 
-        return redirect()->route('region.index')->with('success', 'Region deleted successfully.');
+        return redirect()->back()->with('success', 'Region deleted successfully.');
     }
 
     private function validateData(Request $request, Region $region = null): array

@@ -79,6 +79,9 @@
 
                                                         <td>
                                                             <a class="btn btn-warning" href="{{ route('admin.regions.edit', $item->id) }}">Edit</a>
+
+                                                            <a  data-bs-toggle="modal" href="#{{ 'delete_'.$item->id }}"  class="btn btn-danger">Delete</a>
+
                                                         </td>
 
                                                     </tr>
@@ -98,5 +101,15 @@
         </div>
     </div>
 
+    @foreach($data as $item)
 
+        @component('admin.components.delete_modal', [
+       'modalId' => 'delete_'.$item->id,
+       'title' => 'Do you really want to delete this?',
+       'action' => route('admin.regions.destroy', $item->id), // Form action URL for the delete action
+       'message' => 'Deleting this region will delete all associated data.', // Message to display in the modal
+   ])
+    @endcomponent
+
+    @endforeach
 @endsection

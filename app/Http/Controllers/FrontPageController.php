@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Car;
 use App\Models\Page;
 use App\Models\User;
+use App\Services\PaymentService;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -149,6 +150,35 @@ class FrontPageController extends Controller
         }
 
         return view('frontpage.checkout', compact('car','user'));
+    }
+
+//    public function select_payment_method(Request $request){
+//        $request->session()->put('payment_type', 'booking_payment');
+//
+//    }
+    public function select_payment_method($booking_id){
+
+        $booking = Booking::findOrFail($booking_id);
+        return view('frontpage.select_payment_method', compact('booking'));
+
+    }
+    public function paymentProcess(Request $request, PaymentService $paymentService){
+
+        $payment_method = $request->get('payment_method');
+        $booking_id = $request->get('booking_id');
+
+        if(!in_array($payment_method, payment_methods())){
+            return redirect()->back()->with('error', 'Payment method not active');
+        }
+        $booking = Booking::findOrFail($booking_id);
+
+        $request->session()->put('payment_type', 'booking_payment');
+
+        $request->session()->put('booking_id', $booking->id);
+
+
+        return $paymentService->process($payment_method);
+
     }
 
     public function search(Request $request){

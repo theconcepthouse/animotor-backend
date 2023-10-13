@@ -64,6 +64,9 @@
                                                             @if(is_array($active_methods) && in_array('flutterwave', $active_methods))
                                                             <option value="flutterwave">Flutterwave</option>
                                                             @endif
+                                                            @if(is_array($active_methods) && in_array('stripe', $active_methods))
+                                                            <option value="stripe">Stripe</option>
+                                                            @endif
                                                     </select>
                                                     <div>@error('first_name') <span class="text-danger">{{ $message }}</span> @enderror</div>
                                                 </div>

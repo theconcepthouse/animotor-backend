@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontPageController;
 use App\Http\Controllers\Payment\FlutterwavePaymentController;
 use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\Payment\PaystackPaymentController;
+use App\Http\Controllers\Payment\StripeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,8 @@ Route::group(['middleware' => ['auto_login']], function () {
     Route::get('/flight', [FrontPageController::class, 'flight']);
     Route::get('/deal', [FrontPageController::class, 'deal'])->name('deal');
     Route::get('/protection_option', [FrontPageController::class, 'protectionOption'])->name('protection');
+    Route::get('/booking/select_payment/{id}', [FrontPageController::class, 'select_payment_method'])->name('select_payment');
+    Route::get('/payment/process', [FrontPageController::class, 'paymentProcess'])->name('payment.process');
     Route::get('/checkout', [FrontPageController::class, 'checkout'])->name('checkout');
 });
 
@@ -94,3 +97,14 @@ Route::any('/paystack/callback', [PaystackPaymentController::class, 'callback'])
 Route::any('/flutterwave/payment/callback', [FlutterwavePaymentController::class, 'callback']);
 
 Route::post('/monify/webhook', [UserController::class, 'webhook'])->name('monify.webhook');
+
+
+//Stipe Start
+Route::controller(StripeController::class)->group(function () {
+    Route::get('stripe', 'stripe');
+    Route::post('/stripe/create-checkout-session', 'create_checkout_session')->name('stripe.get_token');
+    Route::any('/stripe/payment/callback', 'callback')->name('stripe.callback');
+    Route::get('/stripe/success', 'success')->name('stripe.success');
+    Route::get('/stripe/cancel', 'cancel')->name('stripe.cancel');
+});
+//Stripe END

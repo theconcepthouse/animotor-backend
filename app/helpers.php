@@ -187,6 +187,18 @@ if (!function_exists('menus')) {
         });
     }
 }
+if (!function_exists('payment_methods')) {
+    function payment_methods() {
+        return json_decode(settings('active_methods','none'), true);
+    }
+}
+
+if (!function_exists('payment_method_icon')) {
+    function payment_method_icon($icon) {
+        return asset("default/payment_methods/$icon-logo.png");
+    }
+}
+
 
 function getUniqueBookingNumber(): float|int|string
 {

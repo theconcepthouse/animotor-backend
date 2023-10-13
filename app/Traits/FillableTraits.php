@@ -12,6 +12,7 @@ trait FillableTraits
         'region_id',
         'driver_id',
         'customer_id',
+        'payment_detail',
         'fee',
         'reference',
         'pick_up_date',

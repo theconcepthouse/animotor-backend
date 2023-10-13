@@ -20,6 +20,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
 
+    <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">
+
+
     @yield('style')
 
 
@@ -236,6 +239,30 @@
 <script src="{{ asset('assets/js/prism.js') }}"></script>
 <!--main Js-->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+<script src="/vendor/sweetalert/sweetalert.min.js"></script>
+
+
+@if (session('success'))
+    <script>
+        "use strict";
+        $(document).ready(function () {
+            swal("Success!", "{{ session('success') }}", "success");
+        });
+    </script>
+@endif
+
+@if (session('error'))
+    <script>
+        "use strict";
+        $(document).ready(function () {
+            swal("Opps!", "{{ session('error') }}", "error");
+        });
+    </script>
+@endif
+
+
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

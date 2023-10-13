@@ -147,7 +147,7 @@ return [
         'unsupported_region_msg' => "We dont cover this region yet. But its possible you are not even here"
     ],
 
-    'payment_methods' => ['paystack','flutterwave','paypal'],
+    'payment_methods' => ['paystack','flutterwave','paypal','stripe'],
 
     /*
     |--------------------------------------------------------------------------

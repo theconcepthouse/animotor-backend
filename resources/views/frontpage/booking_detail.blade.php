@@ -320,6 +320,11 @@
                                     <p class="text-heading">{{ $booking->payment_status }}</p>
                                 </div>
 
+                                @if($booking->payment_status != 'paid')
+                                    <a class="btn btn-success mt-2" href="{{ route('select_payment', $booking->id) }}">
+                                        Make payment
+                                    </a>
+                                @endif
 
                             </div>
                         </div>

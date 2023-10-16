@@ -81,10 +81,10 @@
 
 
             <div class="col-12 mt-2 d-flex justify-content-end-">
-                <div class="d-flex align-items-center">
+                <a href="#car_info" class="d-flex align-items-center">
                     <p class="text-primary mb-0">Important info</p>
                     <img src="assets/img/icons/info.png" class="mx-3" alt="cars">
-                </div>
+                </a>
             </div>
         </div>
 

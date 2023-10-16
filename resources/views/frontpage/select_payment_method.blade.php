@@ -28,7 +28,7 @@
 
 
                     <div class="car__driverdetails mb__40">
-                        <div class="p-2">
+                        <div class="p-2_">
 
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">Your car rental booking payment</p>

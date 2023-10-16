@@ -28,26 +28,32 @@
 
 
                     <div class="car__driverdetails mb__40">
-                        <div class="p-2">
-                            <div class="d-flex justify-content-between">
-                                <p class="text-heading">Your car rental booking</p>
+                        <div class="row gap-md-2">
+                            <div class="col-md-12">
+                                <div class="d-flex justify-content-between">
+                                    <p class="text-heading">Your car rental booking</p>
 
-                                <p class="">
-                                    <a href="{{ route('voucher',['id' => $booking->id]) }}">
-                                        <img src="/assets/img/icons/document.png" />
-                                        Access your voucher
-                                    </a>
-                                </p>
+                                    <p class="">
+                                        <a href="{{ route('voucher',['id' => $booking->id]) }}">
+                                            <img src="/assets/img/icons/document.png" />
+                                            Access your voucher
+                                        </a>
+                                    </p>
+
+                                </div>
+                                <div class="mt-3">
+                                    <p>
+                                        You're all set! We've sent your confirmation email to
+                                        <strong>{{ $booking?->customer?->email }}</strong>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
 
                             </div>
-                            <div class="mt-3">
-                                <p>
-                                    You're all set! We've sent your confirmation email to
-                                    <strong>{{ $booking?->customer?->email }}</strong>
-                                </p>
-                            </div>
 
-                            <div class="row">
+
+{{--                            <div class="row_ gap-md-3">--}}
                                 <div class="bg-primary col-md-3 col-12 p-3  mt-3 border-radius-10">
                                     <p>Booking number</p>
                                     <div class="d-flex mt-4">
@@ -55,7 +61,29 @@
                                     </div>
                                 </div>
 
-                            </div>
+                                @if($booking->payment_status != 'paid')
+                                    <div class="bg-primary col-md-3 col-12 p-3  mt-3 border-radius-10">
+                                        <p>Proceed to payment</p>
+                                        <div class="d-flex mt-4">
+                                            <a href="{{ route('select_payment', $booking->id) }}" style="color: #0a7859" class="mx-3_">Complete your booking by making payment</a>
+                                        </div>
+                                    </div>
+
+                                @endif
+                                @if($booking->payment_status == 'paid')
+                                    @if($booking->picked && !$booking->cancelled)
+                                    <div class="bg-primary col-md-3 col-12 p-3  mt-3 border-radius-10">
+                                        <p>Manage booking</p>
+                                        <div class="d-flex mt-4">
+                                            <a href="{{ route('booking.view', $booking->id) }}" style="color: #0a7859" class="mx-3_">Manage your booking</a>
+                                        </div>
+                                    </div>
+                                    @endif
+                                @endif
+
+{{--                            </div>--}}
+
+
 
                         </div>
 
@@ -120,7 +148,7 @@
 
 
                     <div class="car__driverdetails mb__40">
-                        <div class="p-3">
+                        <div class="p-3__">
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">What you need at pick-up</p>
                             </div>
@@ -139,7 +167,7 @@
 
                     </div>
                     <div class="car__driverdetails mb__40">
-                        <div class="p-3">
+                        <div class="p-3_">
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">Your car rental booking</p>
                             </div>
@@ -155,7 +183,7 @@
 
                     </div>
                     <div class="car__driverdetails mb__40">
-                        <div class="p-3">
+                        <div class="p-3_">
 
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">Your car rental instruction</p>
@@ -180,7 +208,7 @@
                     </div>
 
                     <div class="car__driverdetails mb__40">
-                        <div class="p-3">
+                        <div class="p-3_">
                             <div class="d-flex justify-content-between">
                                 <p class="text-heading">Driver details</p>
 {{--                                <p><a href="">Edit details</a></p>--}}
@@ -200,8 +228,8 @@
                     </div>
 
                     <div class="car__driverdetails mb__40">
-                        <div class="p-3">
-                            <div class="d-flex justify-content-between">
+                        <div class="p-3_">
+                            <div class="d-md-flex d-sm-block justify-content-between">
                                 <p class="text-heading">Term and Conditions</p>
                                 <p><a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">View {{ settings('site_name') }} rental terms</a></p>
 
@@ -219,7 +247,7 @@
 
 
                     <div class="car__driverdetails mb__40">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-md-flex d-sm-block justify-content-between">
                             <p class="text-heading">Most Popular</p>
                             <p><a href="/terms">See all frequently questions</a></p>
                         </div>

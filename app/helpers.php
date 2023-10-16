@@ -187,6 +187,7 @@ if (!function_exists('menus')) {
         });
     }
 }
+
 if (!function_exists('payment_methods')) {
     function payment_methods() {
         return json_decode(settings('active_methods','none'), true);

@@ -101,7 +101,7 @@ class ConfigController extends Controller
         $data['forgot_password_url'] = url('password/reset').'?app';
         $data['dial_min'] = (int)settings('dial_min');
         $data['dial_max'] = (int)settings('dial_max');
-        $data['currency'] = settings('currency','$');
+        $data['currency'] = settings('currency_symbol','$');
         $data['app_logo'] = settings('app_logo',settings('favicon'));
         $data['otp_provider'] = settings('otp_provider','firebase');
         $data['unsupported_region_msg'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));

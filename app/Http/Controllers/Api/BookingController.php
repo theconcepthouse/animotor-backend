@@ -184,7 +184,7 @@ class BookingController extends Controller
         $startDate = Carbon::parse($pick_up_date);
         $endDate = Carbon::parse($drop_off_date);
 
-        $diffInDays = $endDate->diffInDays($startDate);
+        $diffInDays = $endDate->diffInDays($startDate) + 1;
 
         if(is_string($validated['filter'])){
             $filter =  json_decode($validated['filter']);

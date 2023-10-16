@@ -16,10 +16,11 @@
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/css/theme.css?ver=3.1.1') }}">
 
     <style>
-        .nk-auth-body {
-            padding: 4rem 7rem;
-        }
+
         @media (min-width: 576px){
+            .nk-auth-body {
+                padding: 4rem 7rem;
+            }
             .wide-xs {
                 max-width: 720px !important;
             }

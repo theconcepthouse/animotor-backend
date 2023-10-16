@@ -1,4 +1,4 @@
-<div class="col-xl-4 col-lg-4">
+<div class="col-xl-4 col-lg-4" id="car_info">
     <div class="hotel__confirm__invocie bg-primary car__confirmdetails__right">
         <p class="text-heading">Pick-up and drop-off</p>
         <div class="carferrari__item flex-wrap mt-3 d-flex align-items-center-">

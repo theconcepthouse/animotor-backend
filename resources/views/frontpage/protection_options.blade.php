@@ -63,22 +63,34 @@
                                 <div class="accordion" id="accordionExample">
 
                                     <div class="p-3">
-                                        <div class="d-flex justify-content-between">
+                                        <div class="d-md-flex d-sm-block justify-content-between">
                                         <p class="text-heading">Insurance for peace of mind</p>
-                                            <p>Free cancellation</p>
+                                            <div class="justify-content-end align-items-end">
+                                                <p class="">Free cancellation</p>
+                                            </div>
                                         </div>
                                         <div class="mt-3">
-                                            {!! $car->security_deposit !!}
+                                            <p>{!! $car->security_deposit !!}</p>
                                         </div>
 
-                                        <div class="d-flex justify-content-between mt-4">
-                                            <p class="text-heading- ">What is covered</p>
-                                            <p class="text-center">No additional <br/>protection</p>
-                                            <p class="text-center">Full Protection <br/>Total cover price
+                                        <div class="d-flex justify-content-between mt-4 row">
+                                            <div class="col-md-4 mt-2 col-6">
+                                                <p class="text-heading- text-center ">What is <br/>covered</p>
+                                            </div>
+                                            <div class="col-md-4  mt-2 col-6">
+                                                <p class="text-center">No additional <br/>protection</p>
+                                            </div>
+                                            <div class="col-md-4 mt-2 col-6">
+                                                <p class="text-center">Full Protection <br/>Total cover price
+                                                    <br/>
+                                                    {{ amt($car->insurance_fee) }}
+                                                </p>
+                                            </div>
 
-                                            <br/>
-                                                {{ amt($car->insurance_fee) }}
-                                            </p>
+
+
+
+
                                         </div>
 
                                     </div>

@@ -50,7 +50,7 @@
                                             <td>{{ $item?->region?->name }}</td>
 
                                             <td>{{ $item?->car?->title }}</td>
-                                            <td><a class="link" wire:navigate href="{{ route('booking.view', $item->id) }}">
+                                            <td><a class="link" wire:navigate href="{{ route('booking', $item->id) }}">
                                                     {{ $item->booking_number }}</a>
                                             </td>
                                             <td>{{ $item->reference }}</td>

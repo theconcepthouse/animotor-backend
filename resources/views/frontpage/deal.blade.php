@@ -112,31 +112,37 @@
 
                         </div>
                         <div class="row justify-content-between mt-3">
-                            <div class="col">
-                                <div class="d-flex align-items-center justify-content-center-">
+                            <div class="col-12 col-md-6">
+                                <div class="d-flex align-items-center justify-content-between">
 
-                                    <img style="max-height: 80px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
+                                    <img style="max-height: 30px" src="{{ $car?->company?->logo ?? '/assets/img/icons/compony.png' }}" alt="{{ $car?->company->name }}">
 
-                                    <div class="review_count">
-                                        7.7
+                                    <div class="d-flex">
+                                        <div class="review_count">
+                                            7.7
+                                        </div>
+                                        <div class="review_text">
+                                            <p>Good</p>
+                                            <p>30 reviews</p>
+                                        </div>
                                     </div>
-                                    <div class="review_text">
-                                        <p>Good</p>
-                                        <p>30 reviews</p>
-                                    </div>
+
                                 </div>
                             </div>
 
 
-                            <div class="col d-flex justify-content-end">
+                            <div class="col-12 col-md-6 d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <p class="text-primary mb-0">Important info</p>
-                                    <img src="assets/img/icons/info.png" class="mx-3" alt="cars">
+                                    <a href="#car_info" class="d-flex mt-3">
+                                        <p class="text-primary mb-0">Important info</p>
+                                        <img src="assets/img/icons/info.png" class="mx-3" alt="cars">
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row- car_info mt-2">
+                        <div class="row- car_info mt-2" id="car_info">
                             <div class="col-12 mt-4 mb-3">
                                 <p class="text-heading">Great choice</p>
                             </div>

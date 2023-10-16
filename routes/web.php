@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auto_login']], function () {
     Route::post('/search/booking', [FrontPageController::class, 'searchBooking'])->name('search_booking');
     Route::get('/builder', [FrontPageController::class, 'builder']);
     Route::get('/booking/{id}', [FrontPageController::class, 'booking'])->name('booking');
+    Route::get('/booking_successful/{id}', [FrontPageController::class, 'booking'])->name('booking_successful');
     Route::get('/voucher/{id}', [FrontPageController::class, 'voucher'])->name('voucher');
     Route::get('/builder2', [FrontPageController::class, 'builder2']);
     Route::get('/list', [FrontPageController::class, 'list']);

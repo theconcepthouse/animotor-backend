@@ -114,7 +114,7 @@ class Checkout extends Component
             $this->car->save();
         }
 
-        return redirect()->route('booking', ['id' => $booking->id])->with('success','Booking successfully submitted, please proceed to payment');
+        return redirect()->route('booking_successful', ['id' => $booking->id])->with('success','Booking successfully submitted, please proceed to payment');
 
 
     }

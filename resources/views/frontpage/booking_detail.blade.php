@@ -16,7 +16,7 @@
 
 
     <!-- hotel list here -->
-    <section class="flight__onewaysection pb__60 pt__60-" style="padding-top: 90px">
+    <section class="flight__onewaysection pb__60 pt__60-" style="{{ !is_app() ? 'padding-top: 90px' : 'padding-top: 0px!important' }}">
 
         <div class="container">
 

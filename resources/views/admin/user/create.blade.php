@@ -8,9 +8,13 @@
                     <div class="components-preview wide-md- mx-auto">
 
                         <div class="nk-block nk-block-lg">
-                            <div class="nk-block-head">
+                            <div class="nk-block-between g-3">
                                 <div class="nk-block-head-content">
                                     <h4 class="title nk-block-title">Create new {{ $role }}</h4>
+                                </div>
+                                <div class="nk-block-head-content">
+                                    <a href="{{ request()->get('back_url') }}" wire:navigate class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                    <a href="{{ request()->get('back_url') }}" wire:navigate class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                                 </div>
                             </div>
                             <div class="row g-gs">
@@ -45,7 +49,7 @@
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'email','type' => 'email','title' => 'Email Address'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'password','title' => 'Password'])
                                                     @include('admin.partials.form.text', ['attributes' => 'disabled', 'colSize' => 'col-md-4', 'value' => $role, 'fieldName' => 'role','title' => 'Role'])
-                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'gender','title' => 'Gender','options' => ['male','female','others']])
+                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'gender','title' => 'Gender','options' => ['Male','Female','Others']])
 
                                                     @include('admin.partials.image-upload',['field' => 'avatar','id' => 'image','title' => 'Profile Pics'])
 

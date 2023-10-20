@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Models\CarExtra;
+use App\Models\Region;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
@@ -45,7 +46,7 @@ class CarController extends Controller
     }
 
     public function edit($id){
-        $car = Car::findOrFail($id);
+    $car = Car::findOrFail($id);
 
         if(!$car->carExtra){
             CarExtra::create([
@@ -69,8 +70,9 @@ class CarController extends Controller
     public function create(){
         $car_makes = VehicleMake::all();
         $car_types = VehicleType::all();
+        $regions = Region::select('id','name')->get();
         $car_models = [];
-        return view('admin.cars.create', compact('car_types','car_models','car_makes'));
+        return view('admin.cars.create', compact('regions','car_types','car_models','car_makes'));
     }
 
 
@@ -105,6 +107,8 @@ class CarController extends Controller
             'door' => 'required',
             'year' => 'nullable',
             'color' => 'required',
+            'registration_number' => 'nullable',
+            'license_no' => 'nullable',
             'model' => 'required',
             'vehicle_no' => 'required',
             'image' => 'nullable',
@@ -114,7 +118,7 @@ class CarController extends Controller
             'title' => 'required',
 
             'deposit' => 'nullable',
-            'bags' => 'nullable',
+            'bags' => 'required',
             'cancellation_fee' => 'nullable',
             'price_per_mileage' => 'nullable',
             'mileage' => 'nullable',

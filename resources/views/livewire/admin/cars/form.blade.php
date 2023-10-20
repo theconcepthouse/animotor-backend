@@ -62,6 +62,8 @@
                         @if($step == 1)
                             <div wire:key="1" class="row mt-3">
 
+
+
                                 <div class="col-md-4 mt-3">
 
                                     <div class="form-group">
@@ -104,6 +106,26 @@
 
 
                                 </div>
+
+                                @if($regions)
+                                    <div class="col-md-4 mt-3">
+
+                                        <div class="form-group">
+                                            <label class="form-label-outlined-" for="region">Service Area</label>
+
+                                            <div class="form-control-wrap">
+                                                <select wire:model.live="region_id" class="form-select form-control-lg" data-ui="xl" id="region">
+                                                    @foreach($regions as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                @endif
 
                                 <div class="col-md-4 mt-3">
 

@@ -49,6 +49,11 @@ function hasTrips(): bool
    return settings('enable_instant_ride') == 'yes';
 }
 
+function hasWallet(): bool
+{
+   return settings('enable_wallet_system') == 'yes';
+}
+
 function hasMonify(): bool
 {
    return env('HAS_MONIFY', false);
@@ -62,6 +67,11 @@ function hasFleet(): bool
 function hasRental(): bool
 {
    return settings('enable_rental') == 'yes';
+}
+
+function hasBooking(): bool
+{
+   return settings('enable_booking') == 'yes';
 }
 
 if (!function_exists('dynamic_include')) {

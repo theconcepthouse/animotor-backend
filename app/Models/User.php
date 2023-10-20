@@ -57,6 +57,41 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     {
         return $this->belongsTo(Region::class,'region_id');
     }
+    public function trips(): HasMany
+    {
+        return $this->hasMany(TripRequest::class,'customer_id');
+    }
+
+    public function driver_trips(): HasMany
+    {
+        return $this->hasMany(TripRequest::class,'driver_id');
+    }
+
+    public function completed_trips(): HasMany
+    {
+        return $this->hasMany(TripRequest::class,'customer_id')->where('completed', true);
+    }
+    public function cancelled_trips(): HasMany
+    {
+        return $this->hasMany(TripRequest::class,'customer_id')->where('cancelled', true);
+    }
+    public function driver_cancelled_trips(): HasMany
+    {
+        return $this->hasMany(TripRequest::class,'driver_id')->where('cancelled', true);
+    }
+    public function driver_completed_trips(): HasMany
+    {
+        return $this->hasMany(TripRequest::class,'driver_id')->where('completed', true);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class,'customer_id');
+    }
+    public function completed_bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class,'customer_id')->where('completed', true);
+    }
     public function bank(): hasOne
     {
         return $this->hasOne(Bank::class);
@@ -80,6 +115,17 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     public function getCurrencyAttribute(): ?string
     {
         return $this->region?->currency_symbol;
+    }
+
+    public function totalWithdrawal(): ?string
+    {
+        return $this->region?->currency_symbol;
+    }
+    public function totalSpent()
+    {
+        $total_rides = $this->trips->sum('grand_total');
+        $total_bookings = $this->bookings->sum('grand_total');
+        return $total_bookings + $total_rides;
     }
 
     public function service(): BelongsTo

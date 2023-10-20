@@ -75,7 +75,7 @@ class Index extends Component
 
     protected function getPaginate(): \Illuminate\Contracts\Pagination\LengthAwarePaginator|array
     {
-        $query = Car::query();
+        $query = Car::latest();
 
         if (!isOwner() && !isAdmin()) {
             return [];

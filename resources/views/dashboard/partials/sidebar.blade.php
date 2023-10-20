@@ -35,16 +35,17 @@
             </li>
             @endif
 
-            <li class="nav-item">
-                <a wire:navigate href="{{ route('top_up') }}" class="nav-link {{ request()->routeIs('top_up') ? ' active' : '' }}">
-                     <span class="icon">
-                        <img src="/assets/img/svg/creadits.svg" alt="login">
-                     </span>
-                    <span>
-                        Account Topup
-                     </span>
-                </a>
-            </li>
+{{--            <li class="nav-item">--}}
+{{--                <a wire:navigate href="{{ route('top_up') }}" class="nav-link {{ request()->routeIs('top_up') ? ' active' : '' }}">--}}
+{{--                     <span class="icon">--}}
+{{--                        <img src="/assets/img/svg/creadits.svg" alt="login">--}}
+{{--                     </span>--}}
+{{--                    <span>--}}
+{{--                        Account Topup--}}
+{{--                     </span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
+
             <li class="nav-item">
                 <a wire:navigate href="{{ route('transactions') }}" class="nav-link {{ request()->routeIs('transactions') ? ' active' : '' }}">
                         <span class="icon">

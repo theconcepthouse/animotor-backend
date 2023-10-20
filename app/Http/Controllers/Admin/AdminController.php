@@ -125,6 +125,7 @@ class AdminController extends Controller
             'enable_frontpage',
             'enable_mobile_slider',
             'enable_mobile_carlisting',
+            'enable_wallet_system',
         ];
 
         $payment_methods = [];

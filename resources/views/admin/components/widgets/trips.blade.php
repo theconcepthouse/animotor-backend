@@ -7,7 +7,7 @@
                     <h6 class="title text-uppercase-">Total Trips Request</h6>
                 </div>
                 <div class="card-tools">
-                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total Booking" data-bs-original-title="Total Booking"></em>
+                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total Trip Request" data-bs-original-title="Total Booking"></em>
                 </div>
             </div>
             <div class="card-amount">
@@ -38,7 +38,7 @@
                     <h6 class="title text-uppercase-">Pending Trips Request</h6>
                 </div>
                 <div class="card-tools">
-                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total Booking" data-bs-original-title="Total Booking"></em>
+                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Pending Trips Request" data-bs-original-title="Total Booking"></em>
                 </div>
             </div>
             <div class="card-amount">

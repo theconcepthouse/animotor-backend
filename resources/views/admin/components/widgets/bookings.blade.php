@@ -7,7 +7,7 @@
                     <h6 class="title text-">Total Car Booking</h6>
                 </div>
                 <div class="card-tools">
-                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total Booking" data-bs-original-title="Total Booking"></em>
+                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total Car Booking" data-bs-original-title="Total Car Booking"></em>
                 </div>
             </div>
             <div class="card-amount">
@@ -37,7 +37,7 @@
                     <h6 class="title text-">Pending Car Booking</h6>
                 </div>
                 <div class="card-tools">
-                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Total Booking" data-bs-original-title="Total Booking"></em>
+                    <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" aria-label="Pending Car Booking" data-bs-original-title="Pending Car Booking"></em>
                 </div>
             </div>
             <div class="card-amount">

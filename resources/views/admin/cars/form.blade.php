@@ -4,6 +4,7 @@
     <div class="col-6">
         <div class="row  gy-3">
             @include('admin.partials.form.text', ['attributes' => 'required', 'value' => $car?->title, 'colSize' => 'col-md-12', 'fieldName' => 'title','title' => 'Car title'])
+            @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'value' => $car?->region_id, 'colSize' => 'col-md-12', 'fieldName' => 'region_id','title' => 'Service Area','options' => $regions])
             @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'value' => $car?->type, 'option_name' => 'name', 'colSize' => 'col-md-12', 'fieldName' => 'type','title' => 'Car Type','options' => $car_types])
             @include('admin.partials.form.select_p_object', ['attributes' => 'required', 'value' => $car?->make, 'option_name' => 'name', 'colSize' => 'col-md-12', 'fieldName' => 'make','title' => 'Car make','options' => $car_makes])
             @include('admin.partials.form.select_p_object', ['attributes' => 'required','value' => $car?->model, 'colSize' => 'col-md-12', 'fieldName' => 'model','option_name' => 'name','title' => 'Car model','options' => $car_models])
@@ -26,6 +27,8 @@
         <div class="row  gy-3">
 
             @include('admin.partials.form.text', ['attributes' => 'required', 'id' => 'autocomplete', 'colSize' => 'col-md-12', 'fieldName' => 'autocomplete', 'value' => $car?->pick_up_location,'title' => 'Pickup location'])
+            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-12', 'fieldName' => 'license_no', 'value' => $car?->license_no,'title' => 'License No'])
+            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-12', 'fieldName' => 'registration_number', 'value' => $car?->registration_number,'title' => 'Registration No'])
 
 
             <input type="hidden" id="origin" value="{{ $car?->pick_up_location }}" name="pick_up_location" />

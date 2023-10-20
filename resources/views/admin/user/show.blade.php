@@ -31,7 +31,7 @@
                         <div class="card card-bordered">
                             <div class="card-aside-wrap">
                                 <div
-                                    class="card-aside card-aside-left user-aside toggle-slide toggle-slide-left toggle-break-xxl"
+                                    class="card-aside card-aside-left user-aside toggle-slide toggle-slide-left toggle-break-md"
                                     data-content="userAside" data-toggle-screen="xxl" data-toggle-overlay="true"
                                     data-toggle-body="true">
                                     <div class="card-inner-group" data-simplebar>
@@ -54,8 +54,7 @@
                                                 <div class="profile-balance-group gx-4">
                                                     <div class="profile-balance-sub">
                                                         <div class="profile-balance-amount">
-                                                            <div class="number">2,500.00 <small
-                                                                    class="currency currency-usd">USD</small></div>
+                                                            <div class="number">{{ amt($user->balance) }} </div>
                                                         </div>
 
                                                     </div>
@@ -63,35 +62,123 @@
                                                         <span class="profile-balance-plus text-soft"><em
                                                                 class="icon ni ni-plus"></em></span>
                                                         <div class="profile-balance-amount">
-                                                            <div class="number">1,643.76</div>
+                                                            <div class="number">{{ $user->totalSpent() }}</div>
                                                         </div>
                                                         <div class="profile-balance-subtitle">Total spent</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div><!-- .card-inner -->
-                                        <div class="card-inner">
-                                            <div class="row text-center">
-                                                <div class="col-4">
-                                                    <div class="profile-stats">
-                                                        <span class="amount">23</span>
-                                                        <span class="sub-text">Total Order</span>
+                                        @if(hasTrips())
+                                            @if($user->hasRole('driver'))
+                                                <div class="card-inner">
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{ $user->driver_trips->count() }}</span>
+                                                                    <span class="sub-text">Total Driver Trips</span>
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                    <span class="amount">{{ $user->driver_completed_trips->count() }}</span>
+                                                                    <span class="sub-text">Driver Complete Trips</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                <span class="amount">{{ $user->driver_cancelled_trips->count() }}</span>
+                                                                <span class="sub-text">Total Driver cancelled</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="profile-stats">
-                                                        <span class="amount">20</span>
-                                                        <span class="sub-text">Complete</span>
+                                                </div><!-- .card-inner -->
+                                            @endif
+                                                @if($user->hasRole('rider'))
+                                                <div class="card-inner">
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{ $user->trips->count() }}</span>
+                                                                    <span class="sub-text">Total Trips</span>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+
+                                                                    <span class="amount">{{ $user->completed_trips->count() }}</span>
+                                                                    <span class="sub-text">Complete Trips</span>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                <span class="amount">{{ $user->cancelled_trips->count() }}</span>
+                                                                <span class="sub-text">Cancelled Trips</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <div class="profile-stats">
-                                                        <span class="amount">3</span>
-                                                        <span class="sub-text">Progress</span>
+                                                </div><!-- .card-inner -->
+                                            @endif
+                                        @endif
+
+                                        @if(hasRental())
+                                            @if($user->hasRole('driver'))
+                                                <div class="card-inner">
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{ $user->driver_trips->count() }}</span>
+                                                                    <span class="sub-text">Total Driver Trips</span>
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                    <span class="amount">{{ $user->driver_completed_trips->count() }}</span>
+                                                                    <span class="sub-text">Driver Complete Trips</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                <span class="amount">{{ $user->driver_cancelled_trips->count() }}</span>
+                                                                <span class="sub-text">Total Driver cancelled</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div><!-- .card-inner -->
+                                                </div><!-- .card-inner -->
+                                            @endif
+                                                @if($user->hasRole('rider'))
+                                                <div class="card-inner">
+                                                    <div class="row text-center">
+                                                        <div class="col-4">
+                                                                <div class="profile-stats">
+                                                                    <span class="amount">{{ $user->trips->count() }}</span>
+                                                                    <span class="sub-text">Total Trips</span>
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+
+                                                                    <span class="amount">{{ $user->completed_trips->count() }}</span>
+                                                                    <span class="sub-text">Complete Trips</span>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="profile-stats">
+                                                                <span class="amount">{{ $user->cancelled_trips->count() }}</span>
+                                                                <span class="sub-text">Cancelled Trips</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- .card-inner -->
+                                            @endif
+                                        @endif
+
                                         <div class="card-inner">
                                             <h6 class="overline-title-alt mb-2">Additional</h6>
                                             <div class="row g-3">

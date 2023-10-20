@@ -67,11 +67,11 @@
 
 
                             <li class="nk-block-tools-opt d-none d-sm-block">
-                                <a class="btn btn-primary" wire:navigate href="{{ route('admin.user.create') }}?role={{ $role }}"><em class="icon ni ni-plus"></em><span>{{ __('admin.add_new') }}</span></a>
+                                <a class="btn btn-primary" wire:navigate href="{{ route('admin.user.create') }}?role={{ $role }}&&back_url={{ url()->current() }}"><em class="icon ni ni-plus"></em><span>{{ __('admin.add_new') }}</span></a>
                             </li>
 
                             <li class="nk-block-tools-opt d-block d-sm-none">
-                                <a class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}?role={{ $role }}"><em class="icon ni ni-plus"></em></a>
+                                <a class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}?role={{ $role }}&&back_url={{ url()->current() }}"><em class="icon ni ni-plus"></em></a>
                             </li>
 
 
@@ -79,9 +79,9 @@
                                 <button type="button" class="btn btn-warning" wire:click="resetPageData"><span>{{ __('admin.reset_page') }}</span></button>
                             </li>
 
-                            <li class="nk-block-tools-opt d-block d-sm-none">
-                                <a class="btn btn-icon btn-primary" wire:navigate data-bs-toggle="modal" href="{{ route('admin.cars.create') }}"><em class="icon ni ni-plus"></em></a>
-                            </li>
+{{--                            <li class="nk-block-tools-opt d-block d-sm-none">--}}
+{{--                                <a class="btn btn-icon btn-primary" wire:navigate data-bs-toggle="modal" href="{{ route('admin.cars.create') }}"><em class="icon ni ni-plus"></em></a>--}}
+{{--                            </li>--}}
 
                             @if(isAdmin())
                                 <li class="nk-block-tools-opt d-none d-sm-block">
@@ -232,9 +232,9 @@
 
                                 <td>
                                     <div class="d-flex">
-                                        <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
+                                        <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}?back_url={{ url()->current() }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
 
-                                        <a wire:navigate href="{{ route('admin.user.show', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
+                                        <a wire:navigate href="{{ route('admin.user.show', $item->id) }}?back_url={{ url()->current() }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
                                     </div>
                                 </td>
 

@@ -42,6 +42,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::get('testquery', [AdminController::class, 'testQuery'])->name('test');

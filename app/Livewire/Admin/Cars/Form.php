@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Cars;
 
 use App\Models\Addons\pcn;
 use App\Models\Car;
+use App\Models\Region;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Services\FileUploadService;
@@ -157,6 +158,8 @@ class Form extends Component
     public $appeal_dead_line;
     public $status = "Representation made";
     public $booking_id;
+    public $region_id;
+    public $regions;
 
 
 
@@ -190,15 +193,24 @@ class Form extends Component
         dd($this->thumbnail);
     }
 
+    public function rendered(){
+        $this->regions = Region::select('id','name')->get();
+    }
+
     public function mount(Car $car, $car_types, $car_makes, $car_models)
     {
+        $this->regions = Region::select('id','name')->get();
         $this->car_types = $car_types;
         $this->car_makes = $car_makes;
         $this->car_models = $car_models;
         if ($car) {
             $this->car = $car;
 
-            $this->booking_id = $car->bookings?->first()?->id;
+            if(!$this->car->region_id){
+                $this->car->region_id = $this->regions?->id;
+            }
+
+            $this->booking_id = $car?->bookings?->first()?->id;
 
 
                 $this->fill($car->toArray());
@@ -274,6 +286,7 @@ class Form extends Component
             'tracker_no' => ['required', 'string'],
             'vehicle_no' => ['required', 'string'],
             'description' => ['required', 'string'],
+            'region_id' => ['nullable'],
             'mileage' => ['required', 'string'],
         ]);
 

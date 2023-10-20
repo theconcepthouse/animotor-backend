@@ -41,34 +41,40 @@
                                                     <img src="{{ $user->avatar }}"/>
                                                 </div>
                                                 <div class="user-info">
-                                                    <div
-                                                        class="badge bg-outline-light rounded-pill ucap">{{ $user->role() }}</div>
+                                                    @foreach($user->getRoles() as $item)
+                                                        <div
+                                                            class="badge bg-outline-light rounded-pill ucap">{{ $item }}</div>
+
+                                                    @endforeach
                                                     <h5 class="text-capitalize">{{ $user->name }}</h5>
                                                     <span class="sub-text">{{ $user->email }}</span>
                                                 </div>
                                             </div>
                                         </div><!-- .card-inner -->
-                                        <div class="card-inner">
-                                            <div class="overline-title-alt mb-2"> Wallet Ballance</div>
-                                            <div class="profile-balance">
-                                                <div class="profile-balance-group gx-4">
-                                                    <div class="profile-balance-sub">
-                                                        <div class="profile-balance-amount">
-                                                            <div class="number">{{ amt($user->balance) }} </div>
-                                                        </div>
+                                        @if(hasWallet())
+                                            <div class="card-inner">
+                                                <div class="overline-title-alt mb-2"> Wallet Balance</div>
+                                                <div class="profile-balance">
+                                                    <div class="profile-balance-group gx-4">
+                                                        <div class="profile-balance-sub">
+                                                            <div class="profile-balance-amount">
+                                                                <div class="number">{{ amt($user->balance) }} </div>
+                                                            </div>
 
-                                                    </div>
-                                                    <div class="profile-balance-sub">
+                                                        </div>
+                                                        <div class="profile-balance-sub">
                                                         <span class="profile-balance-plus text-soft"><em
                                                                 class="icon ni ni-plus"></em></span>
-                                                        <div class="profile-balance-amount">
-                                                            <div class="number">{{ $user->totalSpent() }}</div>
+                                                            <div class="profile-balance-amount">
+                                                                <div class="number">{{ $user->totalSpent() }}</div>
+                                                            </div>
+                                                            <div class="profile-balance-subtitle">Total spent</div>
                                                         </div>
-                                                        <div class="profile-balance-subtitle">Total spent</div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div><!-- .card-inner -->
+                                            </div><!-- .card-inner -->
+                                        @endif
+
                                         @if(hasTrips())
                                             @if($user->hasRole('driver'))
                                                 <div class="card-inner">
@@ -125,53 +131,28 @@
                                         @endif
 
                                         @if(hasRental())
-                                            @if($user->hasRole('driver'))
-                                                <div class="card-inner">
-                                                    <div class="row text-center">
-                                                        <div class="col-4">
 
-                                                                <div class="profile-stats">
-                                                                    <span class="amount">{{ $user->driver_trips->count() }}</span>
-                                                                    <span class="sub-text">Total Driver Trips</span>
-                                                                </div>
-
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <div class="profile-stats">
-                                                                    <span class="amount">{{ $user->driver_completed_trips->count() }}</span>
-                                                                    <span class="sub-text">Driver Complete Trips</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <div class="profile-stats">
-                                                                <span class="amount">{{ $user->driver_cancelled_trips->count() }}</span>
-                                                                <span class="sub-text">Total Driver cancelled</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- .card-inner -->
-                                            @endif
                                                 @if($user->hasRole('rider'))
                                                 <div class="card-inner">
                                                     <div class="row text-center">
                                                         <div class="col-4">
                                                                 <div class="profile-stats">
-                                                                    <span class="amount">{{ $user->trips->count() }}</span>
-                                                                    <span class="sub-text">Total Trips</span>
+                                                                    <span class="amount">{{ $user->all_bookings->count() }}</span>
+                                                                    <span class="sub-text">Total Booking</span>
                                                                 </div>
                                                         </div>
                                                         <div class="col-4">
                                                             <div class="profile-stats">
 
-                                                                    <span class="amount">{{ $user->completed_trips->count() }}</span>
-                                                                    <span class="sub-text">Complete Trips</span>
+                                                                    <span class="amount">{{ $user->completed_bookings->count() }}</span>
+                                                                    <span class="sub-text">Completed Bookings</span>
 
                                                             </div>
                                                         </div>
                                                         <div class="col-4">
                                                             <div class="profile-stats">
-                                                                <span class="amount">{{ $user->cancelled_trips->count() }}</span>
-                                                                <span class="sub-text">Cancelled Trips</span>
+                                                                <span class="amount">{{ $user->cancelled_bookings->count() }}</span>
+                                                                <span class="sub-text">Cancelled Bookings</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -182,10 +163,10 @@
                                         <div class="card-inner">
                                             <h6 class="overline-title-alt mb-2">Additional</h6>
                                             <div class="row g-3">
-                                                <div class="col-6">
-                                                    <span class="sub-text">Last Login:</span>
-                                                    <span>15 Feb, 2019 01:02 PM</span>
-                                                </div>
+{{--                                                <div class="col-6">--}}
+{{--                                                    <span class="sub-text">Last Login:</span>--}}
+{{--                                                    <span>15 Feb, 2019 01:02 PM</span>--}}
+{{--                                                </div>--}}
 
                                                 <div class="col-6">
                                                     <span class="sub-text">Register At:</span>

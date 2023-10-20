@@ -88,9 +88,18 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     {
         return $this->hasMany(Booking::class,'customer_id');
     }
+    public function all_bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class,'customer_id');
+    }
     public function completed_bookings(): HasMany
     {
         return $this->hasMany(Booking::class,'customer_id')->where('completed', true);
+    }
+
+    public function cancelled_bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class,'customer_id')->where('cancelled', true);
     }
     public function bank(): hasOne
     {
@@ -121,11 +130,18 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     {
         return $this->region?->currency_symbol;
     }
-    public function totalSpent()
+    public function totalSpent(): float|int
     {
-        $total_rides = $this->trips->sum('grand_total');
-        $total_bookings = $this->bookings->sum('grand_total');
-        return $total_bookings + $total_rides;
+        $total_spent = 0;
+        if(count($this->trips) > 0){
+            $total_rides = $this->trips->sum('grand_total');
+
+            $total_spent += $total_rides;
+        }
+        if(count($this->all_bookings) > 0){
+            $total_spent =+ $this->all_bookings->sum('grand_total');
+        }
+        return  $total_spent;
     }
 
     public function service(): BelongsTo

@@ -18,7 +18,7 @@ class FirestoreService
     }
 
 
-    public function updateTripRequest($trip_data, $drivers_id = null):void
+    public function updateTripRequest($trip_data, $drivers_id = null, $drivers = null):void
     {
         $firestoreClient = $this->firestoreClient;
 
@@ -85,6 +85,17 @@ class FirestoreService
 
 
             $data = array_merge($data, $extra);
+        }else{
+            if($drivers && count($drivers) > 0){
+                $driver = $drivers->first();
+                $extra = [
+                    'driver_avatar' => $driver?->avatar,
+                    'driver_name' => $driver?->name,
+                    'message' => "The driver will be on their way as soon as they confirm"
+                ];
+
+                $data = array_merge($data, $extra);
+            }
         }
 
         if(!env('APP_DEBUG')) {

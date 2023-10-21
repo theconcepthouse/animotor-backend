@@ -58,8 +58,10 @@ class DistanceService
         }
     }
 
-    public function getDriversByDistance($lat, $lng, $region_id, $service_id)
+    public function getDriversByDistance($lat, $lng, $region_id, $service_id, $local = false, $notify = true)
     {
+        $max_drivers_notify = (int)settings('max_drivers_notify', 2) * 5;
+
         $distanceService = new DistanceService();
 
         $restrict_drivers = settings('restrict_rides_to_service_type','no');
@@ -72,12 +74,11 @@ class DistanceService
                 ->whereNotNull('map_lng')
                 ->whereNotNull('map_lat')
                 ->whereNotNull('last_location_update')
-                ->where('last_location_update', '>', Carbon::now()->subMinutes(20))
-                ->get();
+                ->orderBy('last_location_update', 'desc')
+                ->limit($max_drivers_notify);
 
             info('drivers by distance : '. count($users));
         }
-
         else{
             $query = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
                 ->where('is_online', true)
@@ -85,13 +86,13 @@ class DistanceService
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('last_location_update')
-                ->where('last_location_update', '>', Carbon::now()->subMinutes(20))
+                ->orderBy('last_location_update', 'desc')
                 ->whereNotNull('map_lat');
 
             $users = $query->where(function ($query) use ($service_id) {
                 $query->where('service_id', $service_id)
                     ->orWhereJsonContains('services', $service_id);
-            })->get();
+            })->limit($max_drivers_notify);
 
             info('drivers by distance & service_type : '. count($users));
 
@@ -102,14 +103,18 @@ class DistanceService
 
         // Calculate the distance between each user's coordinates and the supplied coordinates
         foreach ($users as $user) {
-            $distance = $distanceService->getDistance($user->map_lat, $user->map_lng, $lat, $lng);
+            if($local){
+                $distance = $distanceService->getDistance($user->map_lat, $user->map_lng, $lat, $lng);
 //            $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
 
-            if(isset($distance['distance'])) {
-                $dist = $distance['distance']['value'] / 1000;
-                $user->distance = $dist > 0 ? $dist : 1;
+                if(isset($distance['distance'])) {
+                    $dist = $distance['distance']['value'] / 1000;
+                    $user->distance = $dist > 0 ? $dist : 1;
+                }else{
+                    $user->distance = 0;
+                }
             }else{
-                $user->distance = 0;
+                $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
             }
 
         }
@@ -118,11 +123,14 @@ class DistanceService
 //            info('driver init:'.$user->email.' _ '.$user->distance);
 //        }
 
+        if(!$notify){
+            return $users;
+        }
+
         // Sort the users by distance
-        $users = $users->sortBy('distance')->take(settings('max_drivers_notify', 2));
+        $users = $users->sortBy('distance')->take((int)settings('max_drivers_notify', 2));
 
         $current_user = auth()->user();
-
 
         $closetDrivers = $users->filter(function ($user) {
             return $user->distance < (int)settings('max_distance_drivers_notify', 5);

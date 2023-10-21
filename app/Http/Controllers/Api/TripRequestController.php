@@ -76,9 +76,15 @@ class TripRequestController extends Controller
             ->where('is_active', true)
             ->get();
 
+
+
         foreach ($service_types as $type) {
             $d_km = $distanceService->getDistance($o_lat, $o_lng, $d_lat, $d_lng);
             if (isset($d_km['distance'])) {
+                $drivers = $distanceService->getDriversByDistance(
+                    $o_lat,$o_lng, $region_id, $type->id, true
+                );
+
                 $type->distance_m = $d_km['distance']['value'];
                 $type->duration = (number_format($d_km['duration']['value'] / 60)) . ' minutes';
                 $type->distance_price = ($d_km['distance']['value'] / 1000) * $type->distance_price;
@@ -92,6 +98,7 @@ class TripRequestController extends Controller
                 $tax_percent = 0.075;
 
                 $type->tax = ($type->fee * $tax_percent);
+                $type->available_drivers = count($drivers);
 
                 $type->grand_total = $type->fee + $type->tax;
 

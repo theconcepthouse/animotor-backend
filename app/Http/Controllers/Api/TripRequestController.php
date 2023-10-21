@@ -387,6 +387,19 @@ class TripRequestController extends Controller
 
     }
 
+    public function reschedule($id): JsonResponse
+    {
+        try {
+            $trip = TripRequest::find($id);
+
+            return $this->successResponse('Trip', $trip);
+
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 500);
+        }
+
+    }
+
     public function updateCurrentPosition(Request $request, FirestoreService $firestoreService): JsonResponse
     {
         try {

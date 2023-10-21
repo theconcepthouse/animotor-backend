@@ -79,8 +79,12 @@ class ConfigController extends Controller
 
 
         $data['book_only_available_drivers'] = true;
+        $data['get_services_realtime'] = true;
+        $data['get_services_interval'] = 15000;
         $data['country_id'] = settings('country_id');
         $data['has_rental'] = settings('enable_rental', 'yes');
+        $data['enable_referral'] = true;
+//        $data['enable_referral'] = settings('enable_referral', 'yes');
         $data['enable_withdrawal'] = settings('enable_withdrawal', 'yes') == 'yes';
         $data['enable_support'] = settings('enable_support', 'yes') == 'yes';
         $data['support_link'] = route('search');

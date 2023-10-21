@@ -78,6 +78,7 @@ class ConfigController extends Controller
         $data['payment_methods'] =  $this->getActiveMethods();
 
 
+        $data['book_only_available_drivers'] = true;
         $data['country_id'] = settings('country_id');
         $data['has_rental'] = settings('enable_rental', 'yes');
         $data['enable_withdrawal'] = settings('enable_withdrawal', 'yes') == 'yes';

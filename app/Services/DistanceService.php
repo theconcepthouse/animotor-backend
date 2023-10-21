@@ -77,7 +77,7 @@ class DistanceService
                 ->orderBy('last_location_update', 'desc')
                 ->limit($max_drivers_notify)->get();
 
-            info('drivers by distance : '. count($users));
+//            info('drivers by distance : '. count($users));
         }
         else{
             $query = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id')
@@ -94,7 +94,7 @@ class DistanceService
                     ->orWhereJsonContains('services', $service_id);
             })->limit($max_drivers_notify)->get();
 
-            info('drivers by distance & service_type : '. count($users));
+//            info('drivers by distance & service_type : '. count($users));
 
         }
 

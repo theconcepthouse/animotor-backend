@@ -104,6 +104,8 @@ class DistanceService
         // Calculate the distance between each user's coordinates and the supplied coordinates
         foreach ($users as $user) {
             if($local){
+                $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
+            }else{
                 $distance = $distanceService->getDistance($user->map_lat, $user->map_lng, $lat, $lng);
 //            $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
 
@@ -113,8 +115,6 @@ class DistanceService
                 }else{
                     $user->distance = 0;
                 }
-            }else{
-                $user->distance = $distanceService->getLocalDistance($user->map_lat, $user->map_lng, $lat, $lng);
             }
 
         }

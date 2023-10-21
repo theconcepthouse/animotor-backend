@@ -61,7 +61,7 @@ class AuthController extends Controller
             'role'  => 'required',
             'password' => $request->has('password') ? 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8' : 'nullable',
 
-//            'referral'  => 'nullable',
+            'referral'  => 'nullable',
             'avatar'  => 'nullable',
 //            'repeat_password' => 'required|same:password',
         ],[
@@ -72,6 +72,11 @@ class AuthController extends Controller
             DB::beginTransaction();
 
             $data = $request->all();
+
+//            if($request->has('referral')){
+//                $data['referral'] =
+//            }
+
             $role = Role::where('name', $request['role'])->first();
 
             if($request->has('password')){

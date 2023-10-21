@@ -123,6 +123,16 @@ if(!function_exists('log_activity')){
     }
 }
 
+if(!function_exists('format_phone')){
+    function format_phone($number)
+    {
+        if (str_starts_with($number, '0')) {
+            return substr($number, 1);
+        }
+        return $number;
+    }
+}
+
 function convertToWord($input): string
 {
     return ucwords(str_replace('_', ' ', $input));

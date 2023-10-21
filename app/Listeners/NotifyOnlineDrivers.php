@@ -41,7 +41,7 @@ class NotifyOnlineDrivers
 
 //            info('notified : '. json_encode($drivers->pluck('id')->toArray()));
 
-            $firestoreService->updateTripRequest($trip, $drivers->pluck('id')->toArray());
+            $firestoreService->updateTripRequest($trip, $drivers->pluck('id')->toArray(), $drivers);
 
 //            info('fire : '. json_encode($fire));
 

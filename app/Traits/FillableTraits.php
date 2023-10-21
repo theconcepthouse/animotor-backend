@@ -153,6 +153,7 @@ trait FillableTraits
         'push_token',
         'last_notification',
         'monify_account',
+        'referral',
         'last_location_update',
     ];
 

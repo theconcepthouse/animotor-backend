@@ -392,7 +392,7 @@ class TripRequestController extends Controller
         try {
             $trip = TripRequest::find($id);
 
-            return $this->errorResponse('Trip cancelled');
+//            return $this->errorResponse('Trip cancelled');
             return $this->successResponse('Trip', $trip);
 
         }catch (\Exception $e) {

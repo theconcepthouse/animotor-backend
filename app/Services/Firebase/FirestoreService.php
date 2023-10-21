@@ -20,6 +20,9 @@ class FirestoreService
 
     public function updateTripRequest($trip_data, $drivers_id = null, $drivers = null):void
     {
+        if ($drivers){
+            info('fire error : '. json_encode($drivers->first()));
+        }
         try {
             $firestoreClient = $this->firestoreClient;
 

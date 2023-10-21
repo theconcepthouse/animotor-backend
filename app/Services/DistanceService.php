@@ -75,7 +75,7 @@ class DistanceService
                 ->whereNotNull('map_lat')
                 ->whereNotNull('last_location_update')
                 ->orderBy('last_location_update', 'desc')
-                ->limit($max_drivers_notify);
+                ->limit($max_drivers_notify)->get();
 
             info('drivers by distance : '. count($users));
         }
@@ -92,7 +92,7 @@ class DistanceService
             $users = $query->where(function ($query) use ($service_id) {
                 $query->where('service_id', $service_id)
                     ->orWhereJsonContains('services', $service_id);
-            })->limit($max_drivers_notify);
+            })->limit($max_drivers_notify)->get();
 
             info('drivers by distance & service_type : '. count($users));
 

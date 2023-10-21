@@ -99,6 +99,7 @@ class TripRequestController extends Controller
 
                 $type->tax = ($type->fee * $tax_percent);
                 $type->available_drivers = count($drivers);
+                $type->no_drivers = 'No driver available';
 
                 $type->grand_total = $type->fee + $type->tax;
 

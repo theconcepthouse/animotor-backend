@@ -504,20 +504,28 @@ class TripRequestController extends Controller
     {
         $is_driver = auth()->user()->hasRole('driver');
         $msg = 'Riders completed trips';
-        if($is_driver){
-            $msg = 'Drivers completed trips';
-            $trips = TripRequest::where('driver_id', auth()->id())
-                ->where(function ($query) {
-                    $query->where('completed', true)
-                        ->orWhere('cancelled', true);
-                })->latest()->paginate(100);
-        }else{
-            $trips = TripRequest::where('customer_id', auth()->id())
-                ->where(function ($query) {
-                    $query->where('completed', true)
-                        ->orWhere('cancelled', true);
-                })->latest()->paginate(100);
-        }
+//        if($is_driver){
+//            $msg = 'Drivers completed trips';
+//            $trips = TripRequest::where('driver_id', auth()->id())
+//                ->where(function ($query) {
+//                    $query->where('completed', true)
+//                        ->orWhere('cancelled', true);
+//                })->latest()->paginate(100);
+//        }else{
+//            $trips = TripRequest::where('customer_id', auth()->id())
+//                ->where(function ($query) {
+//                    $query->where('completed', true)
+//                        ->orWhere('cancelled', true);
+//                })->latest()->paginate(100);
+//        }
+
+        $trips = TripRequest::where('customer_id', auth()->id())
+            ->orWhere('driver_id', auth()->id())
+            ->where(function ($query) {
+                $query->where('completed', true)
+                    ->orWhere('cancelled', true);
+            })->latest()->paginate(100);
+
         return $this->successResponse($msg, $trips);
 
     }

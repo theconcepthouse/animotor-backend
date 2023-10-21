@@ -82,7 +82,7 @@ class TripRequestController extends Controller
             $d_km = $distanceService->getDistance($o_lat, $o_lng, $d_lat, $d_lng);
             if (isset($d_km['distance'])) {
                 $drivers = $distanceService->getDriversByDistance(
-                    $o_lat,$o_lng, $region_id, $type->id, true
+                    $o_lat,$o_lng, $region_id, $type->id, true, false
                 );
 
                 $type->distance_m = $d_km['distance']['value'];

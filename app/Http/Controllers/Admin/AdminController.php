@@ -116,6 +116,7 @@ class AdminController extends Controller
         $title = "Services";
         $settings = [
             'enable_rental',
+            'enable_referral',
             'enable_instant_ride',
             'enable_fleet',
             'map_home_screen',

@@ -68,6 +68,7 @@ class FirestoreService
                 'drivers' => $drivers_id ?? [],
 
                 'customer_avatar' => $trip_data?->customer?->avatar,
+                'customer_name' => $trip_data?->customer?->name,
                 'customer_phone' => $trip_data?->customer?->full_phone,
             ];
 

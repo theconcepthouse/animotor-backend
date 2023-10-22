@@ -50,7 +50,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     protected $with = ['documents','car','region','service','company','bank'];
 
-    protected $appends = ['unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
+    protected $appends = ['is_avatar_set','unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
 
 
     public function region(): BelongsTo
@@ -169,6 +169,13 @@ class User extends Authenticatable implements LaratrustUser, Wallet
             return asset('default/avatar.png');
         }
         return $this->attributes['avatar'];
+    }
+    public function getIsAvatarSetAttribute(): string
+    {
+        if(!$this->attributes['avatar']) {
+            return false;
+        }
+        return true;
     }
 
     public function getNameAttribute(): string

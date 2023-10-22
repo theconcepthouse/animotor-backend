@@ -90,6 +90,8 @@ class ConfigController extends Controller
         $data['payment_methods'] =  $this->getActiveMethods();
 
 
+//        $data['driver_cancellation_title'] = true;
+//        $data['driver_cancellation_message'] = true;
         $data['book_only_available_drivers'] = true;
         $data['get_services_realtime'] = true;
         $data['force_bank_update'] = true;

@@ -59,6 +59,18 @@ class ConfigController extends Controller
         return $this->successResponse('sliders', $data);
     }
 
+    public function checkUpdate(Request $request): JsonResponse
+    {
+        $app_v = env('APP_V');
+        $v = $request->get('v') ?? 0;
+        if($app_v > $v){
+            $data['is_update'] = true;
+        }else{
+            $data['is_update'] = false;
+        }
+        return $this->successResponse('check_update', $data);
+    }
+
 
     public function getDriversCancellationReasons(): JsonResponse
     {

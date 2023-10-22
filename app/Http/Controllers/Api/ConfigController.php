@@ -92,6 +92,7 @@ class ConfigController extends Controller
 
         $data['book_only_available_drivers'] = true;
         $data['get_services_realtime'] = true;
+        $data['force_bank_update'] = true;
         $data['get_services_interval'] = 15000;
         $data['country_id'] = settings('country_id');
         $data['has_rental'] = settings('enable_rental', 'yes');

@@ -56,6 +56,8 @@
                                                     <th>Rider Name</th>
                                                     <th>Driver Name</th>
                                                     <th>Trip Status</th>
+                                                    <th>Grand Total</th>
+                                                    <th>Driver Earned</th>
                                                     <th>Service type</th>
                                                     <th>Payment Status</th>
                                                     <th>Payment Method</th>

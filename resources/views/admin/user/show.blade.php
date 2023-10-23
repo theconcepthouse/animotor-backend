@@ -429,7 +429,8 @@
                                                                                 <thead>
 
                                                                                 <tr>
-                                                                                    <td></td>
+                                                                                    <th>S/N</th>
+                                                                                    <td>View</td>
                                                                                     <th>Service Area</th>
                                                                                     <th>Reference</th>
                                                                                     <th>Ride Type</th>
@@ -473,7 +474,8 @@
                                                                                 <thead>
 
                                                                                 <tr>
-                                                                                    <td></td>
+                                                                                    <th>S/N</th>
+                                                                                    <td>View</td>
                                                                                     <th>Service Area</th>
                                                                                     <th>Reference</th>
                                                                                     <th>Ride Type</th>

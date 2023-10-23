@@ -308,8 +308,8 @@
                                                             <h5 class="title">Bank Account Information</h5>
                                                         </div><!-- .nk-block-head -->
 
-                                                        @if($user->monify)
-                                                            @foreach($user->monify as $bank)
+                                                        @if($user->monify_account)
+                                                            @foreach($user->monify_account as $bank)
                                                                 <div class="profile-ud-list">
 
                                                                     <div class="profile-ud-item">

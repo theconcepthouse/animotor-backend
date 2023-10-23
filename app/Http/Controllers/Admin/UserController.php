@@ -58,7 +58,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         if($monify){
-            if(!$user->monify){
+            if(!$user->monify_account){
                 $monify = new MonifyService();
                 $monify->createMonify($user);
 

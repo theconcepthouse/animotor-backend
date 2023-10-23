@@ -12,6 +12,7 @@ use App\Services\WalletService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class UserController extends Controller
@@ -19,7 +20,12 @@ class UserController extends Controller
     public function updateLatLng(Request $request, RegionService $regionService, FirestoreService $firestoreService): JsonResponse
     {
 //        $user = User::find(auth()->id());
-        $user = User::lockForUpdate()->find(auth()->id());
+//        $user = User::lockForUpdate()->find(auth()->id());
+
+        $user = DB::table('users')
+            ->find(auth()->id())
+            ->lockForUpdate()
+            ->first();
 
         $request->validate([
             'lat' => 'required',

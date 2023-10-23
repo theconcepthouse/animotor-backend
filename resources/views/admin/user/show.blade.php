@@ -226,6 +226,12 @@
                                                             class="icon ni ni-list-fill"></em><span>Booking History </span></a>
                                                 </li>
                                             @endif
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-bs-toggle="tab" href="#transactions"><em
+                                                            class="icon ni ni-list-fill"></em><span>Transactions </span></a>
+                                                </li>
+
                                         @endif
                                     </ul>
                                     <div class="tab-content">
@@ -297,34 +303,41 @@
 
 
                                                     </div><!-- .profile-ud-list -->
-                                                    <div class="nk-block-head mt-4">
-                                                        <h5 class="title">Bank Account Information</h5>
-                                                    </div><!-- .nk-block-head -->
-                                                    <div class="profile-ud-list">
+                                                    @if(hasMonify())
+                                                        <div class="nk-block-head mt-4">
+                                                            <h5 class="title">Bank Account Information</h5>
+                                                        </div><!-- .nk-block-head -->
 
-                                                        <div class="profile-ud-item">
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Bank name</span>
-                                                                <span
-                                                                    class="profile-ud-value">{{ $user->first_name }}</span>
-                                                            </div>
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Account name</span>
-                                                                <span
-                                                                    class="profile-ud-value">{{ $user->first_name }}</span>
-                                                            </div>
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Account number</span>
-                                                                <span
-                                                                    class="profile-ud-value">{{ $user->first_name }}</span>
-                                                            </div>
-                                                            <div class="profile-ud wider">
-                                                                <span class="profile-ud-label">Bank code</span>
-                                                                <span
-                                                                    class="profile-ud-value">{{ $user->first_name }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                        @if($user->monify)
+                                                            @foreach($user->monify as $bank)
+                                                                <div class="profile-ud-list">
+
+                                                                    <div class="profile-ud-item">
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Bank name</span>
+                                                                            <span class="profile-ud-value">{{ $bank->bankName }}</span>
+                                                                        </div>
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Account name</span>
+                                                                            <span class="profile-ud-value">{{ $bank->accountName }}</span>
+                                                                        </div>
+                                                                        <div class="profile-ud wider">
+                                                                            <span class="profile-ud-label">Account number</span>
+                                                                            <span class="profile-ud-value">{{ $bank->accountNumber }}</span>
+                                                                        </div>
+                                                                        {{--                                                            <div class="profile-ud wider">--}}
+                                                                        {{--                                                                <span class="profile-ud-label">Bank code</span>--}}
+                                                                        {{--                                                                <span class="profile-ud-value">{{ $bank->bankCode }}</span>--}}
+                                                                        {{--                                                            </div>--}}
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        @else
+                                                            <a href="{{ url()->current() }}?monify=true" class="btn btn-success">Add Monify Account</a>
+                                                        @endif
+                                                    @endif
+
+
                                                 </div><!-- .nk-block -->
                                             </div>
                                         </div><!--tab pan -->
@@ -548,6 +561,52 @@
                                                     </div>
                                                 </div> <!-- .tab-pane -->
                                             @endif
+
+                                            <div class="tab-pane" id="transactions">
+                                                    <div class="card-inner position-relative card-tools-toggle pt-0">
+
+                                                        <div class="nk-block">
+                                                            <div
+                                                                class="card card-bordered border-left-0 border-right-0">
+                                                                <div class="card-inner">
+                                                                    <div id="DataTables_Table_1_wrapper"
+                                                                         class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                                                        <div class="datatable-wrap- my-3">
+                                                                            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th>S/N</th>
+                                                                                    <th>Type</th>
+                                                                                    <th>Amount</th>
+                                                                                    <th>Description</th>
+                                                                                    <th>Date</th>
+                                                                                </tr>
+
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                @foreach($transactions as $item)
+                                                                                    <tr>
+                                                                                        <td>{{ $loop->index + 1 }}</td>
+                                                                                        <td>{{ $item->type }}</td>
+                                                                                        <td>{{ format_amt($item->amount) }}</td>
+                                                                                        <td>{{ $item->meta['description'] }}</td>
+                                                                                        <td>{{ $item->created_at }}</td>
+
+
+                                                                                    </tr>
+                                                                                @endforeach
+                                                                                </tbody>
+                                                                            </table>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div><!-- .card -->
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- .tab-pane -->
+
 
                                             <div class="tab-pane" id="documents">
                                                 <div class="card-inner position-relative card-tools-toggle pt-0">

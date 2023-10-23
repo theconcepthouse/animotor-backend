@@ -13,6 +13,7 @@ use App\Models\VehicleModel;
 use App\Models\VehicleType;
 use App\Services\CarService;
 use App\Services\Firebase\FirestoreService;
+use App\Services\MonifyService;
 use App\Services\NotificationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,9 +50,21 @@ class UserController extends Controller
         return view('admin.user.list', compact('users','title'));
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        $monify = $request->get('monify') ?? false;
+
+
         $user = User::findOrFail($id);
+
+        if($monify){
+            if(!$user->monify){
+                $monify = new MonifyService();
+                $monify->createMonify($user);
+
+            }
+        }
+
         $rides = $user->trips;
         $driver_trips = $user->driver_trips;
         return view('admin.user.show', compact('user','driver_trips','rides'));

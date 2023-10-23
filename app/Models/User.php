@@ -134,12 +134,12 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     {
         $total_spent = 0;
         if(count($this->trips) > 0){
-            $total_rides = $this->trips->sum('grand_total');
+            $total_rides = $this->trips->where('payment_status','paid')->sum('grand_total');
 
             $total_spent += $total_rides;
         }
         if(count($this->all_bookings) > 0){
-            $total_spent =+ $this->all_bookings->sum('grand_total');
+            $total_spent =+ $this->all_bookings->where('payment_status','paid')->sum('grand_total');
         }
         return  $total_spent;
     }

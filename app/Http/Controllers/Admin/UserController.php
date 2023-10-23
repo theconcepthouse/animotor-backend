@@ -52,8 +52,9 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $rides = [];
-        return view('admin.user.show', compact('user','rides'));
+        $rides = $user->trips;
+        $driver_trips = $user->driver_trips;
+        return view('admin.user.show', compact('user','driver_trips','rides'));
     }
 
     public function create(Request $request)

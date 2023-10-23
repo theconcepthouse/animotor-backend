@@ -205,10 +205,19 @@
                                             @endif
 
                                             @if(hasTrips())
+                                                    @if($user->hasRole('rider'))
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-bs-toggle="tab" href="#rides"><em
-                                                            class="icon ni ni-list-fill"></em><span>Ride History </span></a>
+                                                            class="icon ni ni-list-fill"></em><span>Ride History(rider) </span></a>
                                                 </li>
+                                                    @endif
+
+                                                @if($user->hasRole('driver'))
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-bs-toggle="tab" href="#driver_trips"><em
+                                                                    class="icon ni ni-list-fill"></em><span>Ride History(driver) </span></a>
+                                                        </li>
+                                                @endif
                                             @endif
 
                                             @if(hasRental())
@@ -420,11 +429,16 @@
                                                                                 <thead>
 
                                                                                 <tr>
+                                                                                    <td></td>
+                                                                                    <th>Service Area</th>
                                                                                     <th>Reference</th>
+                                                                                    <th>Ride Type</th>
                                                                                     <th>Date</th>
                                                                                     <th>Rider Name</th>
                                                                                     <th>Driver Name</th>
                                                                                     <th>Trip Status</th>
+                                                                                    <th>Grand Total</th>
+                                                                                    <th>Driver Earned</th>
                                                                                     <th>Payment Status</th>
                                                                                     <th>Payment Method</th>
                                                                                     <th>Action</th>
@@ -444,7 +458,51 @@
                                                             </div><!-- .card -->
                                                         </div>
                                                     </div>
-                                                </div> <!-- .tab-pane -->
+                                                </div>
+                                                <div class="tab-pane" id="driver_trips">
+                                                    <div class="card-inner position-relative card-tools-toggle pt-0">
+
+                                                        <div class="nk-block">
+                                                            <div
+                                                                class="card card-bordered border-left-0 border-right-0">
+                                                                <div class="card-inner">
+                                                                    <div id="DataTables_Table_1_wrapper"
+                                                                         class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                                                        <div class="datatable-wrap- my-3">
+                                                                            <table class="datatable-init nowrap table">
+                                                                                <thead>
+
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                    <th>Service Area</th>
+                                                                                    <th>Reference</th>
+                                                                                    <th>Ride Type</th>
+                                                                                    <th>Date</th>
+                                                                                    <th>Rider Name</th>
+                                                                                    <th>Driver Name</th>
+                                                                                    <th>Trip Status</th>
+                                                                                    <th>Grand Total</th>
+                                                                                    <th>Driver Earned</th>
+                                                                                    <th>Payment Status</th>
+                                                                                    <th>Payment Method</th>
+                                                                                    <th>Action</th>
+                                                                                </tr>
+
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                @foreach($driver_trips as $item)
+                                                                                    @include('admin.partials.table.rides-table', ['item' => $item])
+                                                                                @endforeach
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div><!-- .card -->
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @endif
 
                                             @if(hasRental())

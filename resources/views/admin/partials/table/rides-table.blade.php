@@ -27,7 +27,7 @@
 {{--    <td></td>--}}
     <td>{{ $item->status }}</td>
     <td>{{ amt($item->grand_total) }}</td>
-    <td>{{ amt($item->driver_earned) }}</td>
+    <td>{{ amt($item->driver_earn) }}</td>
     <td>{{ $item?->service?->name }}</td>
     <td>{{ $item->payment_status }}</td>
     <td>{{ $item->payment_method }}</td>

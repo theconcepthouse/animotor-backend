@@ -19,50 +19,57 @@ class UserController extends Controller
 {
     public function updateLatLng(Request $request, RegionService $regionService, FirestoreService $firestoreService): JsonResponse
     {
-        $user = User::find(auth()->id());
-//        $user = User::lockForUpdate()->find(auth()->id());
+        DB::transaction(function () use ($request, $regionService, $firestoreService) {
 
-//        $user = DB::table('users')
-//            ->where('id',auth()->id())
-//            ->lockForUpdate()
-//            ->first();
+            $user = DB::table('users')
+                ->lockForUpdate() // Apply pessimistic locking
+                ->where('id', auth()->id())
+                ->first();
 
-        $request->validate([
-            'lat' => 'required',
-            'lng' => 'required',
-            'address' => 'nullable',
-        ]);
-
-        if ($user){
-            $lat = $request['lat'];
-            $lng = $request['lng'];
-            $address = $request['address'] ?? $user->address;
-
-            $region = $regionService->getRegionByLatLng($lat, $lng);
-
-            if(!$region){
-
-                $user->is_online = false;
-                $user->save();
-                $firestoreService->updateUser($user);
-
-                $error_data['title'] = $address.' is not supported by our service';
-                $error_data['message'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
-                return $this->errorResponse($error_data);
-            }
-
-            $user->update([
-                'map_lat' => $request['lat'],
-                'map_lng' => $request['lng'],
-                'region_id' => $region->id,
-                'address' => $address,
-                'last_location_update' => Carbon::now()->addMinutes(2),
+            $data = $request->validate([
+                'lat' => 'required',
+                'lng' => 'required',
+                'address' => 'nullable',
             ]);
+
+            if ($user){
+                $lat = $request['lat'];
+                $lng = $request['lng'];
+                $address = $request['address'] ?? $user->address;
+
+                $region = $regionService->getRegionByLatLng($lat, $lng);
+
+                if(!$region){
+
+                    DB::table('users')
+                        ->where('id', auth()->id())
+                        ->update([
+                            'is_online' => false,
+                    ]);
+
+                    $firestoreService->updateUser($user);
+
+                    $error_data['title'] = $address.' is not supported by our service';
+                    $error_data['message'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
+                    return $this->errorResponse($error_data);
+                }
+
+                DB::table('users')
+                    ->where('id', auth()->id())
+                    ->update([
+                        'map_lat' => $data['lat'],
+                        'map_lng' => $data['lng'],
+                        'region_id' => $region->id,
+                        'address' => $data['address'] ?? $user->address,
+                        'last_location_update' => now()->addMinutes(2),
+                    ]);
+
+            }
 
             return $this->successResponse('updated lat & lng', $user);
 
-        }
 
+        }, 5);
 
         return $this->successResponse('updated lat & lng', []);
     }

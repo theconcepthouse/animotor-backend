@@ -58,7 +58,7 @@ class DistanceService
         }
     }
 
-    public function getDriversByDistance($lat, $lng, $region_id, $service_id, $local = false, $notify = true)
+    public function getDriversByDistance($lat, $lng, $region_id, $service_id, $local = false, $notify = true, $except = null)
     {
         $max_drivers_notify = (int)settings('max_drivers_notify', 2) * 5;
 
@@ -70,6 +70,7 @@ class DistanceService
             $users = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id','avatar','first_name','last_name')
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
+                ->where('driver_id','!=', $except)
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('map_lat')
@@ -83,6 +84,7 @@ class DistanceService
             $query = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id','avatar','first_name','last_name')
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
+                ->where('driver_id','!=', $except)
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('last_location_update')

@@ -80,6 +80,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         //DRIVER
         Route::post('accept', [TripRequestController::class, 'acceptRide']);
+        Route::post('reject', [TripRequestController::class, 'rejectRide']);
 
     });
 

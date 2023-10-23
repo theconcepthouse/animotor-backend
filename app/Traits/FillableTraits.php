@@ -160,6 +160,7 @@ trait FillableTraits
     protected array $trip_request = [
         'region_id',
         'driver_id',
+        'temp_driver_id',
         'customer_id',
         'fee',
         'reference',

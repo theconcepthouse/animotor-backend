@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\NewTrip;
 use App\Http\Controllers\Controller;
+use App\Models\RejectedRequest;
 use App\Models\Service;
 use App\Models\TripRequest;
 
@@ -392,6 +393,8 @@ class TripRequestController extends Controller
         try {
             $trip = TripRequest::find($id);
 
+            event(new NewTrip($trip));
+
 //            return $this->errorResponse('Trip cancelled');
             return $this->successResponse('Trip', $trip);
 
@@ -443,6 +446,10 @@ class TripRequestController extends Controller
                 return $this->errorResponse('Sorry only approved drivers can accept rides');
             }
 
+            if($trip->driver_id){
+                return $this->errorResponse('Sorry you missed the ride');
+            }
+
             $trip->status = 'driver_accepted';
             $trip->driver_id = $user->id;
             $trip->car_id = $car->id;
@@ -451,6 +458,50 @@ class TripRequestController extends Controller
             $trip = TripRequest::findOrFail($id);
 
             $firestoreService->updateTripRequest($trip);
+
+            return $this->successResponse('trip accepted', $trip);
+
+
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), 500);
+        }
+
+    }
+
+    public function rejectRide(Request $request, FirestoreService $firestoreService): JsonResponse
+    {
+        $v = request()->header('X-App-Version') ?? 0;
+
+//        if($v < env('VERSION')){
+//            return response()->json(['status'=>0,'message' => __('Please update your app')], 404);
+//        }
+
+        try {
+            $user = User::find(auth()->id());
+
+            $request->validate([
+                'id' => 'required',
+            ]);
+
+
+            $id = $request['id'];
+
+            $trip = TripRequest::findOrFail($id);
+
+            $car = $user->car;
+
+            if(!$user->hasRole('driver') || !$car){
+                return $this->errorResponse('Sorry only approved drivers can reject rides');
+            }
+
+            if(!$trip->driver_id){
+                RejectedRequest::create([
+                    'driver_id' => $user->id,
+                    'trip_id' => $id,
+                ]);
+
+                return $this->successResponse('trip rejected', $trip);
+            }
 
             return $this->successResponse('trip', $trip);
 

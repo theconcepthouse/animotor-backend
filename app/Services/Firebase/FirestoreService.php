@@ -18,7 +18,7 @@ class FirestoreService
     }
 
 
-    public function updateTripRequest($trip_data, $drivers_id = null, $drivers = null):void
+    public function updateTripRequest($trip_data, $drivers_id = null, $drivers = null, $reset = false):void
     {
         try {
             $firestoreClient = $this->firestoreClient;
@@ -97,7 +97,26 @@ class FirestoreService
                     ];
 
                     $data = array_merge($data, $extra);
+
+                    $trip_data->temp_driver_id = $driver->id;
+
+                    $trip_data->save();
                 }
+
+                if($reset){
+                    $extra = [
+                        'driver_avatar' => null,
+                        'driver_name' => null,
+                        'message' => "None of our drivers are currently within your location, we are still searching ..."
+                    ];
+
+                    $data = array_merge($data, $extra);
+
+                    $trip_data->temp_driver_id = null;
+
+                    $trip_data->save();
+                }
+
             }
 
             if(!env('APP_DEBUG')) {

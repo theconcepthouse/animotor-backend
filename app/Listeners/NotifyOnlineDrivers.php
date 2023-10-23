@@ -30,7 +30,13 @@ class NotifyOnlineDrivers
 
         $trip = $event->trip;
 
-        $drivers = $distanceService->getDriversByDistance($trip->origin_lat, $trip->origin_lng, $trip->region_id, $trip->service_id);
+        if($trip->temp_driver_id){
+            $drivers = $distanceService->getDriversByDistance($trip->origin_lat, $trip->origin_lng, $trip->region_id,
+                $trip->service_id, false, true, $trip->temp_driver_id);
+        }else{
+            $drivers = $distanceService->getDriversByDistance($trip->origin_lat, $trip->origin_lng, $trip->region_id, $trip->service_id);
+        }
+
 
         $data['title'] = "New ride request";
         $data['message'] = "There is a new ride request within your current location";
@@ -44,6 +50,10 @@ class NotifyOnlineDrivers
             $firestoreService->updateTripRequest($trip, $drivers->pluck('id')->toArray(), $drivers);
 
             $notificationService->notifyMany($drivers, $data);
+        }else{
+            if($trip->temp_driver_id){
+                $firestoreService->updateTripRequest($trip, [], $drivers,true);
+            }
         }
 
 

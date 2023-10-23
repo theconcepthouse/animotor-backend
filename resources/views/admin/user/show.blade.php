@@ -312,7 +312,7 @@
                                                             @foreach($user->monify_account as $bank)
                                                                 <div class="profile-ud-list">
 
-                                                                    <div class="profile-ud-item">
+                                                                    <div class="profile-ud-item shadow border-1">
                                                                         <div class="profile-ud wider">
                                                                             <span class="profile-ud-label">Bank name</span>
                                                                             <span class="profile-ud-value">{{ $bank->bankName }}</span>

@@ -58,7 +58,7 @@ class DistanceService
         }
     }
 
-    public function getDriversByDistance($lat, $lng, $region_id, $service_id, $local = false, $notify = true, $except = null)
+    public function getDriversByDistance($lat, $lng, $region_id, $service_id, $local = false, $notify = true, $except = null, $driver_rejected = [])
     {
         $max_drivers_notify = (int)settings('max_drivers_notify', 2) * 5;
 
@@ -71,6 +71,7 @@ class DistanceService
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
                 ->where('id','!=', $except)
+                ->whereNotIn('id', $driver_rejected)
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('map_lat')

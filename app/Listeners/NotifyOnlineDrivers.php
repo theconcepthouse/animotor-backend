@@ -30,11 +30,18 @@ class NotifyOnlineDrivers
 
         $trip = $event->trip;
 
+        if(count($trip->driver_rejected) > 0){
+            $driver_rejected = $trip->driver_rejected->pluck('driver_id')->toArray();
+        }else{
+            $driver_rejected = [];
+        }
+
         if($trip->temp_driver_id){
             $drivers = $distanceService->getDriversByDistance($trip->origin_lat, $trip->origin_lng, $trip->region_id,
-                $trip->service_id, false, true, $trip->temp_driver_id);
+                $trip->service_id, false, true, $trip->temp_driver_id, $driver_rejected);
         }else{
-            $drivers = $distanceService->getDriversByDistance($trip->origin_lat, $trip->origin_lng, $trip->region_id, $trip->service_id);
+            $drivers = $distanceService->getDriversByDistance($trip->origin_lat, $trip->origin_lng, $trip->region_id,
+                $trip->service_id, false, true, null, $driver_rejected);
         }
 
 

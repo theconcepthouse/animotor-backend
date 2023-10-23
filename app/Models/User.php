@@ -67,6 +67,11 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->hasMany(TripRequest::class,'driver_id');
     }
 
+    public function driver_rejected_trips(): HasMany
+    {
+        return $this->hasMany(RejectedRequest::class,'driver_id');
+    }
+
     public function completed_trips(): HasMany
     {
         return $this->hasMany(TripRequest::class,'customer_id')->where('completed', true);

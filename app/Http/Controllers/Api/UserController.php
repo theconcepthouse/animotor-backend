@@ -18,7 +18,9 @@ class UserController extends Controller
 {
     public function updateLatLng(Request $request, RegionService $regionService, FirestoreService $firestoreService): JsonResponse
     {
-        $user = User::find(auth()->id());
+//        $user = User::find(auth()->id());
+        $user = User::lockForUpdate()->find(auth()->id());
+
         $request->validate([
             'lat' => 'required',
             'lng' => 'required',

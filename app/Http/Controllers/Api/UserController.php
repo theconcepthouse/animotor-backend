@@ -23,7 +23,7 @@ class UserController extends Controller
 //        $user = User::lockForUpdate()->find(auth()->id());
 
         $user = DB::table('users')
-            ->find(auth()->id())
+            ->where('id',auth()->id())
             ->lockForUpdate()
             ->first();
 

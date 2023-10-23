@@ -92,6 +92,7 @@ class ConfigController extends Controller
 
 //        $data['driver_cancellation_title'] = true;
 //        $data['driver_cancellation_message'] = true;
+        $data['driver_location_update_interval'] = 5000;
         $data['book_only_available_drivers'] = true;
         $data['get_services_realtime'] = true;
         $data['force_bank_update'] = true;

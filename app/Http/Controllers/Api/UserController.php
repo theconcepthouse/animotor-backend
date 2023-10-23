@@ -27,32 +27,38 @@ class UserController extends Controller
             'address' => 'nullable',
         ]);
 
-        $lat = $request['lat'];
-        $lng = $request['lng'];
-        $address = $request['address'] ?? $user->address;
+        if ($user){
+            $lat = $request['lat'];
+            $lng = $request['lng'];
+            $address = $request['address'] ?? $user->address;
 
-        $region = $regionService->getRegionByLatLng($lat, $lng);
+            $region = $regionService->getRegionByLatLng($lat, $lng);
 
-        if(!$region){
+            if(!$region){
 
-            $user->is_online = false;
-            $user->save();
-            $firestoreService->updateUser($user);
+                $user->is_online = false;
+                $user->save();
+                $firestoreService->updateUser($user);
 
-            $error_data['title'] = $address.' is not supported by our service';
-            $error_data['message'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
-            return $this->errorResponse($error_data);
+                $error_data['title'] = $address.' is not supported by our service';
+                $error_data['message'] = settings('unsupported_region_msg',config('app.messages.unsupported_region_msg'));
+                return $this->errorResponse($error_data);
+            }
+
+            $user->update([
+                'map_lat' => $request['lat'],
+                'map_lng' => $request['lng'],
+                'region_id' => $region->id,
+                'address' => $address,
+                'last_location_update' => Carbon::now()->addMinutes(2),
+            ]);
+
+            return $this->successResponse('updated lat & lng', $user);
+
         }
 
-        $user->update([
-            'map_lat' => $request['lat'],
-            'map_lng' => $request['lng'],
-            'region_id' => $region->id,
-            'address' => $address,
-            'last_location_update' => Carbon::now()->addMinutes(2),
-        ]);
 
-        return $this->successResponse('updated lat & lng', $user);
+        return $this->successResponse('updated lat & lng', []);
     }
 
     public function getTransactions(Request $request): JsonResponse

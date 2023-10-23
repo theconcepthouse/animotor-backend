@@ -67,6 +67,7 @@ class UserController extends Controller
 
         $rides = $user->trips;
         $driver_trips = $user->driver_trips;
+        $transactions = $user->transactions;
         return view('admin.user.show', compact('user','driver_trips','rides'));
     }
 

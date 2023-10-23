@@ -86,6 +86,7 @@ class DistanceService
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
                 ->where('id','!=', $except)
+                ->whereNotIn('id', $driver_rejected)
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('last_location_update')

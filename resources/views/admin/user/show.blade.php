@@ -588,7 +588,7 @@
                                                                                     <tr>
                                                                                         <td>{{ $loop->index + 1 }}</td>
                                                                                         <td>{{ $item->type }}</td>
-                                                                                        <td>{{ format_amt($item->amount) }}</td>
+                                                                                        <td>{{ amt($item->amount) }}</td>
                                                                                         <td>{{ $item->meta['description'] }}</td>
                                                                                         <td>{{ $item->created_at }}</td>
 

@@ -62,6 +62,11 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->hasMany(TripRequest::class,'customer_id');
     }
 
+    public function transaction_records(): HasMany
+    {
+        return $this->hasMany(TransactionRecord::class);
+    }
+
     public function driver_trips(): HasMany
     {
         return $this->hasMany(TripRequest::class,'driver_id');
@@ -236,6 +241,18 @@ class User extends Authenticatable implements LaratrustUser, Wallet
             return $this->documents()->where('is_approved',0)->count();
         }
         return 0;
+    }
+
+    public function recordTransaction($amount, $description = null, $method = null, $type = 'debit', $detail = null): void
+    {
+        $this->transaction_records()->create([
+            'amount' => $amount,
+            'type' => $type,
+            'description' => $description,
+            'method' => $method,
+            'detail' => $detail,
+        ]);
+
     }
 
 }

@@ -66,12 +66,12 @@
 
 
 
-                            <li class="nk-block-tools-opt d-none d-sm-block">
+                            <li  wire:ignore  class="nk-block-tools-opt d-none d-sm-block">
                                 <a class="btn btn-primary" wire:navigate href="{{ route('admin.user.create') }}?role={{ $role }}&&back_url={{ url()->current() }}"><em class="icon ni ni-plus"></em><span>{{ __('admin.add_new') }}</span></a>
                             </li>
 
-                            <li class="nk-block-tools-opt d-block d-sm-none">
-                                <a class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}?role={{ $role }}&&back_url={{ url()->current() }}"><em class="icon ni ni-plus"></em></a>
+                            <li  wire:ignore class="nk-block-tools-opt d-block d-sm-none">
+                                <a  class="btn btn-icon btn-primary" href="{{ route('admin.user.create') }}?role={{ $role }}&&back_url={{ url()->current() }}"><em class="icon ni ni-plus"></em></a>
                             </li>
 
 
@@ -230,7 +230,7 @@
                                     @endif
                                 </td>
 
-                                <td>
+                                <td  wire:ignore>
                                     <div class="d-flex">
                                         <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}?back_url={{ url()->current() }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
 

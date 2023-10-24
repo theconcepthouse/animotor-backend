@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Booking;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -49,7 +50,10 @@ class BookingConfirmation extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            "title"      =>  "Car Booking Confirmation",
+            "message"      =>  "Your " . $this?->booking?->booking_number ." booking  has been confirmed",
+            "type"      =>  'car_booking',
+            "time"   =>  Carbon::now()
         ];
     }
 }

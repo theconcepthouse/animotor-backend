@@ -391,7 +391,7 @@ class Form extends Component
             'repair.repair_type' => ['required', 'string'],
             'repair.total_cost' => ['required', 'string'],
             'repair.vat' => ['required', 'string'],
-            'repair.invoice' => ['required', 'mimes:pdf',  'mimes:jpeg,png,jpg', 'max:2048'],
+            'repair.invoice' => ['required', 'mimes:jpeg,png,jpg,pdf', 'max:2048'],
         ]);
 
 

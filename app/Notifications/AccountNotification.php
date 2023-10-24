@@ -27,7 +27,7 @@ class AccountNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -51,10 +51,10 @@ class AccountNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-//            "title"      =>  $this->data['title'],
-//            "message"      =>  $this->data['message'],
-//            "type"      =>  $this->data['type'],
-//            "time"   =>  Carbon::now()
+            "title"      =>  $this->message['title'],
+            "message"      =>  $this->message['message'],
+            "type"      =>  isset($this->message['type']) ? $this->message['type'] : 'notification',
+            "time"   =>  Carbon::now()
         ];
     }
 }

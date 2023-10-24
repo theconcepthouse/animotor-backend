@@ -30,7 +30,7 @@ class DashboardController extends Controller
 
     public function bookings(){
         if(isAdmin()) {
-            $bookings = Booking::paginate(10);
+            $bookings = Booking::latest()->paginate(10);
         }else{
             $bookings = Booking::where('customer_id', auth()->id())->paginate(10);
         }
@@ -53,7 +53,7 @@ class DashboardController extends Controller
     }
 
     public function transactions(){
-        $transactions = auth()->user()->transactions()->latest()->get();
+        $transactions = auth()->user()->transaction_records()->latest()->get();
         return view('dashboard.transactions',compact('transactions'));
     }
     public function profile(){

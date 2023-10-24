@@ -427,7 +427,7 @@
             ],
             [
                 'url' => route('admin.faqs.index'),
-                'text' => 'Faqs',
+                'text' => 'FAQs',
                 'route' => 'faqs-read',
             ],
             [

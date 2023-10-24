@@ -7,13 +7,24 @@ use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class VehicleModelController extends Controller
 {
     public function index()
     {
-        $data = VehicleModel::paginate(100);
-        $makes = VehicleMake::all();
+        $cacheKey = 'vehicle_models_index';
+
+        $minutes = 60 * 60; // Cache data for 60 minutes
+
+        $data = Cache::remember($cacheKey, $minutes, function () {
+            return VehicleModel::all();
+        });
+
+        $makes = Cache::remember('vehicle_makes_index', $minutes, function () {
+            return VehicleMake::all();
+        });
+
         $title = "Vehicle models listing";
         return view('admin.vehicle.models', compact('data','title','makes'));
     }
@@ -32,6 +43,9 @@ class VehicleModelController extends Controller
 
         VehicleModel::create($validatedData);
 
+        Cache::forget('vehicle_models_index');
+
+
         return redirect()->back()->with('success', 'Vehicle model created successfully.');
     }
 
@@ -43,12 +57,17 @@ class VehicleModelController extends Controller
 
         $make->update($validatedData);
 
+        Cache::forget('vehicle_models_index');
+
         return redirect()->back()->with('success', 'Vehicle model updated successfully.');
     }
 
     public function destroy(VehicleModel $service)
     {
         $service->delete();
+
+        Cache::forget('vehicle_models_index');
+
 
         return redirect()->back()->with('success', 'Vehicle model deleted successfully.');
     }

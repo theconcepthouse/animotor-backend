@@ -35,7 +35,7 @@
                                 <table class="table1">
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th>S/N</th>
                                         <th>Transaction</th>
                                         <th>Amount</th>
                                         <th>Fee</th>
@@ -48,7 +48,7 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $item->type }}</td>
                                         <td>{{ $item->description }}</td>
-                                        <td>{{ format_amt($item->amount) }}</td>
+                                        <td>{{ amt($item->amount) }}</td>
                                         <td>
                                             {{ $item->created_at->diffForHumans() }}
                                         </td>

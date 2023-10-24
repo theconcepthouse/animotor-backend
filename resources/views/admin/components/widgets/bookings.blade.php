@@ -1,5 +1,5 @@
 @if(hasRental())
-<div class="col-md-3">
+<div class="col-md-4">
     <div class="card card-bordered card-full">
         <div class="card-inner">
             <div class="card-title-group align-start mb-0">
@@ -29,7 +29,7 @@
         </div>
     </div><!-- .card -->
 </div><!-- .col -->
-<div class="col-md-3">
+<div class="col-md-4">
     <div class="card card-bordered card-full">
         <div class="card-inner">
             <div class="card-title-group align-start mb-0">

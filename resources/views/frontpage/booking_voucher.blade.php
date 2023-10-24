@@ -39,10 +39,10 @@
                                     <p>{{ $booking?->customer?->name }}</p>
                                 </div>
 
-                                <div class="d-flex justify-content-between mt-3">
-                                    <p class="text-bold">Rate code</p>
-                                    <p>{{ $booking?->customer?->name }}</p>
-                                </div>
+{{--                                <div class="d-flex justify-content-between mt-3">--}}
+{{--                                    <p class="text-bold">Rate code</p>--}}
+{{--                                    <p>{{ $booking?->customer?->name }}</p>--}}
+{{--                                </div>--}}
 
 
                                 <div class="d-flex justify-content-between mt-3">
@@ -125,15 +125,15 @@
                                 </div>
 
 
-                                <div class="d-flex justify-content-between mt-3">
+                                <div class="d-flex-justify-content-between mt-3">
                                     <p class="text-bold heading">Name </p>
                                     <p>{{ $booking?->car?->company?->name }}</p>
                                 </div>
-                                <div class="d-flex justify-content-between mt-3">
+                                <div class="d-flex- -justify-content-between mt-3">
                                     <p class="text-bold heading">Address</p>
                                     <p>{{ $booking?->car?->company?->address }}</p>
                                 </div>
-                                <div class="d-flex justify-content-between mt-3">
+                                <div class="d-flex-justify-content-between mt-3">
                                     <p class="text-bold heading">Tel</p>
                                     <p>{{ $booking?->car?->company?->contact_phone }}</p>
                                 </div>

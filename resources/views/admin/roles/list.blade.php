@@ -13,21 +13,21 @@
                                     <div class="nk-block-head-content">
                                         <h4 class="nk-block-title">Roles listing</h4>
                                     </div>
-                                    <div class="nk-block-head-content">
-                                        <div class="toggle-wrap nk-block-tools-toggle">
-                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
-                                            <div class="toggle-expand-content" data-content="pageMenu">
-                                                <ul class="nk-block-tools g-3">
-                                                    <li class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" href="#"><em class="icon ni ni-plus"></em><span>Add New Rider</span></a>
-                                                    </li>
-                                                    <li class="nk-block-tools-opt d-block d-sm-none">
-                                                        <a class="btn btn-icon btn-primary" href="#"><em class="icon ni ni-plus"></em></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div><!-- .toggle-wrap -->
-                                    </div><!-- .nk-block-head-content -->
+{{--                                    <div class="nk-block-head-content">--}}
+{{--                                        <div class="toggle-wrap nk-block-tools-toggle">--}}
+{{--                                            <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>--}}
+{{--                                            <div class="toggle-expand-content" data-content="pageMenu">--}}
+{{--                                                <ul class="nk-block-tools g-3">--}}
+{{--                                                    <li class="nk-block-tools-opt d-none d-sm-block">--}}
+{{--                                                        <a class="btn btn-primary" href="#"><em class="icon ni ni-plus"></em><span>Add New Rider</span></a>--}}
+{{--                                                    </li>--}}
+{{--                                                    <li class="nk-block-tools-opt d-block d-sm-none">--}}
+{{--                                                        <a class="btn btn-icon btn-primary" href="#"><em class="icon ni ni-plus"></em></a>--}}
+{{--                                                    </li>--}}
+{{--                                                </ul>--}}
+{{--                                            </div>--}}
+{{--                                        </div><!-- .toggle-wrap -->--}}
+{{--                                    </div><!-- .nk-block-head-content -->--}}
 
                                 </div>
 

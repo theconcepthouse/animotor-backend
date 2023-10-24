@@ -62,16 +62,18 @@ class Booking extends Component
 
             $this->show_booking = false;
             $this->booking_day = request()->query('booking_day');
+        }else{
+            $time = Carbon::now()->addHours(4)->setMinute(0)->format('H:i');
+
+            $date = Carbon::now()->addHours(2)->setMinute(0)->format('Y-m-d');
+
+            $this->pick_up_time = $time;
+            $this->drop_off_time =  $time;
+            $this->drop_off_date =  Carbon::now()->addDays(2)->setMinute(0)->format('Y-m-d');
+            $this->pick_up_date =  $date;
+
         }
 
-        $time = Carbon::now()->addHours(4)->setMinute(0)->format('H:i');
-
-        $date = Carbon::now()->addHours(2)->setMinute(0)->format('Y-m-d');
-
-        $this->pick_up_time = $time;
-        $this->drop_off_time =  $time;
-        $this->drop_off_date =  Carbon::now()->addDays(2)->setMinute(0)->format('Y-m-d');
-        $this->pick_up_date =  $date;
 
     }
 
@@ -141,6 +143,7 @@ class Booking extends Component
             'pick_up_location' => 'required',
             'drop_off_location' => 'required',
             'pick_up_time' => 'required',
+            'drop_off_time' => 'required',
             'pick_up_date' => 'required|date|after_or_equal:today',
             'drop_off_date' => 'required|date|after:today|after:pick_up_date',
 

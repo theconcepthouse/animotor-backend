@@ -67,6 +67,8 @@
                                                         <td>
                                                             <a class="btn btn-warning btn-sm" data-bs-toggle="modal" href="#update{{ $item->id }}">
                                                                 <em class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                            <a class="btn btn-danger btn-sm" data-bs-toggle="modal" href="#delete{{ $item->id }}">
+                                                                <em class="icon ni ni-trash"></em><span>Delete</span></a>
                                                         </td>
 
                                                     </tr>
@@ -175,6 +177,18 @@
             </div><!-- .modal-content -->
         </div><!-- .modal-dialog -->
     </div><!-- .modal -->
+
+
+
+    @component('admin.components.delete_modal', [
+'modalId' => "delete$item->id",// Unique ID for the modal
+'button' => 'Yes delete',
+'method' => 'DELETE',
+'title' => 'Are you sure you want to delete this currency?',
+'action' => route('admin.currencies.destroy', $item->id), // Form action URL for the delete action
+'message' => 'This action cannot be reversed', // Message to display in the modal
+])
+    @endcomponent
     @endforeach
 
     @component('admin.components.delete_modal', [

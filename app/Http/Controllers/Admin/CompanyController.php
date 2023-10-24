@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class CompanyController extends Controller
 {
@@ -45,18 +46,31 @@ class CompanyController extends Controller
         return redirect()->route('admin.companies.index')->with('success', 'Company created successfully.');
     }
 
-    public function edit(Company $company)
+    public function edit($id)
     {
+
         $countries = Country::where('is_active', true)->get();
-        $company = Company::findOrFail($company->id);
-        return view('admin.company.edit', compact('company','countries'));
+        $user = User::findOrFail($id);
+        $company = $user->company;
+        return view('admin.company.edit', compact('company','user','countries'));
     }
 
     public function update(Request $request, Company $company): \Illuminate\Http\RedirectResponse
     {
-        $validatedData = $this->validateData($request, $company);
+        $user = User::findOrFail($request->user_id);
 
-        $company->update($validatedData);
+        $data = $this->validateData($request, $company, $user);
+
+        $company->update($data);
+
+        $user = User::findOrFail($request->user_id);
+        if ($request->get('password')){
+            $user->password = Hash::make($data['password']);
+        }
+        $user->email = $data['email'];
+        $user->phone = $data['phone'];
+        $user->first_name = $data['owner'];
+        $user->save();
 
         return redirect()->route('admin.companies.index')->with('success', 'Company updated successfully.');
     }
@@ -80,7 +94,7 @@ class CompanyController extends Controller
             'address' => 'required',
             'postal_code' => 'required',
             'city' => 'required',
-            'password' => 'required',
+            'password' => 'nullable',
             'state' => 'required',
             'country' => 'required',
             'tin' => 'required',
@@ -93,6 +107,7 @@ class CompanyController extends Controller
             $rules['name'] = ['required', Rule::unique('companies')->ignore($company->id),];
         }
         if ($user) {
+            $rules['phone'] = ['required', Rule::unique('users')->ignore($user->id),];
             $rules['email'] = ['required', Rule::unique('users')->ignore($user->id),];
         }
 

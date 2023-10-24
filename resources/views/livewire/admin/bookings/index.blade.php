@@ -43,11 +43,8 @@
 
     <div class="card card-bordered card-preview">
         <div class="card-inner">
-            @if(count($bookings) < 1)
-                <h6 class="text-center mt-5">{{ __('admin.no_booking_history') }}</h6>
-            @endif
 
-            @if(count($bookings) > 0)
+
                 <div class="dataTables_wrapper dt-bootstrap4 no-footer mt-4">
                     <div class="d-flex">
                         <div class="form-control-wrap">
@@ -135,13 +132,16 @@
                         </table>
 
 
+                        @if(count($bookings) < 1)
+                            <h6 class="text-center mt-5">{{ __('admin.no_booking_history') }}</h6>
+                        @endif
+
                         <div class="d-flex mt-2">
                             {!! $bookings->links() !!}
                         </div>
 
                     </div>
                 </div>
-            @endif
         </div>
     </div>
 </div>

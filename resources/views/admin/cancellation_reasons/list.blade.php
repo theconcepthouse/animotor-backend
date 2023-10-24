@@ -73,27 +73,9 @@
 
 
                                                         <td>
+                                                            <a class="btn btn-warning btn-sm" data-bs-toggle="modal" href="#update{{ $item->id }}">
+                                                                <em class="icon ni ni-edit"></em><span>Edit Item</span></a>
 
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#"
-                                                                           class="dropdown-toggle btn btn-sm btn-icon btn-trigger"
-                                                                           data-bs-toggle="dropdown"
-                                                                           aria-expanded="false"><em
-                                                                                class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end"
-                                                                             style="">
-                                                                            <ul class="link-list-opt no-bdr">
-                                                                                <li><a data-bs-toggle="modal"
-                                                                                       href="#update{{ $item->id }}"><em
-                                                                                            class="icon ni ni-edit"></em><span>{{ __('admin.edit_item') }}</span></a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
                                                         </td>
 
                                                     </tr>

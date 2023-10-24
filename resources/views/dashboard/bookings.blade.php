@@ -27,7 +27,7 @@
                                     <tr>
                                         <th>{{ __('admin.sn') }}</th>
 
-                                        <th>{{ __('admin.service_area') }}</th>
+{{--                                        <th>{{ __('admin.service_area') }}</th>--}}
                                         <th>{{ __('admin.car') }}</th>
                                         <th>{{ __('admin.booking_no') }}</th>
                                         <th>{{ __('admin.reference') }}</th>
@@ -47,7 +47,7 @@
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
 
-                                            <td>{{ $item?->region?->name }}</td>
+{{--                                            <td>{{ $item?->region?->name }}</td>--}}
 
                                             <td>{{ $item?->car?->title }}</td>
                                             <td><a class="link" wire:navigate href="{{ route('booking', $item->id) }}">

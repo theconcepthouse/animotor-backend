@@ -21,6 +21,8 @@ class PaymentService
 
             $booking = Booking::findOrFail($booking_id);
 
+            $notification = new NotificationService();
+
 
             if($booking->payment_status != 'paid'){
                 $booking->payment_method = $payment_method;
@@ -28,6 +30,9 @@ class PaymentService
                 $booking->payment_status = 'paid';
                 $booking->save();
 
+                auth()->user()->recordTransaction($booking->grand_total,'Booking payment','Stripe');
+
+                $notification->notify('Congratulations, your booking payment is successful', 'booking_payment', 'Booking payment successful',auth()->user());
 
                 session()->forget(['booking_id','payment_method','payment_type']);
 

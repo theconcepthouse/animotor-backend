@@ -173,5 +173,10 @@ return [
     'is_online' => 'Online',
     'notify_customer' => 'Notify Customer',
     'booking_days' => 'Booking days',
+    'booking_fee' => 'Booking Fee',
+    'booking_information' => 'Booking Information',
+    'car_information' => 'Car Information',
+    'insurance_fee' => 'Insurance Fee',
+    'booking_period' => 'Booking Period',
     'car_without_service_area_message' => 'cars without service area, note that cars without service areas will likely not show up on search results',
 ];

@@ -16,7 +16,7 @@ class FaqsController extends Controller
         }else{
             $data = Faq::paginate(100);
         }
-        $title = "Faqs listing";
+        $title = "FAQs listing";
         return view('admin.faqs.list', compact('data','title'));
     }
 
@@ -43,9 +43,9 @@ class FaqsController extends Controller
         return redirect()->back()->with('success', 'Faq updated successfully.');
     }
 
-    public function destroy(Faq $service): RedirectResponse
+    public function destroy(Faq $faq): RedirectResponse
     {
-        $service->delete();
+        $faq->delete();
 
         return redirect()->back()->with('success', 'Faq deleted successfully.');
     }

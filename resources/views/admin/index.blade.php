@@ -20,6 +20,7 @@
                             <div class="nk-block-head-content">
                                 <div class="toggle-wrap nk-block-tools-toggle">
                                     <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
+                                   @section('hide')
                                     <div class="toggle-expand-content" data-content="pageMenu">
                                         <ul class="nk-block-tools g-3">
                                             <li>
@@ -37,6 +38,7 @@
                                             <li class="nk-block-tools-opt"><a href="#" class="btn btn-primary"><em class="icon ni ni-reports"></em><span>Reports</span></a></li>
                                         </ul>
                                     </div>
+                                    @endsection
                                 </div>
                             </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->
@@ -49,9 +51,6 @@
                     @endif
 
                     <div class="nk-block">
-
-
-
 
 
                         @include('admin.components.dashboard-widgets')
@@ -150,64 +149,12 @@
                                 </div><!-- .card -->
                             </div>
                             @endif
-                            <div class="col">
-                                <div class="card card-bordered h-100">
-                                    <div class="card-inner border-bottom">
-                                        <div class="card-title-group">
-                                            <div class="card-title">
-                                                <h6 class="title">Notifications</h6>
-                                            </div>
-                                            <div class="card-tools">
-                                                <a href="#" class="link">View All</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-inner">
-                                        <div class="timeline">
-                                            <h6 class="timeline-head">June, 2023</h6>
-                                            <ul class="timeline-list">
-                                                <li class="timeline-item">
-                                                    <div class="timeline-status bg-primary is-outline"></div>
-                                                    <div class="timeline-date">20 Jun <em class="icon ni ni-alarm-alt"></em></div>
-                                                    <div class="timeline-data">
-                                                        <h6 class="timeline-title">Submited KYC Application</h6>
-                                                        <div class="timeline-des">
-                                                            <p>Re-submitted KYC Application form.</p>
-                                                            <span class="time">09:30am</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="timeline-item">
-                                                    <div class="timeline-status bg-primary"></div>
-                                                    <div class="timeline-date">20 June <em class="icon ni ni-alarm-alt"></em></div>
-                                                    <div class="timeline-data">
-                                                        <h6 class="timeline-title">Submited KYC Application</h6>
-                                                        <div class="timeline-des">
-                                                            <p>Re-submitted KYC Application form.</p>
-                                                            <span class="time">09:30am</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="timeline-item">
-                                                    <div class="timeline-status bg-pink"></div>
-                                                    <div class="timeline-date">20 june <em class="icon ni ni-alarm-alt"></em></div>
-                                                    <div class="timeline-data">
-                                                        <h6 class="timeline-title">Submited KYC Application</h6>
-                                                        <div class="timeline-des">
-                                                            <p>Re-submitted KYC Application form.</p>
-                                                            <span class="time">09:30am</span>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div><!-- .card -->
-                            </div><!-- .col -->
+
                         </div><!-- .row -->
 
                         <div class="row g-gs mt-4">
-                            <div class="col-xxl-8">
+                            @if(hasTrips())
+                            <div class="col">
                                 <div class="card card-bordered card-full">
                                     <div class="card-inner">
                                         <div class="card-title-group">
@@ -265,9 +212,10 @@
                                     </div>
                                 </div><!-- .card -->
                             </div><!-- .col -->
+                            @endif
 
-                            @section('hide')
-                            <div class="col-md-6 col-xxl-4">
+{{--                            @section('hide')--}}
+                            <div class="col">
                                 <div class="card card-bordered card-full">
                                     <div class="card-inner border-bottom">
                                         <div class="card-title-group">
@@ -276,52 +224,27 @@
                                             </div>
                                             <div class="card-tools">
                                                 <ul class="card-tools-nav">
-                                                    <li><a href="#"><span>Cancel</span></a></li>
-                                                    <li class="active"><a href="#"><span>All</span></a></li>
+                                                    <li class="active"><a href="{{ route('admin.activity.log') }}"><span>All</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                     <ul class="nk-activity">
-                                        <li class="nk-activity-item">
-                                            <div class="nk-activity-media user-avatar bg-success"><img src="./images/avatar/c-sm.jpg" alt=""></div>
-                                            <div class="nk-activity-data">
-                                                <div class="label">Keith Jensen requested to Widthdrawl.</div>
-                                                <span class="time">2 hours ago</span>
-                                            </div>
-                                        </li>
-                                        <li class="nk-activity-item">
-                                            <div class="nk-activity-media user-avatar bg-warning">HS</div>
-                                            <div class="nk-activity-data">
-                                                <div class="label">Harry Simpson placed a Order.</div>
-                                                <span class="time">2 hours ago</span>
-                                            </div>
-                                        </li>
-                                        <li class="nk-activity-item">
-                                            <div class="nk-activity-media user-avatar bg-azure">SM</div>
-                                            <div class="nk-activity-data">
-                                                <div class="label">Stephanie Marshall got a huge bonus.</div>
-                                                <span class="time">2 hours ago</span>
-                                            </div>
-                                        </li>
-                                        <li class="nk-activity-item">
-                                            <div class="nk-activity-media user-avatar bg-purple"><img src="./images/avatar/d-sm.jpg" alt=""></div>
-                                            <div class="nk-activity-data">
-                                                <div class="label">Nicholas Carr deposited funds.</div>
-                                                <span class="time">2 hours ago</span>
-                                            </div>
-                                        </li>
-                                        <li class="nk-activity-item">
-                                            <div class="nk-activity-media user-avatar bg-pink">TM</div>
-                                            <div class="nk-activity-data">
-                                                <div class="label">Timothy Moreno placed a Order.</div>
-                                                <span class="time">2 hours ago</span>
-                                            </div>
-                                        </li>
+                                        @foreach(\App\Models\ActivityLog::latest()->limit(5)->get() as $item)
+                                            <li class="nk-activity-item">
+                                                <div class="nk-activity-media user-avatar bg-success"><img src="./images/avatar/c-sm.jpg" alt=""></div>
+                                                <div class="nk-activity-data">
+                                                    <div class="label">{{ $item->info }}</div>
+                                                    <span class="time">{{ $item->created_at }}</span>
+                                                </div>
+                                            </li>
+
+                                        @endforeach
+
                                     </ul>
                                 </div><!-- .card -->
                             </div><!-- .col -->
-                            @endsection
+{{--                            @endsection--}}
                         </div>
                     </div><!-- .nk-block -->
                 </div>

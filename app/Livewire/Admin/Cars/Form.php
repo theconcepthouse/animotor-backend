@@ -207,7 +207,10 @@ class Form extends Component
             $this->car = $car;
 
             if(!$this->car->region_id){
-                $this->car->region_id = $this->regions?->id;
+                $region = $this->regions->first();
+                if($region){
+                    $this->car->region_id = $region?->id;
+                }
             }
 
             $this->booking_id = $car?->bookings?->first()?->id;

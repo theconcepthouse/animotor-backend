@@ -79,12 +79,7 @@
     },
 
 
-    "repositories": [
-        {
-            "type": "path",
-            "url": "packages/lara-backup-manager"
-        }
-    ],
+
 
     "minimum-stability": "stable",
     "prefer-stable": true

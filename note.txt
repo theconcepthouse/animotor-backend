@@ -41,3 +41,11 @@ php artisan module:disable AdvanceRental
 
 
 /opt/php81/bin/php /var/www/sospremier/data/www/animotor.co.uk/artisan queue:work --tries=3
+
+
+  "repositories": [
+        {
+            "type": "path",
+            "url": "packages/lara-backup-manager"
+        }
+    ],

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\VehicleType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class VehicleTypeSeeder extends Seeder
 {
@@ -27,6 +28,7 @@ class VehicleTypeSeeder extends Seeder
                 ]);
             }
         }
+
 
     }
 

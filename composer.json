@@ -19,10 +19,10 @@
         "nwidart/laravel-modules": "^10.0",
         "rawilk/laravel-settings": "^3.1",
         "santigarcor/laratrust": "^8.2",
-        "sarfraznawaz2005/backupmanager": "^1.5",
         "stripe/stripe-php": "^12.7",
         "unicodeveloper/laravel-paystack": "^1.1",
-        "unisharp/laravel-filemanager": "^2.6"
+        "unisharp/laravel-filemanager": "^2.6",
+        "ichie-benjamin/lara-backup-manager": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -77,6 +77,15 @@
             "pestphp/pest-plugin": true
         }
     },
+
+
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/lara-backup-manager"
+        }
+    ],
+
     "minimum-stability": "stable",
     "prefer-stable": true
 }

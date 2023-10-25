@@ -12,6 +12,10 @@ return [
     'http_authentication' => false,
     #-------------------------------------------------------------------
 
+    # API middleware
+    'api_authentication' => false,
+    #-------------------------------------------------------------------
+
     #-------------------------------------------------------------------
     # define binary paths
     'paths' => [
@@ -40,14 +44,14 @@ return [
             'enable' => true,
             // include folders that need to be backed up
             'folders' => [
-                base_path('app'),
-                base_path('bootstrap'),
-                base_path('config'),
-                base_path('database'),
-                base_path('public'),
-                base_path('resources'),
+//                base_path('app'),
+//                base_path('bootstrap'),
+//                base_path('config'),
+//                base_path('database'),
+//                base_path('public'),
+//                base_path('resources'),
                 //base_path('storage'),
-                base_path('tests'),
+//                base_path('tests'),
                 //base_path('vendor'),
 
                 //list all root files available in your project
@@ -60,7 +64,7 @@ return [
         ],
 
         // define disk options, or use custom-http
-        'disk' => 'custom-http', // any disk from config/filesystems.php like local, ftp, s3, etc
+        'disk' => 'local', // any disk from config/filesystems.php like local, ftp, s3, etc
         'backup_path' => 'backups',
 
         // backup files name suffix

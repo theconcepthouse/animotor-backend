@@ -20,7 +20,7 @@
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin/assets/css/theme.css?ver=3.1.1') }}">
 
 {{--    <link rel="stylesheet" href="/vendor/toastr/toastr.min.css">--}}
-    <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">
+{{--    <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">--}}
 
 
     @livewireStyles
@@ -198,6 +198,8 @@
     </style>
 
     @yield('style')
+
+    @stack('styles')
 
     <script>
         document.addEventListener('notify-success', (event) => {
@@ -911,7 +913,9 @@
 {{--<script src="./assets/js/scripts.js?ver=3.1.1"></script>--}}
 {{--<script src="./assets/js/libs/datatable-btns.js?ver=3.1.1"></script>--}}
 
-<script src="/vendor/sweetalert/sweetalert.min.js"></script>
+{{--<script src="/vendor/sweetalert/sweetalert.min.js"></script>--}}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script src="/vendor/toastr/toastr.min.js"></script>
 
@@ -1011,6 +1015,7 @@
     $('.lfm').filemanager('image');
 </script>
 
+@stack('scripts')
 
 </body>
 

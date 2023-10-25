@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Rawilk\Settings\Models\Setting;
 
@@ -87,6 +88,13 @@ class AdminController extends Controller
             $users = [];
         }
         return view('admin.user.admin.list', compact('users'));
+    }
+
+    public function backupManager()
+    {
+//        Session::flash('success', 'Task was successful!');
+
+        return view('admin.backup-manager');
     }
 
 

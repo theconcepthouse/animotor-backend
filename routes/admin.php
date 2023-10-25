@@ -44,6 +44,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('backup-manager', [AdminController::class, 'backupManager'])->name('backup-manager');
 
     Route::get('testquery', [AdminController::class, 'testQuery'])->name('test');
     Route::get('activity/logs', [AdminController::class, 'activityLog'])->name('activity.log');

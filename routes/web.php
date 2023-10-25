@@ -45,7 +45,7 @@ Route::get('/search', [FrontPageController::class, 'search'])->name('search');
 
 
 Route::group(['middleware' => ['auto_login_required']], function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::group(['prefix' => 'customer'], function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
         Route::get('/bookings', [DashboardController::class, 'bookings'])->name('bookings');

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "590629a9bdd62bc0fd12ac3890bf275d",
+    "content-hash": "7e77ef77f2ab72879f485888eb33e2b8",
     "packages": [
         {
             "name": "abraham-flutterwave/laravel-payment",
@@ -1518,16 +1518,23 @@
         },
         {
             "name": "ichie-benjamin/lara-backup-manager",
-            "version": "dev-master",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ichie-benjamin/lara-backup-manager.git",
+                "reference": "8119534f5af4205a6baa057539e7f1d7c52d41ca"
+            },
             "dist": {
-                "type": "path",
-                "url": "packages/lara-backup-manager",
-                "reference": "9677c01e79a3ea511c352081b4d28d9908c56c95"
+                "type": "zip",
+                "url": "https://api.github.com/repos/ichie-benjamin/lara-backup-manager/zipball/8119534f5af4205a6baa057539e7f1d7c52d41ca",
+                "reference": "8119534f5af4205a6baa057539e7f1d7c52d41ca",
+                "shasum": ""
             },
             "require": {
                 "illuminate/support": "~6|~7|~8|~9|~10",
-                "php": "^7.3 || ^8.0"
+                "php": "^7.3|^7.4|^8.1|^8.2|^8.3"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1544,6 +1551,10 @@
                     "IchieBenjamin\\LaraBackupManager\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Ichie Benjamin",
@@ -1551,16 +1562,20 @@
                 }
             ],
             "description": "A simple file and database backup and restore manager for laravel framework",
+            "homepage": "https://github.com/ichie-benjamin/lara-backup-manager",
             "keywords": [
-                "Backup",
-                "Database",
-                "Laravel",
-                "Restore",
-                "Server"
+                "Easy laravel backups",
+                "backup",
+                "database",
+                "laravel",
+                "restore",
+                "server"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/ichie-benjamin/lara-backup-manager/issues",
+                "source": "https://github.com/ichie-benjamin/lara-backup-manager/tree/main"
+            },
+            "time": "2023-10-25T20:05:19+00:00"
         },
         {
             "name": "intervention/image",
@@ -9594,10 +9609,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
-        "livewire/livewire": 10,
-        "ichie-benjamin/lara-backup-manager": 20
+        "livewire/livewire": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,

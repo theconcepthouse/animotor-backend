@@ -10,6 +10,7 @@
         "bavix/laravel-wallet": "^9.6",
         "bensontrent/firestore-php": "^3.1",
         "guzzlehttp/guzzle": "^7.2",
+        "ichie-benjamin/lara-backup-manager": "dev-main",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.7",
@@ -21,8 +22,7 @@
         "santigarcor/laratrust": "^8.2",
         "stripe/stripe-php": "^12.7",
         "unicodeveloper/laravel-paystack": "^1.1",
-        "unisharp/laravel-filemanager": "^2.6",
-        "ichie-benjamin/lara-backup-manager": "dev-master"
+        "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -79,8 +79,6 @@
     },
 
 
-
-
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

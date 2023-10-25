@@ -1527,7 +1527,7 @@
                         <div class="row justify-content-center-">
                             <div class="col-4">
                                 <div class="form-group mt-3 w-100">
-                                    <button type="submit" class="btn btn-lg btn-primary  text-center">{{ $step == 15 ? 'Submit' : 'Next' }}</button>
+                                    <button type="submit" class="btn btn-lg btn-primary  text-center">{{ $step > 7 ? 'Save' : 'Next' }}</button>
                                 </div>
                             </div>
 

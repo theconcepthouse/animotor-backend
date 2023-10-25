@@ -35,11 +35,9 @@ class DashboardController extends Controller
     }
 
     public function bookings(){
-        if(isAdmin()) {
+//        if(isAdmin()) {
             $bookings = Booking::latest()->paginate(10);
-        }else{
-            $bookings = Booking::where('customer_id', auth()->id())->paginate(10);
-        }
+//        }
         return view('dashboard.bookings', compact('bookings'));
     }
 

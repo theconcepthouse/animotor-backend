@@ -100,21 +100,11 @@
                                                             <span>{{ $item->trashed() ? 'Deactivated' : 'Active' }}</span>
                                                         </td>
 
-                                                        <td class="nk-tb-col nk-tb-col-tools">
-                                                            <ul class="nk-tb-actions gx-1">
-                                                                <li>
-                                                                    <div class="drodown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-sm btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                                                        <div class="dropdown-menu dropdown-menu-end">
-{{--                                                                            <ul class="link-list-opt no-bdr">--}}
-{{--                                                                                <li><a href="{{ route('admin.user.toggle.status',$item->id) }}"><em class="icon ni ni-stop"></em><span>{{ $item->trashed() ? 'Activate' : 'Deactivate' }} user</span></a></li>--}}
-{{--                                                                                <li><a href="{{ route('admin.user.edit',$item->id) }}"><em class="icon ni ni-edit"></em><span>Edit User</span></a></li>--}}
-{{--                                                                                --}}{{--                                                                                <li><a href="#"><em class="icon ni ni-check-round-cut"></em><span>Password reset</span></a></li>--}}
-{{--                                                                            </ul>--}}
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
+                                                        <td wire:ignore class="nk-tb-col nk-tb-col-tools">
+                                                            <div class="d-flex">
+                                                                <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}?back_url={{ url()->current() }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
+
+         </div>
                                                         </td>
 
                                                     </tr>

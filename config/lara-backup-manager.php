@@ -86,7 +86,7 @@ return [
          * Leave "mail_receivers" empty [] to not send any mail.
          */
         'mail_subject' => 'Lara BackupManager Alert',
-        'mail_receivers' => ['admin@example.com'],
+        'mail_receivers' => [],
     ],
 
 ];

@@ -9,23 +9,29 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function dashboard(){
-        if(isAdmin()){
-            if(hasTrips()){
+        $user_id = auth()->id();
 
-                $bookings = TripRequest::paginate(10);
-            }else{
+        $commonConditions = function ($query) use ($user_id) {
+            $query->where('customer_id', $user_id);
+        };
 
-                $bookings = Booking::paginate(10);
-            }
-        }else{
-            if(hasTrips()) {
-                $bookings = TripRequest::where('customer_id', auth()->id())->paginate(10);
-            }else{
+        $data['total_bookings'] = Booking::where($commonConditions)->count();
 
-                $bookings = Booking::where('customer_id', auth()->id())->paginate(10);
-            }
-        }
-        return view('dashboard.index', compact('bookings'));
+        $data['pending_bookings'] = Booking::where($commonConditions)
+            ->where('completed', false)
+            ->where('is_confirmed', false)
+            ->where('cancelled', false)
+            ->count();
+
+        $data['confirmed_bookings'] = Booking::where($commonConditions)
+            ->where('is_confirmed', true)
+            ->where('cancelled', false)
+            ->count();
+
+        $data['pending_percent'] =  ($data['pending_bookings'] / $data['total_bookings'] ) * 100;
+        $data['confirmed_percent'] =  ($data['confirmed_bookings'] / $data['total_bookings'] ) * 100;
+
+        return view('dashboard.index', compact('data'));
     }
 
     public function bookings(){

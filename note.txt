@@ -49,3 +49,11 @@ php artisan module:disable AdvanceRental
             "url": "packages/lara-backup-manager"
         }
     ],
+
+
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/Users/benny/Documents/laravel/packages/surd-core"
+        }
+    ],

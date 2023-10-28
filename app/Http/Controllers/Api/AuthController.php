@@ -62,7 +62,7 @@ class AuthController extends Controller
             'password' => $request->has('password') ? 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).+$/|min:8' : 'nullable',
 
             'referral'  => 'nullable',
-            'avatar'  => 'nullable',
+//            'avatar'  => 'nullable',
 //            'repeat_password' => 'required|same:password',
         ],[
             'password.regex' => 'The password must contain at least one capital letter, one small letter, one special character, and one number.',

@@ -221,4 +221,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+
+    'security_key' => '$2y$10$tP7G2Chiql.mnxsSEngUxOVZ7Njivlto3i5/xe2YfuKUYJAlcLqme'
+
 ];

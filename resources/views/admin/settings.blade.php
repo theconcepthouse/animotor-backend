@@ -31,6 +31,10 @@
                                     <a class="nav-link  {{ $active == 'payment-methods' ? 'active' : '' }}" data-bs-toggle="tab" href="#payment-methods"><em class="icon ni ni-money"></em><span>Payment Methods </span></a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a class="nav-link  {{ $active == 'license' ? 'active' : '' }}" data-bs-toggle="tab" href="#license"><em class="icon ni ni-money"></em><span>License </span></a>
+                                </li>
+
                                 @if(settings('enable_mobile_slider') == 'yes')
                                 <li class="nav-item">
                                     <a class="nav-link  {{ $active == 'slider' ? 'active' : '' }}" data-bs-toggle="tab" href="#slider"><em class="icon ni ni-img-fill"></em><span>Mobile Slider </span></a>
@@ -65,6 +69,11 @@
                                 </div> <!-- .tab-pane -->
                                <div class="tab-pane  {{ $active == 'api' ? 'active' : '' }}" id="api">
                                     @include('admin.settings.partials.api')
+                                </div> <!-- .tab-pane -->
+
+
+                                <div class="tab-pane  {{ $active == 'license' ? 'active' : '' }}" id="license">
+                                    @include('admin.settings.partials.license')
                                 </div> <!-- .tab-pane -->
 
                                 <div class="tab-pane  {{ $active == 'slider' ? 'active' : '' }}" id="slider">

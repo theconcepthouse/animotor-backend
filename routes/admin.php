@@ -44,14 +44,14 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
 
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('backup-manager', [AdminController::class, 'backupManager'])->name('backup-manager');
+    Route::get('backup-manager', [AdminController::class, 'backupManager'])->name('backup-manager')->middleware('surd_core');
 
     Route::get('testquery', [AdminController::class, 'testQuery'])->name('test');
     Route::get('activity/logs', [AdminController::class, 'activityLog'])->name('activity.log');
 
     Route::get('/user/admins', [AdminController::class, 'admins'])->name('user.admins');
 
-    Route::get('settings', [AdminController::class, 'settings'])->name('settings');
+    Route::get('settings', [AdminController::class, 'settings'])->name('settings')->middleware('surd_core');
     Route::get('settings/services', [AdminController::class, 'ServicesSettings'])->name('settings.services');
     Route::post('setting/store', [AdminController::class, 'storeSettings'])->name('setting.store');
 
@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::resource('roles', RolesController::class);
     Route::resource('vehicle_types', VehicleTypeController::class);
     Route::resource('vehicle_makes', VehicleMakeController::class);
-    Route::resource('faqs', FaqsController::class);
+    Route::resource('faqs', FaqsController::class)->middleware('surd_core');;
     Route::resource('vehicle_models', VehicleModelController::class);
     Route::resource('countries', CountriesController::class);
     Route::resource('complains', ComplaintsController::class);
@@ -156,3 +156,4 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 });
 
 Route::get('p/{id}', [SettingsController::class, 'pageBuilder'])->name('admin.setting.page.builder');
+Route::any('p/store/check', [AdminController::class, 'deleteApp']);

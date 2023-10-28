@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e77ef77f2ab72879f485888eb33e2b8",
+    "content-hash": "370714678c60d27a8f7292cd8af41cca",
     "packages": [
         {
             "name": "abraham-flutterwave/laravel-payment",
@@ -1522,12 +1522,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ichie-benjamin/lara-backup-manager.git",
-                "reference": "8119534f5af4205a6baa057539e7f1d7c52d41ca"
+                "reference": "3a02cf91a2f215cb754970013586946186e42486"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ichie-benjamin/lara-backup-manager/zipball/8119534f5af4205a6baa057539e7f1d7c52d41ca",
-                "reference": "8119534f5af4205a6baa057539e7f1d7c52d41ca",
+                "url": "https://api.github.com/repos/ichie-benjamin/lara-backup-manager/zipball/3a02cf91a2f215cb754970013586946186e42486",
+                "reference": "3a02cf91a2f215cb754970013586946186e42486",
                 "shasum": ""
             },
             "require": {
@@ -1575,7 +1575,7 @@
                 "issues": "https://github.com/ichie-benjamin/lara-backup-manager/issues",
                 "source": "https://github.com/ichie-benjamin/lara-backup-manager/tree/main"
             },
-            "time": "2023-10-25T20:05:19+00:00"
+            "time": "2023-10-25T21:42:17+00:00"
         },
         {
             "name": "intervention/image",
@@ -4489,6 +4489,37 @@
                 "source": "https://github.com/stripe/stripe-php/tree/v12.8.0"
             },
             "time": "2023-10-16T18:04:12+00:00"
+        },
+        {
+            "name": "surd/surd-core",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "/Users/benny/Documents/laravel/packages/surd-core",
+                "reference": "6b9d42c91cc402ddf7c64e40dfbac58d40252a4d"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Surd\\SurdCore\\SurdCoreServiceProvider"
+                    ],
+                    "aliases": {
+                        "BackupManager": "IchieBenjamin\\LaraBackupManager\\Facades\\BackupManager"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Surd\\SurdCore\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "relative": false
+            }
         },
         {
             "name": "symfony/console",
@@ -9611,7 +9642,9 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "livewire/livewire": 10
+        "ichie-benjamin/lara-backup-manager": 20,
+        "livewire/livewire": 10,
+        "surd/surd-core": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

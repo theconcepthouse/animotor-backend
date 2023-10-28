@@ -21,6 +21,7 @@
         "rawilk/laravel-settings": "^3.1",
         "santigarcor/laratrust": "^8.2",
         "stripe/stripe-php": "^12.7",
+        "surd/surd-core": "dev-main",
         "unicodeveloper/laravel-paystack": "^1.1",
         "unisharp/laravel-filemanager": "^2.6"
     },
@@ -77,6 +78,7 @@
             "pestphp/pest-plugin": true
         }
     },
+
 
 
     "minimum-stability": "dev",

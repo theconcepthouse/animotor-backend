@@ -174,7 +174,7 @@
                         </thead>
                         <tbody>
                         @foreach($data as $item)
-                            <tr>
+                            <tr wire:key="item.id">
                                 <td><input type="checkbox" wire:model.live="selected_items" value="{{ $item->id }}"></td>
 
                                 <td>{{ $loop->index + 1 }}</td>

@@ -10,7 +10,7 @@
                     <div class="nk-block">
 
 
-                            <livewire:admin.user.index :current_uri="{{ url()->current() }}" role="rider" />
+                            <livewire:admin.user.index :current_uri="url()->current()" role="rider" />
 
 
                     </div><!-- .nk-block -->

@@ -23,6 +23,7 @@ class Index extends Component
     public string $status = 'all';
 
     public string $role = 'rider';
+    public string $current_uri;
 
 
     #[Computed]

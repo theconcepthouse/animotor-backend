@@ -1,9 +1,9 @@
 
-<div wire:ignore>
-    @php
-        $currentUrl = url()->current();
-    @endphp
-</div>
+
+{{--    @php--}}
+{{--        $currentUrl = url()->current();--}}
+{{--    @endphp--}}
+
 
 <div class="nk-block nk-block-lg" wire:poll.30s>
 
@@ -240,9 +240,9 @@
 
                                 <td >
                                     <div class="d-flex">
-                                        <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}?back_url={{ $currentUrl }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
+                                        <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}?back_url={{ $current_uri }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
 
-                                        <a wire:navigate href="{{ route('admin.user.show', $item->id) }}?back_url={{ $currentUrl }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
+                                        <a wire:navigate href="{{ route('admin.user.show', $item->id) }}?back_url={{ $current_uri }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
                                     </div>
                                 </td>
 

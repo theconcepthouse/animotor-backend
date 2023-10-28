@@ -175,10 +175,10 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     public function getAvatarAttribute($value): string
     {
-        if(!$this->avatar) {
+        if(!$value) {
             return asset('default/avatar.png');
         }
-        return $this->avatar;
+        return $value;
     }
     public function getIsAvatarSetAttribute(): string
     {

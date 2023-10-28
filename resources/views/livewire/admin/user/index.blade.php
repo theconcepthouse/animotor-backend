@@ -1,9 +1,12 @@
-@php
-    $currentUrl = url()->current();
-@endphp
 
+<div wire:ignore>
+    @php
+        $currentUrl = url()->current();
+    @endphp
+</div>
 
 <div class="nk-block nk-block-lg" wire:poll.30s>
+
 
     <div class="nk-block-head">
         <div class="nk-block-between">

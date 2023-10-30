@@ -38,7 +38,7 @@ class Booking extends Model
         $startDate = Carbon::parse($this->pick_up_date);
         $endDate = Carbon::parse($this->drop_off_date);
 
-        return $endDate->diffInDays($startDate);
+        return $endDate->diffInDays($startDate) + 1;
     }
 
     public function getBookingInfoUrlinkAttribute(): string

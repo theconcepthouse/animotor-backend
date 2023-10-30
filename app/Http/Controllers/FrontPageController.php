@@ -138,6 +138,13 @@ class FrontPageController extends Controller
         $car = Car::findOrFail($id);
         if(auth()->check()){
             $user = auth()->user();
+
+            $booking = Booking::where('customer_id', $user->id)
+                ->where('car_id', $id)
+                ->where('completed', false)->where('cancelled', false)->first();
+            if($booking){
+                return redirect()->route('booking', $booking->id)->with('error','Please complete your ongoing booking');
+            }
         }else{
             $user = null;
         }

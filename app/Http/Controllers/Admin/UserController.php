@@ -231,11 +231,15 @@ class UserController extends Controller
         return redirect()->back()->with('success','Status successfully updated');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $back_url = $request->get('back_url') ?? route('admin.riders');
         $user = User::findOrFail($id);
+        if($user->id == auth()->id()){
+            return redirect()->back()->with('failure','sorry you cant delete yourself');
+        }
         $user->delete();
-        return redirect()->route('admin.riders')->with('success', "User successfully deactivated");
+        return redirect()->to($back_url)->with('success', "User successfully deactivated");
     }
     public function forceDelete($id)
     {

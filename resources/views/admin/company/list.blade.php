@@ -71,10 +71,10 @@
 
 
                                                         <td>
-                                                            @if($item->is_active)
+                                                            @if($item->status == 'active')
                                                                 <span class="badge badge-dim bg-success">Active</span>
                                                             @else
-                                                                <span class="badge badge-dim bg-danger">Inactive</span>
+                                                                <span class="badge badge-dim bg-danger">{{ $item->status }}</span>
                                                             @endif
                                                         </td>
 

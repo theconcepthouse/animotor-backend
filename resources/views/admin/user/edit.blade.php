@@ -58,7 +58,7 @@
 {{--                                                    @include('admin.partials.form.text', ['attributes' => 'disabled', 'colSize' => 'col-md-4', 'value' => $role, 'fieldName' => 'role','title' => 'Role'])--}}
                                                     @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->gender,'fieldName' => 'gender','title' => 'Gender','options' => ['Male','Female','Others']])
 
-                                                        @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->status,'fieldName' => 'status','title' => 'Status','options' => ['active','pending']])
+                                                        @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->status,'fieldName' => 'status','title' => 'Status','options' => ['active','pending','banned']])
 
                                                     @include('admin.partials.image-upload',['field' => 'avatar','id' => 'image', 'image' => $user->avatar, 'title' => 'Profile Pics'])
 
@@ -111,7 +111,7 @@
                     <div class="modal-body modal-body-md text-center">
 {{--                        <h5 class="title">Editing {{ $item->name }}</h5>--}}
 
-                        <form action="{{ route('admin.user.delete',$user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.user.delete',$user->id) }}?back_url={{ request()->get('back_url') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @if ($errors->any())
                                 <div class="alert alert-danger">

@@ -278,6 +278,10 @@ class AuthController extends Controller
 
                 $data = $user;
 
+                if($user->status == 'banned'){
+                    return $this->errorResponse('Account banned, please contact support',422);
+                }
+
                 if($request['platform']){
                     $user->platform = $request['platform'];
 

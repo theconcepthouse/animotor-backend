@@ -14,6 +14,7 @@ class Checkout extends Component
 {
     public $first_name;
     public $last_name;
+    public $id = null;
     public $address;
     public $country;
     public $city;
@@ -44,7 +45,7 @@ class Checkout extends Component
             'address' => 'required',
             'country' => 'required',
             'city' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|unique:users,phone,'.$this->id,
         ]);
 
         if(!auth()->check()){
@@ -68,6 +69,7 @@ class Checkout extends Component
 //            return $this->redirect()
         }else{
             $user = auth()->user();
+            $user->update($validated);
         }
 
         $tax = ($this->car->price_per_day * $this->booking_day) * settings('tax',0.075);
@@ -129,7 +131,8 @@ class Checkout extends Component
                 'country' => $user->country,
                 'city' => $user->city,
                 'phone' => $user->phone,
-                'email' => $user->email
+                'email' => $user->email,
+                'id' => $user->id,
             ]);
         }
         $this->countries = Country::all();

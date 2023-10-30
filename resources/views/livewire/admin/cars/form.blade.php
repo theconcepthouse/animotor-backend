@@ -2,13 +2,16 @@
     <div class="nk-block-between g-3">
         <div class="nk-block-head-content ">
 {{--            <h4 class="title nk-block-title">{{ 'Editing ' .$car->title  }} {{ $steps[$step - 1] }}</h4>--}}
-            <h4 wire:click="goBack" class="title nk-block-title" style="cursor: pointer">
-                <img src="{{ asset('assets/img/icons/arrow-left.png') }}" />
-                {{ $steps[$step - 1] }}
-            </h4>
+          @if($step > 1)
+                <h4 wire:click="goBack" class="title nk-block-title" style="cursor: pointer">
+                    <img src="{{ asset('assets/img/icons/arrow-left.png') }}" />
+                    {{ $steps[$step - 1] }}
+                </h4>
+          @endif
+
 
             <div class="mt-2">
-                <p><span class="btn btn-warning me-5">{{ $car->registration_number }}</span> make : {{ $car->make }}</p>
+                <p><span class="btn btn-warning me-5">{{ $car->registration_number }}</span> Make : {{ $car->make }}</p>
             </div>
         </div>
 
@@ -184,6 +187,18 @@
                                                    class="form-control @error('mileage') error @enderror  form-control-xl"
                                                    id="mileage">
                                             @error("mileage") <span class="invalid">{{ $message }}</span>@enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <div class="form-group">
+                                        <label class="form-label" for="mileage">Cancellation Fee</label>
+
+                                        <div class="form-control-wrap">
+                                            <input wire:model="cancellation_fee" type="text"
+                                                   class="form-control @error('cancellation_fee') error @enderror  form-control-xl"
+                                                   id="cancellation_fee">
+                                            @error("cancellation_fee") <span class="invalid">{{ $message }}</span>@enderror
                                         </div>
                                     </div>
                                 </div>
@@ -465,7 +480,7 @@
                                     <div class="form-group">
                                         <label class="form-label" for="is_taxed">Is vehicle taxed</label>
                                         <div class="form-control-wrap">
-                                            <select wire:model="is_taxed" class="form-select form-control form-control-lg " id="is_taxed">
+                                            <select wire:model.live="is_taxed" class="form-select form-control form-control-lg " id="is_taxed">
                                                 <option value="1">yes</option>
                                                 <option value="0">no</option>
                                             </select>
@@ -473,6 +488,7 @@
                                     </div>
                                 </div>
 
+                                @if($is_taxed == 1)
                                 <div class="col-md-6 mt-3">
                                     <div class="form-group">
                                         <label class="form-label" for="tax_expiry_date">Expiry Date</label>
@@ -508,7 +524,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                @endif
                             </div>
                         @endif
 

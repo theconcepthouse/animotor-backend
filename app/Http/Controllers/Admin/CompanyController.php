@@ -69,6 +69,7 @@ class CompanyController extends Controller
         }
         $user->email = $data['email'];
         $user->phone = $data['phone'];
+        $user->status = $data['status'];
         $user->first_name = $data['owner'];
         $user->save();
 
@@ -98,6 +99,7 @@ class CompanyController extends Controller
             'state' => 'required',
             'country' => 'required',
             'tin' => 'required',
+            'status' => 'nullable',
             'contact_name' => 'required',
             'contact_phone' => 'required',
             'contact_email' => 'required',

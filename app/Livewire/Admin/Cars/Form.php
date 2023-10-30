@@ -49,10 +49,10 @@ class Form extends Component
 
 
 //    TAX
-    public ?string $is_taxed = "yes";
-    public ?string $tax_amount;
+    public ?string $is_taxed = "1";
+    public ?string $tax_amount = null;
     public ?string $tax_type = "monthly";
-    public ?string $tax_expiry_date;
+    public ?string $tax_expiry_date = null;
 
     public array $service = [
         'last_service_date' => '',
@@ -281,7 +281,7 @@ class Form extends Component
             'model' => ['required', 'string'],
             'gear' => ['required', 'string'],
 //            'air_condition' => ['required', 'string'],
-//            'cancellation_fee' => ['required', 'string'],
+            'cancellation_fee' => ['required', 'string'],
 //            'color' => ['required', 'string'],
 //            'year' => ['required', 'string'],
             'registration_number' => ['required', 'string'],
@@ -591,9 +591,9 @@ class Form extends Component
     {
         $this->validate([
             'is_taxed' => ['required'],
-            'tax_amount' => ['required'],
-            'tax_type' => ['required'],
-            'tax_expiry_date' => ['required'],
+            'tax_amount' => ['required_if:is_taxed,1'],
+            'tax_type' => ['required_if:is_taxed,1'],
+            'tax_expiry_date' => ['required_if:is_taxed,1'],
         ]);
 
 
@@ -601,10 +601,10 @@ class Form extends Component
 
         if ($carExtra) {
             $carExtra->update([
-                'is_taxed' => $this->is_taxed,
-                'tax_amount' => $this->tax_amount,
-                'tax_type' => $this->tax_type,
-                'tax_expiry_date' => $this->tax_expiry_date,
+                'is_taxed' => $this?->is_taxed,
+                'tax_amount' => $this?->tax_amount ?? 0,
+                'tax_type' => $this?->tax_type,
+                'tax_expiry_date' => $this?->tax_expiry_date,
             ]);
         }
 

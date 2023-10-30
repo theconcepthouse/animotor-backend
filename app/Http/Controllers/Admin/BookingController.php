@@ -74,6 +74,34 @@ class BookingController extends Controller
             return redirect()->back()->with('success','Booking successfully cancelled');
         }
 
+        if($booking->status == 'completed'){
+            $booking->completed = true;
+            $booking->save();
+
+            if($notify){
+//            return $booking->customer;
+                if($booking->customer){
+                    $user = $booking->customer;
+
+                    $message['title'] = "Booking completed";
+                    $message['link'] = route('booking',$booking->id);
+                    $message['link_text'] = 'View booking';
+                    $message['message'] = $request->input('comment') ?? 'Your booking has been confirmed as completed';
+
+                    $message['lines'] = [
+                        "<strong>Thank you for booking with us</strong>",
+                    ];
+
+                    $user->notify(new AccountNotification($message));
+
+
+                }else{
+                    return redirect()->back()->with('failure','Invalid booking');
+                }
+            }
+            return redirect()->back()->with('success','Booking successfully completed');
+        }
+
         $booking->save();
 
         if($notify){

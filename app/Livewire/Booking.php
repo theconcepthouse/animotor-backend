@@ -145,14 +145,14 @@ class Booking extends Component
             'pick_up_time' => 'required',
             'drop_off_time' => 'required',
             'pick_up_date' => 'required|date|after_or_equal:today',
-            'drop_off_date' => 'required|date|after:today|after:pick_up_date',
+            'drop_off_date' => 'required|date|after_or_equal:today|after_or_equal:pick_up_date',
 
         ]);
 
         $startDate = Carbon::parse($validatedData['pick_up_date']);
         $endDate = Carbon::parse($validatedData['drop_off_date']);
 
-        $validatedData['booking_day']  = $endDate->diffInDays($startDate);
+        $validatedData['booking_day']  = $endDate->diffInDays($startDate) + 1;
 
         return redirect()->route('search', $validatedData);
 

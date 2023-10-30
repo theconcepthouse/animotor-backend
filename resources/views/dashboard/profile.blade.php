@@ -29,13 +29,6 @@
                             </div>
                             <ul class="personal__details__name">
 
-                        <span class="namebold fz-18 fw-600">
-                           Account balance
-                        </span>
-                                    <span class="text-capitalize">
-                           {{ amt($user->balance) }}
-                        </span>
-                                </li>
                                 <li>
                         <span class="namebold fz-18 fw-600">
                            Name

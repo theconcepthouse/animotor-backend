@@ -109,7 +109,7 @@ class CarListing extends Component
 
         $filteredCars = Car::query();
 
-        $filteredCars->where('region_id', $this->location->id);
+        $filteredCars->where('region_id', $this->location->id)->where('is_available', true);
 
         $this->filters['car_types'] = array_unique($filteredCars->pluck('type')->toArray());
 

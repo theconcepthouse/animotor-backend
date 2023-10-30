@@ -46,7 +46,7 @@
 
                                                 <div class="row gy-4">
 
-                                                    <input name="user_id" value="{{ $user->id }}" />
+                                                    <input name="user_id" type="hidden" value="{{ $user->id }}" />
 
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $company->name, 'fieldName' => 'name','title' => 'Name'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-8', 'value' => $company->address, 'fieldName' => 'address','title' => 'Address'])
@@ -58,6 +58,8 @@
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $company->postal_code, 'fieldName' => 'postal_code','title' => 'Postal code'])
 
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $company->tin,  'fieldName' => 'tin','title' => 'Tax Identification Number'])
+
+                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => $user->status,'fieldName' => 'status','title' => 'Status','options' => ['active','pending','banned']])
 
                                                 </div>
 

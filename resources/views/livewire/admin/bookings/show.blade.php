@@ -57,7 +57,7 @@
                             <div class="profile-balance">
                                 <div class="profile-balance-group gx-4">
                                     <div class="profile-balance-sub">
-                                        @if(!$booking->cancelled)
+                                        @if(!$booking->cancelled && !$booking->completed)
                                             <div class="profile-balance-amount">
                                                 <form method="POST" action="{{ route('admin.bookings.update_status') }}" enctype="multipart/form-data">
                                                     @csrf
@@ -94,6 +94,8 @@
 
                                             </div>
 
+                                        @else
+                                            <p class="badge bg-warning">{{ $booking->status }}</p>
                                         @endif
 
                                     </div>

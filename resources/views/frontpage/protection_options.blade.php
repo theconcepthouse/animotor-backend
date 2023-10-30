@@ -66,7 +66,7 @@
                                         <div class="d-md-flex d-sm-block justify-content-between">
                                         <p class="text-heading">Insurance for peace of mind</p>
                                             <div class="justify-content-end align-items-end">
-                                                <p class="">Free cancellation</p>
+                                                <p class="">{{ $car->cancellation_fee > 0 ? 'Cancellation Fee : '.amt($car->cancellation_fee) : 'Free cancellation' }}</p>
                                             </div>
                                         </div>
                                         <div class="mt-3">

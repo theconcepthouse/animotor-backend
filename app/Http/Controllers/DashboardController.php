@@ -28,15 +28,24 @@ class DashboardController extends Controller
             ->where('cancelled', false)
             ->count();
 
-        $data['pending_percent'] =  ($data['pending_bookings'] / $data['total_bookings'] ) * 100;
-        $data['confirmed_percent'] =  ($data['confirmed_bookings'] / $data['total_bookings'] ) * 100;
+        if ($data['pending_bookings'] > 0 && $data['total_bookings'] > 0){
+            $data['pending_percent'] =  ($data['pending_bookings'] / $data['total_bookings'] ) * 100;
+        }else{
+            $data['pending_percent'] = 100;
+        }
+
+        if($data['confirmed_bookings'] > 0 && $data['total_bookings'] > 0){
+            $data['confirmed_percent'] =  ($data['confirmed_bookings'] / $data['total_bookings'] ) * 100;
+        }else{
+            $data['confirmed_percent'] = 100;
+        }
 
         return view('dashboard.index', compact('data'));
     }
 
     public function bookings(){
 //        if(isAdmin()) {
-            $bookings = Booking::latest()->paginate(10);
+            $bookings = Booking::where('customer_id', auth()->id())->latest()->paginate(10);
 //        }
         return view('dashboard.bookings', compact('bookings'));
     }

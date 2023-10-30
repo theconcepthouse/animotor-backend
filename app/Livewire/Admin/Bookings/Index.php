@@ -50,7 +50,7 @@ class Index extends Component
             });
         }
 
-        $data = $query->paginate(10);
+        $data = $query->latest()->paginate(10);
 
         return view('livewire.admin.bookings.index', ['bookings' => $data]);
     }

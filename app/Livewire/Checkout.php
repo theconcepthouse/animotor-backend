@@ -145,7 +145,7 @@ class Checkout extends Component
         $this->drop_off_time = request()->query('drop_off_time');
         $this->pick_location = request()->query('pick_up_location');
         $this->drop_off_location = request()->query('drop_off_location');
-        $this->region_id = request()->query('region_id');
+        $this->region_id = $this?->car?->region_id;
         $this->booking_type = request()->query('book_type');
     }
 

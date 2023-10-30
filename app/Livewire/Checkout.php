@@ -75,7 +75,7 @@ class Checkout extends Component
         $tax = ($this->car->price_per_day * $this->booking_day) * settings('tax',0.075);
 
         $data['customer_id'] = $user->id;
-        $data['region_id'] = $this->region_id;
+        $data['region_id'] = $this->car->region_id;
         $data['car_id'] = $this->car->id;
         $data['fee'] =  $this->car->price_per_day * $this->booking_day;
 

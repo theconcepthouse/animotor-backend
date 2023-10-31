@@ -530,25 +530,50 @@
                                                                 <div class="card-inner">
                                                                     <div id="DataTables_Table_1_wrapper"
                                                                          class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                                                        <div class="datatable-wrap- my-3">
-                                                                            <table class="datatable-init nowrap table">
+                                                                        <div class="datatable-wrap my-3">
+                                                                            <table class="datatable-init nowrap_ table">
                                                                                 <thead>
 
                                                                                 <tr>
-                                                                                    <th>Reference</th>
+                                                                                    <th>Booking No.</th>
+{{--                                                                                    <th>Reference</th>--}}
                                                                                     <th>Date</th>
-                                                                                    <th>Rider Name</th>
+                                                                                    <th>Days</th>
                                                                                     <th>Driver Name</th>
-                                                                                    <th>Trip Status</th>
+                                                                                    <th>Car</th>
+                                                                                    <th>Booking Status</th>
+                                                                                    <th>Amount</th>
                                                                                     <th>Payment Status</th>
                                                                                     <th>Payment Method</th>
-                                                                                    <th>Action</th>
+{{--                                                                                    <th>Action</th>--}}
                                                                                 </tr>
 
                                                                                 </thead>
                                                                                 <tbody>
-                                                                                @foreach($rides as $item)
-                                                                                    @include('admin.partials.table.rides-table', ['item' => $item])
+                                                                                @foreach($user->bookings as $item)
+                                                                                    <tr>
+                                                                                        <td><a  href="{{ route('admin.bookings.show', $item->id) }}?back_url={{ url()->current() }}">
+                                                                                                {{ $item->booking_number }}</a>
+                                                                                        </td>
+{{--                                                                                        <td>{{ $item->reference }}</td>--}}
+                                                                                        <td>{{ $item->created_at->format('Y-m-d H:i:s') }}</td>
+                                                                                        <td>{{ $item->days }} {{ __('admin.booking_days') }}</td>
+
+                                                                                        <td>{{ $item?->customer?->name }}</td>
+                                                                                        <td>{{ $item?->car?->title }}</td>
+
+                                                                                        {{--    <td></td>--}}
+                                                                                        <td>{{ $item->status }}</td>
+
+                                                                                        <td>{{ amt($item->grand_total) }}</td>
+                                                                                        <td>{{ $item->payment_status }}</td>
+
+                                                                                        <td>{{ $item->payment_method }}</td>
+                                                                                        {{--    <td></td>--}}
+                                                                                        {{--    <td></td>--}}
+
+
+                                                                                    </tr>
                                                                                 @endforeach
                                                                                 </tbody>
                                                                             </table>

@@ -280,6 +280,7 @@
     });
 </script>
 
+{!! settings('foot_section') !!}
 
 @yield('js')
 

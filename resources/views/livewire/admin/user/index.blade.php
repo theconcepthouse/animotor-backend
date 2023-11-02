@@ -43,7 +43,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" style="">
                                             <ul class="link-list-opt no-bdr">
                                                 <li class="text-center-"><a wire:confirm="Are you sure, you want to delete this records?" wire:click.stop="deleteSelectedItems"><span>Delete selected</span></a></li>
-                                                <li class="text-center-"><a  wire:click.stop="changeSelectedItemsStatus('active')"><span>Make Active</span></a></li>
+                                                <li class="text-center-"><a  wire:click.stop="changeSelectedItemsStatus('approved')"><span>Approve Users</span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="changeSelectedItemsStatus('banned')"><span>Ban Users</span></a></li>
                                             </ul>
                                         </div>

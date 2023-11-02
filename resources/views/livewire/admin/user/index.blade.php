@@ -231,8 +231,8 @@
 
                                 @endif
                                 <td>
-                                    @if($item->status == 'active')
-                                        <span class="badge badge-dim bg-success">Active</span>
+                                    @if($item->status == 'approved')
+                                        <span class="badge badge-dim bg-success">approved</span>
                                     @else
                                         <span class="badge badge-dim bg-danger">{{ $item->status }}</span>
                                     @endif

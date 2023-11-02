@@ -60,7 +60,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" style="">
                                             <ul class="link-list-opt no-bdr">
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('all')"><span>All </span></a></li>
-                                                <li class="text-center-"><a  wire:click.stop="setStatus('active')"><span>Active</span></a></li>
+                                                <li class="text-center-"><a  wire:click.stop="setStatus('approved')"><span>Approved</span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('online')"><span>Online</span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('pending')"><span>Pending</span></a></li>
                                                 <li class="text-center-"><a  wire:click.stop="setStatus('banned')"><span>Banned</span></a></li>

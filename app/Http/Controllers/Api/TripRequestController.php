@@ -577,6 +577,8 @@ class TripRequestController extends Controller
                     ->orWhere('cancelled', true);
             })->latest()->paginate(100);
 
+
+
         return $this->successResponse($msg, $trips);
 
     }

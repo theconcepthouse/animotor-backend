@@ -30,7 +30,7 @@ class TripRequest extends Model
         'origin_lng' => 'decimal:8',
     ];
 
-    protected $appends = ['started_at_val','end_at_val','created_at_val','started_date','currency','created_date'];
+    protected $appends = ['started_at_val','end_at_val','created_at_val','started_date','currency','earned','created_date'];
 
     protected $with = ['service','region'];
 
@@ -65,6 +65,10 @@ class TripRequest extends Model
             return "Instant Ride";
         }
         return $val;
+    }
+    public function getEarnedAttribute(): string
+    {
+        return $this->grand_total;
     }
     public function getStartedDateAttribute(): string
     {

@@ -28,6 +28,11 @@ class DashboardController extends Controller
             ->where('cancelled', false)
             ->count();
 
+        $data['completed_booking'] = Booking::where($commonConditions)
+            ->where('completed', true)
+            ->where('cancelled', false)
+            ->count();
+
         if ($data['pending_bookings'] > 0 && $data['total_bookings'] > 0){
             $data['pending_percent'] =  ($data['pending_bookings'] / $data['total_bookings'] ) * 100;
         }else{

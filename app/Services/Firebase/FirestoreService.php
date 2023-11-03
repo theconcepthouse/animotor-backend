@@ -30,7 +30,7 @@ class FirestoreService
                 'status' => $trip_data->status,
                 'customer_id' => $trip_data->customer_id,
 //                'fee' => $trip_data->fee,
-                'fee' => $trip_data->discounted_fee,
+                'fee' => $trip_data->grand_total,
                 'origin' => $trip_data->origin,
                 'destination' => $trip_data->destination,
                 'payment_status' => $trip_data->payment_status,

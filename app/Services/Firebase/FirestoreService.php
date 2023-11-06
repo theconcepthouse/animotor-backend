@@ -120,6 +120,13 @@ class FirestoreService
 
                     $data = array_merge($data, $extra);
 
+
+                    DB::table('users')
+                        ->where('id', $trip_data->temp_driver_id)
+                        ->update([
+                            'ride_status' => 'available',
+                        ]);
+
                     $trip_data->temp_driver_id = null;
 
                     $trip_data->save();

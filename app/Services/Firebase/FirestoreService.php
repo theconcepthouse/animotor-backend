@@ -3,6 +3,7 @@
 namespace App\Services\Firebase;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use MrShan0\PHPFirestore\Fields\FirestoreGeoPoint;
 use MrShan0\PHPFirestore\FirestoreClient;
 
@@ -100,6 +101,12 @@ class FirestoreService
                     $data = array_merge($data, $extra);
 
                     $trip_data->temp_driver_id = $driver->id;
+
+                    DB::table('users')
+                        ->where('id', $driver->id)
+                        ->update([
+                            'ride_status' => 'pending_accept',
+                        ]);
 
                     $trip_data->save();
                 }

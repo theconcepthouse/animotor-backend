@@ -67,7 +67,7 @@ class DistanceService
         $restrict_drivers = settings('restrict_rides_to_service_type','no');
 
         if($restrict_drivers != 'yes') {
-            $users = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id','avatar','first_name','last_name')
+            $users = User::whereHasRole('driver')->select('ride_status','last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id','avatar','first_name','last_name')
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
                 ->where('id','!=', $except)
@@ -75,6 +75,7 @@ class DistanceService
                 ->whereNotNull('push_token')
                 ->whereNotNull('map_lng')
                 ->whereNotNull('map_lat')
+                ->whereIn('ride_status',['available','dropping_soon'])
                 ->whereNotNull('last_location_update')
                 ->orderBy('last_location_update', 'desc')
                 ->limit($max_drivers_notify)->get();
@@ -82,12 +83,13 @@ class DistanceService
 //            info('drivers by distance : '. count($users));
         }
         else{
-            $query = User::whereHasRole('driver')->select('last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id','avatar','first_name','last_name')
+            $query = User::whereHasRole('driver')->select('ride_status','last_location_update','id','push_token','is_online','region_id','email','map_lat','map_lng','service_id','avatar','first_name','last_name')
                 ->where('is_online', true)
                 ->where('region_id', $region_id)
                 ->where('id','!=', $except)
                 ->whereNotIn('id', $driver_rejected)
                 ->whereNotNull('push_token')
+                ->whereIn('ride_status',['available','dropping_soon'])
                 ->whereNotNull('map_lng')
                 ->whereNotNull('last_location_update')
                 ->orderBy('last_location_update', 'desc')

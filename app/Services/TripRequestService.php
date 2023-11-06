@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\TripRequest;
 use App\Services\Firebase\FirestoreService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TripRequestService
 {
@@ -36,6 +37,17 @@ class TripRequestService
         $countToDelete = $tripsToDelete->count();
 
         if($countToDelete > 0){
+
+            $driverIds = $tripsToDelete->pluck('driver_id');
+
+            if ($driverIds->isNotEmpty()) {
+                DB::table('users')
+                    ->whereIn('id', $driverIds->toArray())
+                    ->update(['ride_status' => 'available']);
+            }
+
+
+
             $firestoreService = new FirestoreService();
 
             $msg = "deleted $countToDelete pending trips after $interval minutes of being pending";

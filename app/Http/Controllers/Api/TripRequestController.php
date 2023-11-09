@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\NewTrip;
+use App\Events\TripAccepted;
 use App\Events\TripCancelled;
 use App\Events\TripEnded;
 use App\Events\TripStarted;
@@ -470,6 +471,9 @@ class TripRequestController extends Controller
             $trip = TripRequest::findOrFail($id);
 
             $firestoreService->updateTripRequest($trip);
+
+            event(new TripAccepted($trip));
+
 
             return $this->successResponse('trip accepted', $trip);
 

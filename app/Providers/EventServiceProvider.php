@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\BookingConfirmed;
 use App\Events\NewTrip;
+use App\Events\TripAccepted;
 use App\Events\TripCancelled;
 use App\Events\TripEnded;
 use App\Events\TripStarted;
@@ -40,6 +41,10 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         TripCancelled::class => [
+            TripStatusChangeListener::class
+        ],
+
+        TripAccepted::class => [
             TripStatusChangeListener::class
         ],
 

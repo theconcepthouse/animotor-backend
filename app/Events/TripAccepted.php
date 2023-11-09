@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\TripRequest;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,13 +15,14 @@ class TripAccepted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     */
-    public function __construct()
+
+    public TripRequest $trip;
+
+    public function __construct(TripRequest $trip)
     {
-        //
+        $this->trip = $trip;
     }
+
 
     /**
      * Get the channels the event should broadcast on.

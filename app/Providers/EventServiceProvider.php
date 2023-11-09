@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use App\Events\BookingConfirmed;
 use App\Events\NewTrip;
+use App\Events\TripCancelled;
+use App\Events\TripEnded;
+use App\Events\TripStarted;
 use App\Listeners\BookingConfirmationListener;
 use App\Listeners\NotifyOnlineDrivers;
+use App\Listeners\TripStatusChangeListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,6 +29,18 @@ class EventServiceProvider extends ServiceProvider
 
         NewTrip::class => [
             NotifyOnlineDrivers::class,
+        ],
+
+        TripEnded::class => [
+            TripStatusChangeListener::class
+        ],
+
+        TripStarted::class => [
+            TripStatusChangeListener::class
+        ],
+
+        TripCancelled::class => [
+            TripStatusChangeListener::class
         ],
 
         BookingConfirmed::class => [

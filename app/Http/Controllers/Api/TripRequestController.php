@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\NewTrip;
+use App\Events\TripCancelled;
+use App\Events\TripEnded;
+use App\Events\TripStarted;
 use App\Http\Controllers\Controller;
 use App\Models\RejectedRequest;
 use App\Models\Service;
@@ -270,9 +273,12 @@ class TripRequestController extends Controller
                 $trip->cancellation_reason = $request['cancellation_reason'];
 
                 $firestoreService->deleteTrip($trip);
+
+                event(new TripCancelled($trip));
             }
             if($request['status'] == 'started_trip'){
                 $trip->started_at = Carbon::now();
+                event(new TripStarted($trip));
             }
 
             if($request['status'] == 'cash_received' || $request['status'] == 'trip_completed'){
@@ -359,12 +365,18 @@ class TripRequestController extends Controller
 
                 $trip->save();
 
+                event(new TripEnded($trip));
+
             }
+
+
 
             $trip->save();
 
             if(!$trip->cancelled){
                 $firestoreService->updateTripRequest($trip);
+
+
             }
 
             return $this->successResponse('order', $trip);

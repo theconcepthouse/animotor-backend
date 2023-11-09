@@ -23,7 +23,7 @@ class TripStatusChangeListener
     public function handle($event): void
     {
         $trip = $event->trip;
-        if(in_array($trip->status,['cancelled_booker','cancelled_by_driver','driver_accepted'])){
+        if(in_array($trip->status,['cancelled_by_booker','cancelled_by_driver','driver_accepted'])){
             info('tripStatusChanged status in array : ' . $trip->temp_driver_id);
 
             if($trip->temp_driver_id){

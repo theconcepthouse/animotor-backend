@@ -24,7 +24,11 @@ class TripStatusChangeListener
     {
         $trip = $event->trip;
         if(in_array($trip->status,['cancelled_booker','cancelled_by_driver','driver_accepted'])){
+            info('tripStatusChanged status in array : ' . $trip->temp_driver_id);
+
             if($trip->temp_driver_id){
+                info('tripStatusChanged temp_driver_id : ' . $trip->temp_driver_id);
+
                 DB::table('users')
                     ->where('id', $trip->temp_driver_id)
                     ->update([

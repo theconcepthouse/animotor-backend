@@ -166,7 +166,7 @@
 
 
                         <div class="">
-                            <p class="heading text-bold">{{ $booking?->car?->title }}</p>
+                            <p class="heading text-bold text-capitalize">{{ $booking?->car?->title }}</p>
 
                             <p>{{ $booking?->car?->seat }} Seats</p>
                             <p>{{ $booking?->car?->door }} Doors</p>

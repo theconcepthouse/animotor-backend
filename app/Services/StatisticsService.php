@@ -20,7 +20,7 @@ class StatisticsService
 
     public function getBookingsStatistics()
     {
-        $key = auth()->id().'_bookings_statistic';
+        $key = auth()->id().'_bookings_statistic_updated';
         return Cache::remember($key, now()->addMinutes(30), function () {
             return $this->calculateBookingsStatistics();
         });
@@ -47,11 +47,13 @@ class StatisticsService
 
 
 
-    #[ArrayShape(['total' => "mixed", 'pending' => 'mixed', 'this_month' => "mixed", 'this_week' => "mixed", 'today' => "mixed"])]
     public function calculateBookingsStatistics(): array
     {
         if(isAdmin()){
             $totalBookings = Booking::count();
+            $pendingBookingToday = Booking::where('cancelled', false)->where('completed',false)->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count();
+            $cancelledBookings = Booking::where('cancelled', true)->count();
+            $pendingBookings = Booking::where('cancelled', false)->where('completed',false)->count();
             $totalBookingThisWeek = Booking::whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()])->count();
             $totalBookingThisMonth = Booking::whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
             $totalBookingToday = Booking::whereDate('created_at', now())->count();
@@ -62,6 +64,10 @@ class StatisticsService
             $totalBookingThisMonth = Booking::where('company_id', companyId())->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])->count();
             $totalBookingToday = Booking::where('company_id', companyId())->whereDate('created_at', now())->count();
 
+            $pendingBookingToday = Booking::where('company_id', companyId())->where('cancelled', false)->where('completed',false)->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])->count();
+            $cancelledBookings = Booking::where('company_id', companyId())->where('cancelled', true)->count();
+            $pendingBookings = Booking::where('company_id', companyId())->where('cancelled', false)->where('completed',false)->count();
+
         }
 
         return [
@@ -69,7 +75,9 @@ class StatisticsService
             'this_month' => $totalBookingThisMonth,
             'this_week' => $totalBookingThisWeek,
             'today' => $totalBookingToday,
-            'pending' => $totalBookingToday,
+            'pending' => $pendingBookings,
+            'pending_today' => $pendingBookingToday,
+            'cancelled' => $cancelledBookings,
         ];
     }
 }

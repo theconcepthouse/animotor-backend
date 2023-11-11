@@ -266,7 +266,9 @@ class Form extends Component
         }
 
         if ($this->step == 7) {
-            $this->addExtras();
+            if(isset($this->extras['title'])){
+                $this->addExtras();
+            }
             return $this->step++;
         }
 

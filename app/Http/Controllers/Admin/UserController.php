@@ -67,7 +67,11 @@ class UserController extends Controller
 
         $rides = $user->trips;
         $driver_trips = $user->driver_trips;
-        $transactions = $user->transactions;
+        if(hasTrips()){
+            $transactions = $user->transactions;
+        }else{
+            $transactions  = $user->transaction_records()->latest()->get();
+        }
         return view('admin.user.show', compact('user','transactions','driver_trips','rides'));
     }
 

@@ -45,6 +45,12 @@ class BookingController extends Controller
         $booking->comment = $request->input('comment');
         $booking->picked = $request->input('picked');
 
+        if($booking->payment_method == 'cash'){
+            $booking->payment_status = $request->input('payment_status');
+        }
+
+
+
         if($booking->status == 'cancelled'){
             $booking->cancelled = true;
             $booking->cancelled_by = auth()->user()->email;

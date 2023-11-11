@@ -114,7 +114,7 @@
                         <div class="form-icon form-icon-right">
                             <em class="icon ni ni-search"></em>
                         </div>
-                        <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Car search">
+                        <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Start typing to search">
                     </div>
 
                     <li class="ms-3">

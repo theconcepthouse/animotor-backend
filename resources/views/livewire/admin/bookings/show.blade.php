@@ -77,6 +77,24 @@
                                                             </div>
                                                         </div>
 
+                                                        @if($booking->payment_method == 'cash')
+                                                            <div class="col-md-12 mb-3">
+                                                                <div class="form-group">
+                                                                    <label class="form-label" for="payment_status">Payment Status</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <select name="payment_status" class="form-select form-control form-control-lg" id="payment_status">
+                                                                            <option {{ $booking->payment_status == 'paid' ? 'selected' : '' }} value="paid">Paid</option>
+                                                                            <option {{ $booking->payment_status == 'unpaid' ? 'selected' : '' }}  value="unpaid">Unpaid</option>
+                                                                            @error("booking.payment_status") <span class="invalid">{{ $message }}</span>@enderror
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        @endif
+
 
                                                         @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3_', 'value' => $booking->picked,'fieldName' => 'picked','title' => __('admin.vehicle_picked'),'options' => ['yes','no']])
                                                         @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-12 mt-3', 'value' => 'no','fieldName' => 'notify_customer','title' => __('admin.notify_customer'),'options' => ['yes','no']])

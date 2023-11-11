@@ -39,7 +39,7 @@
                                         <th>Transaction</th>
                                         <th>Amount</th>
                                         <th>Fee</th>
-                                        <th>Date</th>
+                                        <th>Time</th>
                                     </tr>
                                     </thead>
                                     <tbody>

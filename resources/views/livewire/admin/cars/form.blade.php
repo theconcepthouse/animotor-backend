@@ -462,7 +462,7 @@
                                                 <td>{{ $loop->index+1 }}</td>
                                                 <td>{{ $item['test_date'] }}</td>
                                                 <td>{{ $item['expiry_date'] }}</td>
-                                                <td>{{ $item['result'] }}</td>
+                                                <td class="text-capitalize">{{ $item['result'] }}</td>
                                                 {{--                            <td>{{ $item['next_service_mileage'] }}</td>--}}
                                             </tr>
                                         @endforeach
@@ -981,6 +981,7 @@
                                             <th>{{ __('admin.repair_type') }}</th>
                                             <th>{{ __('admin.total_cost') }}</th>
                                             <th>{{ __('admin.vat') }}</th>
+                                            <th>{{ __('admin.invoice') }}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -995,6 +996,13 @@
                                                 <td>{{ $item['repair_type'] }}</td>
                                                 <td>{{ $item['total_cost'] }}</td>
                                                 <td>{{ $item['vat'] }}</td>
+                                                <td>
+                                                    @if(isset($item['invoice']))
+                                                        <a target="_blank" href="{{ $item['invoice'] }}">View Invoice</a>
+                                                    @else
+                                                        No Invoice
+                                                    @endif
+                                                  </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

@@ -154,6 +154,7 @@ trait FillableTraits
         'last_notification',
         'monify_account',
         'referral',
+        'gender',
         'ride_status',
         'last_location_update',
     ];

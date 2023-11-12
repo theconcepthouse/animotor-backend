@@ -21,11 +21,15 @@ class NotificationService
             "to" => $push_tokens,
             "title" => $data['title'],
             "channelId" => "bookings-repeat",
-            "body" => $data['message']
+            "body" => $data['message'],
+            "priority" => 'high'
         ]);
 
+        $response = $response->body();
 
-        return $response->body();
+        info('notification response', json_encode($response));
+
+        return $response;
     }
 
     public function notify($message, $type, $title, User $user, $sendSms = false, $sendEmail = false): void
@@ -43,6 +47,7 @@ class NotificationService
                 'to' => $user->push_token,
                 'title' => $title,
                 'body' => $message,
+                "priority" => 'high'
             ]);
             $response->body();
         }

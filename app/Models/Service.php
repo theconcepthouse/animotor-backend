@@ -37,10 +37,12 @@ class Service extends Model
 
     protected $appends = ['types_value'];
 
-    public function region(): BelongsTo
-    {
-        return $this->belongsTo(Region::class);
-    }
+
+
+
+
+
+
     public function getTypesValueAttribute(): array
     {
         $types = $this->types;

@@ -27,7 +27,7 @@ class NotificationService
 
         $response = $response->body();
 
-        info('notification response', json_encode($response));
+        info('notification response: ' . $response);
 
         return $response;
     }

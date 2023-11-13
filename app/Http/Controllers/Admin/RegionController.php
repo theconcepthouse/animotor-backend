@@ -94,12 +94,7 @@ class RegionController extends Controller
             $polygon[] = new Point($lastcord[0], $lastcord[1]);
         }
 
-        try {
-            $validatedData['coordinates'] = new Polygon([new LineString($polygon)]);
-
-        }catch (\Exception $e){
-            $validatedData['coordinates'] = null;
-        }
+        $validatedData['coordinates'] = new Polygon([new LineString($polygon)]);
 
         Region::create($validatedData);
 

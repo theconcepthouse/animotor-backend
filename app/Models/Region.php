@@ -35,7 +35,7 @@ class Region extends Model
 
     protected $casts = [
         'is_active' => 'bool',
-//        'coordinates' => Polygon::class,
+        'coordinates' => Polygon::class,
     ];
 
     public function scopeWithoutAirport($query, $type = 'region')

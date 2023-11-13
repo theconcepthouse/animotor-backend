@@ -54,8 +54,8 @@
                                                             @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'name','title' => 'Name'])
 
                                                             @if($is_airport)
-                                                                <input type="hidden" name="parent_id" value="{{ $region->id }}">
-                                                                <input type="hidden" name="type" value="airport">
+                                                                <input type="hidden" name="parent_id" value="{{ $region->id }}" />
+                                                                <input type="hidden" name="type" value="airport" />
                                                                 @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'airport_amount','title' => 'Amount'])
                                                                 @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'airport_fee_type', 'title' => 'Amount Type','options' => ['percent','flat']])
                                                                 @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'airport_fee_mode', 'title' => 'Amount Mode','options' => ['increment','decrement']])

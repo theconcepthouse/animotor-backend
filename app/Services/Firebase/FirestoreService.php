@@ -213,7 +213,7 @@ class FirestoreService
 
     }
 
-    private function updateDriverNotification($id, $msg)
+    public function updateDriverNotification($id, $msg)
     {
         $firestoreClient = $this->firestoreClient;
 

@@ -59,10 +59,15 @@ class UserController extends Controller
                     ->update([
                         'map_lat' => $data['lat'],
                         'map_lng' => $data['lng'],
+                        'last_notification' => null,
                         'region_id' => $region->id,
                         'address' => $data['address'] ?? $user->address,
                         'last_location_update' => now()->addMinutes(2),
                     ]);
+
+                if($user->last_notification){
+                    $firestoreService->updateDriverNotification(auth()->id(), null);
+                }
 
             }
 

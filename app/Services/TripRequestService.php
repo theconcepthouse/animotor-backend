@@ -40,7 +40,7 @@ class TripRequestService
             }else{
                 $final_val = -1 * $value;
             }
-            return $final_val ?? 0;
+            return $final_val ?? 0.00;
         }else{
             return 0;
         }

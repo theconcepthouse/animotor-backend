@@ -106,7 +106,10 @@ class FirestoreService
                         ->where('id', $driver->id)
                         ->update([
                             'ride_status' => 'pending_accept',
+                            'last_notification' => 'New ride request'
                         ]);
+
+                    $this->updateDriverNotification($driver->id, 'New ride request');
 
                     $trip_data->save();
                 }
@@ -207,6 +210,18 @@ class FirestoreService
         ];
 
         return $firestoreClient->updateDocument("drivers/".$user_data->id, $data);
+
+    }
+
+    private function updateDriverNotification($id, $msg)
+    {
+        $firestoreClient = $this->firestoreClient;
+
+        $data = [
+            'last_notification' => $msg,
+        ];
+
+        return $firestoreClient->updateDocument("drivers/".$id, $data);
 
     }
 

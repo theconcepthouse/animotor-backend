@@ -26,17 +26,35 @@ class Region extends Model
         'country_id',
         'coordinates',
         'image',
+
+        'type',
+        'airport_amount',
+        'airport_fee_type',
+        'airport_fee_mode',
     ];
 
     protected $casts = [
         'is_active' => 'bool',
-        'coordinates' => Polygon::class,
+//        'coordinates' => Polygon::class,
     ];
+
+    public function scopeWithoutAirport($query, $type = 'region')
+    {
+        return $query->where('type', $type);
+    }
+    public function scopeWithAirport($query, $type = 'airport')
+    {
+        return $query->where('type', $type);
+    }
 
     protected $with = ['country'];
 
     public function regions(){
-        return $this->hasMany(Region::class, 'parent_id');
+        return $this->hasMany(Region::class, 'parent_id')->where('type', 'region');
+    }
+
+    public function airports(){
+        return $this->hasMany(Region::class, 'parent_id')->where('type', 'airport');
     }
 
     public function parent()

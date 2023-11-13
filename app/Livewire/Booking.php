@@ -86,7 +86,7 @@ class Booking extends Component
 
         if(!empty($this->search)){
 
-            $this->records = Region::orderby('name','asc')
+            $this->records = Region::withoutAirport()->orderby('name','asc')
                 ->select('*')
                 ->where('name','like','%'.$this->search.'%')
                 ->limit(5)
@@ -117,7 +117,7 @@ class Booking extends Component
     }
     public function updatedPickUpLocation(){
         if(strlen($this->pick_up_location) >= 1) {
-            $this->pickup_locations = Region::orderby('name', 'asc')->where('name', 'like', '%' . $this->pick_up_location . '%')
+            $this->pickup_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->pick_up_location . '%')
                 ->limit(5)->get();
         }else{
             return [];
@@ -126,7 +126,7 @@ class Booking extends Component
 
     public function updatedDropOffLocation(){
         if(strlen($this->drop_off_location) >= 1) {
-            $this->drop_off_locations = Region::orderby('name', 'asc')->where('name', 'like', '%' . $this->drop_off_location . '%')
+            $this->drop_off_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->drop_off_location . '%')
                 ->limit(5)->get();
         }else{
             return [];

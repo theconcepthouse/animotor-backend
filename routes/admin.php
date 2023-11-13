@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::resource('rental', RentalController::class);
 
     Route::resource('regions', RegionController::class);
+    Route::get('region/{id}/airports', [RegionController::class,'airports'])->name('regions.airports');
     Route::get('region/all_zones/{id?}', [RegionController::class,'getAllZoneCordinates'])->name('regions.all_coordinates');
     Route::get('region/region/search', [RegionController::class,'search'])->name('regions.search');
 

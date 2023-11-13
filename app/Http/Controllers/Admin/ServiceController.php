@@ -19,7 +19,7 @@ class ServiceController extends Controller
 //        ];
         $data = Service::all();
         $title = "Services & Fee setup";
-        $regions = Region::select('name','id')->get()->toArray();
+        $regions = Region::withoutAirport()->select('name','id')->get()->toArray();
 
 //        $regions = array_merge([$customRecord], $db_regions);
 

@@ -19,7 +19,7 @@
                 <div class="tab-content hotel_cities_listing" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-homeeurope" role="tabpanel" aria-labelledby="nav-home-tabeurope">
                         <div class="hurray__hotel1 owl-theme owl-carousel">
-                            @foreach(\App\Models\Region::latest()->limit(10)->get() as $item)
+                            @foreach(\App\Models\Region::withoutAirport()->latest()->limit(10)->get() as $item)
 
                                 <a href="{{ route('hotels') }}?region={{ $item->id }}" class="hurray__offer">
                                     <div class="thumb">

@@ -92,7 +92,7 @@ class UserController extends Controller
             $car_types = VehicleType::all();
             $car_models = VehicleModel::where('make_id', $car_makes?->first()?->id)->get();
         }
-        $regions = Region::select('name','id')->get();
+        $regions = Region::withoutAirport()->select('name','id')->get();
         $departments = Role::where('name','!=','superadmin')->get();
         return view('admin.user.create', compact('departments','car_types','regions','role','car_makes','car_models'));
     }
@@ -105,7 +105,7 @@ class UserController extends Controller
         $car_models = [];
         $car_makes = [];
         $car_types = [];
-        $regions = Region::select('name','id')->get();
+        $regions = Region::withoutAirport()->select('name','id')->get();
         $services = Service::select('name','id')->get();
 
         if($user->hasRole('driver')){

@@ -194,12 +194,12 @@ class Form extends Component
     }
 
     public function rendered(){
-        $this->regions = Region::select('id','name')->get();
+        $this->regions = Region::withoutAirport()->select('id','name')->get();
     }
 
     public function mount(Car $car, $car_types, $car_makes, $car_models)
     {
-        $this->regions = Region::select('id','name')->get();
+        $this->regions = Region::withoutAirport()->select('id','name')->get();
         $this->car_types = $car_types;
         $this->car_makes = $car_makes;
         $this->car_models = $car_models;

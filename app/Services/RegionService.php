@@ -9,7 +9,7 @@ class RegionService
 {
     public function getRegionByLatLng($lat, $lng){
 
-        $firstRegionWithParentId = Region::whereContains('coordinates', new Point($lat, $lng, env('POINT_SRID', 0)))
+        $firstRegionWithParentId = Region::withoutAirport()->whereContains('coordinates', new Point($lat, $lng, env('POINT_SRID', 0)))
             ->whereNotNull('parent_id')
             ->where('is_active', true)
             ->latest()
@@ -17,7 +17,7 @@ class RegionService
             ->first();
 
         if (!$firstRegionWithParentId) {
-            $firstRegionWithParentId = Region::whereContains('coordinates', new Point($lat, $lng, env('POINT_SRID', 0)))
+            $firstRegionWithParentId = Region::withoutAirport()->whereContains('coordinates', new Point($lat, $lng, env('POINT_SRID', 0)))
                 ->where('is_active', true)
                 ->latest()
                 ->get(['id', 'name','parent_id','is_active'])

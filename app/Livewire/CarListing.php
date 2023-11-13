@@ -80,12 +80,12 @@ class CarListing extends Component
 
         $location_id = request()->query('pick_up_location_id');
         $this->booking_day = request()->query('booking_day');
-//        $this->location = Region::findOrFail($location_id);
+//        $this->location = Region::withoutAirport()->findOrFail($location_id);
 //        $this->total_cars = Car::select('region_id')->where('region_id', $location_id)->count();
 //        $this->total_booking = Booking::select('region_id')->where('region_id', $location_id)->count();
 
 
-        $this->location = Region::withCount(['cars', 'bookings'])->findOrFail($location_id);
+        $this->location = Region::withoutAirport()->withCount(['cars', 'bookings'])->findOrFail($location_id);
 
         $this->total_cars = $this->location->cars_count;
         $this->total_booking = $this->location->bookings_count;

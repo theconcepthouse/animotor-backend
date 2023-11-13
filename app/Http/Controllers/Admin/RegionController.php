@@ -23,43 +23,59 @@ class RegionController extends Controller
         $title = $defaultTitle;
 
         if ($request->has('region_id')) {
-            $region = Region::findOrFail($request->region_id);
+            $region = Region::withoutAirport()->findOrFail($request->region_id);
             if ($region) {
                 $title = $region->name . " sub regions listing";
             }
-            $data = Region::byParentId($request->region_id)->paginate(100);
+            $data = Region::withoutAirport()->byParentId($request->region_id)->paginate(100);
         } else if ($request->has('country_id')) {
             $country = Country::findOrFail($request->country_id);
             if ($country) {
                 $title = $country->name . " regions listing";
             }
-            $data = Region::byCountryId($request->country_id)->paginate(100);
+            $data = Region::withoutAirport()->byCountryId($request->country_id)->paginate(100);
         } else {
-            $data = Region::paginate(100);
+            $data = Region::withoutAirport()->paginate(100);
         }
 
         return view('admin.service_area.list', compact('data', 'title'));
     }
+    public function airports($id)
+    {
+        $region = Region::withoutAirport()->findOrFail($id);
+
+        $title = $region->name . " special places";
+
+        $data = Region::withAirport()->where('parent_id', $region->id)->paginate(100);
+
+        return view('admin.service_area.airports', compact('region','data', 'title'));
+    }
 
     public function create()
     {
-        $regions = Region::whereNull('parent_id')->where('is_active', true)->get();
+        $is_airport = \request()->get('type') == 'special';
+        $regions = Region::withoutAirport()->whereNull('parent_id')->where('is_active', true)->get();
         $countries = Country::where('is_active',true)->orderBy('name', 'asc')->get();
         $timezones = (new DataService())->timeZones();
-        return view('admin.service_area.create', compact('regions','countries','timezones'));
+        if($is_airport){
+            $region = Region::findOrFail(\request()->get('region_id'));
+        }else{
+            $region = null;
+        }
+        return view('admin.service_area.create', compact('region','is_airport','regions','countries','timezones'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $this->validateData($request);
 
-//        if(!$validatedData['currency_code'] || !$validatedData['currency_symbol']){
+        if($request->has('country_id')){
              $country = Country::find($validatedData['country_id']);
             if($country){
                 $validatedData['currency_code'] = $country->currency_code;
                 $validatedData['currency_symbol'] = $country->currency_symbol;
             }
-//        }
+        }
 
         $polygon = [];
 
@@ -78,17 +94,26 @@ class RegionController extends Controller
             $polygon[] = new Point($lastcord[0], $lastcord[1]);
         }
 
-        $validatedData['coordinates'] = new Polygon([new LineString($polygon)]);
+        try {
+            $validatedData['coordinates'] = new Polygon([new LineString($polygon)]);
+
+        }catch (\Exception $e){
+            $validatedData['coordinates'] = null;
+        }
 
         Region::create($validatedData);
+
+        if($validatedData['type'] == 'airport'){
+            return redirect()->route('admin.regions.airports', $validatedData['parent_id'])->with('success', 'Region created successfully.');
+        }
 
         return redirect()->route('admin.regions.index')->with('success', 'Region created successfully.');
     }
 
     public function edit(Region $region)
     {
-//        $region = Region::findOrFail($region->id);
-        $regions = Region::whereNull('parent_id')->where('is_active', true)->get();
+//        $region = Region::withoutAirport()->findOrFail($region->id);
+        $regions = Region::withoutAirport()->whereNull('parent_id')->where('is_active', true)->get();
         $countries = Country::where('is_active',true)->orderBy('name', 'asc')->get();
 
         $timezones = (new DataService())->timeZones();
@@ -186,12 +211,18 @@ class RegionController extends Controller
             'name' => 'required|unique:regions,name',
             'currency_code' => 'nullable',
             'currency_symbol' => 'nullable',
-            'timezone' => 'required',
+            'timezone' => 'nullable',
             'is_active' => 'nullable',
             'parent_id' => 'nullable',
             'country_id' => 'nullable',
             'image' => 'nullable',
+            'type' => 'nullable',
             'coordinates' => 'required',
+
+            'airport_amount' => 'nullable',
+            'airport_fee_type' => 'nullable',
+            'airport_fee_mode' => 'nullable',
+
         ];
 
         if ($region) {

@@ -614,7 +614,7 @@
                                                                                         <td>{{ $loop->index + 1 }}</td>
                                                                                         <td>{{ $item->type }}</td>
                                                                                         <td>{{ amt($item->amount) }}</td>
-                                                                                        <td>{{ $item->meta['description'] }}</td>
+                                                                                        <td>{{ hasTrips() ? $item?->meta['description']  : $item->description }}</td>
                                                                                         <td>{{ $item->created_at }}</td>
 
 

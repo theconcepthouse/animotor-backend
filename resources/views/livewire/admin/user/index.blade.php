@@ -136,7 +136,7 @@
                             <div class="dropdown-menu dropdown-menu-end" style="">
                                 <ul class="link-list-opt no-bdr">
                                     <li class="text-center-"><a  wire:click.stop="setServiceArea('')"><span>All</span></a></li>
-                                    @foreach(\App\Models\Region::select('name','id')->get() as $service)
+                                    @foreach(\App\Models\Region::withoutAirport()->select('name','id')->get() as $service)
                                         <li class="text-center-"><a  wire:click.stop="setServiceArea('{{ $service->id }}')"><span>{{ $service->name }} </span></a></li>
                                     @endforeach
                                 </ul>

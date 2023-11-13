@@ -25,7 +25,7 @@ class HotelFactory extends Factory
         $faker = $this->faker;
         $large_images = $this->largeImages();
 //        $user_id = User::whereHasRole('rider')->inRandomOrder()->first()->id;
-        $region = Region::inRandomOrder()->first();
+        $region = Region::withoutAirport()->inRandomOrder()->first();
         $names = $this->names();
         shuffle($names);
         return [

@@ -30,7 +30,7 @@ class CarFactory extends Factory
         return [
             'make' => $make,
             'type' => VehicleType::inRandomOrder()->first()->name,
-            'region_id' => Region::inRandomOrder()->first()->id,
+            'region_id' => Region::withoutAirport()->inRandomOrder()->first()->id,
             'company_id' => Company::inRandomOrder()->first()->id,
             'door' => $this->faker->randomElement([2, 4]),
             'year' => $this->faker->numberBetween(2000, 2023),

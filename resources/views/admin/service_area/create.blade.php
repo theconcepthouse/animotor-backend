@@ -10,7 +10,11 @@
                         <div class="nk-block nk-block-lg">
                             <div class="nk-block-between g-3">
                                 <div class="nk-block-head-content">
-                                    <h4 class="title nk-block-title">Add new service area</h4>
+                                    @if($is_airport)
+                                        <h4 class="title nk-block-title">Add new special area for {{ $region->name }}</h4>
+                                    @else
+                                        <h4 class="title nk-block-title">Add new service area</h4>
+                                    @endif
                                 </div>
 
                                 <div class="nk-block-head-content">
@@ -44,12 +48,27 @@
 
 
                                                 <div class="row">
-                                                    <div class="col-7">
+                                                    <div class="col">
                                                         <div class="row gy-4">
 
-                                                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'name','title' => 'Name'])
-                                                            @include('admin.partials.form.select_w_object', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'country_id', 'title' => 'Country','options' => $countries])
-                                                            @include('admin.partials.form.select_array', ['attributes' => 'required', 'key' => true ,'colSize' => 'col-md-6', 'fieldName' => 'timezone', 'title' => 'Timezone','options' => $timezones])
+                                                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'name','title' => 'Name'])
+
+                                                            @if($is_airport)
+                                                                <input type="hidden" name="parent_id" value="{{ $region->id }}">
+                                                                <input type="hidden" name="type" value="airport">
+                                                                @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'airport_amount','title' => 'Amount'])
+                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'airport_fee_type', 'title' => 'Amount Type','options' => ['percent','flat']])
+                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'airport_fee_mode', 'title' => 'Amount Mode','options' => ['increment','decrement']])
+
+                                                            @else
+                                                                <input type="hidden" name="type" value="region">
+
+                                                                @include('admin.partials.form.select_w_object', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'country_id', 'title' => 'Country','options' => $countries])
+                                                                @include('admin.partials.form.select_array', ['attributes' => 'required', 'key' => true ,'colSize' => 'col-md-6', 'fieldName' => 'timezone', 'title' => 'Timezone','options' => $timezones])
+
+                                                                @include('admin.partials.form.select_w_object', ['colSize' => 'col-md-6', 'fieldName' => 'parent_id', 'title' => 'Region','options' => $regions])
+
+                                                            @endif
 
                                                             {{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4',  'fieldName' => 'timezone','title' => 'Timezone'])--}}
                                                             {{--                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-4', 'fieldName' => 'currency_symbol','title' => 'Currency Symbol'])--}}
@@ -62,18 +81,19 @@
                                                             {{--                        '])--}}
 
 
-                                                            @include('admin.partials.form.select_w_object', ['colSize' => 'col-md-6', 'fieldName' => 'parent_id', 'title' => 'Region','options' => $regions])
-
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-5">
-                                                        <div class="row gy-4">
+                                                    @if(!$is_airport)
+                                                        <div class="col-5">
+                                                            <div class="row gy-4">
 
-                                                            @include('admin.partials.image-upload',['field' => 'image', 'colSize' => 'col-md-12','id' => 'image','title' => 'Image'])
+                                                                @include('admin.partials.image-upload',['field' => 'image', 'colSize' => 'col-md-12','id' => 'image','title' => 'Image'])
 
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    @endif
+
                                                 </div>
 
                                                 <div class="row mt-5">

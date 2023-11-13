@@ -24,7 +24,7 @@ class ConfigController extends Controller
 {
     public function getRegions(): JsonResponse
     {
-        $regions = Region::where('is_active', true)->get();
+        $regions = Region::withoutAirport()->where('is_active', true)->get();
         return $this->successResponse('regions', $regions);
     }
 

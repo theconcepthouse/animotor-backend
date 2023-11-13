@@ -13,20 +13,6 @@ use Psr\Container\NotFoundExceptionInterface;
 
 class FlutterwavePaymentController extends Controller
 {
-    public function index()
-    {
-        if(session('payment_type') == 'cart_payment'){
-            $order = CombinedOrder::where('code',session('order_code'))->first();
-            return $this->initialize($order->grand_total);
-        }
-        elseif (session('payment_type') == 'wallet_payment') {
-            return $this->initialize(session('amount'));
-        }
-        elseif(session('payment_type') == 'seller_package_payment'){
-            return $this->initialize(session('amount'));
-        }
-    }
-
     public function generatePaymentUrl(Request $request){
         $user = User::findOrFail($request->user_id);
 
@@ -48,10 +34,6 @@ class FlutterwavePaymentController extends Controller
 
     }
 
-    /**
-     * Obtain Rave callback information
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function callback()
     {
         $status = request()->status;

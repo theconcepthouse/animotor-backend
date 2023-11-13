@@ -23,6 +23,29 @@ class TripRequestService
         }
     }
 
+    public function getSpecialPlaceFee($lat, $lng, $grandTotal): float|int
+    {
+        $regionService = new RegionService();
+        $region = $regionService->getSpecialPlaceByLatLng($lat, $lng);
+        if($region){
+            if($region->airport_fee_type == 'percent'){
+                $percent = floatval($region->airport_amount) / 100;
+                $value = $grandTotal * $percent;
+            }else{
+                $value = floatval($region->airport_amount);
+            }
+
+            if($region->airport_fee_mode == 'increment'){
+                $final_val = $value;
+            }else{
+                $final_val = -1 * $value;
+            }
+            return $final_val ?? 0;
+        }else{
+            return 0;
+        }
+    }
+
 
     public function deletePendingTrips(): void
     {

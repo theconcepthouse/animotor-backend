@@ -13,14 +13,14 @@ class RegionService
             ->whereNotNull('parent_id')
             ->where('is_active', true)
             ->latest()
-            ->get(['id', 'name','parent_id','is_active'])
+            ->get(['id','name','parent_id','is_active','type'])
             ->first();
 
         if (!$firstRegionWithParentId) {
             $firstRegionWithParentId = Region::withoutAirport()->whereContains('coordinates', new Point($lat, $lng, env('POINT_SRID', 0)))
                 ->where('is_active', true)
                 ->latest()
-                ->get(['id', 'name','parent_id','is_active'])
+                ->get(['id', 'name','parent_id','is_active','type'])
                 ->first();
         }
 
@@ -30,5 +30,13 @@ class RegionService
             return null;
         }
 
+    }
+
+    public function getSpecialPlaceByLatLng($lat, $lng){
+        return Region::withAirport()->whereContains('coordinates', new Point($lat, $lng, env('POINT_SRID', 0)))
+            ->where('is_active', true)
+            ->latest()
+            ->get(['id','name','parent_id','type','is_active','airport_amount','airport_fee_type','airport_fee_mode'])
+            ->first();
     }
 }

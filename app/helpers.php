@@ -48,6 +48,10 @@ function hasTrips(): bool
 {
    return settings('enable_instant_ride') == 'yes';
 }
+function hasSpecialPlaces(): bool
+{
+   return settings('enable_special_places') == 'yes';
+}
 
 function hasWallet(): bool
 {

@@ -50,6 +50,11 @@ class UserController extends Controller
         return view('admin.user.list', compact('users','title'));
     }
 
+    public function sendNotification()
+    {
+        return view('admin.notification');
+    }
+
     public function show(Request $request, $id)
     {
         $monify = $request->get('monify') ?? false;

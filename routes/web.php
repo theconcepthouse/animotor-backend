@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auto_login_required']], function () {
         Route::get('/booking/view/{id}', [DashboardController::class, 'bookingView'])->name('booking.view');
         Route::get('/return', [DashboardController::class, 'return'])->name('return');
         Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+        Route::get('/edit/profile', [DashboardController::class, 'editProfile'])->name('edit.profile');
         Route::get('/notifications', [DashboardController::class, 'notifications'])->name('notifications');
         Route::get('/transactions', [DashboardController::class, 'transactions'])->name('transactions');
         Route::get('/top_up', [DashboardController::class, 'topUp'])->name('top_up');

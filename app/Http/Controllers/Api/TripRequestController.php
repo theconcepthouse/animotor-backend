@@ -522,7 +522,6 @@ class TripRequestController extends Controller
                 'id' => 'required',
             ]);
 
-
             $id = $request['id'];
 
             $trip = TripRequest::findOrFail($id);

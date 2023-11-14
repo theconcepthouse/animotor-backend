@@ -18,14 +18,14 @@
                                 <h5>
                                     Personal information
                                 </h5>
-{{--                                <a href="javascript:void(0)" class="edit d-flex align-items-center gap-2">--}}
-{{--                        <span class="icon">--}}
-{{--                           <img src="/assets/img/svg/edits.svg" alt="img">--}}
-{{--                        </span>--}}
-{{--                                    <span class="fz-18 fw-600">--}}
-{{--                           Edit--}}
-{{--                        </span>--}}
-{{--                                </a>--}}
+                                <a href="{{ route('edit.profile') }}" class="edit d-flex align-items-center gap-2">
+                        <span class="icon">
+                           <img src="/assets/img/svg/edits.svg" alt="img">
+                        </span>
+                                    <span class="fz-18 fw-600">
+                           Edit
+                        </span>
+                                </a>
                             </div>
                             <ul class="personal__details__name">
 

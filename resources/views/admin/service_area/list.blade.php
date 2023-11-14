@@ -49,7 +49,9 @@
                                                     @if(!request()->has('region_id'))
                                                     <th>Sub regions</th>
                                                     @endif
-                                                    <th>Special Places</th>
+                                                    @if(hasSpecialPlaces())
+                                                        <th>Special Places</th>
+                                                    @endif
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -68,7 +70,9 @@
                                                         <td><a wire:navigate href="{{ route('admin.regions.index') }}?region_id={{ $item->id }}"> {{ $item->regions->count() }}</a></td>
                                                         @endif
 
+                                                        @if(hasSpecialPlaces())
                                                         <td><a wire:navigate href="{{ route('admin.regions.airports', $item->id) }}"> {{ $item->airports->count() }}</a></td>
+                                                        @endif
 
 
                                                         <td>

@@ -385,7 +385,7 @@
             [
                 'url' => route('admin.settings.services'),
                 'text' => 'Features activation',
-                'route' => 'settings-services',
+                'route' => 'features-activation',
             ],
             [
                 'url' => route('admin.roles.index'),
@@ -447,6 +447,12 @@
         $menuArray[] = [
             'url' => route('admin.services.index'),
             'text' => 'Services & Fees',
+            'route' => 'services-read',
+            'icon' => 'ni ni-invest',
+        ];
+        $menuArray[] = [
+            'url' => route('admin.send.notification'),
+            'text' => 'Send Notification',
             'route' => 'services-read',
             'icon' => 'ni ni-invest',
         ];

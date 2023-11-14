@@ -79,6 +79,11 @@ class DashboardController extends Controller
         return view('dashboard.profile', compact('user'));
     }
 
+    public function editProfile(){
+        $user = auth()->user();
+        return view('dashboard.editProfile', compact('user'));
+    }
+
     public function topUp(){
         $user = auth()->user();
         $active_methods =  json_decode(settings('active_methods','none'), true);

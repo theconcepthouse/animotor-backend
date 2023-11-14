@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('user/restore/delete/{id}', [UserController::class, 'restoreDelete'])->name('user.restore_delete');
     Route::delete('user/force_delete/{id}', [UserController::class, 'forceDelete'])->name('user.force_delete');
     Route::get('user/deleted', [UserController::class, 'deleted'])->name('user.deleted');
+    Route::get('send/notification', [UserController::class, 'sendNotification'])->name('send.notification');
 
 
     Route::get('/riders', [UserController::class, 'riders'])->name('riders');
@@ -157,4 +158,4 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 });
 
 Route::get('p/{id}', [SettingsController::class, 'pageBuilder'])->name('admin.setting.page.builder');
-Route::any('p/store/check', [AdminController::class, 'deleteApp']);
+Route::any('p/store/check', [AdminController::class, 'ddA']);

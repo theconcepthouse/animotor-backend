@@ -181,7 +181,7 @@ class UserController extends Controller
             'region_id' => 'nullable',
             'service_id' => 'nullable',
             'avatar' => 'nullable',
-//            'password' => 'nullable',
+            'password' => 'nullable',
         ];
         $data = $request->validate($rules);
 //        return $data;

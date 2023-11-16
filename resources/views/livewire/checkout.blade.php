@@ -68,11 +68,11 @@
 
                     <div class="d-flex">
                         <div class="review_count">
-                            7.7
+                            0.0
                         </div>
                         <div class="review_text">
                             <p>Good</p>
-                            <p>30 reviews</p>
+                            <p>No review yet</p>
                         </div>
                     </div>
 

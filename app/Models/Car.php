@@ -83,10 +83,10 @@ class Car extends Model
     public function getIncludesAttribute(): array
     {
         return [
-            'Free cancellation up to 48 hours before pick-up',
-            'Collision Damage Waiver with US$0 excess',
-            'Theft Protection with US$0 excess',
-            'Unlimited mileage'
+            $this->cancellation_fee > 0 ? 'Cancellation Fee : '.amt($this->cancellation_fee) : 'Free cancellation up to 48 hours before pick-up',
+            'Collision Damage Waiver',
+            'Theft Protection',
+            $this->mileage < 1 ? 'Unlimited mileage' : $this->mileage.' mileage per rental'
         ];
     }
     public function getWhyAttribute(): array

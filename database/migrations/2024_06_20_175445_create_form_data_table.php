@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 //            $table->uuid('id')->primary();
             $table->uuid('driver_id');
-            $table->uuid('form_id');
+            $table->bigInteger('form_id');
             $table->string('sending_method')->nullable();
             $table->json('field_data')->nullable();
             $table->enum('status', ['Pending', 'Completed', 'Partially Complete'])->default('Pending');
@@ -26,8 +26,8 @@ return new class extends Migration
                 ->onUpdate('cascade');
 
            $table->foreign('form_id')->references('id')->on('forms')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
         });
     }

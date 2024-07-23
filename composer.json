@@ -7,8 +7,10 @@
     "require": {
         "php": "^8.1.0",
         "abraham-flutterwave/laravel-payment": "^1.0",
+        "barryvdh/laravel-dompdf": "^2.2",
         "bavix/laravel-wallet": "^9.6",
         "bensontrent/firestore-php": "^3.1",
+        "firebase/php-jwt": "^6.10",
         "guzzlehttp/guzzle": "^7.2",
         "ichie-benjamin/lara-backup-manager": "dev-main",
         "laravel/framework": "^10.0",
@@ -20,8 +22,10 @@
         "nwidart/laravel-modules": "^10.0",
         "rawilk/laravel-settings": "^3.1",
         "santigarcor/laratrust": "^8.2",
+        "spatie/laravel-pdf": "^1.5",
         "stripe/stripe-php": "^12.7",
         "surd/surd-core": "dev-main",
+        "tinymce/tinymce": "^7.2",
         "unicodeveloper/laravel-paystack": "^1.1",
         "unisharp/laravel-filemanager": "^2.6"
     },

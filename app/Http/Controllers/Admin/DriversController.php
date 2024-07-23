@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Document;
+use App\Models\DriverDocument;
+use App\Models\Form;
+use App\Models\FormData;
+use App\Models\History;
+use App\Models\Payment;
+use App\Models\Rate;
 use App\Models\User;
 use App\Services\DriverDocumentService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+
 
 class DriversController extends Controller
 {
@@ -73,8 +79,136 @@ class DriversController extends Controller
             }
         }
 
-     $driverDocumentService->createOrUpdate($request['document_id'], $request['driver_id'], $request['status'], $request['expiry_date'], $request['file'], $request['comment'], $request['is_approved']);
+        $driverDocumentService->createOrUpdate($request['document_id'], $request['driver_id'], $request['status'], $request['expiry_date'], $request['file'], $request['comment'], $request['is_approved']);
 
         return redirect()->back()->with('success','Document update');
     }
+
+
+
+
+    // new code
+     public function createDriver(Request $request)
+    {
+//        $driver = User::findOrFail($driverId);
+        $form = Form::where('name', 'Customer Registration')->first();
+        $formFieldsJson = json_decode($form->fields, true);
+        $role = $request->get('role') ?? 'driver';
+
+        return view('admin.driver.create-driver', compact('role', 'form', 'formFieldsJson'));
+    }
+
+
+     public function storeDriver(Request $request)
+    {
+        if(isOwner() && !in_array($request->input('role'), ['manager','rider'])){
+            return redirect()->route('admin.dashboard')->with('failure','you are not permitted to create this user');
+        }
+
+        $rules = [
+            'first_name' => 'string|min:1|max:255|required',
+            'last_name' => 'nullable',
+            'phone' => 'string|min:1|max:255|required|unique:users',
+            'email' => 'string|min:1|max:255|required|unique:users|email',
+            'work_phone' => 'nullable',
+            'hire_type' => 'required',
+            'role' => 'required',
+        ];
+
+        $data = $request->validate($rules);
+        $data['password'] = bcrypt('password');
+
+        // Check if user exists, if yes, update; if no, create new
+        $user = User::updateOrCreate(
+            ['id' => $request->driver_id],
+            $data
+        );
+        $user->syncRoles([$data['role']]);
+
+        $formId = $request->get('form_id');
+        $newData = $request->except(['_token', 'driver_id', 'form_id', 'sending_method']);
+
+        FormData::updateOrCreate(
+            ['driver_id' => $user->id, 'form_id' => $formId],
+            ['field_data' => json_encode($newData), 'status' => 'Pending']
+        );
+
+        return redirect()->back()->with(['success' => 'Driver successfully created']);
+
+    }
+
+    public function createOnBoarding(Request $request)
+    {
+        $role = $request->get('role') ?? 'driver';
+        $rates = Rate::all();
+        return view('admin.driver.create-onboarding', compact('role', 'rates'));
+    }
+
+    public function addDriver(Request $request)
+    {
+         $role = $request->get('role') ?? 'driver';
+        return view('admin.driver.add-driver', compact('role'));
+    }
+
+    public function addDocument($userId)
+    {
+        $driver = User::findOrFail($userId);
+
+        $title = $driver->name.' documents';
+        $data = $driver->documents;
+
+        $all_docs = Document::where('status',true)->where('is_required', true)->get();
+       return view('admin.driver.others.add-document', compact('all_docs', 'driver', 'data', 'title'));
+    }
+
+    public function addNewDoc(Request $request)
+    {
+        $doc_file = DriverDocument::where('document_id', $request->get('document_id'))->first();
+        if ($doc_file){
+            return redirect()->back()->with('error', 'Document already exist');
+        }
+        $driver_doc = new DriverDocument();
+        $driver_doc->document_id = $request->get('document_id');
+        $driver_doc->driver_id = $request->get('driver_id');
+        $driver_doc->save();
+        return redirect()->back()->with('success', 'successfully added');
+    }
+
+     public function storeDocument(Request $request, DriverDocumentService $driverDocumentService)
+    {
+
+        $request->validate([
+            'driver_id' => 'required',
+            'document_id' => 'required',
+        ]);
+        $driverDocumentService->createOrUpdateDoc($request['document_id'], $request['driver_id'], $request['expiry_date'], $request['file'], $request['driving_license_number']);
+
+        return redirect()->back()->with('success','Document update');
+    }
+
+    public function history($driverId)
+    {
+        $driver = User::findOrFail($driverId);
+        $histories = History::whereHas('formData', function ($query) use ($driverId) {
+            $query->where('driver_id', $driverId);
+        })->with('driver', 'formData.form')->latest()->get();
+
+        return view('admin.driver.history', compact('driver', 'histories'));
+    }
+
+    public function viewHistory($id, $driverId)
+    {
+        $driver = User::findOrFail($driverId);
+        $history = History::findOrFail($id);
+        dd($history);
+//        $history = History::whereHas('formData', function ($query) use ($driverId) {
+//            $query->where('driver_id', $driverId);
+//        });
+        return view('admin.driver.view-history', compact('driver', 'history'));
+    }
+
+
+
+
+
 }

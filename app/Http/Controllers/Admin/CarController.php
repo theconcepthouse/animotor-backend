@@ -36,7 +36,6 @@ class CarController extends Controller
         }
 
         $car = Car::create($validatedData);
-
         $message = $car->title." created successfully.";
 
         if(settings('enable_rental') == 'yes'){
@@ -46,24 +45,23 @@ class CarController extends Controller
     }
 
     public function edit($id){
-    $car = Car::findOrFail($id);
+        $car = Car::findOrFail($id);
 
-        if(!$car->carExtra){
-            CarExtra::create([
-                'car_id' => $car->id
-            ]);
-        }
+            if(!$car->carExtra){
+                CarExtra::create([
+                    'car_id' => $car->id
+                ]);
+            }
 
+            $car_makes = VehicleMake::all();
+            $car_types = VehicleType::all();
+            if($car->model){
+                $car_models = VehicleModel::where('name', $car?->model)->get();
+            }else{
+                $car_models = VehicleModel::where('name', $car_makes?->first()?->id)->get();
+            }
 
-        $car_makes = VehicleMake::all();
-        $car_types = VehicleType::all();
-        if($car->model){
-            $car_models = VehicleModel::where('name', $car?->model)->get();
-        }else{
-            $car_models = VehicleModel::where('name', $car_makes?->first()?->id)->get();
-        }
-
-        return view('admin.cars.edit', compact('car','car_types','car_models','car_makes'));
+            return view('admin.cars.edit', compact('car','car_types','car_models','car_makes'));
 
     }
 

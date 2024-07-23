@@ -21,6 +21,16 @@ class DriverDocument extends Model
         'comment',
         'is_approved',
         'expiry_date',
+
+        'driving_license_number',
+        'type_of_license_held',
+        'license_issue_date',
+        'license_expiry_date',
+        'driving_test_pass_date',
+        'national_insurance_number',
+        'taxi_number',
+        'dvla_check_code',
+        'issuing_authority',
     ];
 
     protected $appends = ['color'];

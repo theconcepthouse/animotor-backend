@@ -164,7 +164,6 @@ class UserController extends Controller
 
         }
 
-
         return redirect()->back()->with('success',ucfirst($data['role']).' successfully created');
     }
 

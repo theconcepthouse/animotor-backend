@@ -3,7 +3,7 @@
     <div class="nk-block-head">
         <div class="nk-block-between">
             <div class="nk-block-head-content">
-                <h4 class="nk-block-title">{{ __('admin.car_listings') }}</h4>
+                <h4 class="nk-block-title">Vehicle List</h4>
             </div>
 
 
@@ -12,16 +12,6 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-
-{{--                            <li>--}}
-{{--                                <div class="form-control-wrap">--}}
-{{--                                    <div class="form-icon form-icon-right">--}}
-{{--                                        <em class="icon ni ni-search"></em>--}}
-{{--                                    </div>--}}
-{{--                                    <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Car search">--}}
-{{--                                </div>--}}
-{{--                            </li>--}}
-
 
                             @if(count($selected_items) > 0)
                             <li class="nk-block-tools-opt d-none d-sm-block">
@@ -33,7 +23,11 @@
                                         <a href="#" class="dropdown-toggle dropdown-indicator btn btn-outline-light btn-white" data-bs-toggle="dropdown" aria-expanded="false">Bulk Action</a>
                                         <div class="dropdown-menu dropdown-menu-end" style="">
                                             <ul class="link-list-opt no-bdr">
-                                                <li class="text-center"><button wire:confirm="Are you sure, you want to delete this records?"  type="button" class="btn btn-danger" wire:click="deleteSelectedItems"><span>Delete selected</span></button></li>
+                                                <li class="text-center">
+                                                    <button wire:confirm="Are you sure, you want to delete this records?"  type="button" class="btn btn-danger" wire:click="deleteSelectedItems">
+                                                        <span>Delete selected</span>
+                                                    </button>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -84,16 +78,11 @@
                         <tr>
                             <th><input type="checkbox" wire:model.live="selectAll"></th>
                             <th>{{ __('admin.sn') }}</th>
-                            <th>{{ __('admin.service_area') }}</th>
                             <th>{{ __('admin.vrm') }}</th>
-                            <th>{{ __('admin.title') }}</th>
                             <th>{{ __('admin.make') }}</th>
                             <th>{{ __('admin.is_available') }}</th>
                             <th>{{ __('admin.model') }}</th>
 {{--                            <th>{{ __('admin.extras') }}</th>--}}
-                            <th>{{ __('admin.type') }}</th>
-                            <th>{{ __('admin.vehicle_no') }}</th>
-                            <th>{{ __('admin.year') }}</th>
                             <th>{{ __('admin.action') }}</th>
                         </tr>
 
@@ -103,9 +92,7 @@
                             <tr>
                                 <td><input type="checkbox" wire:model.live="selected_items" value="{{ $item->id }}"></td>
                                 <td>{{ $loop->index+1 }}</td>
-                                <td>{{ $item?->region?->name ?? "Not set" }}</td>
                                 <td><a href="{{ route('admin.cars.edit',$item->id) }}" class="btn btn-warning"> {{ $item->registration_number }}</a></td>
-                                <td>{{ $item->title }}</td>
                                 <td>{{ $item->make }}</td>
                                 <td>
 {{--                                    @include('admin.components.toggle-switch', ['model' => "Car", 'item' => $item, 'checked' => $item->is_available, 'field' => 'is_available'])--}}
@@ -115,11 +102,6 @@
                                     </button>
                                 </td>
                                 <td>{{ $item->model }}</td>
-                               <td>{{ $item->type }}</td>
-                                <td>{{ $item->vehicle_no }}</td>
-                                <td>{{ $item->year }}</td>
-
-
                                 <td>
 
                                     <a class="btn btn-warning btn-sm rounded" wire:navigate href="{{ route('admin.cars.edit',$item->id) }}"><em class="icon ni ni-edit"></em><span>{{ __('admin.edit_item') }}</span></a>

@@ -9,11 +9,17 @@ use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\ComplaintsController;
 use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\DriverPcnController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\FormController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\NoteController;
+use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\PCNController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\RentalController;
 use App\Http\Controllers\Admin\RolesController;
@@ -23,6 +29,7 @@ use App\Http\Controllers\Admin\TripRequestController;
 use App\Http\Controllers\Admin\UserController;
 
 
+use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehicleMakeController;
 use App\Http\Controllers\Admin\VehicleModelController;
 use App\Http\Controllers\Admin\VehicleTypeController;
@@ -154,6 +161,43 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
 
     });
+
+    Route::get('create/driver', [DriversController::class, 'createDriver'])->name('create.customer');
+    Route::post('store/driver', [DriversController::class, 'storeDriver'])->name('store.driver');
+    Route::get('create/driver/on-boarding', [DriversController::class, 'createOnBoarding'])->name('createOnBoarding');
+    Route::get('add/driver', [DriversController::class, 'addDriver'])->name('addDriver');
+
+    Route::get('add/document/{userId}', [DriversController::class, 'addDocument'])->name('addDocument');
+    Route::post('add/new/document/', [DriversController::class, 'addNewDoc'])->name('addNewDoc');
+    Route::post('store/document/', [DriversController::class, 'storeDocument'])->name('storeDocument');
+    Route::get('/driver/{driverId}/history', [DriversController::class, 'history'])->name('history');
+    Route::get('/driver/{driverId}/history/{id}', [DriversController::class, 'viewHistory'])->name('viewHistory');
+
+    Route::get('driver/note/{driverId}', [NoteController::class, 'notes'])->name('notes');
+    Route::get('driver/note/chat/{driverId}', [NoteController::class, 'noteChat'])->name('noteChat');
+    Route::get('driver/{driverId}/note/{noteId}', [NoteController::class, 'viewNote'])->name('viewNote');
+    Route::post('save/driver/note', [NoteController::class, 'saveNoteChat'])->name('saveNoteChat');
+    Route::delete('delete/driver/note/{noteId}', [NoteController::class, 'deleteNoteChat'])->name('deleteNoteChat');
+
+    Route::get('pcns/driver/{driverId}', [DriverPcnController::class, 'driverPcn'])->name('driverPcn');
+    Route::get('add/pnc/driver/{driverId}', [DriverPcnController::class, 'addDriverPcn'])->name('addDriverPcn');
+    Route::post('store/pnc/driver/{driverId}', [DriverPcnController::class, 'storeDriverPcn'])->name('storeDriverPcn');
+    Route::get('add/pcn-log/{pcnId}/driver/{driverId}', [DriverPcnController::class, 'addPcnLog'])->name('addPcnLog');
+    Route::post('store/pcn-log/driver/{driverId}', [DriverPcnController::class, 'storePcnLog'])->name('storePcnLog');
+    Route::delete('delete/pcn-log/{pcnId}', [DriverPcnController::class, 'deleteDriverPcn'])->name('deleteDriverPcn');
+
+    Route::get('payment/history/{driverId}', [PaymentController::class, 'paymentHistory'])->name('paymentHistory');
+    Route::post('store/driver/payment', [PaymentController::class, 'savePayment'])->name('savePayment');
+    Route::post('store/payment/item', [PaymentController::class, 'addPaymentItem'])->name('addPaymentItem');
+
+    Route::get('driver/{driverId}/forms/', [FormController::class, 'index'])->name('form.index');
+    Route::get('/user/{driverId}/form/{formId}', [FormController::class, 'fetchCustomerForm'])->name('fetchCustomerForm');
+    Route::post('/submit/customer/form/', [FormController::class, 'submitForm'])->name('submitForm');
+    Route::get('/generate-pdf/{formId}/{driverId}', [FormController::class, 'generatePDF'])->name('generatePDF');
+
+    Route::get('vehicle', [VehicleController::class, 'index'])->name('vehicle.index');
+
+
 
 });
 

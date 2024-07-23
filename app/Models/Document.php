@@ -25,4 +25,6 @@ class Document extends Model
         'has_expiry_date' => 'bool',
         'status' => 'bool',
     ];
+
+
 }

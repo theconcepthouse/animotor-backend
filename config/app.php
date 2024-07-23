@@ -203,6 +203,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\MenuMacroServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+
 
     ],
 
@@ -218,6 +220,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

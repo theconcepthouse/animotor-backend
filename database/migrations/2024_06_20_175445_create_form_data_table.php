@@ -13,21 +13,22 @@ return new class extends Migration
     {
         Schema::create('form_data', function (Blueprint $table) {
             $table->id();
-
-            $table->bigInteger('driver_id')->unsigned();
-            $table->bigInteger('form_id')->unsigned();
+//            $table->uuid('id')->primary();
+            $table->uuid('driver_id');
+            $table->uuid('form_id');
             $table->string('sending_method')->nullable();
             $table->json('field_data')->nullable();
             $table->enum('status', ['Pending', 'Completed', 'Partially Complete'])->default('Pending');
             $table->timestamps();
 
            $table->foreign('driver_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+           $table->foreign('form_id')->references('id')->on('forms')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-        $table->foreign('form_id')->references('id')->on('forms')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
         });
     }
 

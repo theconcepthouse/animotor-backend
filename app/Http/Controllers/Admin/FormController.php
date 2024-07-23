@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\LaravelPdf\Facades\Pdf;
 use function Spatie\LaravelPdf\Support\pdf;
+use Spatie\Browsershot\Browsershot;
 
 class FormController extends Controller
 {
@@ -153,7 +154,6 @@ class FormController extends Controller
         $formFieldsJson = is_string($form->fields) ? json_decode($form->fields, true) : $form->fields;
         $submittedData = $formData ? (is_string($formData->field_data) ? json_decode($formData->field_data, true) : $formData->field_data) : null;
 
-
         // Determine the view based on the form name
         $view = '';
         switch ($form->name) {
@@ -185,9 +185,10 @@ class FormController extends Controller
                 return redirect()->back()->with('error', 'Invalid form type.');
         }
 
+        $pathToChrome = '/path/to/google-chrome';
         // Generate the PDF
         return pdf()->view($view, compact('driver', 'form', 'formFieldsJson', 'submittedData'))
-            ->format('a4')->name($form->name.".pdf");
+            ->format('a4')->name($form->name.".pdf")->setChromePath($pathToChrome);
     }
 
 

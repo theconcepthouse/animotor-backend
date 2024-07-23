@@ -108,7 +108,7 @@
 
         <div class="section">
             <h2>Vehicle Details</h2>
-            @foreach ($formFieldsJson['Vehicle Details'] as $field)
+            @foreach ($formFieldsJson['Vehicle'] as $field)
                 <p><strong>{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}:</strong> {{ $submittedData[$field['fieldName']] ?? '' }}</p>
             @endforeach
         </div>

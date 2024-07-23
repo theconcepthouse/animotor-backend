@@ -24,17 +24,20 @@ class FormData extends Model
         return $this->belongsTo(Form::class);
     }
 
-    public function isComplete()
-    {
-        $form = $this->form;
-        foreach ($form->fields as $field) {
-            if ($field['required'] && !isset($this->field_data[$field['fieldName']])) {
-                return false;
-            }
+   public function isComplete()
+{
+    $form = $this->form;
+    $fields = is_string($form->fields) ? json_decode($form->fields, true) : $form->fields;
+
+    foreach ($fields as $field) {
+        // Check if 'required' key exists and is set to true
+        if (isset($field['required']) && $field['required'] && !isset($this->field_data[$field['fieldName']])) {
+            return false;
         }
-        return true;
     }
 
+    return true;
+}
 
     protected static function boot()
     {

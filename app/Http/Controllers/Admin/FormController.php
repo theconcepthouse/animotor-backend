@@ -21,7 +21,7 @@ class FormController extends Controller
         $form_action = Form::where('action', 1)->get();
         $user = User::findOrFail($driverId);
 
-        $formData = FormData::where('user_id', $driverId)->get();
+        $formData = FormData::where('driver_id', $driverId)->get();
         foreach ($forms as $form) {
             $form->status = 'Pending';
             foreach ($formData as $data) {

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('form_data', function (Blueprint $table) {
-            $table->id();
-//            $table->uuid('id')->primary();
+//            $table->id();
+            $table->uuid('id')->primary();
             $table->uuid('driver_id');
             $table->bigInteger('form_id');
             $table->string('sending_method')->nullable();

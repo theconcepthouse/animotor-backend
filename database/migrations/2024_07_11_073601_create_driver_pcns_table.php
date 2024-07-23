@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('driver_pcns', function (Blueprint $table) {
             $table->uuid('id')->primary();
-             $table->bigInteger('driver_id');
+             $table->uuid('driver_id');
              $table->date('date_post_received')->nullable();
             $table->string('vrm')->nullable();
             $table->string('pcn_no')->nullable();
@@ -32,6 +32,11 @@ return new class extends Migration
             $table->string('notify_to_staff_member')->nullable();
             $table->string('notify_to_other')->nullable();
             $table->string('reminder')->nullable();
+
+            $table->foreign('driver_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

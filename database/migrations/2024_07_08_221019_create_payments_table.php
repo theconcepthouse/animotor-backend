@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->bigInteger('driver_id');
+            $table->uuid('driver_id');
             $table->date('due_date')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
             $table->date('received_date')->nullable();

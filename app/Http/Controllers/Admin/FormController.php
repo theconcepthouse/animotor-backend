@@ -188,7 +188,7 @@ class FormController extends Controller
         $pathToChrome = '/path/to/google-chrome';
         // Generate the PDF
         return pdf()->view($view, compact('driver', 'form', 'formFieldsJson', 'submittedData'))
-            ->format('a4')->name($form->name.".pdf")->setChromePath($pathToChrome);
+            ->format('a4')->name($form->name.".pdf");
     }
 
 

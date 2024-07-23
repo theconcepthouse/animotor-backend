@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->bigInteger('driver_id');
+            $table->uuid('driver_id');
             $table->string('title')->nullable();
             $table->longText('message')->nullable();
             $table->integer('status')->default(0);

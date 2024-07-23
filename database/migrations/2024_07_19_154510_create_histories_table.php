@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->uuid('driver_id');
-            $table->bigInteger('form_data_id');
+            $table->uuid('form_data_id');
             $table->json('changes');
             $table->timestamps();
 

@@ -48,6 +48,7 @@
                                 <div class="card card-bordered">
                                     <div class="card-inner-group">
                                         <div class="card-inner p-0">
+
                                             <div class="nk-tb-list">
                                                 <div class="nk-tb-item nk-tb-head">
 
@@ -72,8 +73,9 @@
                                                             <span class="tb-lead">{{ $item->sending_method ? : "Not Set" }}</span>
                                                         </div>
                                                         <div class="nk-tb-col">
-                                                            <span class="tb-sub">{!! $item->status() !!}</span>
+                                                            <span class="tb-sub">{!! $item->isComplete() !!}</span>
                                                         </div>
+
                                                          <div class="nk-tb-col">
                                                             <div class="nk-tb-col nk-tb-col-tools">
                                                                 <ul style="justify-content: center" class="nk-tb-actions gx-2">

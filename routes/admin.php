@@ -57,6 +57,8 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('activity/logs', [AdminController::class, 'activityLog'])->name('activity.log');
 
     Route::get('/user/admins', [AdminController::class, 'admins'])->name('user.admins');
+    Route::get('/create/admin', [AdminController::class, 'createAdmin'])->name('createAdmin');
+    Route::post('/store/admin', [AdminController::class, 'storeAdmin'])->name('storeAdmin');
 
     Route::get('settings', [AdminController::class, 'settings'])->name('settings')->middleware('surd_core');
     Route::get('settings/services', [AdminController::class, 'ServicesSettings'])->name('settings.services');
@@ -68,8 +70,6 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::delete('user/force_delete/{id}', [UserController::class, 'forceDelete'])->name('user.force_delete');
     Route::get('user/deleted', [UserController::class, 'deleted'])->name('user.deleted');
     Route::get('send/notification', [UserController::class, 'sendNotification'])->name('send.notification');
-
-
     Route::get('/riders', [UserController::class, 'riders'])->name('riders');
 
 

@@ -23,24 +23,7 @@ class FormController extends Controller
         $user = User::findOrFail($driverId);
 
         $formData = FormData::where('driver_id', $driverId)->get();
-        foreach ($forms as $form) {
-            $form->status = 'Pending';
-            foreach ($formData as $data) {
-                if ($data->form_id == $form->id) {
-                    $form->status = $data->isComplete() ? 'Completed' : 'Partially Complete';
-                    break;
-                }
-            }
-        }
-        foreach ($form_action as $form) {
-            $form->status = 'Pending';
-            foreach ($formData as $data) {
-                if ($data->form_id == $form->id) {
-                    $form->status = $data->isComplete() ? 'Completed' : 'Partially Complete';
-                    break;
-                }
-            }
-        }
+
         return view('admin.driver.forms.index', compact('forms', 'form_action', 'user'));
     }
 
@@ -105,23 +88,6 @@ class FormController extends Controller
 
         return $commonFieldsData;
     }
-
-//    public function getCommonFieldsData($driverId)
-//    {
-//        $allFormData = FormData::where('driver_id', $driverId)->get();
-//        $commonFieldsData = [];
-//
-//        foreach ($allFormData as $formData) {
-//            $fieldData = is_array($formData->field_data) ? $formData->field_data : json_decode($formData->field_data, true);
-//            if (is_array($fieldData)) {
-//                foreach ($fieldData as $key => $value) {
-//                    $commonFieldsData[$key] = $value;
-//                }
-//            }
-//        }
-//
-//        return $commonFieldsData;
-//    }
 
 
     // Function to merge common fields data with form fields

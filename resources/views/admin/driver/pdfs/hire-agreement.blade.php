@@ -69,13 +69,13 @@
         </div>
         <div>
             <div class="row mb-3 mt-3">
-            <div class="col-12 section-title">
-               <h4> Vehicle Details:</h4>
-            </div>
+                <div class="col-12 section-title">
+                   <h4> Vehicle Details:</h4>
+                </div>
             </div>
             <div class="row">
                 @foreach ($formFieldsJson['Vehicle'] as $field)
-                     <div class="col-md-4 mb-5">
+                     <div class="col-md-4 mb-5 mt-2">
                         <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
                          <br><br>
                          <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
@@ -83,13 +83,13 @@
                 @endforeach
             </div>
         </div>
-      @pageBreak
+{{--      @pageBreak--}}
        <div class="section">
             <h2>Statement of Liability</h2>
             <p>{{ $submittedData['statement_of_liability'] ?? '' }}</p>
         </div>
       <div class="mt-4">
-            <div class="row mb-3 mt-3">
+            <div class="row mb-3">
             <div class="col-12 section-title">
                <h4> Signature:</h4>
             </div>

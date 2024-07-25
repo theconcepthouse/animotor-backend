@@ -97,7 +97,7 @@ class AdminController extends Controller
 
     public function createAdmin(Request $request)
     {
-         $role = $request->get('role') ?? 'admin';
+         $role = $request->get('role') ? 'manager' : 'admin';
         return view('admin.user.admin.create-admin', compact('role'));
     }
     public function storeAdmin(Request $request)

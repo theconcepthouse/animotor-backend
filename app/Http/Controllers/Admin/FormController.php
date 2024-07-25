@@ -7,12 +7,11 @@ use App\Models\Form;
 use App\Models\FormData;
 use App\Models\History;
 use App\Models\User;
-//use Barryvdh\DomPDF\Facade as PDF;
-//use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Spatie\LaravelPdf\Facades\Pdf;
-use function Spatie\LaravelPdf\Support\pdf;
-use Spatie\Browsershot\Browsershot;
+//use Spatie\LaravelPdf\Facades\Pdf;
+//use function Spatie\LaravelPdf\Support\pdf;
+//use Spatie\Browsershot\Browsershot;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class FormController extends Controller
 {
@@ -90,22 +89,6 @@ class FormController extends Controller
     }
 
 
-    // Function to merge common fields data with form fields
-   public function mergeCommonFields($driverId, $formFields)
-    {
-        $commonFieldsData = $this->getCommonFieldsData($driverId);
-
-        foreach ($formFields as &$fields) {
-            foreach ($fields as &$field) {
-                if (isset($field['fieldName']) && isset($commonFieldsData[$field['fieldName']])) {
-                    $field['value'] = $commonFieldsData[$field['fieldName']];
-                }
-            }
-        }
-
-        return $formFields;
-    }
-
 
     public function generatePDF($formId, $driverId)
     {
@@ -151,10 +134,14 @@ class FormController extends Controller
                 return redirect()->back()->with('error', 'Invalid form type.');
         }
 
-        $pathToChrome = '/path/to/google-chrome';
+
         // Generate the PDF
-        return pdf()->view($view, compact('driver', 'form', 'formFieldsJson', 'submittedData'))
-            ->format('a4')->name($form->name.".pdf");
+        $data = ['driver' => $driver, 'form' => $form, 'formFieldsJson' => $formFieldsJson, 'submittedData' => $submittedData];
+
+        $pdf = Pdf::loadView($view, compact('formFieldsJson'));
+        return $pdf->save($form->name.".pdf");
+//        return pdf()->view($view, compact('driver', 'form', 'formFieldsJson', 'submittedData'))
+//            ->format('a4')->name($form->name.".pdf");
     }
 
 

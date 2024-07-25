@@ -125,9 +125,12 @@ class AddDriver extends Component
             'role' => 'required',
         ]);
 
-        if (isOwner() && !in_array($validated['role'], ['manager', 'rider'])) {
-            return redirect()->route('admin.dashboard')->with('failure', 'You are not permitted to create this user');
+        if (isOwner()) {
+            $validated['company_id'] = companyId();
         }
+//        if (isOwner() && !in_array($validated['role'], ['manager', 'rider'])) {
+//            return redirect()->route('admin.dashboard')->with('failure', 'You are not permitted to create this user');
+//        }
         $validated['password'] = 'password';
         $customer = User::create($validated);
         $customer->addRole($validated['role']);

@@ -95,6 +95,29 @@ class AdminController extends Controller
         return view('admin.user.admin.list', compact('users'));
     }
 
+    public function createAdmin(Request $request)
+    {
+         $role = $request->get('role') ?? 'admin';
+        return view('admin.user.admin.create-admin', compact('role'));
+    }
+    public function storeAdmin(Request $request)
+    {
+        $rules = [
+            'first_name' => 'string|min:1|max:255|required',
+            'last_name' => 'nullable',
+            'phone' => 'string|min:1|max:255|required|unique:users',
+            'email' => 'string|min:1|max:255|required|unique:users|email',
+            'password' => 'required',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'role' => 'required',
+        ];
+
+        $data = $request->validate($rules);
+        $data['password'] = hash::make($data['password']);
+        User::create($data);
+        return redirect()->back()->with('success', 'Manager has been created.');
+    }
+
     public function backupManager()
     {
 //        Session::flash('success', 'Task was successful!');

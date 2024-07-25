@@ -10,7 +10,8 @@
                         <div class="nk-block nk-block-lg">
                             <div class="nk-block-between g-3">
                                 <div class="nk-block-head-content">
-                                    <h4 class="title nk-block-title">Create new {{ $role }}</h4>
+{{--                                    <h4 class="title nk-block-title">Create new {{ $role }}</h4>--}}
+                                    <h4 class="title nk-block-title">New Customer Registration</h4>
                                 </div>
                                 <div class="nk-block-head-content">
                                     <a href="{{ request()->get('back_url') }}" wire:navigate class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
@@ -42,38 +43,34 @@
 
 
                                                 <div class="row gy-4">
-                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'region_id','title' => 'Service Area','options' => $regions])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'first_name','title' => 'First Name'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'last_name','title' => 'Last Name'])
-                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'phone','type' => 'tel','title' => 'Phone'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'email','type' => 'email','title' => 'Email Address'])
-                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'password','title' => 'Password'])
-                                                    @include('admin.partials.form.text', ['attributes' => 'disabled', 'colSize' => 'col-md-4', 'value' => $role, 'fieldName' => 'role','title' => 'Role'])
-                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'gender','title' => 'Gender','options' => ['Male','Female','Others']])
-
-                                                    @include('admin.partials.image-upload',['field' => 'avatar','id' => 'image','title' => 'Profile Pics'])
-
+                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'work_phone','type' => 'tel','title' => 'Work Number'])
+                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'phone','type' => 'tel','title' => 'Mobile Number'])
+                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'hire_type','title' => 'Hire Type','options' => ['Social domestic','Rent to to buy','Credit hire', 'Insurance']])
+                                                    <br>
                                                     <input name="role" type="hidden" value="{{ $role }}" />
 
-                                                    @if($role == 'driver')
-                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'title','title' => 'Car title'])
-                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'option_name' => 'name',  'colSize' => 'col-md-3', 'fieldName' => 'vehicle_type','title' => 'Car Type','options' => $car_types])
-                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'option_name' => 'name', 'colSize' => 'col-md-3', 'fieldName' => 'vehicle_make','title' => 'Car make','options' => $car_makes])
-                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'model','title' => 'Car model','options' => $car_models])
-                                                    @include('admin.partials.form.select_array', [ 'colSize' => 'col-md-3', 'fieldName' => 'gear','title' => 'Gear type', 'options' => ['Automatic','Manual']])
-
-                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'color','title' => 'Car Color'])
-                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'colSize' => 'col-md-3', 'fieldName' => 'year','title' => 'Car Year'])
-                                                    @include('admin.partials.form.text', ['attributes' => 'required',  'colSize' => 'col-md-3', 'fieldName' => 'vehicle_no','title' => 'Car Number'])
-                                                    @include('admin.partials.form.text', [ 'colSize' => 'col-md-3', 'fieldName' => 'door','title' => 'Door count'])
-
-                                                    @include('admin.partials.image-upload',['field' => 'image','id' => 'car_image','title' => 'Car Image'])
-                                                    @endif
+{{--                                                    @if($role == 'driver')--}}
+{{--                                                        @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'title','title' => 'Car title'])--}}
+{{--                                                        @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'option_name' => 'name',  'colSize' => 'col-md-3', 'fieldName' => 'vehicle_type','title' => 'Car Type','options' => $car_types])--}}
+{{--                                                        @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'option_name' => 'name', 'colSize' => 'col-md-3', 'fieldName' => 'vehicle_make','title' => 'Car make','options' => $car_makes])--}}
+{{--                                                        @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'model','title' => 'Car model','options' => $car_models])--}}
+{{--                                                        @include('admin.partials.form.select_array', [ 'colSize' => 'col-md-3', 'fieldName' => 'gear','title' => 'Gear type', 'options' => ['Automatic','Manual']])--}}
+{{--    --}}
+{{--                                                        @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'color','title' => 'Car Color'])--}}
+{{--                                                        @include('admin.partials.form.text', ['attributes' => 'required', 'type' => 'number', 'colSize' => 'col-md-3', 'fieldName' => 'year','title' => 'Car Year'])--}}
+{{--                                                        @include('admin.partials.form.text', ['attributes' => 'required',  'colSize' => 'col-md-3', 'fieldName' => 'vehicle_no','title' => 'Car Number'])--}}
+{{--                                                        @include('admin.partials.form.text', [ 'colSize' => 'col-md-3', 'fieldName' => 'door','title' => 'Door count'])--}}
+{{--    --}}
+{{--                                                        @include('admin.partials.image-upload',['field' => 'image','id' => 'car_image','title' => 'Car Image'])--}}
+{{--                                                    @endif--}}
                                                 </div>
 
 
-                                                <div class="form-group mt-3">
-                                                    <button type="submit" class="btn btn-lg btn-primary">Save </button>
+                                                <div class="form-group mt-5">
+                                                    <button type="submit" class="btn btn-lg btn-primary">Submit </button>
                                                 </div>
                                             </form>
                                         </div>

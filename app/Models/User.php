@@ -29,6 +29,7 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     use HasRolesAndPermissions, HasWallet, HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids, FillableTraits;
 
+
     protected $fillable = [];
 
     public function __construct(array $attributes = [])
@@ -52,6 +53,15 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     protected $appends = ['is_avatar_set','unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
 
+    public function formDatas()
+    {
+        return $this->hasMany(FormData::class, 'user_id');
+    }
+
+    public function getFormsWithData()
+    {
+        return $this->formDatas()->with('form')->get();
+    }
 
     public function region(): BelongsTo
     {
@@ -119,6 +129,16 @@ class User extends Authenticatable implements LaratrustUser, Wallet
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class,'company_id');
+    }
+    public function note(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    public function fullname()
+    {
+        $fullname = $this->first_name." ".$this->last_name;
+        return $fullname;
     }
 
 

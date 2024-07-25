@@ -157,6 +157,16 @@ trait FillableTraits
         'gender',
         'ride_status',
         'last_location_update',
+
+        'work_phone',
+        'hire_type',
+        'address_2',
+        'postcode',
+        'contact_name',
+        'phone_number',
+        'email_address',
+        'relationship',
+
     ];
 
     protected array $trip_request = [
@@ -220,5 +230,19 @@ trait FillableTraits
         'appeal_dead_line',
         'status',
         'histories',
+
+        'date_of_contravention',
+        'deadline_date',
+        'issuing_authority',
+        'priority',
+        'notes',
+
+        'linkup_with_driver',
+        'linkup_with_vehicle_registration_no',
+        'notify_to_driver',
+        'notify_to_staff_member',
+        'notify_to_other',
+        'reminder'
+
     ];
 }

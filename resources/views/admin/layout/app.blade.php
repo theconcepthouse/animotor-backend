@@ -228,8 +228,7 @@
 
     </script>
 
-</head>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @php
     $menuArray = [
         [
@@ -238,23 +237,43 @@
             'text' => 'Dashboard',
             'icon' => 'ni ni-dashboard-fill',
         ],
+
         [
             'url' => route('admin.user.admins'),
             'route' => 'admins-users',
             'text' => isOwner() ? 'Managers' : 'Admins',
             'icon' => 'ni ni-users-fill',
         ],
-        [
-            'url' => route('admin.regions.index'),
-            'route' => 'regions-read',
-            'text' => 'Regions',
-            'icon' => 'ni ni-globe',
-        ],
+
     ];
+    if (hasTrips()) {
+         $menuArray[] = [
+        'url' => route('admin.drivers'),
+        'route' => 'drivers-read',
+        'text' => 'Drivers',
+        'icon' => 'ni ni-users',
+        ];
+    }
+
+    if (hasRental()) {
+        $menuArray[] = [
+            'url' => route('admin.rental.index'),
+            'route' => 'rentals-read',
+            'text' => 'Rental packages',
+            'icon' => 'ni ni-view-x2',
+        ];
+
+         $menuArray[] = [
+        'text' => 'Vehicle',
+         'url' => route('admin.cars.index'),
+        'icon' => 'ni ni-truck',
+        'route' => 'cars-read'
+    ];
+
 
 //
     if (hasTrips()) {
-    $menuArray[] = [
+        $menuArray[] = [
         'text' => 'Trips',
         'icon' => 'ni ni-tranx',
         'route' => 'trips-read',
@@ -281,24 +300,8 @@
             ],
         ],
     ];
-}
-
-    if (hasTrips()) {
-          $menuArray[] = [
-        'url' => route('admin.drivers'),
-        'route' => 'drivers-read',
-        'text' => 'Drivers',
-        'icon' => 'ni ni-users-fill',
-    ];
-
     }
 
-    $menuArray[] = [
-        'url' => route('admin.riders'),
-        'route' => 'users-read',
-        'text' => 'Customers',
-        'icon' => 'ni ni-user-list-fill',
-    ];
 
     if(hasFleet()){
         $menuArray[] = [
@@ -316,22 +319,6 @@
         'text' => 'Complaints',
         'icon' => 'ni ni-file-docs',
     ];
-
-    if (hasRental()) {
-        $menuArray[] = [
-            'url' => route('admin.rental.index'),
-            'route' => 'rentals-read',
-            'text' => 'Rental packages',
-            'icon' => 'ni ni-view-x2',
-        ];
-
-         $menuArray[] = [
-        'text' => 'Fleet Management',
-         'url' => route('admin.cars.index'),
-        'icon' => 'ni ni-layout-fill',
-        'route' => 'cars-read'
-    ];
-
 
     $menuArray[] = [
         'url' => route('admin.bookings.index'),

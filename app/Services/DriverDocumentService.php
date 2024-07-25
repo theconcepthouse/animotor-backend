@@ -43,4 +43,25 @@ class DriverDocumentService
         }
         $driverDocument->save();
     }
+
+    public function createOrUpdateDoc($document_id, $driver_id, ?string $expiryDate, ?string $file, ?string $driving_license_number)
+    {
+       $driverDocument = DriverDocument::where('document_id', $document_id)->where('driver_id', $driver_id)->first();
+
+        if ($driverDocument) {
+            $driverDocument->status = $status ?? $driverDocument->status;
+            $driverDocument->driving_license_number = $driving_license_number ?? $driverDocument->driving_license_number;
+            $driverDocument->file = $file ?? $driverDocument->file;
+            $driverDocument->expiry_date = $expiryDate ?? $driverDocument->expiry_date;
+        } else {
+            $driverDocument = new DriverDocument();
+            $driverDocument->document_id = $document_id;
+            $driverDocument->driver_id = $driver_id;
+            $driverDocument->driving_license_number = $driving_license_number;
+            $driverDocument->file = $file;
+            $driverDocument->expiry_date = $expiryDate;
+        }
+        $driverDocument->save();
+    }
+
 }

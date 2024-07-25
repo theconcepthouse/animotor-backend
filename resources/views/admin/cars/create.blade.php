@@ -43,6 +43,8 @@
 
 
                                                 @include('admin.cars.form', ['car' => null, 'car_types' => $car_types, 'car_makes' => $car_makes])
+{{--                                                @include('livewire.admin.cars.form', ['car' => null, 'car_types' => $car_types, 'car_makes' => $car_makes])--}}
+{{--                                                <livewire:admin.cars.form :car="$car" :car_types="$car_types" :car_models="$car_models" :car_makes="$car_makes" />--}}
 
 
                                                 <div class="form-group mt-3">

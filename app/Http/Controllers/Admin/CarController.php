@@ -31,6 +31,7 @@ class CarController extends Controller
     public function store(Request $request)
     {
        $validatedData = $this->validateData($request);
+
         if(isOwner()){
             $validatedData['company_id'] = companyId();
         }

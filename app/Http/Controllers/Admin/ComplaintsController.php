@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
+use App\Models\TripRequest;
 use Illuminate\Http\Request;
 
 class ComplaintsController extends Controller
@@ -12,7 +13,8 @@ class ComplaintsController extends Controller
     {
         $data = Complaint::paginate(100);
         $title = "Complains";
-        return view('admin.complains.list', compact('data','title'));
+        $trips = TripRequest::all();
+        return view('admin.complains.list', compact('data','title', 'trips'));
     }
 
 
@@ -53,6 +55,8 @@ class ComplaintsController extends Controller
             'complain' => 'required',
             'by' => 'nullable',
             'status' => 'required',
+            'driver' => 'nullable',
+            'rider' => 'nullable',
         ];
 
         return $request->validate($rules);

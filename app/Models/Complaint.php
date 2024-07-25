@@ -10,5 +10,6 @@ class Complaint extends Model
 {
     use HasFactory;
     use HasUuids;
+    protected $fillable = ['subject', 'complain', 'by', 'status', 'driver', 'rider'];
 
 }

@@ -35,6 +35,16 @@
 
                             <div class="card card-bordered card-preview">
                                 <div class="card-inner">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
                                             <table class="datatable-init-export nowrap table" data-export-title="Export">
@@ -112,29 +122,41 @@
                 <div class="modal-body modal-body-md">
                     <h5 class="title">Add New Complain</h5>
 
-                    <form action="{{ route('admin.cancellation_reasons.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.complains.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+
 
 
                         <div class="row gy-4 pt-4">
 
-                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'reason','title' => 'Cancellation Reason'])
+                            <div class="col-md-6">
+                                 <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <select name="ride_id" id="trip" class="form-select js-select2" data-ui="xl">
+                                            @foreach($trips as $value => $label)
+                                                <option value="{{ $value }}">{{ __($label) }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label class="form-label-outlined" for="trip">Trip ID</label>
+                                    </div>
+                                 </div>
+                            </div>
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'driver','title' => 'Driver'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'rider','title' => 'Rider'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'by','title' => 'Complain By'])
+                            @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-6', 'fieldName' => 'subject','title' => 'Subject'])
 
+                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'status', 'title' => 'Status',
+                                'options' => ['1' => 'Active', '0' => 'Disabled']])
+                            <div class="col-md-12">
+                                 <div class="form-group">
+                                    <div class="form-control-wrap">
+                                        <label class="form-label-" for="complain">Complain</label>
+                                         <textarea name="complain" id="complain" cols="5" rows="5" class="form-control"></textarea>
+                                    </div>
+                                 </div>
+                            </div>
 
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'user_type', 'title' => 'User type',
-'options' => ['driver' => 'Driver', 'user' => 'user']])
-
-                            @include('admin.partials.form.select', ['attributes' => 'required' ,'colSize' => 'col-md-6', 'fieldName' => 'is_active', 'title' => 'Status',
-'options' => ['1' => 'Active', '0' => 'Disabled']])
                         </div>
 
                         <div class="form-group mt-3">

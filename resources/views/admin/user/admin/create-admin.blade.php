@@ -51,7 +51,7 @@
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'email','type' => 'email','title' => 'Email Address'])
 
                                                     @include('admin.partials.form.password', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'password','type' => 'password','title' => 'Password'])
-                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'role','title' => 'Role','options' => ['admin','sales','IT', 'finance']])
+                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'role','title' => 'Role','options' => ['admin' => 'Admin','sales' => "Sales",'It' => "IT", 'finance' => 'Finance']])
                                                      @include('admin.partials.image-upload',['field' => 'image','id' => 'avatar','title' => 'Profile Picture'])
                                                     <br>
                                                     <input name="role" type="hidden" value="{{ $role }}" />

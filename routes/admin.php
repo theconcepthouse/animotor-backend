@@ -201,11 +201,10 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
     Route::get('fleet/plans', [FleetPlanningController::class, 'index'])->name('fleet.index');
     Route::post('store/plan', [FleetPlanningController::class, 'store'])->name('fleet.store');
+    Route::delete('/delete-event/{id}', [FleetPlanningController::class, 'destroy']);
+
 
 //    Route::get('fleet/plans', App\Http\Controllers\Admin\Appointment::class)->name('fleet.index');
-
-
-
 
 });
 

@@ -1,6 +1,6 @@
 @extends('admin.layout.app')
 @section('content')
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
 
 <style>
@@ -182,44 +182,141 @@
 
 @push('scripts')
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
 
-    <script>
-           document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
+        var events = @json($events);
 
-            var events = @json($events);
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                headerToolbar: {
-                    right: 'prev,next today',
-                    center: 'title',
-                    left: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                themeSystem: 'bootstrap',
-                events: events,
-                eventContent: function(info) {
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                right: 'prev,next today',
+                center: 'title',
+                left: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            themeSystem: 'bootstrap',
+            events: events,
+            eventContent: function(info) {
                 let event = info.event;
                 let content = document.createElement('div');
-                content.innerHTML = `
-                    Event: ${event.title}<br>
-                    Start: ${event.start.toISOString().split('T')[0]}<br>
-                    End: ${event.end ? event.end.toISOString().split('T')[0] : 'N/A'}<br>
-                    ${event.extendedProps.location ? 'Location: ' + event.extendedProps.location + '<br>' : ''}
-                    ${event.extendedProps.description ? 'Des: ' + event.extendedProps.description + '<br>' : ''}
-                `;
-                    content.style.backgroundColor = event.extendedProps.type === 'meeting' ? 'green' :
-                                                    event.extendedProps.type === 'conference' ? 'red' : '#6576ff';
-                    return { domNodes: [content] };
-                },
-                editable: true,
-                droppable: true,
-                eventResizableFromStart: true
-            });
-            calendar.render();
-        });
 
-        </script>
+                let eventColor;
+                let now = new Date();
+
+                if (event.end && event.end < now) {
+                    eventColor = '#a03939'; // Color for past events
+                } else {
+                    eventColor = event.extendedProps.type === 'meeting' ? 'green' :
+                                 event.extendedProps.type === 'conference' ? '#a03939' : '#6576ff';
+                }
+
+                content.innerHTML = `
+                    <div style="display: flex; align-items: center;">
+                        <div style="flex: 1;">
+                            <strong>${event.title}</strong><br>
+                            Start: ${event.start.toISOString().split('T')[0]}<br>
+                            End: ${event.end ? event.end.toISOString().split('T')[0] : 'N/A'}<br>
+                            ${event.extendedProps.location ? 'Location: ' + event.extendedProps.location + '<br>' : ''}
+                            ${event.extendedProps.description ? 'Des: ' + event.extendedProps.description + '<br>' : ''}
+                        </div>
+                        <button class="delete-event" style="background: none; border: none; cursor: pointer;">
+                            <i class="fas fa-trash" ></i>
+                        </button>
+                    </div>
+                `;
+                content.style.backgroundColor = eventColor;
+
+                content.querySelector('.delete-event').addEventListener('click', function() {
+                    if (confirm('Are you sure you want to delete this event?')) {
+                        // Remove from calendar
+                        calendar.getEventById(event.id).remove();
+
+                        // Remove from database
+                        fetch(`/delete-event/${event.id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                console.log('Event deleted successfully.');
+                            } else {
+                                console.error('Failed to delete event.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    }
+                });
+
+                return { domNodes: [content] };
+            },
+            editable: true,
+            droppable: true,
+            eventResizableFromStart: true
+        });
+        calendar.render();
+    });
+</script>
+
+
+
+{{--   <script>--}}
+{{--    document.addEventListener('DOMContentLoaded', function () {--}}
+{{--        var calendarEl = document.getElementById('calendar');--}}
+
+{{--        // Ensure $events is correctly formatted and not empty--}}
+{{--        var events = @json($events);--}}
+
+{{--        var calendar = new FullCalendar.Calendar(calendarEl, {--}}
+{{--            initialView: 'dayGridMonth',--}}
+{{--            headerToolbar: {--}}
+{{--                right: 'prev,next today',--}}
+{{--                center: 'title',--}}
+{{--                left: 'dayGridMonth,timeGridWeek,timeGridDay'--}}
+{{--            },--}}
+
+{{--            themeSystem: 'bootstrap',--}}
+{{--            events: events,--}}
+{{--            eventContent: function(info) {--}}
+{{--                let event = info.event;--}}
+{{--                let content = document.createElement('div');--}}
+
+{{--                let eventColor;--}}
+{{--                let now = new Date();--}}
+
+{{--                // Check if the event is in the past--}}
+{{--                if (event.end && event.end < now) {--}}
+{{--                    eventColor = '#a03939'; // Color for past events--}}
+{{--                } else {--}}
+{{--                    eventColor = event.extendedProps.type === 'meeting' ? 'green' :--}}
+{{--                                 event.extendedProps.type === 'conference' ? '#a03939' : '#6576ff';--}}
+{{--                }--}}
+
+{{--                content.innerHTML = `--}}
+{{--                    Event: ${event.title}<br>--}}
+{{--                    Start: ${event.start.toISOString().split('T')[0]}<br>--}}
+{{--                    End: ${event.end ? event.end.toISOString().split('T')[0] : 'N/A'}<br>--}}
+{{--                    ${event.extendedProps.location ? 'Location: ' + event.extendedProps.location + '<br>' : ''}--}}
+{{--                    ${event.extendedProps.description ? 'Des: ' + event.extendedProps.description + '<br>' : ''}--}}
+{{--                  --}}
+{{--                `;--}}
+{{--                content.style.backgroundColor = eventColor;--}}
+
+{{--                return { domNodes: [content] };--}}
+{{--            },--}}
+{{--            editable: true,--}}
+{{--            droppable: true,--}}
+{{--            eventResizableFromStart: true--}}
+{{--        });--}}
+{{--        calendar.render();--}}
+{{--        // calendar.destroy(${event.id});--}}
+{{--    });--}}
+{{--</script>--}}
+
 @endpush
 
 

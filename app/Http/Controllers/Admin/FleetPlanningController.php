@@ -53,4 +53,16 @@ class FleetPlanningController extends Controller
         return redirect()->back()->with('success', "Event Created Successfully");
     }
 
+    public function destroy($id)
+    {
+        $event = FleetPlanning::find($id);
+
+        if ($event) {
+            $event->delete();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'Event not found'], 404);
+    }
+
 }

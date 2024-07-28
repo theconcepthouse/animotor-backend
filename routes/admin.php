@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Admin\AdminController;
+//use App\Http\Controllers\Admin\Appointment;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CancellationReasonController;
 use App\Http\Controllers\Admin\CarController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DriverPcnController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\FleetPlanningController;
 use App\Http\Controllers\Admin\FormController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuItemController;
@@ -196,6 +198,12 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('/generate-pdf/{formId}/{driverId}', [FormController::class, 'generatePDF'])->name('generatePDF');
 
     Route::get('vehicle', [VehicleController::class, 'index'])->name('vehicle.index');
+
+    Route::get('fleet/plans', [FleetPlanningController::class, 'index'])->name('fleet.index');
+    Route::post('store/plan', [FleetPlanningController::class, 'store'])->name('fleet.store');
+
+//    Route::get('fleet/plans', App\Http\Controllers\Admin\Appointment::class)->name('fleet.index');
+
 
 
 

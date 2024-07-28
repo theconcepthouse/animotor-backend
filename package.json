@@ -15,6 +15,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "fullcalendar": "^6.1.15",
         "vue-multiselect": "^2.1.7"
     }
 }

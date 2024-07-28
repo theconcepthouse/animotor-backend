@@ -329,7 +329,7 @@
 
 
     $menuArray[] = [
-        'url' => "#",
+        'url' => route('admin.fleet.index'),
         'text' => 'Fleet Planning',
         'route' => 'cars-read',
         'icon' => 'ni ni-calender-date',

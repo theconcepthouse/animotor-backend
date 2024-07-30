@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DocumentController;
 use App\Http\Controllers\Admin\DriverPcnController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\FaqsController;
+use App\Http\Controllers\Admin\FleetEventController;
 use App\Http\Controllers\Admin\FleetPlanningController;
 use App\Http\Controllers\Admin\FormController;
 use App\Http\Controllers\Admin\MenuController;
@@ -203,6 +204,10 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('store/plan', [FleetPlanningController::class, 'store'])->name('fleet.store');
     Route::delete('/delete-event/{id}', [FleetPlanningController::class, 'destroy']);
 
+    Route::get('fleet/events', [FleetEventController::class, 'index'])->name('fleetEvent');
+    Route::post('store/fleet/event', [FleetEventController::class, 'store'])->name('storeFleetEvent');
+    Route::put('fleet/events/{id}', [FleetEventController::class, 'update']);
+    Route::delete('fleet/events/{id}', [FleetEventController::class, 'destroy']);
 
 //    Route::get('fleet/plans', App\Http\Controllers\Admin\Appointment::class)->name('fleet.index');
 

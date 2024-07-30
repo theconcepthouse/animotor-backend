@@ -220,7 +220,7 @@
                             ${event.extendedProps.location ? 'Location: ' + event.extendedProps.location + '<br>' : ''}
                             ${event.extendedProps.description ? 'Des: ' + event.extendedProps.description + '<br>' : ''}
                         </div>
-                        <button class="delete-event" style="background: none; border: none; cursor: pointer;">
+                        <button type="submit" class="delete-event" style="background: none; border: none; cursor: pointer;">
                             <i class="fas fa-trash" ></i>
                         </button>
                     </div>
@@ -254,13 +254,19 @@
 
                 return { domNodes: [content] };
             },
-            editable: true,
-            droppable: true,
-            eventResizableFromStart: true
+
+            eventResizableFromStart: true,
+            height: 800,
+          contentHeight: 780,
+          aspectRatio: 3,
+          editable: true,
+          droppable: true,
+
         });
         calendar.render();
     });
 </script>
+
 
 
 

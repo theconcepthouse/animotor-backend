@@ -328,8 +328,14 @@
     ];
 
 
+//    $menuArray[] = [
+//        'url' => route('admin.fleet.index'),
+//        'text' => 'Fleet Planning',
+//        'route' => 'cars-read',
+//        'icon' => 'ni ni-calender-date',
+//    ];
     $menuArray[] = [
-        'url' => route('admin.fleet.index'),
+        'url' => route('admin.fleetEvent'),
         'text' => 'Fleet Planning',
         'route' => 'cars-read',
         'icon' => 'ni ni-calender-date',

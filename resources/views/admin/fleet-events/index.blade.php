@@ -320,6 +320,10 @@
                             <h6 class="overline-title">End Time</h6>
                             <p id="preview-event-end"></p>
                         </div>
+{{--                        <div class="col-sm-10" id="preview-event-location-check">--}}
+{{--                            <h6 class="overline-title">Location</h6>--}}
+{{--                            <p id="preview-event-location"></p>--}}
+{{--                        </div>--}}
                         <div class="col-sm-10" id="preview-event-description-check">
                             <h6 class="overline-title">Description</h6>
                             <p id="preview-event-description"></p>
@@ -521,7 +525,7 @@
         var className = info.event._def.ui.classNames[0].slice(3);
         var eventId = info.event._def.publicId;
 
-        //Set data in eidt form
+        //Set data in edit form
         $('#edit-event-title').val(title);
         $('#edit-event-start-date').val(startDate).datepicker('update');
         $('#edit-event-end-date').val(endDate).datepicker('update');
@@ -539,6 +543,7 @@
         $('#preview-event-header').addClass('fc-' + className);
         $('#preview-event-start').text(previewStart);
         $('#preview-event-end').text(previewEnd);
+        // $('#preview-event-location').text(location);
         $('#preview-event-description').text(description);
         !description ? $('#preview-event-description-check').css('display', 'none') : null;
         previewEventPopup.modal('show');

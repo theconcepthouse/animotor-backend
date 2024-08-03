@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PCNController;
 use App\Http\Controllers\Admin\RegionController;
 use App\Http\Controllers\Admin\RentalController;
+use App\Http\Controllers\Admin\ReportIncidentController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -36,7 +37,9 @@ use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Admin\VehicleMakeController;
 use App\Http\Controllers\Admin\VehicleModelController;
 use App\Http\Controllers\Admin\VehicleTypeController;
+use App\Http\Controllers\Admin\WorkshopController;
 use Illuminate\Support\Facades\Route;
+use Modules\AdvanceRental\Http\Controllers\IncidentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +100,6 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('region/{id}/airports', [RegionController::class,'airports'])->name('regions.airports');
     Route::get('region/all_zones/{id?}', [RegionController::class,'getAllZoneCordinates'])->name('regions.all_coordinates');
     Route::get('region/region/search', [RegionController::class,'search'])->name('regions.search');
-
 
 
     Route::resource('cancellation_reasons', CancellationReasonController::class);
@@ -209,7 +211,15 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::put('fleet/events/{id}', [FleetEventController::class, 'update']);
     Route::delete('fleet/events/{id}', [FleetEventController::class, 'destroy']);
 
-//    Route::get('fleet/plans', App\Http\Controllers\Admin\Appointment::class)->name('fleet.index');
+    Route::get('reported/incidents', [ReportIncidentController::class, 'index'])->name('incident.index');
+    Route::get('add/claim', [ReportIncidentController::class, 'addClaim'])->name('addClaim');
+    Route::get('edit/claim/{claimId}', [ReportIncidentController::class, 'editClaim'])->name('editClaim');
+    Route::post('update/claim-status/{claimId}', [ReportIncidentController::class, 'updateClaimStatus'])->name('updateClaimStatus');
+
+    Route::get('workshop', [WorkshopController::class, 'index'])->name('workshop.index');
+    Route::get('create/workshop', [WorkshopController::class, 'create'])->name('workshop.create');
+    Route::get('edit/workshop/{workshopId}', [WorkshopController::class, 'edit'])->name('workshop.edit');
+    Route::patch('update/workshop/{workshopId}', [WorkshopController::class, 'update'])->name('workshop.update');
 
 });
 

@@ -86,16 +86,7 @@
                                                 <label for="phone" class="form-label">Mobile Number</label>
                                                 <input type="tel" wire:model="phone" class="form-control" id="phone" name="phone" >
                                             </div>
-{{--                                            <div class="col-md-4">--}}
-{{--                                                <label for="hire_type" class="form-label">Hire Type</label>--}}
-{{--                                                <select class="form-control" id="hire_type" name="hire_type" wire:model="hire_type" >--}}
-{{--                                                    <option value="">Select Hire Type</option>--}}
-{{--                                                    <option value="Social domestic" {{ $user?->hire_type == 'Social domestic' ? 'selected' : '' }}>Social domestic</option>--}}
-{{--                                                    <option value="Rent to to buy" {{ $user?->hire_type == 'Rent to to buy' ? 'selected' : '' }}>Rent to to buy</option>--}}
-{{--                                                    <option value="Credit hire" {{ $user?->hire_type == 'Credit hire' ? 'selected' : '' }}>Credit hire</option>--}}
-{{--                                                    <option value="Insurance" {{ $user?->hire_type == 'Insurance' ? 'selected' : '' }}>Insurance</option>--}}
-{{--                                                </select>--}}
-{{--                                            </div>--}}
+
                                             <div class="col-md-4">
                                                 <input type="hidden" id="role" name="role" wire:model="{{ $role }}" >
                                             </div>

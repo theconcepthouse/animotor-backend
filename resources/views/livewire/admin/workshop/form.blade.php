@@ -372,17 +372,17 @@
                                                             <div class="row">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Card Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.card_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.card_number" class="form-control" >
                                                                     @error('billing_info.card_number') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Expiry Date <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.expiry_date" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.expiry_date" class="form-control" >
                                                                     @error('billing_info.expiry_date') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">CVV Code <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.card_cvv" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.card_cvv" class="form-control" >
                                                                     @error('billing_info.card_cvv') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>
@@ -392,27 +392,27 @@
                                                             <div class="row">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Recipient Name <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.recipient_name" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.recipient_name" class="form-control" >
                                                                     @error('billing_info.recipient_name') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">House Name/Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.house_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.house_number" class="form-control" >
                                                                     @error('billing_info.house_number') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Street Name <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.street" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.street" class="form-control" >
                                                                     @error('billing_info.street') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">City/Town <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.city" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.city" class="form-control" >
                                                                     @error('billing_info.city') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Post Code <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.postcode" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.postcode" class="form-control" >
                                                                     @error('billing_info.postcode') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>
@@ -424,32 +424,32 @@
                                                             <div class="row">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Account Name <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.acct_name" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.acct_name" class="form-control" >
                                                                     @error('billing_info.acct_name') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Account Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.acct_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.acct_number" class="form-control" >
                                                                     @error('billing_info.acct_number') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Sort Code <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.sortcode" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.sortcode" class="form-control" >
                                                                     @error('billing_info.sortcode') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">IBAN Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.iban" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.iban" class="form-control" >
                                                                     @error('billing_info.iban') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Bank <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.iban" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.iban" class="form-control" >
                                                                     @error('billing_info.iban') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Primary Phone Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.phone_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.phone_number" class="form-control" >
                                                                     @error('billing_info.phone_number') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
@@ -459,7 +459,7 @@
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Mobile Phone <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.phone" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.phone" class="form-control" >
                                                                     @error('billing_info.phone') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
@@ -518,27 +518,27 @@
                                                             <div class="row">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Recipient Name <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.recipient_name" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.recipient_name" class="form-control" >
                                                                     @error('billing_info.recipient_name') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">House Name/Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.house_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.house_number" class="form-control" >
                                                                     @error('billing_info.house_number') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Street Name <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.street" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.street" class="form-control" >
                                                                     @error('billing_info.street') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">City/Town <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.city" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.city" class="form-control" >
                                                                     @error('billing_info.city') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Post Code <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.postcode" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.postcode" class="form-control" >
                                                                     @error('billing_info.postcode') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>
@@ -548,24 +548,24 @@
                                                             <div class="row">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Account Type <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.account_type" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.account_type" class="form-control" >
                                                                     @error('billing_info.account_type') <span class="text-danger">{{ $message }}</span> @enderror
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Account Holder <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.account_holder" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.account_holder" class="form-control" >
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Account Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.account_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.account_number" class="form-control" >
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Routing Number <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.routing_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.routing_number" class="form-control" >
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="first_name" class="required">Account Phone No <span class="text-danger">*</span></label>
-                                                                    <input type="text" wire:model.defer="billing_info.routing_number" class="form-control" required>
+                                                                    <input type="text" wire:model.defer="billing_info.routing_number" class="form-control" >
                                                                 </div>
                                                             </div>
                                                          </div>
@@ -573,6 +573,135 @@
                                                 </div>
 
 
+                                          </div>
+
+                                        </div>
+
+                                      @endif
+                                      @if($step == 6)
+
+                                          <div wire:key="6" class="row justify-content-center">
+
+                                          <div>
+                                              <h4 class="mb-3 text-center">Document</h4>
+                                               <ul class="nav nav-tabs">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" data-bs-toggle="tab" href="#tabItem5"><span>Services</span></a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-bs-toggle="tab" href="#tabItem6"><span>Products</span></a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tabItem5">
+                                                         <div>
+                                                             <h5 class="mb-3 text-left">General Service</h5>
+                                                             <div class="card-inner">
+                                                                <div class="row gy-4">
+                                                                    <div class="col-lg-12 col-sm-6">
+                                                                        <div class="preview-block">
+{{--                                                                            <span class="preview-title overline-title">Enable All</span>--}}
+                                                                            <div class="custom-control custom-switch">
+                                                                                 <label class="custom-control-label" for="customSwitch1">Enable All</label>
+                                                                                <input type="checkbox"  class="custom-control-input" id="customSwitch1">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-6">
+                                                                        <div class="preview-block">
+{{--                                                                            <span class="preview-title overline-title">Interim Service</span>--}}
+                                                                            <div class="custom-control custom-switch ">
+                                                                                <input type="checkbox" wire:model.defer="service.interim_service" class="custom-control-input"  id="customSwitch2">
+                                                                                <label class="custom-control-label" for="customSwitch2">Interim Service</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-6">
+                                                                        <div class="preview-block">
+{{--                                                                            <span class="preview-title overline-title">Eng Oil & Filter Change</span>--}}
+                                                                            <div class="custom-control custom-switch ">
+                                                                                <input type="checkbox" class="custom-control-input"  id="customSwitch3">
+                                                                                <label class="custom-control-label" for="customSwitch3">Eng Oil & Filter Change</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-sm-6">
+                                                                        <div class="preview-block">
+{{--                                                                            <span class="preview-title overline-title">Full Service</span>--}}
+                                                                            <div class="custom-control custom-switch ">
+                                                                                <input type="checkbox" class="custom-control-input"  id="customSwitch4">
+                                                                                <label class="custom-control-label" for="customSwitch4">Full Service</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                 <hr>
+                                                                 <h5 class="mb-3 mt-4 text-left">Car Wash</h5>
+                                                                 <div class="row gy-4">
+                                                                    <div class="col-lg-3 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                 <label class="custom-control-label" for="customSwitch5">Outside Wash</label>
+                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch5">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                     <div class="col-lg-3 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                 <label class="custom-control-label" for="customSwitch6">In & Out</label>
+                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch6">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                     <div class="col-lg-3 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                 <label class="custom-control-label" for="customSwitch7">Special Service</label>
+                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch7">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                         </div>
+                                                    </div>
+                                                    <div class="tab-pane" id="tabItem6">
+                                                         <div>
+                                                             <h5 class="mb-3 text-left">General Service</h5>
+                                                             <div class="card-inner">
+                                                                <div class="row gy-4">
+                                                                    <div class="col-md-3 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <span class="preview-title overline-title">Default</span>
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch10">
+                                                                                <label class="custom-control-label" for="customSwitch10">Switch</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <span class="preview-title overline-title">Checked</span>
+                                                                            <div class="custom-control custom-switch checked">
+                                                                                <input type="checkbox" class="custom-control-input" checked="" id="customSwitch20">
+                                                                                <label class="custom-control-label" for="customSwitch20">Switch</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-12">
+                                                                        <p class="text-soft">For large or small size of <code>.custom-switch</code>, use <code>.custom-control-{lg|sm}</code> with <code>.custom-control</code> class.</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                         </div>
+
+                                                    </div>
+
+                                                </div>
                                           </div>
 
                                         </div>

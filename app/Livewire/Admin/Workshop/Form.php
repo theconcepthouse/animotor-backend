@@ -45,6 +45,27 @@ class Form extends Component
         'branch_image' => ''
     ];
 
+    public $billing_info = [
+        'card_number' => '',
+        'expiry_date' => '',
+        'card_cvv' => '',
+        'recipient_name' => '',
+        'house_number' => '',
+        'street' => '',
+        'city' => '',
+        'postcode' => '',
+        'acct_name' => '',
+        'acct_number' => '',
+        'sortcode' => '',
+        'iban' => '',
+        'bank' => '',
+        'phone_number' => '',
+        'sec_number' => '',
+        'phone' => '',
+        'contact_person' => '',
+        'status' => '',
+    ];
+
     public $contact_persons = [
         'first_name' => '',
         'last_name' => '',
@@ -232,6 +253,43 @@ class Form extends Component
              $update->update(['document' => $validatedData['document']]);
         }
         $this->successMsg();
+    }
+
+    public function saveBilling()
+    {
+        $validatedData = $this->validate([
+            'billing_info.card_number' => 'nullable|string',
+            'billing_info.expiry_date' => 'nullable|date_format:m/y',
+            'billing_info.card_cvv' => 'nullable|numeric|digits:3',
+            'billing_info.recipient_name' => 'nullable|string',
+            'billing_info.house_number' => 'nullable|string',
+            'billing_info.street' => 'nullable|string',
+            'billing_info.city' => 'nullable|string',
+            'billing_info.postcode' => 'nullable|string',
+            'billing_info.acct_name' => 'nullable|string',
+            'billing_info.acct_number' => 'nullable|numeric',
+            'billing_info.sortcode' => 'nullable|numeric',
+            'billing_info.iban' => 'nullable|string',
+            'billing_info.bank' => 'nullable|string',
+            'billing_info.phone_number' => 'nullable|numeric',
+            'billing_info.sec_number' => 'nullable|numeric',
+            'billing_info.phone' => 'nullable|numeric',
+            'billing_info.contact_person' => 'nullable|numeric',
+            'billing_info.status' => 'nullable|string'
+        ]);
+
+        dd($validatedData);
+        $workshop = Workshop::find($this->workshop?->id);
+        if ($workshop){
+            $workshop->update(['billing_info' => $validatedData['billing_info']]);
+        }
+        $update = Workshop::find($this->workshopId);
+        if ($update){
+             $update->update(['billing_info' => $validatedData['billing_info']]);
+        }
+        $this->successMsg();
+
+
     }
 
 

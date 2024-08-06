@@ -18,8 +18,10 @@ use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\FleetEventController;
 use App\Http\Controllers\Admin\FleetPlanningController;
 use App\Http\Controllers\Admin\FormController;
+use App\Http\Controllers\Admin\MailTrackerController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuItemController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\NoteController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PCNController;
@@ -220,6 +222,15 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('create/workshop', [WorkshopController::class, 'create'])->name('workshop.create');
     Route::get('edit/workshop/{workshopId}', [WorkshopController::class, 'edit'])->name('workshop.edit');
     Route::patch('update/workshop/{workshopId}', [WorkshopController::class, 'update'])->name('workshop.update');
+
+    Route::get('messages', [MessageController::class, 'index'])->name('message.index');
+    Route::post('send/message', [MessageController::class, 'store'])->name('message.store');
+    Route::get('sent/messages', [MessageController::class, 'sent'])->name('message.sent');
+    Route::get('show/message/{id}', [MessageController::class, 'show'])->name('message.show');
+
+    Route::get('mail-tracker', [MailTrackerController::class, 'index'])->name('mailTracker.index');
+    Route::get('create/mail-tracker', [MailTrackerController::class, 'create'])->name('mailTracker.create');
+    Route::get('edit/mail-tracker/{id}', [MailTrackerController::class, 'edit'])->name('mailTracker.edit');
 
 });
 

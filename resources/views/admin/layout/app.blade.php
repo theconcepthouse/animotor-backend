@@ -367,6 +367,18 @@
         'route' => 'cars-read',
         'icon' => 'ni ni-building',
     ];
+    $menuArray[] = [
+        'url' => route('admin.message.index'),
+        'text' => 'Message',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-mail',
+    ];
+    $menuArray[] = [
+        'url' => route('admin.mailTracker.index'),
+        'text' => 'Mail Tracker',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-mail-fill',
+    ];
 
     $menuArray[] = [
         'url' => route('admin.pcn.index'),

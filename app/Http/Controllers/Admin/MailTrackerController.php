@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\MailTracker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class MailTrackerController extends Controller
 {
@@ -21,7 +22,14 @@ class MailTrackerController extends Controller
 
     public function edit($id)
     {
-        $mail_tracker = MailTracker::findOrFail($id);
-        return view('admin.mail-tracker.edit', compact('mail_tracker'));
+        $mailtracker = MailTracker::findOrFail($id);
+        return view('admin.mail-tracker.edit', compact('mailtracker'));
+    }
+
+    public function destroy($id)
+    {
+        $mailtracker = MailTracker::find($id);
+        $mailtracker->delete();
+        return redirect()->back()->with('success', 'Mail Tracker has been deleted');
     }
 }

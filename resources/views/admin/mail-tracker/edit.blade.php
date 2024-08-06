@@ -8,7 +8,8 @@
                 <div class="nk-content-body">
                     <div class="nk-block">
 
-                            <livewire:admin.mail-tracker.form :$mail_tracker/>
+                            <livewire:admin.mail-tracker.form :mailTrackerId="$mailtracker->id"/>
+
 
                     </div>
                     <!-- .nk-block -->

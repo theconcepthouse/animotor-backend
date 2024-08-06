@@ -10,6 +10,7 @@ use Livewire\Component;
 
 class Form extends Component
 {
+    public $mailtracker;
     public $mail_tracker = [];
     public $details = [];
     public $status;
@@ -81,11 +82,9 @@ class Form extends Component
     public function saveTracker()
     {
         $validatedData = $this->validate();
-
         $mail_tracker = MailTracker::updateOrCreate(
-            ['id' => $this->mailTrackerId ?: Str::uuid()->toString()],
             [
-                'mail_tracker' => json_encode($this->mail_tracker),
+                'mail_tracker' => $this->mail_tracker,
                 'status' => $this->status
             ]
         );
@@ -93,7 +92,6 @@ class Form extends Component
         if (!$this->mailTrackerId) {
             $this->mailTrackerId = $mail_tracker->id;
         }
-
         $this->successMsg('Saved successfully.');
     }
 
@@ -111,9 +109,8 @@ class Form extends Component
             return;
         }
 
-        $mail_tracker->details = json_encode($this->details);
+        $mail_tracker->details = $this->details;
         $mail_tracker->save();
-
         $this->redirect('/admin/mail-tracker');
     }
 
@@ -128,8 +125,8 @@ class Form extends Component
     {
         $mailTracker = MailTracker::find($mailTrackerId);
         if ($mailTracker) {
-            $this->mail_tracker = json_decode($mailTracker->mail_tracker, true);
-            $this->details = json_decode($mailTracker->details, true) ?? [];
+            $this->mail_tracker = $mailTracker->mail_tracker;
+            $this->details = $mailTracker->details ?? [];
             $this->status = $mailTracker->status;
             $this->mailTrackerId = $mailTracker->id;
         } else {

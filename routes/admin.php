@@ -231,6 +231,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('mail-tracker', [MailTrackerController::class, 'index'])->name('mailTracker.index');
     Route::get('create/mail-tracker', [MailTrackerController::class, 'create'])->name('mailTracker.create');
     Route::get('edit/mail-tracker/{id}', [MailTrackerController::class, 'edit'])->name('mailTracker.edit');
+    Route::delete('destroy/mail-tracker/{id}', [MailTrackerController::class, 'destroy'])->name('mailTracker.destroy');
 
 });
 

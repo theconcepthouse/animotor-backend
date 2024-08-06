@@ -51,36 +51,26 @@
                                     </div>
                                 @endif
                                 <div class="card-inner">
-                                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                        <div class="d-flex">
-                                            <div class="form-control-wrap">
-                                                <div class="form-icon form-icon-right">
-                                                    <em class="icon ni ni-search"></em>
-                                                </div>
-                                                <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Start typing to search">
-                                            </div>
 
-                                        </div>
-
-
-                                        <div class="datatable-wrap- table-responsive my-3">
-                                            <table class="datatable-init- table-bordered nowrap table" data-export-title="{{ __('admin.export_title') }}">
+                                    <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="datatable-wrap my-3">
+                                            <table class="datatable-init-export nowrap table dataTable no-footer dtr-inline" data-export-title="Export" id="DataTables_Table_2" aria-describedby="DataTables_Table_2_info">
                                                 <thead>
-                                                <tr>
-                                                    <th>S/N</th>
-                                                    <th>VRM</th>
-                                                    <th>Full Name</th>
-                                                    <th>Type</th>
-                                                    <th>Claim Reference</th>
-                                                    <th>Date Of Incident</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">S/N</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >VRN</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Full Name</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Type</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Claim Reference</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Date Of Incident</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Status</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Action</th>
+                                                    </tr>
 
                                                 </thead>
                                                 <tbody>
                                                 @foreach($reports as $value => $item)
-                                                    <tr wire:key="item.id">
+                                                    <tr class="odd">
                                                         <td>{{ $value +1 }}</td>
                                                         <td><a href="#" class="btn btn-warning btn-sm">{{ $item->registration_number }}</a></td>
                                                         <td>{{ $item->first_name." ".$item->last_name }}</td>
@@ -89,7 +79,7 @@
                                                         <td>{{ $item->accident_date." ".$item->accident_time }}</td>
                                                         <td>
                                                              <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalDefault">
-                                                                 {!! $item->status() !!}</button>
+                                                                 {!! $item->status() !!}<em class="ni ni-edit-alt"></em> </button>
                                                              <div class="modal fade" tabindex="-1" id="modalDefault">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
@@ -141,21 +131,24 @@
                                                                 <a wire:navigate href="{{ route('admin.editClaim', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
 
                                                                 <a wire:navigate href="{{ route('admin.editClaim', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
-                                                                <a wire:navigate href="{{ route('admin.editClaim', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-file"></em></a>
+
+                                                                <form method="POST" action="{{ route('admin.workshop.destroy', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
+                                                                        <em class="icon ni ni-trash"></em>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </td>
 
                                                     </tr>
                                                 @endforeach
+
                                                 </tbody>
                                             </table>
-
-                                            <div class="d-flex mt-2">
-                                                {!! $reports->links() !!}
-                                            </div>
-
-
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

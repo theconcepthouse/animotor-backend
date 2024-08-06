@@ -51,77 +51,63 @@
                                     </div>
                                 @endif
                                 <div class="card-inner">
-                                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                        <div class="d-flex">
-                                            <div class="form-control-wrap">
-                                                <div class="form-icon form-icon-right">
-                                                    <em class="icon ni ni-search"></em>
-                                                </div>
-                                                <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Start typing to search">
-                                            </div>
+                                    <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="datatable-wrap my-3">
+                                            <table class="datatable-init-export nowrap table dataTable no-footer dtr-inline" data-export-title="Export" id="DataTables_Table_2" aria-describedby="DataTables_Table_2_info">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">S/N</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Company</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Branches</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Contact Person</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Documents</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Date Of Incident</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Status</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Action</th>
+                                                    </tr>
 
+                                                </thead>
+                                                <tbody>
+                                                @foreach($workshops as $value => $item)
+                                                    <tr class="odd">
+                                                        <td>{{ $value + 1 }}</td>
+                                                        <td><a href="#" class="btn btn-success btn-sm">{{ $item->company_info['company_name'] ?? 'N/A' }}</a></td>
+                                                        <td>
+                                                            {{ $item->branches['branch_name'] ?? 'N/A' }}
+                                                        </td>
+                                                        <td>
+                                                             {{ $item->contact_persons['first_name'] ?? 'N/A' }}
+                                                             {{ $item->contact_persons['last_name'] ?? '' }}
+                                                        </td>
+                                                        <td>
+                                                              {{ $item->document['document_type'] ?? 'N/A' }}
+                                                        </td>
+                                                        <td>{{ $item->date_of_incident ?? 'N/A' }}</td>
+                                                        <td>{{ $item->status }}</td>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <a wire:navigate href="{{ route('admin.workshop.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
+                                                                    <em class="icon ni ni-edit"></em>
+                                                                </a>
+                                                                <a wire:navigate href="{{ route('admin.workshop.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
+                                                                    <em class="icon ni ni-eye"></em>
+                                                                </a>
+                                                                <form method="POST" action="{{ route('admin.workshop.destroy', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
+                                                                        <em class="icon ni ni-trash"></em>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
+                                                </tbody>
+                                            </table>
                                         </div>
 
-
-
-                                        <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                            <div class="datatable-wrap my-3">
-                                                <table class="datatable-init-export nowrap table dataTable no-footer dtr-inline" data-export-title="Export" id="DataTables_Table_2" aria-describedby="DataTables_Table_2_info">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">S/N</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Company</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Branches</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Contact Person</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Documents</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Date Of Incident</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Status</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Action</th>
-                                                        </tr>
-
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($workshops as $value => $item)
-                                                        <tr class="odd">
-                                                            <td>{{ $value + 1 }}</td>
-                                                            <td><a href="#" class="btn btn-success btn-sm">{{ $item->company_info['company_name'] ?? 'N/A' }}</a></td>
-                                                            <td>
-                                                                {{ $item->branches['branch_name'] ?? 'N/A' }}
-                                                            </td>
-                                                            <td>
-                                                                 {{ $item->contact_persons['first_name'] ?? 'N/A' }}
-                                                                 {{ $item->contact_persons['last_name'] ?? '' }}
-                                                            </td>
-                                                            <td>
-                                                                  {{ $item->document['document_type'] ?? 'N/A' }}
-                                                            </td>
-                                                            <td>{{ $item->date_of_incident ?? 'N/A' }}</td>
-                                                            <td>{{ $item->status }}</td>
-                                                            <td>
-                                                                <div class="d-flex">
-                                                                    <a wire:navigate href="{{ route('admin.workshop.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
-                                                                        <em class="icon ni ni-edit"></em>
-                                                                    </a>
-                                                                    <a wire:navigate href="{{ route('admin.workshop.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
-                                                                        <em class="icon ni ni-eye"></em>
-                                                                    </a>
-                                                                    <form method="POST" action="{{ route('admin.workshop.destroy', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
-                                                                            <em class="icon ni ni-trash"></em>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                        </div>
                                     </div>
                                 </div>
                             </div>

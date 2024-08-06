@@ -31,4 +31,11 @@ class WorkshopController extends Controller
        return $request;
    }
 
+   public function destroy($workshopId)
+   {
+       $workshop = Workshop::find($workshopId);
+       $workshop->delete();
+       return redirect()->back()->with('success', 'Workshop has been deleted');
+   }
+
 }

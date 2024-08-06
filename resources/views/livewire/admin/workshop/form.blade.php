@@ -764,6 +764,201 @@
                                         </div>
 
                                       @endif
+                                      @if($step == 7)
+                                            <div class="container mt-5">
+                                        <ul class="nav nav-tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-bs-toggle="tab" href="#serviceCommission">Service Commission</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="tab" href="#productCommission">Product Commission</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="serviceCommission">
+                                                <div class="mt-3">
+
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label for="selectBranch" class="form-label">Select Branch (es)*</label>
+                                                        <select class="form-select" id="selectBranch">
+                                                            <option>All</option>
+                                                            <option>Branch 1</option>
+                                                            <option>Branch 2</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="selectService" class="form-label">Select Service*</label>
+                                                        <select class="form-select" id="selectService">
+                                                            <option>Select Service</option>
+                                                            <option>Service 1</option>
+                                                            <option>Service 2</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="selectSubService" class="form-label">Select Sub Service*</label>
+                                                        <select class="form-select" id="selectSubService">
+                                                            <option>Select Sub Service</option>
+                                                            <option>Sub Service 1</option>
+                                                            <option>Sub Service 2</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <div class="col-md-3">
+                                                        <label for="actualPrice" class="form-label">Actual Price</label>
+                                                        <input type="text" class="form-control" id="actualPrice" placeholder="$10">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="profitType" class="form-label">Profit</label>
+                                                        <select class="form-select" id="profitType">
+                                                            <option>Percentage</option>
+                                                            <option>Fixed Amount</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="profitPercentage" class="form-label">Profit Percentage</label>
+                                                        <input type="text" class="form-control" id="profitPercentage" placeholder="25%">
+                                                    </div>
+
+                                                </div>
+                                                 <div class="col-md-3">
+                                                        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                                                    </div>
+
+                                                </div>
+                                                <br>
+                                                 <div class="table-responsive mt-4">
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Service Name</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Commission</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Car Spa & Cleaning</td>
+                                                                    <td>£40</td>
+                                                                    <td>£20</td>
+                                                                    <td><span class="badge bg-success">Active</span></td>
+                                                                    <td>
+                                                                        <button class="btn btn-info">Edit</button>
+                                                                        <button class="btn btn-danger">Delete</button>
+                                                                    </td>
+                                                                </tr>
+                                                                <!-- Additional rows here -->
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="productCommission">
+                                                <!-- Similar structure for Product Commission -->
+                                                <div class="mt-3">
+                                                    <p>Product commission content goes here...</p>
+                                                   <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label for="selectBranchProduct" class="form-label">Select Branch (es)*</label>
+                                                        <select class="form-select" id="selectBranchProduct">
+                                                            <option>All</option>
+                                                            <option>Branch 1</option>
+                                                            <option>Branch 2</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="selectProduct" class="form-label">Select Product*</label>
+                                                        <select class="form-select" id="selectProduct">
+                                                            <option>Select product</option>
+                                                            <option>Product 1</option>
+                                                            <option>Product 2</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="selectSubProduct" class="form-label">Select Sub Product*</label>
+                                                        <select class="form-select" id="selectSubProduct">
+                                                            <option>Select Sub Product</option>
+                                                            <option>Sub Product 1</option>
+                                                            <option>Sub Product 2</option>
+                                                        </select>
+                                                    </div>
+                                                    </div>
+                                                    <div class="row mt-3">
+                <div class="col-md-3">
+                    <label for="actualPriceProduct" class="form-label">Actual Price</label>
+                    <input type="text" class="form-control" id="actualPriceProduct" placeholder="$10">
+                </div>
+                <div class="col-md-3">
+                    <label for="profitTypeProduct" class="form-label">Profit</label>
+                    <select class="form-select" id="profitTypeProduct">
+                        <option>Percentage</option>
+                        <option>Fixed Amount</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="profitPercentageProduct" class="form-label">Profit Percentage</label>
+                    <input type="text" class="form-control" id="profitPercentageProduct" placeholder="25%">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                </div>
+            </div>
+                                               </div>
+                                                <br>
+                                              <div class="table-responsive mt-4">
+                                                <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Amount</th>
+                        <th>Commission</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Battery</td>
+                        <td>£40</td>
+                        <td>£20</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>
+                            <button class="btn btn-info btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Car Wipers</td>
+                        <td>£40</td>
+                        <td>£20</td>
+                        <td><span class="badge bg-danger">Inactive</span></td>
+                        <td>
+                            <button class="btn btn-info btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tyres</td>
+                        <td>£40</td>
+                        <td>£20</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>
+                            <button class="btn btn-info btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                      @endif
                                   </div>
                               </div>
                         </div>

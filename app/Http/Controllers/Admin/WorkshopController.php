@@ -25,12 +25,6 @@ class WorkshopController extends Controller
        return view('admin.workshop.edit', compact('workshop'));
    }
 
-   public function update(Request $request, $workshopId)
-   {
-       $workshop = Workshop::findOrFail($workshopId);
-       return $request;
-   }
-
    public function destroy($workshopId)
    {
        $workshop = Workshop::find($workshopId);

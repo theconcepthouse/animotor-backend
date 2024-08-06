@@ -582,9 +582,9 @@
 
                                           <div wire:key="6" class="row justify-content-center">
 
-                                          <div>
-                                              <h4 class="mb-3 text-center">Document</h4>
-                                               <ul class="nav nav-tabs">
+                                                <div>
+                                                <h4 class="mb-3 text-center">Document</h4>
+                                                <ul class="nav nav-tabs">
                                                     <li class="nav-item">
                                                         <a class="nav-link active" data-bs-toggle="tab" href="#tabItem5"><span>Services</span></a>
                                                     </li>
@@ -594,115 +594,172 @@
                                                 </ul>
                                                 <div class="tab-content">
                                                     <div class="tab-pane active" id="tabItem5">
-                                                         <div>
-                                                             <h5 class="mb-3 text-left">General Service</h5>
-                                                             <div class="card-inner">
+                                                        <div>
+                                                            <h5 class="mb-3 text-left">General Service</h5>
+                                                            <div class="card-inner">
                                                                 <div class="row gy-4">
                                                                     <div class="col-lg-12 col-sm-6">
                                                                         <div class="preview-block">
-{{--                                                                            <span class="preview-title overline-title">Enable All</span>--}}
                                                                             <div class="custom-control custom-switch">
-                                                                                 <label class="custom-control-label" for="customSwitch1">Enable All</label>
-                                                                                <input type="checkbox"  class="custom-control-input" id="customSwitch1">
+                                                                                <input type="checkbox" class="custom-control-input" id="enableAllServices">
+                                                                                <label class="custom-control-label" for="enableAllServices">Enable All</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-4 col-sm-6">
                                                                         <div class="preview-block">
-{{--                                                                            <span class="preview-title overline-title">Interim Service</span>--}}
-                                                                            <div class="custom-control custom-switch ">
-                                                                                <input type="checkbox" wire:model.defer="service.interim_service" class="custom-control-input"  id="customSwitch2">
-                                                                                <label class="custom-control-label" for="customSwitch2">Interim Service</label>
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" wire:model.defer="service.interim_service" class="custom-control-input" id="interimService">
+                                                                                <label class="custom-control-label" for="interimService">Interim Service</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-4 col-sm-6">
                                                                         <div class="preview-block">
-{{--                                                                            <span class="preview-title overline-title">Eng Oil & Filter Change</span>--}}
-                                                                            <div class="custom-control custom-switch ">
-                                                                                <input type="checkbox" class="custom-control-input"  id="customSwitch3">
-                                                                                <label class="custom-control-label" for="customSwitch3">Eng Oil & Filter Change</label>
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="engOilAndFilterChange">
+                                                                                <label class="custom-control-label" for="engOilAndFilterChange">Eng Oil & Filter Change</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-4 col-sm-6">
                                                                         <div class="preview-block">
-{{--                                                                            <span class="preview-title overline-title">Full Service</span>--}}
-                                                                            <div class="custom-control custom-switch ">
-                                                                                <input type="checkbox" class="custom-control-input"  id="customSwitch4">
-                                                                                <label class="custom-control-label" for="customSwitch4">Full Service</label>
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="fullService">
+                                                                                <label class="custom-control-label" for="fullService">Full Service</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                 <hr>
-                                                                 <h5 class="mb-3 mt-4 text-left">Car Wash</h5>
-                                                                 <div class="row gy-4">
+                                                                <hr>
+                                                                <h5 class="mb-3 mt-4 text-left">Car Wash</h5>
+                                                                <div class="row gy-4">
+                                                                    <div class="col-lg-2 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="outsideWash">
+                                                                                <label class="custom-control-label" for="outsideWash">Outside Wash</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="inAndOut">
+                                                                                <label class="custom-control-label" for="inAndOut">In & Out</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="specialService">
+                                                                                <label class="custom-control-label" for="specialService">Special Service</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="miniValet">
+                                                                                <label class="custom-control-label" for="miniValet">Mini Valet</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-2 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="fullValet">
+                                                                                <label class="custom-control-label" for="fullValet">Full Valet</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                                 <h5 class="mb-3 mt-4 text-left">MOT</h5>
+                                                                <div class="row gy-4">
+                                                                    <div class="col-lg-12 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="MOTenable">
+                                                                                <label class="custom-control-label" for="MOTenable">Enable All</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="col-lg-3 col-sm-6">
                                                                         <div class="preview-block">
                                                                             <div class="custom-control custom-switch">
-                                                                                 <label class="custom-control-label" for="customSwitch5">Outside Wash</label>
-                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch5">
+                                                                                <input type="checkbox" class="custom-control-input" id="MOT">
+                                                                                <label class="custom-control-label" for="MOT">MOT</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                     <div class="col-lg-3 col-sm-6">
+                                                                    <div class="col-lg-3 col-sm-6">
                                                                         <div class="preview-block">
                                                                             <div class="custom-control custom-switch">
-                                                                                 <label class="custom-control-label" for="customSwitch6">In & Out</label>
-                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch6">
+                                                                                <input type="checkbox" class="custom-control-input" id="EngFilterChange">
+                                                                                <label class="custom-control-label" for="EngFilterChange">Eng Oil & Filter Change + MOT</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                     <div class="col-lg-3 col-sm-6">
+                                                                    <div class="col-lg-3 col-sm-6">
                                                                         <div class="preview-block">
                                                                             <div class="custom-control custom-switch">
-                                                                                 <label class="custom-control-label" for="customSwitch7">Special Service</label>
-                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch7">
+                                                                                <input type="checkbox" class="custom-control-input" id="FullServiceMOT">
+                                                                                <label class="custom-control-label" for="FullServiceMOT">Full Service + MOT</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
 
                                                                 </div>
                                                             </div>
-                                                         </div>
+                                                        </div>
                                                     </div>
                                                     <div class="tab-pane" id="tabItem6">
-                                                         <div>
-                                                             <h5 class="mb-3 text-left">General Service</h5>
-                                                             <div class="card-inner">
+                                                        <div>
+                                                            <h5 class="mb-3 text-left">General Service</h5>
+                                                            <div class="card-inner">
                                                                 <div class="row gy-4">
-                                                                    <div class="col-md-3 col-sm-6">
+                                                                    <div class="col-lg-12 col-sm-6">
                                                                         <div class="preview-block">
-                                                                            <span class="preview-title overline-title">Default</span>
                                                                             <div class="custom-control custom-switch">
-                                                                                <input type="checkbox" class="custom-control-input" id="customSwitch10">
-                                                                                <label class="custom-control-label" for="customSwitch10">Switch</label>
+                                                                                <input type="checkbox" class="custom-control-input" id="ProductEnable">
+                                                                                <label class="custom-control-label" for="ProductEnable">Enable All</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3 col-sm-6">
+                                                                    <div class="col-lg-3 col-sm-6">
                                                                         <div class="preview-block">
-                                                                            <span class="preview-title overline-title">Checked</span>
-                                                                            <div class="custom-control custom-switch checked">
-                                                                                <input type="checkbox" class="custom-control-input" checked="" id="customSwitch20">
-                                                                                <label class="custom-control-label" for="customSwitch20">Switch</label>
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="Tyre">
+                                                                                <label class="custom-control-label" for="Tyre">Tyre</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="Filter">
+                                                                                <label class="custom-control-label" for="Filter">Filter</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3 col-sm-6">
+                                                                        <div class="preview-block">
+                                                                            <div class="custom-control custom-switch">
+                                                                                <input type="checkbox" class="custom-control-input" id="Mirror">
+                                                                                <label class="custom-control-label" for="Mirror">Mirror</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12">
-                                                                        <p class="text-soft">For large or small size of <code>.custom-switch</code>, use <code>.custom-control-{lg|sm}</code> with <code>.custom-control</code> class.</p>
-                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                         </div>
-
+                                                        </div>
                                                     </div>
-
                                                 </div>
-                                          </div>
+                                            </div>
+
 
                                         </div>
 

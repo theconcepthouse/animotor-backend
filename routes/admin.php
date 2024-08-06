@@ -221,7 +221,6 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('workshop', [WorkshopController::class, 'index'])->name('workshop.index');
     Route::get('create/workshop', [WorkshopController::class, 'create'])->name('workshop.create');
     Route::get('edit/workshop/{workshopId}', [WorkshopController::class, 'edit'])->name('workshop.edit');
-    Route::patch('update/workshop/{workshopId}', [WorkshopController::class, 'update'])->name('workshop.update');
     Route::delete('destroy/workshop/{workshopId}', [WorkshopController::class, 'destroy'])->name('workshop.destroy');
 
     Route::get('messages', [MessageController::class, 'index'])->name('message.index');

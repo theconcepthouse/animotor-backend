@@ -205,6 +205,9 @@ return [
         App\Providers\MenuMacroServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
+//        ZanySoft\LaravelPDF\PdfServiceProvider::class
+
+
 
     ],
 
@@ -221,6 +224,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'PDF' => Barryvdh\DomPDF\Facade::class,
+//        'PDF' => ZanySoft\LaravelPDF\Facades\PDF::class
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

@@ -1,111 +1,300 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Hirer Details</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f6f6f6;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            width: 33%;
+            vertical-align: bottom; /* Aligns the content at the bottom */
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 18px; /* Space above the label */
+        }
+        .underline {
+            display: block;
+            border-bottom: 1px solid black;
+            margin-top: 4px; /* Space between the text and the underline */
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row ">
+        <div class="col-md-6">
+            <img height="70" width="160" src="https://animotor.co.uk/storage/photos/9a9ede47-d4e9-4205-b546-c6437d4914f5/ANI_Motors_Logo.jpg" alt="{{ env('APP_NAME') }}"  class="img-fluid">
+        </div>
+        <div style="align-items: flex-end; margin-left: 30em" >
+            <p>Phone: 01753424350</p>
+            <p>Email: info@animotor.co.uk</p>
+            <p>Web: www.animotor.co.uk</p>
+        </div>
+   </div>
+    <br>
+    <table>
+        <tbody>
+            <h3>Hirer Details </h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Hirer'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
+        <br>
+         <tbody style="margin-top: 20em;">
+            <h3>Address Details </h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Address'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
 
-    <title>{{ env('APP_NAME') }}</title>
-  </head>
-  <body>
+                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
+        <br>
+        <tbody >
+            <h3>Vehicle Details </h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Vehicle'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
 
-  <div class="container mt-3 ">
-        <div class="row ">
-            <div class="col-md-6">
-                <img src="path/to/logo.png" alt="Company Logo" class="img-fluid">
-            </div>
-            <div class="col-md-6 text-right">
-                <p>Phone: 01753424350</p>
-                <p>Email: info@animotor.co.uk</p>
-                <p>Web: www.animotor.co.uk</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <p>ANI Motors Ltd, Office 7 Albion House, 6 Albion Close, Slough SL2 5DT</p>
-            </div>
-        </div>
-        <div class="important-notice">
-            <p><strong>Important Notice: </strong>Lorem ipsum dolor sit amet consectetur. Et ipsum enim semper faucibus enim neque volutpat. At consectetur id potenti libero. Ipsum felis maecenas nulla nunc condimentum mauris. Dolor vel justo porta in elit eget. At diam ultricies posuere dignissim ultrices tristique quam. Elit metus proin viverra nec penatibus. Vitae nec nunc phasellus turpis.</p>
-        </div>
-        <div>
-            <div class="row mb-3 mt-3">
-            <div class="col-12 section-title">
-               <h4> Hirer Details:</h4>
-            </div>
-            </div>
-            <div class="row">
-                @foreach ($formFieldsJson['Hirer'] as $field)
-                    @php
-                        $shouldHide = in_array($field['fieldName'], ['work_phone', 'hire_type']);
-                    @endphp
-                     <div class="col-md-4 mb-5" id="pdf-{{ $field['fieldName'] }}" style="{{ $shouldHide ? 'display:none;' : '' }}">
-                        <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
-                         <br><br>
-                         <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
+        <br>
+           <tbody>
+            <h3>Signature Details</h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Signature'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="display: block; margin-bottom: 25px;">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+                    @if (isset($submittedData[$field['fieldName']]) && filter_var($submittedData[$field['fieldName']], FILTER_VALIDATE_URL))
+                        <!-- Check if it's a valid URL, and assume it's an image -->
+                        <img src="{{ $submittedData[$field['fieldName']] }}" alt="Signature Image" style="max-height: 100px; width: auto;">
+                    @else
+                        <!-- Display text or a placeholder if no image is available -->
+                        <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    @endif
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
 
-        <div>
-            <div class="row mb-3 mt-3">
-            <div class="col-12 section-title">
-               <h4> Address Details:</h4>
-            </div>
-            </div>
-            <div class="row">
-                @foreach ($formFieldsJson['Address'] as $field)
-                     <div class="col-md-4 mb-5">
-                        <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
-                         <br><br>
-                         <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        <div>
-            <div class="row mb-3 mt-3">
-                <div class="col-12 section-title">
-                   <h4> Vehicle Details:</h4>
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($formFieldsJson['Vehicle'] as $field)
-                     <div class="col-md-4 mb-5 mt-2">
-                        <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
-                         <br><br>
-                         <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-{{--      @pageBreak--}}
-       <div class="section">
-            <h2>Statement of Liability</h2>
-            <p>{{ $submittedData['statement_of_liability'] ?? '' }}</p>
-        </div>
-      <div class="mt-4">
-            <div class="row mb-3">
-            <div class="col-12 section-title">
-               <h4> Signature:</h4>
-            </div>
-            </div>
-            <div class="row">
-                @if(isset($submittedData['signature']))
-                <img src="{{ public_path('uploads/' . $submittedData['signature']) }}" alt="Signature">
-               @endif
-            </div>
-        </div>
-    </div>
+        <br>
+        <tbody>
+            <h3>Declaration Details</h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Declaration'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="display: block; margin-bottom: 25px;">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+                    @if (isset($submittedData[$field['fieldName']]) && filter_var($submittedData[$field['fieldName']], FILTER_VALIDATE_URL))
+                        <!-- Check if it's a valid URL, and assume it's an image -->
+                        <img src="{{ $submittedData[$field['fieldName']] }}" alt="Signature Image" style="max-height: 100px; width: auto;">
+                    @else
+                        <!-- Display text or a placeholder if no image is available -->
+                        <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    @endif
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+        <br>
+        <tbody >
+            <h3>Additional Fee </h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Additional Fee'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+
+                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
+        <br>
+        <tbody>
+            <h3>Hirer Insurance</h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Hirer Insurance'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="display: block; margin-bottom: 25px;">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+                    @if (isset($submittedData[$field['fieldName']]) && filter_var($submittedData[$field['fieldName']], FILTER_VALIDATE_URL))
+                        <!-- Check if it's a valid URL, and assume it's an image -->
+                        <img src="{{ $submittedData[$field['fieldName']] }}" alt="Signature Image" style="max-height: 100px; width: auto;">
+                    @else
+                        <!-- Display text or a placeholder if no image is available -->
+                        <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    @endif
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
+        <br>
+
+        <tbody>
+            <h3>Fleet Insurance</h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Fleet Insurance'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="display: block; margin-bottom: 25px;">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+                    @if (isset($submittedData[$field['fieldName']]) && filter_var($submittedData[$field['fieldName']], FILTER_VALIDATE_URL))
+                        <!-- Check if it's a valid URL, and assume it's an image -->
+                        <img src="{{ $submittedData[$field['fieldName']] }}" alt="Signature Image" style="max-height: 100px; width: auto;">
+                    @else
+                        <!-- Display text or a placeholder if no image is available -->
+                        <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    @endif
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
+        <br>
+        <tbody>
+            <h3>Documents</h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Documents'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="display: block; margin-bottom: 25px;">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+                    @if (isset($submittedData[$field['fieldName']]) && filter_var($submittedData[$field['fieldName']], FILTER_VALIDATE_URL))
+                        <!-- Check if it's a valid URL, and assume it's an image -->
+                        <img src="{{ $submittedData[$field['fieldName']] }}" alt="Signature Image" style="max-height: 100px; width: auto;">
+                    @else
+                        <!-- Display text or a placeholder if no image is available -->
+                        <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    @endif
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
+    </table>
+
+{{--    <div class="page-break"></div>--}}
+
+</div>
+</body>
 </html>

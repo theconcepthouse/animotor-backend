@@ -69,9 +69,9 @@
 {{--                                                                 @endphp--}}
 
                                                                 @if ($field['fieldType'] === 'text')
-                                                                    <input readonly type="text" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
+                                                                    <input  type="text" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
                                                                 @elseif ($field['fieldType'] === 'number')
-                                                                    <input readonly type="number" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
+                                                                    <input  type="number" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
                                                                 @elseif ($field['fieldType'] === 'email')
                                                                     <input type="email" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
                                                                 @elseif ($field['fieldType'] === 'date')

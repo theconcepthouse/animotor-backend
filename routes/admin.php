@@ -201,6 +201,9 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('/user/{driverId}/form/{formId}', [FormController::class, 'fetchCustomerForm'])->name('fetchCustomerForm');
     Route::post('/submit/customer/form/', [FormController::class, 'submitForm'])->name('submitForm');
     Route::get('/generate-pdf/{formId}/{driverId}', [FormController::class, 'generatePDF'])->name('generatePDF');
+    Route::get('/duplicate/form/{formId}/{driverId}', [FormController::class, 'duplicateForm'])->name('duplicateForm');
+    Route::get('/duplicated/form/{formId}/driver/{driverId}', [FormController::class, 'duplicatedForm'])->name('DuplicatedForm');
+    Route::post('/update/form/status', [FormController::class, 'updateStatus'])->name('updateStatus');
 
     Route::get('vehicle', [VehicleController::class, 'index'])->name('vehicle.index');
 

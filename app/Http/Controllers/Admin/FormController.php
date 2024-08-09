@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 //use function Spatie\LaravelPdf\Support\pdf;
 //use Spatie\Browsershot\Browsershot;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class FormController extends Controller
 {
@@ -89,7 +90,55 @@ class FormController extends Controller
     }
 
 
+    public function duplicateForm(Request $request, $formId, $driverId)
+    {
+        $driver = User::findOrFail($driverId);
+        $formData = FormData::where('driver_id', $driver->id)->first();
 
+        if ($formData)
+        {
+            $newFormData = new FormData();
+            $newFormData->id = Str::uuid();
+            $newFormData->driver_id = $formData->driver_id;
+            $newFormData->form_id = $formId;
+            $newFormData->field_data = $formData->field_data;
+            $newFormData->status_2 = 'new';
+            $newFormData->save();
+            return redirect()->route('admin.DuplicatedForm', ['formId' => $formId, 'driverId' => $driver])->with(['success' => 'Form has been duplicated']);
+        }
+        return redirect()->back()->with(['error' => 'Form not found']);
+    }
+
+    public function duplicatedForm($formId, $driverId)
+    {
+        $formData = FormData::where('form_id', $formId)->where('driver_id', $driverId)->get();
+        $driver = User::findOrFail($driverId);
+        return view('admin.driver.forms.duplicated-form', compact('formData', 'driver'));
+    }
+
+    private function selectPdfView($formName)
+    {
+        switch ($formName) {
+            case 'Customer Registration':
+                return 'admin.driver.pdfs.customer-registration';
+            case 'Hire Agreement':
+                return 'admin.driver.pdfs.hire-agreement';
+            case 'Onboarding Form':
+                return 'admin.driver.pdfs.onboarding';
+            case 'Proposal Form':
+                return 'admin.driver.pdfs.proposal';
+            case 'Checklist Form':
+                return 'admin.driver.pdfs.checklist';
+            case 'Payment Sheet':
+                return 'admin.driver.pdfs.payment-sheet';
+            case 'Return Vehicle':
+                return 'admin.driver.pdfs.return-vehicle';
+            case 'Report Vehicle Defect':
+                return 'admin.driver.pdfs.vehicle-defect';
+            default:
+                return null; // Return null if no matching view found
+        }
+    }
     public function generatePDF($formId, $driverId)
     {
         $form = Form::findOrFail($formId);
@@ -99,50 +148,43 @@ class FormController extends Controller
                             ->where('driver_id', $driverId)
                             ->first();
 
-        // Ensure the form fields are in JSON string format before decoding
-        $formFieldsJson = is_string($form->fields) ? json_decode($form->fields, true) : $form->fields;
-        $submittedData = $formData ? (is_string($formData->field_data) ? json_decode($formData->field_data, true) : $formData->field_data) : null;
+        // Decode the JSON data safely
+        $formFieldsJson = json_decode($form->fields ?? '[]', true);
+        $submittedData = json_decode($formData->field_data ?? '[]', true);
 
-        // Determine the view based on the form name
-        $view = '';
-        switch ($form->name) {
-            case 'Customer Registration':
-                $view = 'admin.driver.pdfs.customer-registration';
-                break;
-            case 'Hire Agreement':
-                $view = 'admin.driver.pdfs.hire-agreement';
-                break;
-            case 'Onboarding Form':
-                $view = 'admin.driver.pdfs.onboarding';
-                break;
-            case 'Proposal Form':
-                $view = 'admin.driver.pdfs.proposal';
-                break;
-            case 'Checklist Form':
-                $view = 'admin.driver.pdfs.checklist';
-                break;
-            case 'Payment Sheet':
-                $view = 'admin.driver.pdfs.payment-sheet';
-                break;
-            case 'Return Vehicle':
-                $view = 'admin.driver.pdfs.return-vehicle';
-                break;
-            case 'Report Vehicle Defect':
-                $view = 'admin.driver.pdfs.vehicle-defect';
-                break;
-            default:
-                return redirect()->back()->with('error', 'Invalid form type.');
+        // Select the view template based on the form name
+        $view = $this->selectPdfView($form->name);
+        if (!$view) {
+            return redirect()->back()->with('error', 'Invalid form type.');
         }
 
+        // Prepare data for the view
+        $data = [
+            'driver' => $driver,
+            'form' => $form,
+            'formFieldsJson' => $formFieldsJson,
+            'submittedData' => $submittedData
+        ];
 
-        // Generate the PDF
-        $data = ['driver' => $driver, 'form' => $form, 'formFieldsJson' => $formFieldsJson, 'submittedData' => $submittedData];
+        // Load the view into PDF generator
+        $pdf = PDF::loadView($view, $data);
 
-        $pdf = Pdf::loadView($view, compact('formFieldsJson'));
-        return $pdf->save($form->name.".pdf");
-//        return pdf()->view($view, compact('driver', 'form', 'formFieldsJson', 'submittedData'))
-//            ->format('a4')->name($form->name.".pdf");
+        // Return the generated PDF as a download
+        return $pdf->stream($form->name . ".pdf");
     }
+
+    public function updateStatus(Request $request)
+    {
+        $formId = $request->form_id;
+        $form = Form::find($formId);
+        $form->status = $request->status;
+        $form->save();
+        return redirect()->back()->with(['success' => 'Form status updated successfully']);
+    }
+
+
+
+
 
 
 

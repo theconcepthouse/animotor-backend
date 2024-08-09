@@ -24,55 +24,6 @@ class FormData extends Model
         return $this->belongsTo(Form::class);
     }
 
-//   public function isComplete()
-//{
-//    $form = $this->form;
-//    $fields = is_string($form->fields) ? json_decode($form->fields, true) : $form->fields;
-//
-//    foreach ($fields as $field) {
-//        // Check if 'required' key exists and is set to true
-//        if (isset($field['required']) && $field['required'] && !isset($this->field_data[$field['fieldName']])) {
-//            return false;
-//        }
-//    }
-//
-//    return true;
-//}
-
-//    public function isComplete()
-//    {
-//        $form = $this->form;
-//
-//        // Decode fields if they are stored as JSON
-//        $fields = is_string($form->fields) ? json_decode($form->fields, true) : $form->fields;
-//
-//        if (!is_array($fields)) {
-//            // Handle unexpected structure
-//            return 'Pending';
-//        }
-//
-//        $totalFields = count($fields);
-//        $filledFields = 0;
-//
-//        foreach ($fields as $field) {
-//            if (isset($field['fieldName']) && isset($field['required'])) {
-//                if ($field['required'] && !empty($this->field_data[$field['fieldName']])) {
-//                    $filledFields++;
-//                }
-//            } else {
-//                // Handle missing keys
-//                return 'Pending';
-//            }
-//        }
-//
-//        if ($filledFields === 0) {
-//            return '<span class="badge badge-sm badge-dim bg-outline-warning ">Pending</span>';
-//        } elseif ($filledFields < $totalFields) {
-//            return '<span class="badge badge-sm badge-danger ">Partially Filled</span>';
-//        } else {
-//            return '<span class="badge bg-success badge-success ">Completed</span>';
-//        }
-//    }
 
     protected static function boot()
     {
@@ -93,6 +44,15 @@ class FormData extends Model
     public function histories()
     {
         return $this->hasMany(History::class);
+    }
+
+    public function newStatus()
+    {
+        if ($this->status_2 == "new")
+        {
+            return "<span class='badge bg-warning'>New Form</span>";
+        }
+        return "<span class='badge bg-success'>Old Form</span>";
     }
 
 }

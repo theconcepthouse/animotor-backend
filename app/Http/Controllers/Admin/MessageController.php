@@ -41,7 +41,7 @@ class MessageController extends Controller
             'type' => 'nullable|integer',
             'read' => 'nullable|boolean'
         ]);
-        $validatedData['email_address'] = $emailAddresses;
+//        $validatedData['email_address'] = $emailAddresses;
         $validatedData['type'] = 1;
         Message::create($validatedData);
         return redirect()->back()->with('success', 'Message sent successfully.');

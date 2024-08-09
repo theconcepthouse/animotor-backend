@@ -12,7 +12,9 @@ use App\Models\Payment;
 use App\Models\Rate;
 use App\Models\User;
 use App\Services\DriverDocumentService;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 
 class DriversController extends Controller
@@ -128,10 +130,17 @@ class DriversController extends Controller
         $formId = $request->get('form_id');
         $newData = $request->except(['_token', 'driver_id', 'form_id', 'sending_method']);
 
-        FormData::updateOrCreate(
-            ['driver_id' => $user->id, 'form_id' => $formId],
-            ['field_data' => json_encode($newData), 'status' => 'Pending']
-        );
+        $formData = new FormData();
+        $formData->id = Str::uuid();
+        $formData->driver_id = $user->id;
+        $formData->form_id = $formId;
+        $formData->field_data = json_encode($newData);
+        $formData->save();
+//        FormData::updateOrCreate(
+//            ['id' => Str::uuid()],
+//            ['driver_id' => $user->id, 'form_id' => $formId],
+//            ['field_data' => json_encode($newData), 'status' => 'Pending']
+//        );
 
         return redirect()->back()->with(['success' => 'Driver successfully created']);
 

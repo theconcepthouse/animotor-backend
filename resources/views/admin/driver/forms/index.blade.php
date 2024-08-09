@@ -13,6 +13,15 @@
                      <div class="container mb-3 mt-4">
                          <h4>Driver Name: {{ $user->name }}</h4>
                      </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="components-preview wide-md- mx-auto">
 
                            <div class="nk-block">
@@ -73,14 +82,16 @@
                                                             <span class="tb-lead">{{ $item->sending_method ? : "Not Set" }}</span>
                                                         </div>
                                                         <div class="nk-tb-col">
-                                                            <span class="tb-sub">{!! $item->isComplete() !!}</span>
+                                                            <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item?->id }}">{!! $item->status() !!}</button>
+{{--                                                            <span class="tb-sub">{!! $item->isComplete() !!}</span>--}}
                                                         </div>
 
                                                          <div class="nk-tb-col">
                                                             <div class="nk-tb-col nk-tb-col-tools">
+                                                                 <input type="hidden" name="form_id" value="{{ $item->id }}">
                                                                 <ul style="justify-content: center" class="nk-tb-actions gx-2">
                                                                     <li class="nk-tb-action">
-                                                                        <a href="#" class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Approve"><em class="icon ni ni-search"></em></a>
+                                                                        <a href="{{ route('admin.duplicateForm', ['formId' => $item->id, 'driverId' => $user->id]) }}" class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>
                                                                     </li>
                                                                     <li class="nk-tb-action">
                                                                         <a href="{{ route('admin.addDocument', $user->id) }}" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Document" data-bs-original-title="Details"><em class="icon ni ni-upload-cloud"></em></a>
@@ -92,13 +103,47 @@
                                                                         <a href="{{ route('admin.generatePDF', ['formId' => $item->id, 'driverId' => $user->id]) }}" target="_blank" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Document"><em class="icon ni ni-file"></em></a>
                                                                     </li>
                                                                     <li class="nk-tb-action">
-                                                                        <a href="#tranxDetails" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Notes"><em class="icon ni ni-edit"></em></a>
+                                                                        <a href="{{ route('admin.notes', $user->id) }}" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Notes"><em class="icon ni ni-edit"></em></a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
                                                         </div>
 
                                                     </div>
+
+                                                    <div class="modal fade" tabindex="-1" id="modalDefault-{{ $item?->id }}"  aria-modal="true" role="dialog">
+                                                         <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Modal Title</h5>
+                                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <em class="icon ni ni-cross"></em>
+                                                        </a>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <form action="{{ route('admin.updateStatus') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="form_id" value="{{ $item?->id }}">
+                                                            <div class="row">
+                                                                <div class="col-lg-10">
+                                                                    <select name="status" class="form-control" id="">
+                                                                        <option selected disabled>Select Status</option>
+                                                                        <option value="pending">Pending</option>
+                                                                        <option value="in-progress">In-Progress</option>
+                                                                        <option value="completed">Completed</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-8 mt-3">
+                                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+
+
                                                 @endforeach
 
 
@@ -140,7 +185,7 @@
                                                                 <span class="tb-lead">{{ $item->sending_method ? : "Not Set" }}</span>
                                                             </div>
                                                             <div class="nk-tb-col">
-                                                                <span class="tb-sub">{!! $item->status() !!}</span>
+                                                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item?->id }}">{!! $item->status() !!}</button>
                                                             </div>
                                                              <div class="nk-tb-col">
                                                                 <div class="nk-tb-col nk-tb-col-tools">
@@ -157,14 +202,47 @@
                                                                         <li class="nk-tb-action">
                                                                             <a href="{{ route('admin.generatePDF', ['formId' => $item->id, 'driverId' => $user->id]) }}" target="_blank" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Document"><em class="icon ni ni-file"></em></a>
                                                                         </li>
-                                                                        <li class="nk-tb-action">
-                                                                            <a href="#tranxDetails"  class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Details"><em class="icon ni ni-edit"></em></a>
+                                                                         <li class="nk-tb-action">
+                                                                            <a href="{{ route('admin.notes', $user->id) }}" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Notes"><em class="icon ni ni-edit"></em></a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
                                                             </div>
 
                                                         </div>
+
+                                                         <div class="modal fade" tabindex="-1" id="modalDefault-{{ $item?->id }}"  aria-modal="true" role="dialog">
+                                                         <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Modal Title</h5>
+                                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <em class="icon ni ni-cross"></em>
+                                                        </a>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <form action="{{ route('admin.updateStatus') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="form_id" value="{{ $item?->id }}">
+                                                            <div class="row">
+                                                                <div class="col-lg-10">
+                                                                    <select name="status" class="form-control" id="">
+                                                                        <option selected disabled>Select Status</option>
+                                                                        <option value="pending">Pending</option>
+                                                                        <option value="in-progress">In-Progress</option>
+                                                                        <option value="completed">Completed</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-8 mt-3">
+                                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+
                                                     @endforeach
 
 

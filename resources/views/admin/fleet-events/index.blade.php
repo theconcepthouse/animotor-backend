@@ -165,7 +165,7 @@
                                     <select id="event-theme" name="category" class="select-calendar-theme form-control" data-search="on">
                                         <option value="event-primary">Company</option>
                                         <option value="event-warning">Meeting</option>
-                                        <option value="event-success">Seminars</option>
+                                        <option value="event-success">Mail Tracker</option>
                                         <option value="event-info">PCN Event</option>
                                         <option value="event-danger">MOT Event</option>
                                     </select>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Addons\pcn;
 use App\Models\DriverPcn;
+use App\Models\FleetEvent;
 use App\Models\Form;
 use App\Models\History;
 use App\Models\Note;
@@ -71,7 +72,14 @@ class DriverPcnController extends Controller
         $driver = User::findOrFail($driverId);
         $pcn = DriverPcn::findOrFail($pcnId);
         $pcn->update($validated);
-        return redirect()->route('admin.driverPcn', ['driverId' => $driver->id])->with('message', 'PCN updated successfully.');
+
+        $event = new FleetEvent();
+        $event->title = "PCN Event";
+        $event->start_date = $pcn->created_at;
+        $event->end_date = $pcn->reminder;
+        $event->category = "event-info";
+        $event->save();
+        return redirect()->route('admin.driverPcn', ['driverId' => $driver->id])->with('message', 'PCN updated successfully');
     }
 
     public function deleteDriverPcn($pcnId)

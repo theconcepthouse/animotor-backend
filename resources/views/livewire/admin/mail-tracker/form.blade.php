@@ -91,8 +91,10 @@
                                                     <label for="type" class="form-label">Type</label>
                                                     <select class="form-select" id="type" wire:model="mail_tracker.type">
                                                         <option selected disabled>Choose...</option>
-                                                        <option value="Type 1">Type 1</option>
-                                                        <option value="Type 2">Type 2</option>
+                                                        <option value="HMRC">HMRC</option>
+                                                        <option value="Legal">Legal</option>
+                                                        <option value="Insurance">Insurance</option>
+                                                        <option value="Finance Comp">Finance Comp</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
@@ -148,8 +150,7 @@
                                                     <div class="col-md-6">
                                                         <label for="fileUploadLocation" class="form-label">File upload location</label>
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" id="fileUploadLocation" placeholder="No Target audience selected" wire:model="details.file_upload_location">
-                                                            <button class="btn btn-outline-secondary" type="button">Change</button>
+                                                            <input type="file" class="form-control" id="fileUploadLocation" placeholder="No Target audience selected" wire:model="details.file_upload_location">
                                                         </div>
                                                     </div>
                                                 </div>

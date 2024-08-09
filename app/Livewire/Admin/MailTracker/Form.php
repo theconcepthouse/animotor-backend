@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Admin\MailTracker;
 
+use App\Models\FleetEvent;
 use App\Models\MailTracker;
 use App\Models\Workshop;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -82,12 +84,20 @@ class Form extends Component
     public function saveTracker()
     {
         $validatedData = $this->validate();
+//        dd($validatedData['mail_tracker']['deadline_date']);
         $mail_tracker = MailTracker::updateOrCreate(
             [
                 'mail_tracker' => $this->mail_tracker,
                 'status' => $this->status
             ]
         );
+
+        $event = new FleetEvent();
+        $event->title = "Mail Tracker Event";
+        $event->start_date = $mail_tracker->updated_at;
+        $event->end_date = Carbon::parse($mail_tracker->mail_tracker['deadline_date']);
+        $event->category = "event-success";
+        $event->save();
 
         if (!$this->mailTrackerId) {
             $this->mailTrackerId = $mail_tracker->id;
@@ -98,7 +108,6 @@ class Form extends Component
    public function saveDetails()
     {
         $validatedData = $this->validate();
-
         if (!$this->mailTrackerId) {
             $this->addError('mailTracker', 'No Mail Tracker ID provided.');
             return;

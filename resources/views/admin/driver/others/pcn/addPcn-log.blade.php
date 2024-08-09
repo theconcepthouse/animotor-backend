@@ -78,7 +78,7 @@
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="form-label" for="dateOfContravention">Reminder</label>
-                                                            <input type="text" class="form-control" id="dateOfContravention" name="reminder" placeholder="Reminder">
+                                                            <input type="date" class="form-control" id="dateOfContravention" name="reminder" placeholder="Reminder">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <div class="custom-control custom-checkbox">

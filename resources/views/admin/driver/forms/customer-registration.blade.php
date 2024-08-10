@@ -45,6 +45,8 @@
 
                                                 <input type="hidden" name="driver_id" value="{{ $driver->id }}">
                                                 <input type="hidden" name="form_id" value="{{ $form->id }}">
+                                                @include('admin.partials.form.text', ['attributes' => 'disabled', 'colSize' => 'col-md-4', 'value' => $role, 'fieldName' => 'role', 'type' => 'hidden','title' => ''])
+                                                    <input name="role" type="hidden" value="{{ $role }}" />
 
                                                 <div class="row">
                                                     @foreach ($formFieldsJson as $field)

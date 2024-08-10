@@ -72,13 +72,13 @@
                                                             @endphp
 
                                                                 @if ($field['fieldType'] === 'text')
-                                                                <input type="text" readonly class="form-control bg" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
+                                                                <input type="text"  class="form-control bg" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
                                                             @elseif ($field['fieldType'] === 'email')
-                                                                <input type="email" readonly class="form-control bg" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
+                                                                <input type="email" class="form-control bg" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
                                                             @elseif ($field['fieldType'] === 'number')
-                                                                <input type="number" readonly class="form-control bg" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
+                                                                <input type="number" class="form-control bg" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
                                                             @elseif ($field['fieldType'] === 'date')
-                                                                <input type="date" readonly class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
+                                                                <input type="date" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" >
                                                             @elseif ($field['fieldType'] === 'select')
                                                                 <select class="form-control"  id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" >
                                                                     @foreach ($field['options'] as $option)

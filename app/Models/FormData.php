@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class FormData extends Model
 {
@@ -13,6 +14,7 @@ class FormData extends Model
     protected $casts = [
         'field_data' => 'array',
     ];
+    public $incrementing = false;
 
     public function user()
     {
@@ -39,7 +41,15 @@ class FormData extends Model
                 ]);
             }
         });
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid()->toString();
+            }
+        });
     }
+
+
 
     public function histories()
     {

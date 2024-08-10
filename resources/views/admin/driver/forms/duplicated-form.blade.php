@@ -53,7 +53,7 @@
                                                             {!! $item->newStatus() !!}
                                                         </div>
                                                          <div class="nk-tb-col">
-                                                            <span class="tb-sub">{!! $item->form->isComplete() !!}</span>
+                                                            <span class="tb-sub">{!! $item->form->status() !!}</span>
                                                         </div>
 
                                                          <div class="nk-tb-col">

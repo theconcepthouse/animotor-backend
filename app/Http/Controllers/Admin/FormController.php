@@ -58,13 +58,14 @@ class FormController extends Controller
 
     public function submitForm(Request $request)
     {
-        $driverId = $request->get('driver_id');
-        $formId = $request->get('form_id');
+        $formData = new FormData([
+        'driver_id' => $request->get('driver_id'),
+        'form_id' => $request->get('form_id'),
+        'field_data' => json_encode($request->except(['_token', 'driver_id', 'form_id', 'sending_method'])),
+        'status' => 'Pending'
+    ]);
 
-        FormData::updateOrCreate(
-            ['driver_id' => $driverId, 'form_id' => $formId],
-            ['field_data' => json_encode($request->except(['_token', 'driver_id', 'form_id', 'sending_method'])), 'status' => 'Pending']
-        );
+    $formData->save();
 
         return redirect()->back()->with(['success' => 'Form submitted successfully']);
     }
@@ -93,8 +94,7 @@ class FormController extends Controller
     public function duplicateForm(Request $request, $formId, $driverId)
     {
         $driver = User::findOrFail($driverId);
-        $formData = FormData::where('driver_id', $driver->id)->first();
-
+        $formData = FormData::where('driver_id', $driver->id)->where('form_id', $formId)->first();
         if ($formData)
         {
             $newFormData = new FormData();
@@ -106,7 +106,7 @@ class FormController extends Controller
             $newFormData->save();
             return redirect()->route('admin.DuplicatedForm', ['formId' => $formId, 'driverId' => $driver])->with(['success' => 'Form has been duplicated']);
         }
-        return redirect()->back()->with(['error' => 'Form not found']);
+        return redirect()->back()->with(['message' => 'Form Data not found']);
     }
 
     public function duplicatedForm($formId, $driverId)

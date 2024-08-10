@@ -22,6 +22,12 @@
                             </ul>
                         </div>
                     @endif
+
+                    @if(session()->has('message'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <div class="components-preview wide-md- mx-auto">
 
                            <div class="nk-block">

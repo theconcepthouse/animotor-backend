@@ -15,28 +15,9 @@ class FleetEventController extends Controller
         $events = FleetEvent::where('end_date', '<', now())->get();
         return view('admin.fleet-events.list', compact('events'));
     }
-    public function index()
-    {
-        $events = FleetEvent::all();
-        $categories = FleetEvent::distinct('category')->pluck('category');
-        $formattedEvents = $events->map(function ($event) {
-            return [
-                'id' => $event->id,
-                'title' => $event->title,
-                'start' => $event->start_date->toIso8601String(),
-                'end' => $event->end_date ? $event->end_date->toIso8601String() : null,
-                'description' => $event->description,
-                'location' => $event->location,
-                'category' => $event->category,
-                'className' => "fc-event-{$event->category}",
-                'status' => $event->status,
-            ];
-        });
 
-        return view('admin.fleet-events.index', ['events' => $formattedEvents, 'categories' => $categories]);
-    }
-    public function filteredEvent(Request $request)
-{
+    public function index(Request $request)
+    {
     $category = $request->category;
     $categories = FleetEvent::distinct('category')->pluck('category');
 
@@ -60,7 +41,7 @@ class FleetEventController extends Controller
         ];
     });
 
-    return view('admin.fleet-events.filtered-events', ['events' => $formattedEvents, 'categories' => $categories]);
+    return view('admin.fleet-events.index', ['events' => $formattedEvents, 'categories' => $categories]);
 }
 
     public function store(Request $request)

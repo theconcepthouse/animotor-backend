@@ -55,33 +55,50 @@
             <div class="nk-content-inner">
                 <div class="nk-content-body">
                     <div class="nk-block-head nk-block-head-sm">
+
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
                                 <h3 class="nk-block-title page-title">Fleet Events</h3>
                             </div><!-- .nk-block-head-content -->
-                            <form action="{{ route('admin.filteredEvent') }}" method="POST">
-                                @csrf
-                                <div class="mb-3">
-                                <div class="form-group mb-3">
-                                    <label for="category-filter" class="form-label">Filter by Category</label>
-                                    <select id="category-filter" class="form-select" name="category">
-                                        <option value="">All Categories</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category }}">{{ $category }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <button class="btn btn-primary" type="submit">Filter</button>
-                            </div>
-                            </form>
+
                             <div class="nk-block-head-content">
 
-                                <a class="btn btn-secondary" href="{{ route('admin.pastEvents') }}" wire:navigate><em
-                                        class="icon ni ni-eye"></em><span>View Past Events</span></a>
-                                <a class="btn btn-primary" data-bs-toggle="modal" href="#addEventPopup"><em
+                               <div class="row">
+                                   <div class="col-lg-6 col-md-8 mb-2">
+                                    <a class="btn btn-secondary" href="{{ route('admin.pastEvents') }}" wire:navigate><em
+                                        class="icon ni ni-eye"></em><span>Past Events</span></a>
+                               </div>
+                                <div class="col-lg-6 col-md-8 ">
+                                    <a class="btn btn-primary" data-bs-toggle="modal" href="#addEventPopup"><em
                                         class="icon ni ni-plus"></em><span>Add Event</span></a>
+                                </div>
+                               </div>
                             </div><!-- .nk-block-head-content -->
                         </div><!-- .nk-block-between -->
+
+                        <div class="col-8 mt-3">
+                            <form action="{{ route('admin.filteredEvent') }}" method="GET">
+                                @csrf
+                                <div class="mt-5">
+                                    <div class="col-lg-4 col-md-12">
+                                        <div class="form-control-wrap">
+                                             <label for="category-filter" class="form-label">Filter by Category</label>
+                                            <div class="input-group">
+                                                    <select id="category-filter" class="form-select" name="category">
+                                                        <option value="">All Categories</option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category }}">{{ $category }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-outline-primary btn-dim">Filter</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </form>
+                        </div>
                     </div><!-- .nk-block-head -->
                     <div class="nk-block">
                         <div class="card card-bordered">

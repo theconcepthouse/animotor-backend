@@ -218,6 +218,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::delete('fleet/events/{id}', [FleetEventController::class, 'destroy'])->name('event.destroy');
     Route::get('view/fleet/event/{id}', [FleetEventController::class, 'viewEvent'])->name('viewEvent');
     Route::post('update/fleet/event/', [FleetEventController::class, 'updateStatus'])->name('event.updateStatus');
+    Route::post('filter/fleet/event/', [FleetEventController::class, 'filteredEvent'])->name('filteredEvent');
 
     Route::get('reported/incidents', [ReportIncidentController::class, 'index'])->name('incident.index');
     Route::get('add/claim', [ReportIncidentController::class, 'addClaim'])->name('addClaim');

@@ -51,7 +51,7 @@
     </style>
 
     <div style="margin-top: 50px" class="nk-content ">
-        <div class="container-fluid" >
+        <div class="container-fluid" wire:poll.50s>
             <div class="nk-content-inner">
                 <div class="nk-content-body">
                     <div class="nk-block-head nk-block-head-sm">
@@ -62,17 +62,17 @@
                             <form action="{{ route('admin.filteredEvent') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
-                                    <div class="form-group mb-3">
-                                        <label for="category-filter" class="form-label">Filter by Category</label>
-                                        <select id="category-filter" class="form-select" name="category">
-                                            <option value="">All Categories</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category }}">{{ $category }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <button class="btn btn-primary" type="submit">Filter</button>
+                                <div class="form-group mb-3">
+                                    <label for="category-filter" class="form-label">Filter by Category</label>
+                                    <select id="category-filter" class="form-select" name="category">
+                                        <option value="">All Categories</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category }}">{{ $category }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+                                <button class="btn btn-primary" type="submit">Filter</button>
+                            </div>
                             </form>
                             <div class="nk-block-head-content">
 

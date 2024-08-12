@@ -265,7 +265,7 @@
 
          $menuArray[] = [
         'text' => 'Vehicle',
-         'url' => route('admin.cars.index'),
+         'url' => route('admin.vehicle.index'),
         'icon' => 'ni ni-truck',
         'route' => 'cars-read'
     ];

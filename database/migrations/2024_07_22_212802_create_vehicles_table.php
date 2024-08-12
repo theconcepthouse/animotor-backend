@@ -15,18 +15,6 @@ return new class extends Migration
 //            $table->id();
             $table->uuid('id')->primary();
             $table->uuid('driver_id')->nullable();
-            $table->string('title')->nullable();
-            $table->string('make')->nullable();
-            $table->boolean('is_available')->default(true);
-            $table->decimal('price_per_day')->default(10);
-            $table->string('model')->nullable();
-            $table->string('type')->nullable();
-            $table->string('year')->nullable();
-            $table->string('color')->nullable();
-            $table->string('gear')->nullable();
-            $table->integer('door')->nullable();
-            $table->string('vehicle_no')->nullable();
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -10,7 +10,25 @@ class VehicleController extends Controller
 {
     public function index()
     {
-        $vehicles = Vehicle::paginate(10);
+        $vehicles = Vehicle::latest()->paginate(100);
         return view('admin.vehicle.index', compact('vehicles'));
+    }
+
+    public function create()
+    {
+        return view('admin.vehicle.create');
+    }
+
+    public function edit($vehicleId)
+    {
+        $vehicle = Vehicle::find($vehicleId);
+        return view('admin.vehicle.edit', compact('vehicle'));
+    }
+
+    public function destroy($vehicleId)
+    {
+        $vehicle = Vehicle::find($vehicleId);
+        $vehicle->delete();
+        return redirect()->back()->with('success', 'Vehicle deleted successfully');
     }
 }

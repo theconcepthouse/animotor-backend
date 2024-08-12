@@ -25,7 +25,7 @@
                                             <div class="toggle-expand-content" data-content="pageMenu">
                                                 <ul class="nk-block-tools g-3">
                                                     <li  wire:ignore  class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" wire:navigate href="{{ route('admin.addDriver') }}"><em class="icon ni ni-user-add"></em><span>Add Vehicle</span></a>
+                                                        <a class="btn btn-primary" wire:navigate href="{{ route('admin.vehicle.create') }}"><em class="icon ni ni-plus"></em><span>Add Vehicle</span></a>
                                                     </li>
 
                                                 </ul>
@@ -40,63 +40,54 @@
                             <div class="card card-bordered card-preview">
 
                                 <div class="card-inner">
-                                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                        <div class="d-flex">
-                                            <div class="form-control-wrap">
-                                                <div class="form-icon form-icon-right">
-                                                    <em class="icon ni ni-search"></em>
-                                                </div>
-                                                <input wire:model.live="search" type="text" class="form-control" id="default-04" placeholder="Start typing to search">
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="datatable-wrap- table-responsive my-3">
-
-                                            <table class="datatable-init- table-bordered nowrap table" data-export-title="{{ __('admin.export_title') }}">
+                                    <div id="DataTables_Table_2_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="datatable-wrap my-3">
+                                            <table class="datatable-init-export nowrap table dataTable no-footer dtr-inline" data-export-title="Export" id="DataTables_Table_2" aria-describedby="DataTables_Table_2_info">
                                                 <thead>
                                                     <tr>
-                                                        <th><input type="checkbox" wire:model.live="selectAll"></th>
-                                                        <th>{{ __('admin.sn') }}</th>
-                                                        <th>VRM</th>
-                                                        <th>Make</th>
-                                                        <th>Model</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
+                                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">S/N</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >VRM</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Make</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Model</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Status</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" >Action</th>
                                                     </tr>
+
                                                 </thead>
                                                 <tbody>
-                                                @foreach($vehicles as $item)
-                                                    <tr wire:key="item.id">
-                                                        <td><input type="checkbox" wire:model.live="selected_items" value="{{ $item->id }}"></td>
-
+                                                @foreach($vehicles as $value => $item)
+                                                    <tr class="odd">
                                                         <td>{{ $loop->index + 1 }}</td>
-                                                        <td>{{ $item->vrm }}</td>
-                                                        <td>{{ $item->make }}</td>
-                                                        <td>{{ $item->model }}</td>
-                                                        <td>{{ $item->status }}</td>
+                                                        <td><a href="#" class="btn btn-warning btn-sm">{{ $item->vehicle_details['registration_number'] ?? 'N/A' }}</a></td>
+                                                        <td>{{ $item->vehicle_details['make'] ?? '' }}</td>
+                                                        <td>{{ $item->vehicle_details['model'] ?? '' }}</td>
+                                                        <td>{!! $item->status() !!}</td>
                                                         <td >
                                                             <div class="d-flex">
-                                                                <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}?back_url={{ $current_uri }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
+                                                                <a wire:navigate href="{{ route('admin.vehicle.edit', ['vehicleId' => $item->id]) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
 
-                                                                <a wire:navigate href="{{ route('admin.form.index', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
-                                                                <a wire:navigate href="{{ route('admin.driver.documents', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-file"></em></a>
+                                                                <a wire:navigate href="{{ route('admin.vehicle.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
+
+                                                                <form method="POST" action="{{ route('admin.vehicle.destroy', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1">
+                                                                        <em class="icon ni ni-trash"></em>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </td>
 
                                                     </tr>
                                                 @endforeach
+
+
                                                 </tbody>
                                             </table>
-
-                                            <div class="d-flex mt-2">
-                                                {!! $vehicles->links() !!}
-                                            </div>
-
-
                                         </div>
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>

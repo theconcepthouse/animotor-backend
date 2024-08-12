@@ -239,6 +239,11 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('edit/mail-tracker/{id}', [MailTrackerController::class, 'edit'])->name('mailTracker.edit');
     Route::delete('destroy/mail-tracker/{id}', [MailTrackerController::class, 'destroy'])->name('mailTracker.destroy');
 
+    Route::get('vehicles', [VehicleController::class, 'index'])->name('vehicle.index');
+    Route::get('create/vehicle', [VehicleController::class, 'create'])->name('vehicle.create');
+    Route::get('edit/vehicle/{vehicleId}', [VehicleController::class, 'edit'])->name('vehicle.edit');
+    Route::delete('destroy/vehicle/{vehicleId}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
+
 });
 
 Route::get('p/{id}', [SettingsController::class, 'pageBuilder'])->name('admin.setting.page.builder');

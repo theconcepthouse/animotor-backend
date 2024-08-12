@@ -211,10 +211,13 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('store/plan', [FleetPlanningController::class, 'store'])->name('fleet.store');
     Route::delete('/delete-event/{id}', [FleetPlanningController::class, 'destroy']);
 
+    Route::get('past/fleet/events', [FleetEventController::class, 'pastEvents'])->name('pastEvents');
     Route::get('fleet/events', [FleetEventController::class, 'index'])->name('fleetEvent');
     Route::post('store/fleet/event', [FleetEventController::class, 'store'])->name('storeFleetEvent');
     Route::put('fleet/events/{id}', [FleetEventController::class, 'update']);
-    Route::delete('fleet/events/{id}', [FleetEventController::class, 'destroy']);
+    Route::delete('fleet/events/{id}', [FleetEventController::class, 'destroy'])->name('event.destroy');
+    Route::get('view/fleet/event/{id}', [FleetEventController::class, 'viewEvent'])->name('viewEvent');
+    Route::post('update/fleet/event/', [FleetEventController::class, 'updateStatus'])->name('event.updateStatus');
 
     Route::get('reported/incidents', [ReportIncidentController::class, 'index'])->name('incident.index');
     Route::get('add/claim', [ReportIncidentController::class, 'addClaim'])->name('addClaim');

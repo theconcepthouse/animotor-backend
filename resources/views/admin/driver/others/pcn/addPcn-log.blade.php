@@ -56,8 +56,8 @@
                                                         </div>
 
                                                         <div class="form-group col-md-6">
-                                                            <label class="form-label" for="datePostReceived">Linkup with </label>
-                                                            <input type="text" class="form-control" id="datePostReceived" name="linkup_with_driver" placeholder="Date post received">
+                                                            <label class="form-label" for="Linkup">Linkup with </label>
+                                                            <input type="text" class="form-control" id="Linkup" name="linkup_with_driver" >
                                                         </div>
 
                                                         <div class="form-group col-md-6">

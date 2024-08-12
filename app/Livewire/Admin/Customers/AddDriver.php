@@ -128,9 +128,6 @@ class AddDriver extends Component
         if (isOwner()) {
             $validated['company_id'] = companyId();
         }
-//        if (isOwner() && !in_array($validated['role'], ['manager', 'rider'])) {
-//            return redirect()->route('admin.dashboard')->with('failure', 'You are not permitted to create this user');
-//        }
         $validated['password'] = 'password';
         $customer = User::create($validated);
         $customer->addRole($validated['role']);
@@ -230,6 +227,34 @@ class AddDriver extends Component
         $this->successMsg();
         session()->flash('message', 'Emergency contact details successfully saved.');
     }
+
+    public function saveDocument()
+   {
+        $validated = $this->validate([
+            'driver_license_front' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
+            'driver_license_back' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
+            'proof_of_address' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
+        ]);
+
+        // Store the images
+        $driverLicenseFront = $this->driver_license_front->store('public/documents');
+        $driverLicenseBack = $this->driver_license_back->store('public/documents');
+        $proofOfAddress = $this->proof_of_address->store('public/documents');
+
+        $validated['driver_license_front'] = $driverLicenseFront;
+        $validated['driver_license_back'] = $driverLicenseBack;
+        $validated['proof_of_address'] = $proofOfAddress;
+
+        $validated['id'] = $this->userId;
+        $userId = $this->userId;
+
+        // Assuming you have a Document model
+        $document = new Document($validated);
+        $document->save();
+
+        // Return a success message or redirect to a route
+        return redirect()->route('document.upload.success');
+  }
 
     public function successMsg()
     {

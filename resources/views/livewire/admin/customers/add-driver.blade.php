@@ -331,22 +331,22 @@
                                                     <div class="row mb-3">
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label for="contact_name">Driver's License Front</label>
-                                                                <input type="file" id="contact_name" class="form-control" wire:model="contact_name">
+                                                                <label for="driver_license_front">Driver's License Front</label>
+                                                                <input type="file" id="driver_license_front" class="form-control" wire:model="driver_license_front">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label for="phone_number">Driver's License Back</label>
-                                                                <input type="file" id="phone_number" class="form-control" wire:model="phone_number">
+                                                                <label for="driver_license_front">Driver's License Back</label>
+                                                                <input type="file" id="driver_license_front" class="form-control" wire:model="driver_license_back">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-4">
                                                             <div class="form-group">
-                                                                <label for="email_address">Proof Of Address</label>
-                                                                <input type="file" id="email_address" class="form-control" wire:model="email_address">
+                                                                <label for="proof_of_address">Proof Of Address</label>
+                                                                <input type="file" id="proof_of_address" class="form-control" wire:model="proof_of_address">
                                                             </div>
                                                         </div>
                                                     </div>

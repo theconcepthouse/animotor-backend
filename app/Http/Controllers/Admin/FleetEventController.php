@@ -4,13 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\FleetEvent;
+use Google\Service\AIPlatformNotebooks\Event;
+use Google\Service\GKEHub\Fleet;
 use Illuminate\Http\Request;
 
 class FleetEventController extends Controller
 {
+    public function pastEvents()
+    {
+        $events = FleetEvent::where('end_date', '<', now())->get();
+        return view('admin.fleet-events.list', compact('events'));
+    }
     public function index()
     {
         $events = FleetEvent::all();
+        $categories = FleetEvent::distinct('category')->pluck('category');
         $formattedEvents = $events->map(function ($event) {
             return [
                 'id' => $event->id,
@@ -20,12 +28,12 @@ class FleetEventController extends Controller
                 'description' => $event->description,
                 'location' => $event->location,
                 'category' => $event->category,
-                'className' => "fc-event-{$event->category}"
+                'className' => "fc-event-{$event->category}",
+                'status' => $event->status,
             ];
         });
 
-        return view('admin.fleet-events.index', ['events' => $formattedEvents]);
-//        return view('admin.fleet-events.index', compact('formattedEvents'));
+        return view('admin.fleet-events.index', ['events' => $formattedEvents, 'categories' => $categories]);
     }
 
     public function store(Request $request)
@@ -39,7 +47,7 @@ class FleetEventController extends Controller
             'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
-        $event = FleetEvent::create($validatedData);
+        FleetEvent::create($validatedData);
 
         return redirect()->back()->with('success', 'Event created.');
     }
@@ -65,7 +73,20 @@ class FleetEventController extends Controller
     {
         $event = FleetEvent::findOrFail($id);
         $event->delete();
+        return redirect()->back()->with('success', 'Event deleted.');
+    }
 
-        return response()->json(null, 204);
+    public function viewEvent($id)
+    {
+        $event = FleetEvent::findOrFail($id);
+        return view('admin.fleet-events.view', compact('event'));
+    }
+    public function updateStatus(Request $request)
+    {
+        $eventId = $request->event_id;
+        $event = FleetEvent::findOrFail($eventId);
+        $event->status = $request->status;
+        $event->save();
+        return redirect()->back()->with('success', 'Event status changed.');
     }
 }

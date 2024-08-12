@@ -10,6 +10,7 @@ use App\Models\Form;
 use App\Models\History;
 use App\Models\Note;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DriverPcnController extends Controller
@@ -71,13 +72,19 @@ class DriverPcnController extends Controller
         $pcnId = $request->pcn_id;
         $driver = User::findOrFail($driverId);
         $pcn = DriverPcn::findOrFail($pcnId);
+        $validated['reminder'] = Carbon::parse($request->reminder);
         $pcn->update($validated);
 
         $event = new FleetEvent();
         $event->title = "PCN Event";
         $event->start_date = $pcn->created_at;
         $event->end_date = $pcn->reminder;
-        $event->category = "event-info";
+        $event->category = "PCN-events";
+        $event->description = implode('<br>', [
+            "VRM: " . $pcn->vrm,
+            'Date of Issue: ' . $pcn->date_of_issue,
+            'Issuing Authority: ' . $pcn->issuing_authority,
+        ]);
         $event->save();
         return redirect()->route('admin.driverPcn', ['driverId' => $driver->id])->with('message', 'PCN updated successfully');
     }

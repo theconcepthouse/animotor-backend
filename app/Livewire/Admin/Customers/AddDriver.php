@@ -11,11 +11,15 @@ use App\Models\Role;
 use App\Models\TaxiLicense;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class AddDriver extends Component
 {
+    use WithFileUploads;
+
     public User $user;
     public Car $car;
 
@@ -58,6 +62,9 @@ class AddDriver extends Component
     public $phone_number;
     public $email_address;
     public $relationship;
+    public $driver_license_front;
+    public $driver_license_back;
+    public $proof_of_address;
 
 
     public array $steps = [
@@ -121,7 +128,6 @@ class AddDriver extends Component
             'phone' => 'string|min:1|max:255|required|unique:users',
             'email' => 'string|min:1|max:255|required|unique:users|email',
             'work_phone' => 'nullable',
-//            'hire_type' => 'required',
             'role' => 'required',
         ]);
 
@@ -236,25 +242,37 @@ class AddDriver extends Component
             'proof_of_address' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
         ]);
 
-        // Store the images
-        $driverLicenseFront = $this->driver_license_front->store('public/documents');
-        $driverLicenseBack = $this->driver_license_back->store('public/documents');
-        $proofOfAddress = $this->proof_of_address->store('public/documents');
+        // Store the images if they are present
+         $driverLicenseFront = $this->driver_license_front ? $this->storeImageWithOriginalName($this->driver_license_front, 'documents') : null;
+        $driverLicenseBack = $this->driver_license_back ? $this->storeImageWithOriginalName($this->driver_license_back, 'documents') : null;
+        $proofOfAddress = $this->proof_of_address ? $this->storeImageWithOriginalName($this->proof_of_address, 'documents') : null;
 
-        $validated['driver_license_front'] = $driverLicenseFront;
-        $validated['driver_license_back'] = $driverLicenseBack;
-        $validated['proof_of_address'] = $proofOfAddress;
-
-        $validated['id'] = $this->userId;
-        $userId = $this->userId;
-
+        $doc = new Document();
+        $doc->name = "Drivers Documents";
+        $doc->save();
         // Assuming you have a Document model
-        $document = new Document($validated);
+        $document = new DriverDocument($validated);
+        $document->driver_id = $this->userId;
+        $document->document_id = $doc->id;
+        $document->driver_license_front = $driverLicenseFront;
+        $document->driver_license_back = $driverLicenseBack;
+        $document->proof_of_address = $proofOfAddress;
         $document->save();
-
-        // Return a success message or redirect to a route
-        return redirect()->route('document.upload.success');
+        return redirect()->route('admin.drivers');
   }
+
+    private function storeImageWithOriginalName($file, $path)
+    {
+        $fullPath = storage_path('app/public/' . $path);
+
+        if (!File::exists($fullPath)) {
+            File::makeDirectory($fullPath, 0755, true);
+        }
+
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/'.$path, $filename);
+        return asset('storage/'.$path.'/'.$filename);
+    }
 
     public function successMsg()
     {

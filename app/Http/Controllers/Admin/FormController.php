@@ -148,11 +148,9 @@ class FormController extends Controller
                             ->where('driver_id', $driverId)
                             ->first();
 
-        // Decode the JSON data safely
         $formFieldsJson = json_decode($form->fields ?? '[]', true);
         $submittedData = json_decode($formData->field_data ?? '[]', true);
 
-        // Select the view template based on the form name
         $view = $this->selectPdfView($form->name);
         if (!$view) {
             return redirect()->back()->with('error', 'Invalid form type.');
@@ -167,9 +165,7 @@ class FormController extends Controller
         ];
 
         // Load the view into PDF generator
-        $pdf = PDF::loadView($view, $data);
-
-        // Return the generated PDF as a download
+        $pdf = PDF::setOption(['dpi' => 115, 'defaultFont' => 'sans-serif'])->loadView($view, $data);
         return $pdf->stream($form->name . ".pdf");
     }
 

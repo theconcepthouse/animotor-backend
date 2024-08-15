@@ -25,7 +25,7 @@
             <div class="card card-bordered- h-100">
                 <div class="card-inner">
 
-                    <form method="post" wire:submit.prevent="saveVehicleDetails">
+                    <form method="post" wire:submit.prevent="saveVehicleDetails" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row">
                                 <div style="background: transparent" class="step-form">
@@ -432,37 +432,37 @@
                                           <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <label for="documentType" class="form-label">Document type</label>
-                                                    <input type="text" class="form-control" id="documentType" placeholder="Enter document type" wire:model="document.type">
+                                                    <input type="text" class="form-control" id="documentType" placeholder="Enter document type" wire:model="documents.type">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="documentName" class="form-label">Document name</label>
-                                                    <input type="text" class="form-control" id="documentName" placeholder="Enter document name" wire:model="document.name">
+                                                    <input type="text" class="form-control" id="documentName" placeholder="Enter document name" wire:model="documents.name">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="uploadDate" class="form-label">Upload date</label>
-                                                    <input type="date" class="form-control" id="uploadDate" wire:model="document.upload_date">
+                                                    <input type="date" class="form-control" id="uploadDate" wire:model="documents.upload_date">
                                                 </div>
                                             </div>
 
                                             <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <label for="expiryDate" class="form-label">Expiry date</label>
-                                                    <input type="date" class="form-control" id="expiryDate" wire:model="document.expiry_date">
+                                                    <input type="date" class="form-control" id="expiryDate" wire:model="documents.expiry_date">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="actionType" class="form-label">Action type</label>
-                                                    <input type="text" class="form-control" id="actionType" placeholder="Enter action type" wire:model="document.action_type">
+                                                    <input type="text" class="form-control" id="actionType" placeholder="Enter action type" wire:model="documents.action_type">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="actionDate" class="form-label">Action date</label>
-                                                    <input type="date" class="form-control" id="actionDate" wire:model="document.action_date">
+                                                    <input type="date" class="form-control" id="actionDate" wire:model="documents.action_date">
                                                 </div>
                                             </div>
 
                                             <!-- File Upload Section -->
-                                            <div class="mb-3 text-center" style="border: 2px dashed #ccc; padding: 20px; position: relative;">
+                                            <div class="mb-3 text-center" style="border: 3px dashed #ccc; padding: 20px; position: relative;">
                                                 <label for="uploadFile" class="form-label" style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); background: white; padding: 0 10px;">Upload file</label>
-                                                <input type="file" class="form-control" id="uploadFile" wire:model="document.file" style="border: none; outline: none; height: 60px; text-align: center; padding-top: 20px;">
+                                                <input type="file" class="form-control" id="uploadFile" wire:model="documents.file" style="border: none; outline: none; height: 60px; text-align: center; padding-top: 20px;">
                                                 <div class="mt-3">
                                                     <i class="bi bi-upload" style="font-size: 2rem;"></i>
                                                 </div>

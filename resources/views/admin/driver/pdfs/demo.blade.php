@@ -130,5 +130,28 @@
             <p>{{ $submittedData['declaration'] ?? '' }}</p>
         </div>
     </div>
+
+<tbody >
+            <h3>Vehicle Details </h3>
+            @php $counter = 0; @endphp
+            <tr>
+            @foreach ($formFieldsJson['Vehicle'] as $field)
+                @if ($counter % 3 == 0 && $counter != 0)
+                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
+                @endif
+                <td>
+                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+
+                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                @php $counter++; @endphp
+            @endforeach
+            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
+                <td></td>
+                @php $counter++; @endphp
+            @endwhile
+            </tr>
+        </tbody>
 </body>
 </html>

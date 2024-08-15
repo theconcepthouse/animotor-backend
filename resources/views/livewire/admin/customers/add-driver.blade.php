@@ -25,7 +25,7 @@
             <div class="card card-bordered- h-100">
                 <div class="card-inner">
 
-                    <form method="post" wire:submit="saveDriver">
+                    <form method="post" wire:submit="saveDriver" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row">
                                 <div style="background: transparent" class="step-form">

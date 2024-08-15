@@ -7,6 +7,8 @@ use App\Models\FleetEvent;
 use App\Models\MailTracker;
 use App\Models\Vehicle;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -112,6 +114,19 @@ class VehicleForm extends Component
         $this->successMsg();
     }
 
+    private function storeImageWithOriginalName($file, $path)
+    {
+        $fullPath = storage_path('app/public/' . $path);
+
+        if (!File::exists($fullPath)) {
+            File::makeDirectory($fullPath, 0755, true);
+        }
+
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/'.$path, $filename);
+        return asset('storage/'.$path.'/'.$filename);
+    }
+
     public function saveVehicle()
     {
         // Populate the vehicle details array with data from the Livewire properties
@@ -155,7 +170,7 @@ class VehicleForm extends Component
    public function saveTransmission()
     {
         $this->transmission = [
-            'gear_box' => $this->transmission['gear_box'],
+            'gear_box' => $this->transmission['gear_box'] ?? null,
         ];
 
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);
@@ -238,9 +253,13 @@ class VehicleForm extends Component
     }
    public function saveDriver()
     {
+        $validated = $this->validate([
+            'driver.file' => 'required|image|mimes:jpg,jpeg,png|max:5024',
+
+        ]);
         $this->driver = [
             'name' => $this->driver['name'] ?? null,
-//            'photo' => $this->driver['photo'] ?? null,
+            'photo' => $validated ? $this->storeImageWithOriginalName($this->driver['photo'], 'files') : null,
             'years_experience' => $this->driver['years_experience'] ?? null,
             'special_skills' => $this->driver['special_skills'] ?? null,
             'primary_language' => $this->driver['primary_language'] ?? null,
@@ -264,11 +283,6 @@ class VehicleForm extends Component
             'miscellaneous' => $this->driver['miscellaneous'] ?? null,
         ];
 
-         if (isset($this->driver['photo']) && $this->documents['photo'] instanceof \Illuminate\Http\UploadedFile) {
-            $filePath = $this->driver['file']->store('uploads', 'public'); // Store file in 'public/documents' directory
-            $this->driver['file_path'] = $filePath;
-        }
-
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);
         if ($vehicle)
         {
@@ -277,22 +291,23 @@ class VehicleForm extends Component
 
     }
 
+
+
     public function saveDocuments()
     {
+        $validated = $this->validate([
+            'documents.file' => 'required|image|mimes:jpg,jpeg,png|max:5024',
+
+        ]);
         $this->documents = [
             'type' => $this->documents['type'] ?? null,
             'name' => $this->documents['name'] ?? null,
-            'photo' => $this->documents['photo'] ?? null,
+            'file' => $validated ? $this->storeImageWithOriginalName($this->documents['file'], 'files') : null,
             'upload_date' => $this->documents['upload_date'] ?? null,
             'expiry_date' => $this->documents['expiry_date'] ?? null,
             'action_type' => $this->documents['action_type'] ?? null,
             'action_date' => $this->documents['action_date'] ?? null,
         ];
-
-//        if (isset($this->documents['file']) && $this->documents['file'] instanceof \Illuminate\Http\UploadedFile) {
-//            $filePath = $this->documents['file']->store('uploads', 'public'); // Store file in 'public/documents' directory
-//            $this->documents['file_path'] = $filePath;
-//        }
 
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);
         if ($vehicle) {
@@ -305,6 +320,12 @@ class VehicleForm extends Component
 
     public function saveFinance()
     {
+
+        $validated = $this->validate([
+            'finance.file' => 'required|image|mimes:jpg,jpeg,png|max:5024',
+
+        ]);
+
         $this->finance = [
             'add_finance_info' => $this->finance['add_finance_info'] ?? null,
             'type' => $this->finance['type'] ?? null,
@@ -316,8 +337,9 @@ class VehicleForm extends Component
             'loan_amount' => $this->finance['loan_amount'] ?? null,
             'repayment_frequency' => $this->finance['repayment_frequency'] ?? null,
             'amount' => $this->finance['amount'] ?? null,
-            'file' => $this->finance['file'] ?? null,
+            'file' => $validated ? $this->storeImageWithOriginalName($this->finance['file'], 'files') : null,
         ];
+
 
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);
         if ($vehicle) {
@@ -346,6 +368,10 @@ class VehicleForm extends Component
 
     public function saveRepair()
     {
+        $validated = $this->validate([
+            'repair.invoice' => 'required|image|mimes:jpg,jpeg,png|max:5024',
+
+        ]);
         $this->repair = [
             'booking_id' => $this->repair['booking_id'] ?? null,
             'booking_date' => $this->repair['booking_date'] ?? null,
@@ -355,7 +381,7 @@ class VehicleForm extends Component
             'repair_type' => $this->repair['repair_type'] ?? null,
             'total_cost' => $this->repair['total_cost'] ?? null,
             'vat' => $this->repair['vat'] ?? null,
-            'invoice' => $this->repair['invoice'] ?? null,
+            'invoice' => $validated ? $this->storeImageWithOriginalName($this->repair['invoice'], 'files') : null,
         ];
 
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);
@@ -380,4 +406,7 @@ class VehicleForm extends Component
     {
         return view('livewire.admin.vehicle.vehicle-form');
     }
+
+
+
 }

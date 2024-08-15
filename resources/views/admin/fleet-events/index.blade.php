@@ -64,10 +64,7 @@
                             <div class="nk-block-head-content">
 
                                <div class="row">
-                                   <div class="col-lg-6 col-md-8 mb-2">
-                                    <a class="btn btn-secondary" href="{{ route('admin.pastEvents') }}" wire:navigate><em
-                                        class="icon ni ni-eye"></em><span>Past Events</span></a>
-                               </div>
+
                                 <div class="col-lg-6 col-md-8 ">
                                     <a class="btn btn-primary" data-bs-toggle="modal" href="#addEventPopup"><em
                                         class="icon ni ni-plus"></em><span>Add Event</span></a>
@@ -102,6 +99,31 @@
                     </div><!-- .nk-block-head -->
                     <div class="nk-block">
                         <div class="card card-bordered">
+                            <ul class="nav nav-tabs nav-tabs-s2">
+                                <li class="nav-item">
+                                    <a class="nav-link active"  href="{{ route('admin.fleetEvent') }}" >Event Calendar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.currentEvent') }}" wire:navigate>Current Event</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"   href="{{ route('admin.pastEvents') }}" wire:navigate>Past Event</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabItem9">
+                                    <div class="card-inner">
+                                        <div id="calendar"></div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tabItem10">
+
+                                </div>
+                                <div class="tab-pane" id="tabItem11">
+
+                                </div>
+
+                            </div>
                             @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -111,9 +133,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <div class="card-inner">
-                                <div id="calendar"></div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -159,25 +179,25 @@
                                 <div class="form-group">
                                     <label class="form-label">Start Date & Time</label>
                                     <div class="row gx-2">
-                                        <div class="w-55">
+                                        <div class="w-5">
                                             <div class="form-control-wrap">
                                                 <div class="form-icon form-icon-left">
                                                     <em class="icon ni ni-calendar"></em>
                                                 </div>
-                                                <input type="text" id="event-start-date" name="start_date"
-                                                       class="form-control date-picker" data-date-format="yyyy-mm-dd"
+                                                <input type="datetime-local" id="event-start-date" name="start_date"
+                                                       class="form-control date-picke" data-date-format="yyyy-mm-dd"
                                                        required>
                                             </div>
                                         </div>
-                                        <div class="w-45">
-                                            <div class="form-control-wrap">
-                                                <div class="form-icon form-icon-left">
-                                                    <em class="icon ni ni-clock"></em>
-                                                </div>
-                                                <input type="text" id="event-start-time" name="start_time"
-                                                       data-time-format="HH:mm:ss" class="form-control time-picker">
-                                            </div>
-                                        </div>
+{{--                                        <div class="w-45">--}}
+{{--                                            <div class="form-control-wrap">--}}
+{{--                                                <div class="form-icon form-icon-left">--}}
+{{--                                                    <em class="icon ni ni-clock"></em>--}}
+{{--                                                </div>--}}
+{{--                                                <input type="text" id="event-start-time" name="start_time"--}}
+{{--                                                       data-time-format="HH:mm:ss" class="form-control time-picker">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -185,24 +205,24 @@
                                 <div class="form-group">
                                     <label class="form-label">End Date & Time</label>
                                     <div class="row gx-2">
-                                        <div class="w-55">
+                                        <div class="w-5">
                                             <div class="form-control-wrap">
                                                 <div class="form-icon form-icon-left">
                                                     <em class="icon ni ni-calendar"></em>
                                                 </div>
-                                                <input type="text" id="event-end-date" name="end_date"
-                                                       class="form-control date-picker" data-date-format="yyyy-mm-dd">
+                                                <input type="datetime-local" id="event-end-date" name="end_date"
+                                                       class="form-control date-picke" data-date-format="yyyy-mm-dd">
                                             </div>
                                         </div>
-                                        <div class="w-45">
-                                            <div class="form-control-wrap">
-                                                <div class="form-icon form-icon-left">
-                                                    <em class="icon ni ni-clock"></em>
-                                                </div>
-                                                <input type="text" id="event-end-time" name="end_time"
-                                                       data-time-format="HH:mm:ss" class="form-control time-picker">
-                                            </div>
-                                        </div>
+{{--                                        <div class="w-45">--}}
+{{--                                            <div class="form-control-wrap">--}}
+{{--                                                <div class="form-icon form-icon-left">--}}
+{{--                                                    <em class="icon ni ni-clock"></em>--}}
+{{--                                                </div>--}}
+{{--                                                <input type="text" id="event-end-time" name="end_time"--}}
+{{--                                                       data-time-format="HH:mm:ss" class="form-control time-picker">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>

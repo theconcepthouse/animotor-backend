@@ -13,11 +13,17 @@ class FleetEventController extends Controller
     public function pastEvents()
     {
         $events = FleetEvent::where('end_date', '<', now())->get();
-        return view('admin.fleet-events.list', compact('events'));
+        return view('admin.fleet-events.past-event', compact('events'));
+    }
+    public function currentEvent()
+    {
+        $events = FleetEvent::where('end_date', '>', now())->get();
+        return view('admin.fleet-events.current-event', compact('events'));
     }
 
     public function index(Request $request)
     {
+        $current_events = FleetEvent::where('end_date', '<', now())->get();
         $category = $request->category;
         $categories = FleetEvent::distinct('category')->pluck('category');
 
@@ -41,7 +47,7 @@ class FleetEventController extends Controller
             ];
         });
 
-        return view('admin.fleet-events.index', ['events' => $formattedEvents, 'categories' => $categories]);
+        return view('admin.fleet-events.index', ['events' => $formattedEvents, 'categories' => $categories, 'current_events' => $current_events]);
     }
 
     public function store(Request $request)

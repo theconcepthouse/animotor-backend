@@ -12,8 +12,8 @@
             background-color: #f6f6f6;
         }
         .container {
-            background-color: #fff;
-            padding: 20px;
+            /*background-color: #b1b1b1;*/
+            padding: 5px;
             font-size: 14px;
             width: 100%;
             max-width: 800px;
@@ -25,17 +25,17 @@
         }
         td {
             padding: 10px;
-            width: 33%;
+            width: 30%;
             vertical-align: bottom; /* Aligns the content at the bottom */
         }
         label {
             display: block;
-            font-weight: bold;
+            font-weight: lighter;
             margin-top: 18px; /* Space above the label */
         }
         .underline {
             display: block;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid #444343;
             margin-top: 4px; /* Space between the text and the underline */
         }
         .page-break {
@@ -47,82 +47,151 @@
 <div class="container">
     <div class="row ">
         <div class="col-md-6">
-            <img height="70" width="160" src="https://animotor.co.uk/storage/photos/9a9ede47-d4e9-4205-b546-c6437d4914f5/ANI_Motors_Logo.jpg" alt="{{ env('APP_NAME') }}"  class="img-fluid">
+            <img height="50" width="120" src="https://animotor.co.uk/storage/photos/9a9ede47-d4e9-4205-b546-c6437d4914f5/ANI_Motors_Logo.jpg" alt="{{ env('APP_NAME') }}"  class="img-fluid">
         </div>
-        <div style="align-items: flex-end; margin-left: 30em" >
+       <div style="font-size: 10px; text-align: right" class="col-md-6">
+            <div style="align-items: flex-end; margin-left: 30em" >
             <p>Phone: 01753424350</p>
             <p>Email: info@animotor.co.uk</p>
             <p>Web: www.animotor.co.uk</p>
-        </div>
+            </div>
+       </div>
    </div>
     <br>
     <table>
         <tbody>
-            <h3>Hirer Details </h3>
-            @php $counter = 0; @endphp
-            <tr>
-            @foreach ($formFieldsJson['Hirer'] as $field)
-                @if ($counter % 3 == 0 && $counter != 0)
-                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
-                @endif
-                <td>
-                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
+        <h4 style="margin-bottom: 0px">Hirer Details:</h4>
+        <tr style="margin-top: 0px">
+            <td>
+                <label style="margin-bottom: 25px">First Name</label>
+                <span>{{ $submittedData['first_name'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Last Name</label>
+                <span>{{ $submittedData['last_name'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px; white-space: nowrap">Driver licence issuing country</label>
+                <span>{{ $submittedData['driver_licence_issuing_country'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="margin-bottom: 25px">Driver licence number</label>
+                <span>{{ $submittedData['driver_licence_number'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Date of birth</label>
+                <span>{{ $submittedData['date_of_birth'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td></td> <!-- Leave this empty to keep the alignment consistent -->
+        </tr>
+    </tbody>
 
-                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
-                    <span class="underline"></span>
-                </td>
-                @php $counter++; @endphp
-            @endforeach
-            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
-                <td></td>
-                @php $counter++; @endphp
-            @endwhile
-            </tr>
-        </tbody>
-        <br>
-         <tbody style="margin-top: 20em;">
-            <h3>Address Details </h3>
-            @php $counter = 0; @endphp
-            <tr>
-            @foreach ($formFieldsJson['Address'] as $field)
-                @if ($counter % 3 == 0 && $counter != 0)
-                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
-                @endif
-                <td>
-                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
-
-                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
-                    <span class="underline"></span>
-                </td>
-                @php $counter++; @endphp
-            @endforeach
-            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
-                <td></td>
-                @php $counter++; @endphp
-            @endwhile
-            </tr>
-        </tbody>
-        <br>
         <tbody >
-            <h3>Vehicle Details </h3>
-            @php $counter = 0; @endphp
-            <tr>
-            @foreach ($formFieldsJson['Vehicle'] as $field)
-                @if ($counter % 3 == 0 && $counter != 0)
-                    </tr><tr> <!-- Close the current row and start a new one every 3 fields -->
-                @endif
+            <h4 style="margin-bottom: 0px">Address:</h4>
+            <tr style="margin-top: 0px">
                 <td>
-                    <label style="margin-bottom: 25px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
-
-                    <span>{{ $submittedData[$field['fieldName']] ?? '' }}</span>
+                    <label style="margin-bottom: 25px">Street Name</label>
+                    <span>{{ $submittedData['address_line'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
-                @php $counter++; @endphp
-            @endforeach
-            @while ($counter % 3 != 0) <!-- Ensure the last row has three cells for consistent styling -->
-                <td></td>
-                @php $counter++; @endphp
-            @endwhile
+                <td>
+                    <label style="margin-bottom: 25px">City</label>
+                    <span>{{ $submittedData['city'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">County</label>
+                    <span>{{ $submittedData['country'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Postcode</label>
+                    <span>{{ $submittedData['postcode'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+            </tr>
+        </tbody>
+
+        <tbody >
+            <h4 style="margin-bottom: 0px">Vehicle Details: </h4>
+            <tr style="margin-top: 0px">
+                <td>
+                    <label style="margin-bottom: 25px">Registration number</label>
+                    <span>{{ $submittedData['registration_number'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Insurance group</label>
+                    <span>{{ $submittedData['insurance_group'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Car Make/Model</label>
+                    <span>{{ $submittedData['car_make'] ?? '' }}{{ $submittedData['car_model'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label style="margin-bottom: 25px">Date out</label>
+                    <span>{{ $submittedData['date_out'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Date Due</label>
+                    <span>{{ $submittedData['date_due'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+            </tr>
+        </tbody>
+        <tbody >
+            <h4 style="margin-bottom: 0px; white-space: nowrap">STATEMENT OF LIABILITY: </h4>
+            <tr >
+                <td colspan="3">
+                    <p style="text-align: justify; color: #463b3b">
+                        I hereby acknowledge that during the currency of this agreement, I shall be Liable as the owner of the vehicle
+                        let me there-under in respect of any fixed penalty Offence committed in respect of the vehicle under part III of
+                        the Road Traffic Offenders Act 1988 (Section 66) (as amended) and the Local Authorities Act 2000, London Local
+                        Authorities Act 1996 (as amended), Road Traffic Act 1991, Road Traffic Offenders Act 1988, Traffic Management
+                        Act 2004.
+                    </p>
+                     <label style="margin-bottom: 25px">Signature</label>
+                     <img src="{{ $submittedData['signature'] ?? '' }}" alt="Signature Image" style="max-height: 100px; width: auto;">
+                    <span class="underline"></span>
+                </td>
+            </tr>
+        </tbody>
+        <tbody >
+            <h4 style="margin-bottom: 0px; white-space: nowrap">DECLARATION: </h4>
+            <tr >
+                <td colspan="3">
+                    <p style="text-align: justify; color: #463b3b">
+                        declare that the information given in this form is correct and complete. In addition, I hereby acknowledge and
+                        confirm that during the duration of the vehicle hire I shall be liable for any penalty charges (PCNs), parking or
+                        traffic fines including such penalties or excess charges howsoever issued. It is further agreed that the full cost of
+                        repair to the vehicle and replacement costs resulting from the theft or damage of telematics, camera or vehicle
+                        tracking equipment will be met by the nominated hirer above, if such theft or damage occurs during the hire
+                        period.
+                    </p>
+                     <div style="display: flex; ">
+                        <div style="margin-right: 10px; font-size: 18px">
+                            <span>Date: {{ $submittedData['signature_date'] ?? '' }}......./......./....../</span>
+                            <span> Signature: <img src="{{ $submittedData['signature_2'] ?? '' }}" alt="Signature Image" style="max-height: 100px; width: auto;">__________________</span>
+
+{{--                            <span class="underline"></span>--}}
+                        </div>
+
+
+                    </div>
+
+                </td>
             </tr>
         </tbody>
         <br>

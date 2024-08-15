@@ -211,8 +211,9 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('store/plan', [FleetPlanningController::class, 'store'])->name('fleet.store');
     Route::delete('/delete-event/{id}', [FleetPlanningController::class, 'destroy']);
 
-    Route::get('past/fleet/events', [FleetEventController::class, 'pastEvents'])->name('pastEvents');
     Route::get('fleet/events', [FleetEventController::class, 'index'])->name('fleetEvent');
+    Route::get('past/fleet/events', [FleetEventController::class, 'pastEvents'])->name('pastEvents');
+    Route::get('current/fleet/events', [FleetEventController::class, 'currentEvent'])->name('currentEvent');
     Route::post('store/fleet/event', [FleetEventController::class, 'store'])->name('storeFleetEvent');
     Route::put('fleet/events/{id}', [FleetEventController::class, 'update']);
     Route::delete('fleet/events/{id}', [FleetEventController::class, 'destroy'])->name('event.destroy');
@@ -243,6 +244,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('create/vehicle', [VehicleController::class, 'create'])->name('vehicle.create');
     Route::get('edit/vehicle/{vehicleId}', [VehicleController::class, 'edit'])->name('vehicle.edit');
     Route::delete('destroy/vehicle/{vehicleId}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
+    Route::post('update/vehicle/status', [VehicleController::class, 'vehicleStatus'])->name('vehicleStatus');
 
 });
 

@@ -61,7 +61,10 @@
                                                         <td><a href="#" class="btn btn-warning btn-sm">{{ $item->vehicle_details['registration_number'] ?? 'N/A' }}</a></td>
                                                         <td>{{ $item->vehicle_details['make'] ?? '' }}</td>
                                                         <td>{{ $item->vehicle_details['model'] ?? '' }}</td>
-                                                        <td>{!! $item->status() !!}</td>
+                                                        <td>
+                                                             <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item?->id }}">{!! $item->status() !!}</button>
+
+                                                        </td>
                                                         <td >
                                                             <div class="d-flex">
                                                                 <a wire:navigate href="{{ route('admin.vehicle.edit', ['vehicleId' => $item->id]) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
@@ -79,6 +82,37 @@
                                                         </td>
 
                                                     </tr>
+                                                    <div class="modal fade" tabindex="-1" id="modalDefault-{{ $item?->id }}"  aria-modal="true" role="dialog">
+                                                         <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Update Vehicle Status</h5>
+                                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <em class="icon ni ni-cross"></em>
+                                                        </a>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <form action="{{ route('admin.vehicleStatus') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="vehicle_id" value="{{ $item?->id }}">
+                                                            <div class="row">
+                                                                <div class="col-lg-10">
+                                                                    <select name="status" class="form-control" id="">
+                                                                        <option selected disabled>Select Status</option>
+                                                                        <option value="pending">Pending</option>
+                                                                        <option value="in-progress">In-Progress</option>
+                                                                        <option value="completed">Completed</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-8 mt-3">
+                                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
                                                 @endforeach
 
 

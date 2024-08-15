@@ -31,6 +31,9 @@ class DriverDocument extends Model
         'taxi_number',
         'dvla_check_code',
         'issuing_authority',
+        'driver_license_front',
+        'driver_license_back',
+        'proof_of_address',
     ];
 
     protected $appends = ['color'];

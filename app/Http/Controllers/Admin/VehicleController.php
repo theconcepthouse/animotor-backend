@@ -31,4 +31,13 @@ class VehicleController extends Controller
         $vehicle->delete();
         return redirect()->back()->with('success', 'Vehicle deleted successfully');
     }
+
+    public function vehicleStatus(Request $request)
+    {
+        $vehicleId = $request->vehicle_id;
+        $vehicle = Vehicle::findOrFail($vehicleId);
+        $vehicle->status = $request->status;
+        $vehicle->save();
+        return redirect()->back()->with('success', 'Status Updated successfully.');
+    }
 }

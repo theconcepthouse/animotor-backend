@@ -52,87 +52,94 @@
                                                     </div>
                                                 @endif
                                                 <div class="row mt-4">
-                                                    @foreach($documents->documents as $documentType => $documentPath)
-                                                        <div class="col-md-4">
-                                                            <div class="card card-bordered mb-2">
-                                                                <div class="card-inner">
-                                                                    <h5 class="card-title">{{ ucwords(str_replace('_', ' ', $documentType)) }}</h5>
-                                                                    <a data-bs-toggle="modal" href="#update{{ $loop->index }}" style="margin-left: 80%; font-size: 20px">
-                                                                        <i class="ni ni-upload-cloud ml-5"></i>
-                                                                    </a>
-                                                                    <div>
-                                                                         <img height="80" width="100" src="{{ asset($documentPath) }}" class="img-fluid" alt="{{ ucwords(str_replace('_', ' ', $documentType)) }}">
-                                                                    </div>
+                                                   @if(is_array($documents->documents))
+    @foreach($documents->documents as $documentType => $documentPath)
+        <div class="col-md-4">
+            <div class="card card-bordered mb-2">
+                <div class="card-inner">
+                    <h5 class="card-title">{{ ucwords(str_replace('_', ' ', $documentType)) }}</h5>
+                    <a data-bs-toggle="modal" href="#update{{ $loop->index }}" style="margin-left: 80%; font-size: 20px">
+                        <i class="ni ni-upload-cloud ml-5"></i>
+                    </a>
+                    <div>
+                        <img height="80" width="100" src="{{ asset($documentPath) }}" class="img-fluid" alt="{{ ucwords(str_replace('_', ' ', $documentType)) }}">
+                    </div>
 
-                                                                    <div style="margin-left: 80%" class="pull-right">
-                                                                        <a data-bs-toggle="modal" href="#viewImage{{ $loop->index }}" style="margin-right: 20px; font-size: 20px">
-                                                                            <i class="ni ni-eye"></i>
-                                                                        </a>
-                                                                        <a href="{{ asset($documentPath) }}" download style="font-size: 20px">
-                                                                            <i class="ni ni-download"></i>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                    <div style="margin-left: 80%" class="pull-right">
+                        <a data-bs-toggle="modal" href="#viewImage{{ $loop->index }}" style="margin-right: 20px; font-size: 20px">
+                            <i class="ni ni-eye"></i>
+                        </a>
+                        <a href="{{ asset($documentPath) }}" download style="font-size: 20px">
+                            <i class="ni ni-download"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                                                        <!-- Modal for Viewing Image -->
-                                                        <div class="modal fade" id="viewImage{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="viewImageLabel{{ $loop->index }}" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="viewImageLabel{{ $loop->index }}">{{ ucwords(str_replace('_', ' ', $documentType)) }}</h5>
-                                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <img src="{{ asset($documentPath) }}" class="img-fluid" alt="{{ ucwords(str_replace('_', ' ', $documentType)) }}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+        <!-- Modal for Viewing Image -->
+        <div class="modal fade" id="viewImage{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="viewImageLabel{{ $loop->index }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewImageLabel{{ $loop->index }}">{{ ucwords(str_replace('_', ' ', $documentType)) }}</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{ asset($documentPath) }}" class="img-fluid" alt="{{ ucwords(str_replace('_', ' ', $documentType)) }}">
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Modal for Updating Image -->
+        <div class="modal fade" id="update{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="updateLabel{{ $loop->index }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateLabel{{ $loop->index }}">Update {{ ucwords(str_replace('_', ' ', $documentType)) }}</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('admin.updateDocument', ['driverId' => $driver->id]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                        <input type="hidden" name="form_id" value="{{ $documents->id }}">
+                        <input type="hidden" name="document_type" value="{{ $documentType }}">
 
-                                                        <!-- Modal for Updating Image -->
-                                                        <div class="modal fade" id="update{{ $loop->index }}" tabindex="-1" role="dialog" aria-labelledby="updateLabel{{ $loop->index }}" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="updateLabel{{ $loop->index }}">Update {{ ucwords(str_replace('_', ' ', $documentType)) }}</h5>
-                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <form action="{{ route('admin.updateDocument', ['driverId' => $driver->id]) }}" method="POST" enctype="multipart/form-data">
-                                                                        @csrf
-                                                                         <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                                                                         <input type="hidden" name="form_id" value="{{ $documents->id }}">
-                                                                        <input type="hidden" name="document_type" value="{{ $documentType }}">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="document">Choose New {{ ucwords(str_replace('_', ' ', $documentType)) }}</label>
 
-                                                                        <div class="modal-body">
-                                                                            <div class="form-group">
-                                                                                <label for="document">Choose New {{ ucwords(str_replace('_', ' ', $documentType)) }}</label>
+                                {{-- Using the image upload partial --}}
+                                @include('admin.partials.image-upload', [
+                                    'field' => "documents[$documentType]",
+                                    'image' => $driverForm->documents[$documentType] ?? '',
+                                    'id' => 'file' . Str::uuid(),
+                                    'title' => ucwords(str_replace('_', ' ', $documentType)),
+                                    'colSize' => 'col-md-12 col-sm-6',
+                                ])
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+      @else
+           <div>
+               <h4 class="m-4">No Document</h4>
+           </div>
 
-                                                                                {{-- Using the image upload partial --}}
-                                                                                @include('admin.partials.image-upload', [
-                                                                                    'field' => "documents[$documentType]",
-                                                                                    'image' => $driverForm->documents[$documentType] ?? '',
-                                                                                    'id' => 'file' . Str::uuid(),
-                                                                                    'title' => ucwords(str_replace('_', ' ', $documentType)),
-                                                                                    'colSize' => 'col-md-12 col-sm-6',
-                                                                                ])
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="submit" class="btn btn-primary">Update</button>
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
+@endif
+
 
 
 

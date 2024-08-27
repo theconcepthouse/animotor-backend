@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('history_data', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('driver_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('driver_form_id')->constrained('driver_forms')->onDelete('cascade');
+            $table->uuid('driver_id');
+            $table->uuid('driver_form_id');
+//            $table->foreignId('driver_id')->constrained('users')->onDelete('cascade');
+//            $table->foreignId('driver_form_id')->constrained('driver_forms')->onDelete('cascade');
 
             $table->json('hire')->nullable();
             $table->json('reason')->nullable();

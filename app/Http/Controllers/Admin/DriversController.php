@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Document;
 use App\Models\DriverDocument;
+use App\Models\DriverForm;
 use App\Models\Form;
 use App\Models\FormData;
 use App\Models\History;
@@ -130,17 +131,9 @@ class DriversController extends Controller
         $formId = $request->get('form_id');
         $newData = $request->except(['_token', 'driver_id', 'form_id', 'sending_method']);
 
-        $formData = new FormData();
-        $formData->id = Str::uuid();
-        $formData->driver_id = $user->id;
-        $formData->form_id = $formId;
-        $formData->field_data = json_encode($newData);
-        $formData->save();
-//        FormData::updateOrCreate(
-//            ['id' => Str::uuid()],
-//            ['driver_id' => $user->id, 'form_id' => $formId],
-//            ['field_data' => json_encode($newData), 'status' => 'Pending']
-//        );
+        $this->createDriverForm($user->id);
+        $form = DriverForm::where('driver_id', $user->id)->first();
+        $form->update(['personal_details' => $newData]);
 
         return redirect()->back()->with(['success' => 'Driver successfully created']);
 
@@ -195,12 +188,11 @@ class DriversController extends Controller
         return redirect()->back()->with('success','Document update');
     }
 
+
     public function history($driverId)
     {
         $driver = User::findOrFail($driverId);
-        $histories = History::whereHas('formData', function ($query) use ($driverId) {
-            $query->where('driver_id', $driverId);
-        })->with('driver', 'formData.form')->latest()->get();
+        $histories = History::where('driver_id', $driverId)->get();
 
         return view('admin.driver.history', compact('driver', 'histories'));
     }
@@ -209,12 +201,11 @@ class DriversController extends Controller
     {
         $driver = User::findOrFail($driverId);
         $history = History::findOrFail($id);
-        dd($history);
-//        $history = History::whereHas('formData', function ($query) use ($driverId) {
-//            $query->where('driver_id', $driverId);
-//        });
+
         return view('admin.driver.view-history', compact('driver', 'history'));
     }
+
+
 
 
 

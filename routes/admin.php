@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CountriesController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\DriverFormController;
 use App\Http\Controllers\Admin\DriverPcnController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\FaqsController;
@@ -112,7 +113,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('drivers/{status}', [DriversController::class,'index'])->name('drivers.index');
     Route::get('drivers', [DriversController::class,'all'])->name('drivers');
     Route::get('driver/{id}/documents', [DriversController::class,'documents'])->name('driver.documents');
-    Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
+//    Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
 
     Route::resource('currencies', CurrencyController::class);
     Route::resource('menus', MenuController::class)->only('store','update');
@@ -180,6 +181,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('/driver/{driverId}/history', [DriversController::class, 'history'])->name('history');
     Route::get('/driver/{driverId}/history/{id}', [DriversController::class, 'viewHistory'])->name('viewHistory');
 
+
     Route::get('driver/note/{driverId}', [NoteController::class, 'notes'])->name('notes');
     Route::get('driver/note/chat/{driverId}', [NoteController::class, 'noteChat'])->name('noteChat');
     Route::get('driver/{driverId}/note/{noteId}', [NoteController::class, 'viewNote'])->name('viewNote');
@@ -193,17 +195,17 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('store/pcn-log/driver/{driverId}', [DriverPcnController::class, 'storePcnLog'])->name('storePcnLog');
     Route::delete('delete/pcn-log/{pcnId}', [DriverPcnController::class, 'deleteDriverPcn'])->name('deleteDriverPcn');
 
+
     Route::get('payment/history/{driverId}', [PaymentController::class, 'paymentHistory'])->name('paymentHistory');
     Route::post('store/driver/payment', [PaymentController::class, 'savePayment'])->name('savePayment');
     Route::post('store/payment/item', [PaymentController::class, 'addPaymentItem'])->name('addPaymentItem');
 
     Route::get('driver/{driverId}/forms/', [FormController::class, 'index'])->name('form.index');
     Route::get('/user/{driverId}/form/{formId}', [FormController::class, 'fetchCustomerForm'])->name('fetchCustomerForm');
-    Route::post('/submit/customer/form/', [FormController::class, 'submitForm'])->name('submitForm');
-    Route::get('/generate-pdf/{formId}/{driverId}', [FormController::class, 'generatePDF'])->name('generatePDF');
+    Route::post('/submit/driver/form', [FormController::class, 'submitForm'])->name('submitForm');
     Route::get('/duplicate/form/{formId}/{driverId}', [FormController::class, 'duplicateForm'])->name('duplicateForm');
     Route::get('/duplicated/form/{formId}/driver/{driverId}', [FormController::class, 'duplicatedForm'])->name('DuplicatedForm');
-    Route::post('/update/form/status', [FormController::class, 'updateStatus'])->name('updateStatus');
+
 
     Route::get('vehicle', [VehicleController::class, 'index'])->name('vehicle.index');
 
@@ -245,6 +247,17 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('edit/vehicle/{vehicleId}', [VehicleController::class, 'edit'])->name('vehicle.edit');
     Route::delete('destroy/vehicle/{vehicleId}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
     Route::post('update/vehicle/status', [VehicleController::class, 'vehicleStatus'])->name('vehicleStatus');
+
+    Route::get('driver-form/{driverId}/forms/', [DriverFormController::class, 'index'])->name('driverForm');
+    Route::get('fetch/driver/{driverId}/driver-form/{formId}', [DriverFormController::class, 'fetchDriverForm'])->name('fetchDriverForm');
+    Route::post('submit/driver-form/{formId}', [DriverFormController::class, 'submitDriverForm'])->name('submitDriverForm');
+    Route::post('/update/driver-form/status', [DriverFormController::class, 'updateStatus'])->name('updateStatus');
+    Route::get('driver/{driverId}/document/', [DriverFormController::class, 'driverDocuments'])->name('driverDocuments');
+    Route::post('update/driver/{driverId}/document/', [DriverFormController::class, 'updateDocument'])->name('updateDocument');
+    Route::get('/generate-pdf/{formId}/{driverId}', [DriverFormController::class, 'generatePDF'])->name('generatePDF');
+    Route::post('/copy/driver/form/{formId}/', [DriverFormController::class, 'copyDriverForm'])->name('copyDriverForm');
+    Route::get('/history/driver/{driverId}/', [DriverFormController::class, 'driverFormHistory'])->name('driverFormHistory');
+//    Route::post('create/driver/history/{driverId}', [DriverFormController::class, 'storeHistoryData'])->name('storeHistoryData');
 
 });
 

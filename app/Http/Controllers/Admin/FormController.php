@@ -58,14 +58,24 @@ class FormController extends Controller
 
     public function submitForm(Request $request)
     {
-        $formData = new FormData([
-        'driver_id' => $request->get('driver_id'),
-        'form_id' => $request->get('form_id'),
-        'field_data' => json_encode($request->except(['_token', 'driver_id', 'form_id', 'sending_method'])),
-        'status' => 'Pending'
-    ]);
 
-    $formData->save();
+        $driverId = $request->driver_id;
+        $formId = $request->form_id;
+
+        $formData = FormData::where('driver_id', $driverId)->where('form_id', $formId)->first();
+
+        if ($formData)
+        {
+            $formData->field_data = json_encode($request->except(['_token', 'driver_id', 'form_id', 'sending_method']));
+            $formData->save();
+        }
+        $formData = new FormData([
+            'driver_id' => $request->get('driver_id'),
+            'form_id' => $request->get('form_id'),
+            'field_data' => json_encode($request->except(['_token', 'driver_id', 'form_id', 'sending_method'])),
+            'status' => 'Pending'
+        ]);
+        $formData->save();
 
         return redirect()->back()->with(['success' => 'Form submitted successfully']);
     }

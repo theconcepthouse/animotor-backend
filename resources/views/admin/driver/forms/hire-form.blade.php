@@ -26,7 +26,7 @@
                                     <div class="card card-bordered h-100">
                                         <div class="card-inner">
 
-                                            <form action="{{ route('admin.submitForm', $form->id) }}" method="POST" enctype="multipart/form-data">
+                                            <form action="{{ route('admin.submitForm') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
 
                                                 <div class="container">
@@ -52,6 +52,7 @@
                                                     <div class="mb-4">
                                                         <h4 class="title nk-block-title">Hirer Detail</h4>
                                                     </div>
+{{--                                                    {{ dd($formFieldsJson) }}--}}
 
                                                     <div class="row">
                                                         @foreach ($formFieldsJson['Hirer'] as $field)

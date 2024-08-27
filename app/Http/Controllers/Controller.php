@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserCollection;
+use App\Models\DriverForm;
 use App\Models\User;
 
 use App\Notifications\OrderStatusUpdate;
@@ -16,6 +17,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use SendinBlue\Client\Api\ContactsApi;
 use SendinBlue\Client\Api\TransactionalEmailsApi;
 use SendinBlue\Client\ApiException;
@@ -288,5 +291,72 @@ class Controller extends BaseController
             throw $e;
         }
     }
+
+public function createDriverForm($driverId)
+{
+    $formNames = [
+        'Customer Registration',
+        'Onboarding Form',
+        'Hire Agreement',
+        'Proposal Form',
+        'Checklist Form',
+        'Payment Sheet',
+    ];
+    $actionFormNames = [
+        'Return Vehicle',
+        'Report Vehicle Defect',
+        'Report Accident',
+        'Change of Address',
+        'Monthly Maintenance',
+        'Submit Mileage',
+    ];
+
+    // Only exclude fields that are strictly necessary
+    $excludeFields = ['id', 'driver_id', 'name', 'status', 'sending_method', 'state', 'action'];
+    $columns = Schema::getColumnListing('driver_forms');
+
+    // Identify JSON fields by excluding the necessary fields
+    $jsonFields = array_diff($columns, $excludeFields);
+
+    foreach ($formNames as $name) {
+        $data = [
+            'driver_id' => $driverId,
+            'name' => $name,
+            'status' => 'pending',
+            'sending_method' => null,
+            'state' => 'Generated',
+            'action' => 0,
+        ];
+
+        // Explicitly set only the intended JSON fields to null
+        foreach ($jsonFields as $field) {
+            $data[$field] = null;
+        }
+
+        DriverForm::create($data);
+    }
+
+    foreach ($actionFormNames as $name) {
+        $data = [
+            'driver_id' => $driverId,
+            'name' => $name,
+            'status' => 'pending',
+            'sending_method' => null,
+            'state' => 'Generated',
+            'action' => 1,
+        ];
+
+        foreach ($jsonFields as $field) {
+            $data[$field] = null;
+        }
+
+        DriverForm::create($data);
+    }
+
+    return $form ?? null;
+}
+
+
+
 
 }

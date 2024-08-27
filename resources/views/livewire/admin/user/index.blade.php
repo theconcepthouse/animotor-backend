@@ -235,7 +235,7 @@
                                     <div class="d-flex">
                                         <a wire:navigate href="{{ route('admin.user.edit', $item->id) }}?back_url={{ $current_uri }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-edit"></em></a>
 
-                                        <a wire:navigate href="{{ route('admin.form.index', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
+                                        <a wire:navigate href="{{ route('admin.driverForm', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-eye"></em></a>
                                         <a wire:navigate href="{{ route('admin.driver.documents', ['id' => $item->id]) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"><em class="icon ni ni-file"></em></a>
                                     </div>
                                 </td>

@@ -40,7 +40,7 @@
                                                 <a class="nav-link active btn btn-primary" href="{{ route('admin.form.index', $user->id) }}" wire:navigate>Forms</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('admin.addDocument', $user->id) }}" wire:navigate>Documents</a>
+                                                <a class="nav-link" href="{{ route('admin.driverDocuments', $user->id) }}" wire:navigate>Documents</a>
                                             </li>
                                             <li class="nav-item" >
                                                 <a class="nav-link" href="{{ route('admin.paymentHistory', $user->id) }}" wire:navigate >Payment History</a>

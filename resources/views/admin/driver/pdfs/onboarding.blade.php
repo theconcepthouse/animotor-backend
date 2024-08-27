@@ -1,107 +1,160 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $form->name }}</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f6f6f6;
+        }
+        .container {
+            /*background-color: #b1b1b1;*/
+            padding: 5px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 10px;
+            width: 30%;
+            vertical-align: bottom; /* Aligns the content at the bottom */
+        }
+        label {
+            display: block;
+            font-weight: lighter;
+            margin-top: 18px; /* Space above the label */
+        }
+        .underline {
+            display: block;
+            border-bottom: 1px solid #444343;
+            margin-top: 4px; /* Space between the text and the underline */
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row ">
+        <div class="col-md-6">
+            <img height="50" width="120" src="https://animotor.co.uk/storage/photos/9a9ede47-d4e9-4205-b546-c6437d4914f5/ANI_Motors_Logo.jpg" alt="{{ env('APP_NAME') }}"  class="img-fluid">
+        </div>
+       <div style="font-size: 10px; text-align: right" class="col-md-6">
+            <div style="align-items: flex-end; margin-left: 30em" >
+            <p>Phone: 01753424350</p>
+            <p>Email: info@animotor.co.uk</p>
+            <p>Web: www.animotor.co.uk</p>
+            </div>
+       </div>
+   </div>
+    <br>
+    <table>
+        <tbody>
+        <h4 style="margin-bottom: 0px">Driver Details:</h4>
+        <tr style="margin-top: 0px">
+            <td>
+                <label style="margin-bottom: 25px">First Name</label>
+                <span>{{ $formData->personal_details['first_name'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Last Name</label>
+                <span>{{ $formData->personal_details['last_name'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px; white-space: nowrap">Email</label>
+                <span>{{ $formData->personal_details['email'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="margin-bottom: 25px">Phone</label>
+                <span>{{ $formData->personal_details['phone'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Work Phone</label>
+                <span>{{ $formData->personal_details['work_phone'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Hire Type</label>
+                <span>{{ $formData->personal_details['hire_type'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+        </tr>
+    </tbody>
+        <br>
+ <tbody>
+    <h4 style="margin-bottom: 0px">Vehicle Details:</h4>
+    <tr style="margin-top: 0px">
+        <td>
+            <label style="margin-bottom: 25px">Registration Number</label>
+            <span>{{ $form->vehicle['registration_number'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+        <td>
+            <label style="margin-bottom: 25px">Insurance Group</label>
+            <span>{{ $form->vehicle['insurance_group'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+        <td>
+            <label style="margin-bottom: 25px">Car Model</label>
+            <span>{{ $form->vehicle['car_model'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="margin-bottom: 25px">Car Make</label>
+            <span>{{ $form->vehicle['car_make'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+        <td>
+            <label style="margin-bottom: 25px">Date Out</label>
+            <span>{{ $form->vehicle['date_out'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+        <td>
+            <label style="margin-bottom: 25px">Date Due</label>
+            <span>{{ $form->vehicle['date_due'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label style="margin-bottom: 25px">Time Out</label>
+            <span>{{ $form->vehicle['time_out'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+        <td>
+            <label style="margin-bottom: 25px">Time Back</label>
+            <span>{{ $form->vehicle['time_back'] ?? '' }}</span>
+            <span class="underline"></span>
+        </td>
+        <td>
+        </td>
+    </tr>
+</tbody>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <title>{{ env('APP_NAME') }}</title>
-  </head>
-  <body>
 
-  <div class="container mt-3 ">
-        <div class="row ">
-            <div class="col-md-6">
-                <img src="path/to/logo.png" alt="Company Logo" class="img-fluid">
-            </div>
-            <div class="col-md-6 text-right">
-                <p>Phone: 01753424350</p>
-                <p>Email: info@animotor.co.uk</p>
-                <p>Web: www.animotor.co.uk</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <p>ANI Motors Ltd, Office 7 Albion House, 6 Albion Close, Slough SL2 5DT</p>
-            </div>
-        </div>
-        <div class="important-notice">
-            <p><strong>Important Notice: </strong>Lorem ipsum dolor sit amet consectetur. Et ipsum enim semper faucibus enim neque volutpat. At consectetur id potenti libero. Ipsum felis maecenas nulla nunc condimentum mauris. Dolor vel justo porta in elit eget. At diam ultricies posuere dignissim ultrices tristique quam. Elit metus proin viverra nec penatibus. Vitae nec nunc phasellus turpis.</p>
-        </div>
-        <div>
-            <div class="row mb-3 mt-3">
-            <div class="col-12 section-title">
-               <h4> Customer Details:</h4>
-            </div>
-            </div>
-            <div class="row">
-                @foreach ($formFieldsJson['Customer'] as $field)
-                     <div class="col-md-4 mb-5">
-                        <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
-                         <br><br>
-                         <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-      <div>
-            <div class="row mb-3 mt-3">
-            <div class="col-12 section-title">
-               <h4> Vehicle Details:</h4>
-            </div>
-            </div>
-            <div class="row">
-                @foreach ($formFieldsJson['Vehicle'] as $field)
-                     <div class="col-md-4 mb-5">
-                        <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
-                         <br><br>
-                         <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-      <div>
-            <div class="row mb-3 mt-3">
-            <div class="col-12 section-title">
-               <h4> Rate Details:</h4>
-            </div>
-            </div>
-            <div class="row">
-                @foreach ($formFieldsJson['Rate'] as $field)
-                     <div class="col-md-4 mb-5">
-                        <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
-                         <br><br>
-                         <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-      @pageBreak
-      <div class="mt-4">
-            <div class="row mb-3 mt-3">
-            <div class="col-12 section-title">
-               <h4> Charges Details:</h4>
-            </div>
-            </div>
-            <div class="row">
-                @foreach ($formFieldsJson['Charges'] as $field)
-                     <div class="col-md-4 mb-5">
-                        <strong style="margin-bottom: 10px">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</strong>
-                         <br><br>
-                         <span class="lead mt-2">{{ $submittedData[$field['fieldName']] ?? '___________' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
+    </table>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+{{--    <div class="page-break"></div>--}}
+
+</div>
+</body>
 </html>

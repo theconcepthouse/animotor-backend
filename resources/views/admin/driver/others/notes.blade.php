@@ -20,23 +20,24 @@
 {{--                                       </div>--}}
                                     <div class="card-inner">
                                         <ul class="nav nav-tabs mt-n3" >
+
                                             <li class="nav-item "  >
-                                                <a class="nav-link" href="{{ route('admin.form.index', $driver->id) }}" wire:navigate>Forms</a>
+                                                <a class="nav-link" href="{{ route('admin.driverForm', $driver->id) }}" wire:navigate>Forms</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link " href="{{ route('admin.addDocument', $driver->id) }}" wire:navigate>Documents</a>
+                                                <a class="nav-link" href="{{ route('admin.driverDocuments', $driver->id) }}" wire:navigate>Documents</a>
                                             </li>
                                             <li class="nav-item" >
-                                                <a class="nav-link"href="{{ route('admin.paymentHistory', $driver->id) }}" wire:navigate>Payment History</a>
+                                                <a class="nav-link" href="{{ route('admin.paymentHistory', $driver->id) }}" wire:navigate >Payment History</a>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <a class="nav-link" href="{{ route('admin.driverPcn', $driver->id) }}" wire:navigate>PCNS</a>
+                                                <a class="nav-link" href="{{ route('admin.driverPcn', $driver->id) }}" wire:navigate >PCNS</a>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <a class="nav-link active btn btn-primary" href="{{ route('admin.notes', $driver->id) }}" wire:navigate>Notes</a>
+                                                <a class="nav-link active btn btn-primary" href="{{ route('admin.notes', $driver->id) }}" wire:navigate >Notes</a>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <a class="nav-link" href="#" >History</a>
+                                                <a class="nav-link" href="{{ route('admin.driverFormHistory', $driver->id) }}" >History</a>
                                             </li>
                                         </ul>
 

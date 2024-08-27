@@ -13,15 +13,11 @@
                            <div class="nk-block">
 
                                  <div class="card card-bordered card-preview">
-{{--                                      <div class="pull-right">--}}
-{{--                                            <p>Driver's Name: {{ $user->name }}</p>--}}
-{{--                                            <p>Driver Type: {{ $user->hire_type }}</p>--}}
-{{--                                            <p>Driver Type: {{ $user->status }}</p>--}}
-{{--                                       </div>--}}
+
                                     <div class="card-inner">
                                         <ul class="nav nav-tabs mt-n3" >
                                             <li class="nav-item "  >
-                                                <a class="nav-link" href="{{ route('admin.form.index', $driver->id) }}" wire:navigate>Forms</a>
+                                                <a class="nav-link" href="{{ route('admin.driverForm', $driver->id) }}" wire:navigate>Forms</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link active btn btn-primary" href="{{ route('admin.addDocument', $driver->id) }}" wire:navigate>Documents</a>
@@ -55,6 +51,29 @@
                                                     </div>
                                                 @endif
                                                 <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="card card-bordered mb-2">
+                                                            <div class="card-inner">
+                                                                @include('admin.partials.image-upload', [
+                                                                    'field' => 'documents[driving_license_front]',
+                                                                    'image' => $selectedForm->documents['driving_license_front'] ?? $form->documents['driving_license_front'] ?? '',
+                                                                    'id' => 'file' . Str::uuid(),
+                                                                    'title' => 'Driving License Front',
+                                                                    'colSize' => 'col-md-12 col-sm-6',
+                                                                    ])
+                                                                <h5 class="card-title">{{ $item?->document?->name }} </h5>
+                                                                <a data-bs-toggle="modal" href="#update{{ $item->id }}"  style="margin-left: 80%; font-size: 20px"><i class="ni ni-upload-cloud ml-5"></i></a>
+
+                                                                <p class="card-text">License No: {{ $item?->driving_license_number ?? '-' }} </p>
+                                                                <p class="card-text">Expiry Date: {{ $item->expiry_date ?? '-' }} </p>
+
+                                                               <div style="margin-left: 80%" class="pull-right">
+                                                                    <a data-bs-toggle="modal" href="#viewImage{{ $item->id }}" style="margin-right: 20px; font-size: 20px"><i class="ni ni-eye"></i></a>
+                                                                    <a data-bs-toggle="modal" href="#viewImage{{ $item->id }}" style=" font-size: 20px"><i class="ni ni-download"></i></a>
+                                                               </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     @foreach($data as $item)
                                                         <div class="col-lg-6">
                                                             <div class="card card-bordered mb-2">

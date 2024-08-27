@@ -21,10 +21,10 @@
                                     <div class="card-inner">
                                         <ul class="nav nav-tabs mt-n3" >
                                             <li class="nav-item "  >
-                                                <a class="nav-link" href="{{ route('admin.form.index', $driver->id) }}" wire:navigate>Forms</a>
+                                                <a class="nav-link " href="{{ route('admin.driverForm', $driver->id) }}" wire:navigate>Forms</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link " href="{{ route('admin.addDocument', $driver->id) }}" wire:navigate>Documents</a>
+                                                <a class="nav-link" href="{{ route('admin.driverDocuments', $driver->id) }}" wire:navigate>Documents</a>
                                             </li>
                                             <li class="nav-item" >
                                                 <a class="nav-link " href="{{ route('admin.paymentHistory', $driver->id) }}" wire:navigate >Payment History</a>
@@ -36,7 +36,7 @@
                                                 <a class="nav-link" href="{{ route('admin.notes', $driver->id) }}" wire:navigate >Notes</a>
                                             </li>
                                             <li class="nav-item" role="presentation">
-                                                <a class="nav-link" href="#" wire:navigate>History</a>
+                                                <a class="nav-link" href="{{ route('admin.driverFormHistory', $driver->id) }}" >History</a>
                                             </li>
                                         </ul>
 

@@ -145,28 +145,62 @@
                                                     <div class="mb-4">
                                                         <h4 class="title nk-block-title">Rate Details</h4>
                                                     </div>
+                                                    <div>
+                                                       <div class="row">
+                                                        @forelse($rates as $index => $rate)
+                                                            <div class="form-group col-md-3">
+                                                                <label for="item_{{ $index }}">Item</label>
+                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" id="item_{{ $index }}" name="rate[{{ $index }}][item]"
+                                                                       value="{{ old('rate.' . $index . '.item', $rate['item'] ?? '') }}">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="rate_{{ $index }}">Rate</label>
+                                                                <input style="background: #e6e6e6" readonly type="number" class="form-control" id="rate_{{ $index }}" name="rate[{{ $index }}][rate]"
+                                                                       value="{{ old('rate.' . $index . '.rate', $rate['rate'] ?? '') }}">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="unit_{{ $index }}">Unit</label>
+                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" id="unit_{{ $index }}" name="rate[{{ $index }}][units]"
+                                                                       value="{{ old('rate.' . $index . '.units', $rate['units'] ?? '') }}">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="price_{{ $index }}">Price</label>
+                                                                <input style="background: #e6e6e6" readonly type="number" class="form-control" id="price_{{ $index }}" name="rate[{{ $index }}][price]"
+                                                                       value="{{ old('rate.' . $index . '.price', $rate['price'] ?? '') }}">
+                                                            </div>
+                                                           @empty
+                                                             <div class="form-group col-md-3">
+                                                                <label >Item</label>
+                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label >Rate</label>
+                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label >Unit</label>
+                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="price">Price</label>
+                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
+                                                            </div>
+
+
+                                                        @endforelse
+                                                    </div>
+
+                                                    </div>
                                                     <div class="row">
-                                                        <div class="form-group col-md-4">
-                                                            <label for="item">Item</label>
-                                                            <input type="text" class="form-control" id="item" name="rate[item]"
-                                                                   value="{{ old('rate.item', $form->rate['item'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="rate">Rate</label>
-                                                            <input type="number" class="form-control" id="rate" name="rate[rate]"
-                                                                   value="{{ old('rate.rate', $form->rate['rate'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="unit">Unit</label>
-                                                            <input type="text" class="form-control" id="unit" name="rate[unit]"
-                                                                   value="{{ old('rate.unit', $form->rate['unit'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="price">Price</label>
-                                                            <input type="number" class="form-control" id="price" name="rate[price]"
-                                                                   value="{{ old('rate.price', $form->rate['price'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
+
+                                                        <!-- Modal Trigger Code -->
+                                                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalDefault">Add New</button>
+
+                                                    <!-- Modal Content Code -->
+
+                                                    </div>
+                                                    <div class="row mt-3">
+                                                         <div class="form-group col-md-4">
                                                             <label for="sub_total">Sub total</label>
                                                             <input type="number" class="form-control" id="sub_total" name="rate[sub_total]"
                                                                    value="{{ old('rate.sub_total', $form->rate['sub_total'] ?? '') }}">
@@ -237,7 +271,11 @@
                                                                 <label class="form-check-label" for="milage_limit_No">No</label>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group col-md-4">
+
+                                                    </div>
+                                                    <div id="milageLimitDetails" style="display: none;">
+                                                         <div class="row">
+                                                            <div class="form-group col-md-4">
                                                             <label for="milage_limit_type">Milage limit type</label>
                                                             <select class="form-control" id="milage_limit_type" name="charges[milage_limit_type]">
                                                                 <option value="Per Day" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Day' ? 'selected' : '' }}>Per Day</option>
@@ -245,16 +283,21 @@
                                                                 <option value="Per Month" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Month' ? 'selected' : '' }}>Per Month</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="milage_limit_value">Milage limit value</label>
-                                                            <input type="number" class="form-control" id="milage_limit_value" name="charges[milage_limit_value]"
-                                                                   value="{{ old('charges.milage_limit_value', $form->charges['milage_limit_value'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="milage_limit_value">Milage limit value</label>
+                                                                <input type="number" class="form-control" id="milage_limit_value" name="charges[milage_limit_value]"
+                                                                       value="{{ old('charges.milage_limit_value', $form->charges['milage_limit_value'] ?? '') }}">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
                                                             <label for="excess_milage_fee">Excess milage fee</label>
                                                             <input type="number" class="form-control" id="excess_milage_fee" name="charges[excess_milage_fee]"
                                                                    value="{{ old('charges.excess_milage_fee', $form->charges['excess_milage_fee'] ?? '') }}">
                                                         </div>
+                                                       </div>
+                                                    </div>
+
+
+                                                      <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="lost_damaged_key_charges">Lost damaged key charges</label>
                                                             <input type="number" class="form-control" id="lost_damaged_key_charges" name="charges[lost_damaged_key_charges]"
@@ -294,5 +337,74 @@
             </div>
         </div>
     </div>
+
+     <div class="modal fade" tabindex="-1" id="modalDefault">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <em class="icon ni ni-cross"></em>
+                                                                </a>
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Add Rate Item</h5>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="{{ route('admin.saveRate') }}" method="POST">
+                                                                        @csrf
+                                                                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                        <input type="hidden" name="form_id" value="{{ $form->id }}">
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="item">Item</label>
+                                                                                <input type="text" class="form-control" id="item" name="rate[item]">
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="rate">Rate</label>
+                                                                                <input type="number" class="form-control" id="rate" name="rate[rate]">
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="unit">Unit</label>
+                                                                                <input type="number" class="form-control" id="unit" name="rate[units]">
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="price">Price</label>
+                                                                                <input type="number" class="form-control" id="price" name="rate[price]">
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <button class="btn btn-primary">Save</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to show or hide the div based on the selected radio button
+        function toggleMilageLimitDetails() {
+            const milageLimitYes = document.getElementById('milage_limit_Yes');
+            const milageLimitDetails = document.getElementById('milageLimitDetails');
+
+            if (milageLimitYes.checked) {
+                milageLimitDetails.style.display = 'block'; // Show div
+            } else {
+                milageLimitDetails.style.display = 'none'; // Hide div
+            }
+        }
+
+        // Attach event listeners to radio buttons
+        document.getElementById('milage_limit_Yes').addEventListener('click', toggleMilageLimitDetails);
+        document.getElementById('milage_limit_No').addEventListener('click', toggleMilageLimitDetails);
+
+        // Run the function on page load to set the correct initial state
+        toggleMilageLimitDetails();
+    });
+</script>
 
 @endsection

@@ -23,7 +23,6 @@ class DriverFormController extends Controller
         return view('admin.driver.driver-form.index', compact('forms', 'actionForms','driver', 'formData'));
     }
 
-
     public function fetchDriverForm($driverId, $formId)
     {
         $driver = User::findOrFail($driverId);
@@ -64,9 +63,14 @@ class DriverFormController extends Controller
             $selectedForm = DriverForm::where('driver_id', $driverId)->orderBy('updated_at', 'desc')->first();
         }
 
+        $driverForm = DriverForm::where('driver_id', $driverId)
+        ->where('id', $formId)
+        ->firstOrFail();
+        $rates = json_decode($driverForm->rate, true) ?? [];
+
         return match ($form->name) {
             'Customer Registration' => view('admin.driver.driver-form.customer-registration', compact('driver', 'form', 'selectedForm')),
-            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm')),
+            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'rates')),
             'Hire Agreement' => view('admin.driver.driver-form.hire-form', compact('driver', 'form', 'selectedForm')),
             'Proposal Form' => view('admin.driver.driver-form.proposal-form', compact('driver', 'form', 'selectedForm')),
             'Checklist Form' => view('admin.driver.driver-form.checklist-form', compact('driver', 'form', 'selectedForm')),
@@ -298,13 +302,6 @@ class DriverFormController extends Controller
 
 
 
-// Helper method for comparing values
-private function isEqual($val1, $val2)
-{
-    return json_encode($val1) === json_encode($val2);
-}
-
-
     public function copyDriverForm(Request $request, $formId)
     {
 
@@ -378,7 +375,7 @@ private function isEqual($val1, $val2)
     return redirect()->back()->with('success', 'Form submitted successfully.');
 }
 
-     public function storeHistoryData(Request $request, $driverId)
+    public function storeHistoryData(Request $request, $driverId)
     {
 
         $driverFormId = $request->form_id;
@@ -530,13 +527,58 @@ private function isEqual($val1, $val2)
     }
 
 
-
    public function driverFormHistory($driverId)
     {
         $histories = HistoryData::where('driver_id', $driverId)->latest()->get();
         $driver = User::find($driverId);
         return view('admin.driver.others.histories', compact('histories', 'driver'));
     }
+    public function saveRate(Request $request)
+{
+//    return $request;
+    $driverId = $request->input('driver_id');
+    $formId = $request->input('form_id');
+
+    $validated = $request->validate([
+        'rate' => 'nullable|array',
+        'rate.item' => 'nullable|string',
+        'rate.rate' => 'nullable|integer',
+        'rate.units' => 'nullable|integer',
+        'rate.price' => 'nullable|integer',
+        'subtotal' => 'nullable|integer',
+        'total_due' => 'nullable|integer',
+        'total_paid' => 'nullable|integer',
+    ]);
+
+
+    $driverForm = DriverForm::where('driver_id', $driverId)
+        ->where('id', $formId)
+        ->firstOrFail();
+
+    // Get the existing rates or initialize as an empty array
+//     $existingRates = $driverForm->rate ?? [];
+     $existingRates = json_decode($driverForm->rate, true) ?? [];
+
+    // Prepare the new rate data
+    $newRate = [
+        'item' => $validated['rate']['item'] ?? null,
+        'rate' => $validated['rate']['rate'] ?? null,
+        'units' => $validated['rate']['units'] ?? null,
+        'price' => $validated['rate']['price'] ?? null,
+    ];
+
+    // Append the new rate to the existing rates array
+    $existingRates[] = $newRate;
+
+    // Update the DriverForm with the new rates array as JSON
+    $driverForm->rate = json_encode($existingRates);
+    $driverForm->save();
+//    $driverForm->update(['rate' => json_encode($existingRates)]);
+
+    return redirect()->back()->with('success', 'Form submitted successfully.');
+}
+
+
 
 
 

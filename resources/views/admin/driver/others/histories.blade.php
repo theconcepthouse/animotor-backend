@@ -53,7 +53,8 @@
                                                             <th style="width: 100px">Timestamp</th>
                                                             <th>Hire Date Change</th>
                                                             <th>Day Return Extension</th>
-                                                            <th>Address/Contact</th>
+                                                            <th>Contact Info</th>
+                                                            <th>Address Info</th>
                                                             <th>Payment Date</th>
                                                             <th>Payment Amount</th>
                                                             <th>Vehicle Change</th>
@@ -109,6 +110,25 @@
                                                                 @if (isset($history->personal_details))
                                                                     @php
                                                                         $contactData = json_decode($history->personal_details, true);
+                                                                    @endphp
+                                                                    @foreach ($contactData as $field => $data)
+                                                                        @if ($field === 'reason')
+                                                                            <strong>{{ ucfirst(str_replace('_', ' ', $field)) }}</strong>: {{ $data['reason'] ?? 'N/A' }}<br>
+                                                                        @else
+                                                                            <strong>{{ ucfirst(str_replace('_', ' ', $field)) }}</strong>:<br>
+                                                                            <span class="badge bg-warning">Old</span> - {{ $data['old_data'] ?? 'N/A' }}<br>
+                                                                            <span class="badge bg-success">New</span> - {{ $data['new_data'] ?? 'N/A' }}<br>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @else
+                                                                    N/A
+                                                                @endif
+                                                            </td>
+                                                             <!-- Address -->
+                                                            <td>
+                                                                @if (isset($history->address))
+                                                                    @php
+                                                                        $contactData = json_decode($history->address, true);
                                                                     @endphp
                                                                     @foreach ($contactData as $field => $data)
                                                                         @if ($field === 'reason')

@@ -485,6 +485,33 @@ private function isEqual($val1, $val2)
             ],
         ];
 
+        $addressData = [
+            'address' => [
+                'old_data' => $request->input('old_address.address'),
+                'new_data' => $request->input('address.address'),
+            ],
+            'address_2' => [
+                'old_data' => $request->input('old_address.address_line_2'),
+                'new_data' => $request->input('address.address_line_2'),
+            ],
+            'city' => [
+                'old_data' => $request->input('old_address.city'),
+                'new_data' => $request->input('address.city'),
+            ],
+            'country' => [
+                'old_data' => $request->input('old_address.country'),
+                'new_data' => $request->input('address.country'),
+            ],
+            'postcode' => [
+                'old_data' => $request->input('old_address.postcode'),
+                'new_data' => $request->input('address.postcode'),
+            ],
+            'reason' => [
+                'reason_for_change' => $request->input('address_reason_for_change'),
+                'date_of_change' =>  now(),
+            ],
+        ];
+
         // Create a new history record
         HistoryData::create([
             'driver_id' => $driverId,
@@ -495,7 +522,8 @@ private function isEqual($val1, $val2)
             'personal_details' => json_encode($personalData ?? null),
             'payment_date' => json_encode($paymentDateData ?? null),
             'payment' => json_encode($paymentAmtData ?? null),
-            'hirer_insurance' => json_encode($insuranceData ?? null)
+            'hirer_insurance' => json_encode($insuranceData ?? null),
+            'address' => json_encode($addressData ?? null)
         ]);
 
         return redirect()->back()->with('success', 'History data recorded successfully.');

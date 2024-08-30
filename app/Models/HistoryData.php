@@ -18,7 +18,8 @@ class HistoryData extends Model
         'personal_details',
         'payment',
         'payment_date',
-        'hirer_insurance'
+        'hirer_insurance',
+        'address'
     ];
     protected $casts = [
         'hire' => 'array',
@@ -29,6 +30,7 @@ class HistoryData extends Model
         'payment' => 'array',
         'payment_date' => 'array',
         'hire_insurance' => 'array',
+        'address' => 'array',
     ];
 
     public function driver()

@@ -151,7 +151,7 @@
                                                 <input type="text" class="form-control" id="engineSize" placeholder="" wire:model="specification.engine_size">
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="fuelType" class="form-label">Fuel type</label>
+                                                <label for="fuelType" class="form-label"> Year</label>
                                                 <input type="text" class="form-control" id="fuelType" placeholder="" wire:model="specification.fuel_type">
                                             </div>
                                             <div class="col-md-4">
@@ -161,7 +161,7 @@
                                         </div>
                                         <div class="row mb-3">
                                             <div class="col-md-4">
-                                                <label for="year" class="form-label">Year</label>
+                                                <label for="year" class="form-label">Fuel type</label>
                                                 <select class="form-select" id="year" wire:model="specification.year">
                                                    <option value="diesel">Diesel</option>
                                                       <option value="petrol">Petrol</option>

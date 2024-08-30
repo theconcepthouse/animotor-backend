@@ -183,8 +183,8 @@ class VehicleForm extends Component
     public function saveSpecification()
     {
         $this->specification = [
-            'number_of_seats' => $this->specification['number_of_seats'],
-            'air_conditioning' => $this->specification['air_conditioning'],
+            'number_of_seats' => $this->specification['number_of_seats'] ?? null,
+            'air_conditioning' => $this->specification['air_conditioning'] ?? null,
         ];
 
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);
@@ -196,13 +196,13 @@ class VehicleForm extends Component
     public function saveMOT()
     {
         $this->mot = [
-            'test_date_1' => $this->mot['test_date_1'],
-            'expiry_date_1' => $this->mot['expiry_date_1'],
-            'mot_reports' => $this->mot['mot_reports'],
-            'test_date_2' => $this->mot['test_date_2'],
-            'expiry_date_2' => $this->mot['expiry_date_2'],
-            'result' => $this->mot['result'],
-            'failure_details' => $this->mot['failure_details'],
+            'test_date_1' => $this->mot['test_date_1'] ?? null,
+            'expiry_date_1' => $this->mot['expiry_date_1'] ?? null,
+            'mot_reports' => $this->mot['mot_reports'] ?? null,
+            'test_date_2' => $this->mot['test_date_2'] ?? null,
+            'expiry_date_2' => $this->mot['expiry_date_2'] ?? null,
+            'result' => $this->mot['result'] ?? null,
+            'failure_details' => $this->mot['failure_details'] ?? null,
         ];
 
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);
@@ -222,10 +222,10 @@ class VehicleForm extends Component
     public function saveRoadTax()
     {
         $this->road_tax = [
-            'is_taxed' => $this->road_tax['is_taxed'],
-            'expiry_date' => $this->road_tax['expiry_date'],
-            'tax_type' => $this->road_tax['tax_type'],
-            'amount' => $this->road_tax['amount'],
+            'is_taxed' => $this->road_tax['is_taxed'] ?? null,
+            'expiry_date' => $this->road_tax['expiry_date'] ?? null,
+            'tax_type' => $this->road_tax['tax_type'] ?? null,
+            'amount' => $this->road_tax['amount'] ?? null,
         ];
 
         $vehicle = Vehicle::find($this->vehicle?->id ?? $this->vehicleId);

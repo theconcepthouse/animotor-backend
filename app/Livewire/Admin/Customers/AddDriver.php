@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Customers;
 use App\Models\Car;
 use App\Models\Document;
 use App\Models\DriverDocument;
+use App\Models\DriverForm;
 use App\Models\DriversLicense;
 use App\Models\Rate;
 use App\Models\Role;
@@ -12,9 +13,11 @@ use App\Models\TaxiLicense;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Controllers\Controller;
 
 class AddDriver extends Component
 {
@@ -120,26 +123,45 @@ class AddDriver extends Component
         $this->successMsg();
     }
 
-    public function saveCustomer()
-    {
-        $validated = $this->validate([
-            'first_name' => 'string|min:1|max:255|required',
-            'last_name' => 'nullable',
-            'phone' => 'string|min:1|max:255|required|unique:users',
-            'email' => 'string|min:1|max:255|required|unique:users|email',
-            'work_phone' => 'nullable',
-            'role' => 'required',
-        ]);
+   public function saveCustomer()
+{
+    // Validate the input data
+    $validated = $this->validate([
+        'first_name' => 'string|min:1|max:255|required',
+        'last_name' => 'nullable',
+        'phone' => 'string|min:1|max:255|required|unique:users',
+        'email' => 'string|min:1|max:255|required|unique:users|email',
+        'work_phone' => 'nullable',
+        'role' => 'required',
+    ]);
 
-        if (isOwner()) {
-            $validated['company_id'] = companyId();
-        }
-        $validated['password'] = 'password';
-        $customer = User::create($validated);
-        $customer->addRole($validated['role']);
-        $this->userId = $customer->id;
-        $this->successMsg();
+    // Add company_id if the user is an owner
+    if (isOwner()) {
+        $validated['company_id'] = companyId();
     }
+
+    $validated['password'] = bcrypt('password');
+
+    // Create a new user and assign the role
+    $customer = User::create($validated);
+    $customer->addRole($validated['role']);
+    $this->userId = $customer->id;
+
+    // Create an instance of DriverForm using the user ID
+    $this->createDriverForm($this->userId);
+    $form = DriverForm::where('driver_id', $this->userId)->first();
+    $form->update([
+        'personal_details' => [
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+            'phone' => $validated['phone'],
+            'email' => $validated['email'],
+            'work_phone' => $validated['work_phone'],
+        ]
+    ]);
+
+    $this->successMsg();
+}
 
     public function saveAddress()
     {
@@ -153,6 +175,17 @@ class AddDriver extends Component
 
         $user_address = User::findOrFail($this->userId);
         $user_address->update($validated);
+
+        $form = DriverForm::where('driver_id', $this->userId)->first();
+        $form->update([
+            'address' => [
+                'address_line' => $validated['address'],
+                'address_line_2' => $validated['address_2'],
+                'country' => $validated['country'],
+                'city' => $validated['city'],
+                'postcode' => $validated['postcode'],
+            ]
+        ]);
 
         $this->successMsg();
     }
@@ -172,20 +205,20 @@ class AddDriver extends Component
             'issuing_authority' => 'nullable|string',
         ]);
 
-        $document = Document::where('name', 'Drivers License')->first();
-        $validated['driver_id'] = $this->userId;
-        $validated['document_id'] = $document->id;
-
-        // Check if the driver's license document already exists for the user
-        $driverDocument = DriverDocument::where('driver_id', $this->userId)
-                                         ->where('document_id', $document->id)
-                                         ->first();
-
-        if ($driverDocument) {
-            $driverDocument->update($validated);
-        } else {
-            DriverDocument::create($validated);
-        }
+        $form = DriverForm::where('driver_id', $this->userId)->first();
+        $form->update([
+            'drivers_license' => [
+                'license_number' => $validated['driving_license_number'],
+                'type_of_license_held' => $validated['type_of_license_held'],
+                'license_issue_date' => $validated['license_issue_date'],
+                'license_expire_date' => $validated['license_expiry_date'],
+                'date_driving_test_passed' => $validated['driving_test_pass_date'],
+                'national_insurance_number' => $validated['national_insurance_number'],
+                'taxi_number' => $validated['taxi_number'],
+                'dvla_check_code' => $validated['dvla_check_code'],
+                'issuing_authority' => $validated['issuing_authority'],
+            ]
+        ]);
 
         $this->successMsg();
     }
@@ -201,16 +234,18 @@ class AddDriver extends Component
             'operator_name' => 'nullable|string',
         ]);
 
-        $validated['user_id'] = $this->userId;
-        $taxiLicense = TaxiLicense::where('user_id', $this->userId)->first();
-
-        if ($taxiLicense) {
-            $taxiLicense->update($validated);
-        } else {
-            TaxiLicense::create($validated);
-        }
+        $form = DriverForm::where('driver_id', $this->userId)->first();
+        $form->update([
+            'taxi_license' => [
+                'taxi_license_number' => $validated['taxi_license_number'],
+                'taxi_issuing_authority' => $validated['taxi_issuing_authority'],
+                'issuing_date' => $validated['issuing_date'],
+                'expiry_date' => $validated['expiry_date'],
+                'license_type' => $validated['license_type'],
+                'operator_name' => $validated['operator_name'],
+            ]
+        ]);
         $this->successMsg();
-
     }
 
     public function saveContact()
@@ -243,21 +278,19 @@ class AddDriver extends Component
         ]);
 
         // Store the images if they are present
-         $driverLicenseFront = $this->driver_license_front ? $this->storeImageWithOriginalName($this->driver_license_front, 'documents') : null;
+        $driverLicenseFront = $this->driver_license_front ? $this->storeImageWithOriginalName($this->driver_license_front, 'documents') : null;
         $driverLicenseBack = $this->driver_license_back ? $this->storeImageWithOriginalName($this->driver_license_back, 'documents') : null;
         $proofOfAddress = $this->proof_of_address ? $this->storeImageWithOriginalName($this->proof_of_address, 'documents') : null;
 
-        $doc = new Document();
-        $doc->name = "Drivers Documents";
-        $doc->save();
-        // Assuming you have a Document model
-        $document = new DriverDocument($validated);
-        $document->driver_id = $this->userId;
-        $document->document_id = $doc->id;
-        $document->driver_license_front = $driverLicenseFront;
-        $document->driver_license_back = $driverLicenseBack;
-        $document->proof_of_address = $proofOfAddress;
-        $document->save();
+        $form = DriverForm::where('driver_id', $this->userId)->first();
+        $form->update([
+            'documents' => [
+                'driver_license_front' => $driverLicenseFront,
+                'driver_license_back' => $driverLicenseBack,
+                'proof_of_address' => $proofOfAddress,
+            ]
+        ]);
+
         return redirect()->route('admin.drivers');
   }
 
@@ -286,6 +319,69 @@ class AddDriver extends Component
         return view('livewire.admin.customers.add-driver');
     }
 
+    private function createDriverForm($driverId): null
+    {
+    $formNames = [
+        'Customer Registration',
+        'Onboarding Form',
+        'Hire Agreement',
+        'Proposal Form',
+        'Checklist Form',
+        'Payment Sheet',
+    ];
+    $actionFormNames = [
+        'Return Vehicle',
+        'Report Vehicle Defect',
+        'Report Accident',
+        'Change of Address',
+        'Monthly Maintenance',
+        'Submit Mileage',
+    ];
+
+    // Only exclude fields that are strictly necessary
+    $excludeFields = ['id', 'driver_id', 'name', 'status', 'sending_method', 'state', 'action'];
+    $columns = Schema::getColumnListing('driver_forms');
+
+    // Identify JSON fields by excluding the necessary fields
+    $jsonFields = array_diff($columns, $excludeFields);
+
+    foreach ($formNames as $name) {
+        $data = [
+            'driver_id' => $driverId,
+            'name' => $name,
+            'status' => 'pending',
+            'sending_method' => null,
+            'state' => 'Generated',
+            'action' => 0,
+        ];
+
+        // Explicitly set only the intended JSON fields to null
+        foreach ($jsonFields as $field) {
+            $data[$field] = null;
+        }
+
+        DriverForm::create($data);
+    }
+
+    foreach ($actionFormNames as $name) {
+        $data = [
+            'driver_id' => $driverId,
+            'name' => $name,
+            'status' => 'pending',
+            'sending_method' => null,
+            'state' => 'Generated',
+            'action' => 1,
+        ];
+
+        foreach ($jsonFields as $field) {
+            $data[$field] = null;
+        }
+
+        DriverForm::create($data);
+    }
+
+    return $form ?? null;
+}
 
 
 }

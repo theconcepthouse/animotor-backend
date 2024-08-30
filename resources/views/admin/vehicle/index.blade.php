@@ -97,7 +97,7 @@
                                                             <input type="hidden" name="vehicle_id" value="{{ $item?->id }}">
                                                             <div class="row">
                                                                 <div class="col-lg-10">
-                                                                    <select name="status" class="form-control" id="">
+                                                                    <select name="status" class="form-control" >
                                                                         <option selected disabled>Select Status</option>
                                                                         <option value="pending">Pending</option>
                                                                         <option value="in-progress">In-Progress</option>

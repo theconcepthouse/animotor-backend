@@ -94,7 +94,7 @@ class DriversController extends Controller
      public function createDriver(Request $request)
     {
 //        $driver = User::findOrFail($driverId);
-        $form = Form::where('name', 'Customer Registration')->first();
+        $form = DriverForm::where('name', 'Customer Registration')->first();
         $formFieldsJson = json_decode($form->fields, true);
         $role = $request->get('role') ?? 'driver';
 

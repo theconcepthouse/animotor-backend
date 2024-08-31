@@ -255,7 +255,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('driver/{driverId}/document/', [DriverFormController::class, 'driverDocuments'])->name('driverDocuments');
     Route::post('update/driver/{driverId}/document/', [DriverFormController::class, 'updateDocument'])->name('updateDocument');
     Route::get('/generate-pdf/{formId}/{driverId}', [DriverFormController::class, 'generatePDF'])->name('generatePDF');
-    Route::post('/copy/driver/form/{formId}/', [DriverFormController::class, 'copyDriverForm'])->name('copyDriverForm');
+    Route::post('/copy/driver/form/', [DriverFormController::class, 'copyDriverForm'])->name('copyDriverForm');
     Route::get('/history/driver/{driverId}/', [DriverFormController::class, 'driverFormHistory'])->name('driverFormHistory');
     Route::post('/save/rate/driver/', [DriverFormController::class, 'saveRate'])->name('saveRate');
 //    Route::post('create/driver/history/{driverId}', [DriverFormController::class, 'storeHistoryData'])->name('storeHistoryData');

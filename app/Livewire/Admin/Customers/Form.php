@@ -204,7 +204,6 @@ class Form extends Component
             }
         }
 
-        $this->reset(['items', 'other_items', 'subtotal', 'total_due', 'total_paid']);
         $this->successMsg();
         return back();
     }

@@ -47,63 +47,55 @@
                                                     <input name="role" type="hidden" value="{{ $role }}" />
 
                                                 <div class="row gy-2">
-                                                    @if(session('user_id') && session('form_id'))
-                                                        @php
-                                                            $user = \App\Models\User::find(session('user_id'));
-                                                            $formData = \App\Models\FormData::where('driver_id', session('user_id'))->where('form_id', session('form_id'))->first();
-                                                            $formFieldsJson = json_decode($formData->field_data, true);
-                                                        @endphp
-                                                    @endif
-                                                    @foreach ($formFieldsJson as $field)
-                                                        <div class="form-group col-md-4">
-                                                            <label for="{{ $field['fieldName'] }}">{{ ucfirst(str_replace('_', ' ', $field['fieldName'])) }}</label>
-                                                            @php
-                                                                $value = $formData[$field['fieldName']] ?? $commonFields[$field['fieldName']] ?? $field['value'] ?? '';
-                                                            @endphp
 
-                                                            @if ($field['fieldType'] === 'text')
-                                                                <input type="text" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" {{ $field['required'] ? 'required' : '' }}>
-                                                            @elseif ($field['fieldType'] === 'email')
-                                                                <input type="email" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" {{ $field['required'] ? 'required' : '' }}>
-                                                            @elseif ($field['fieldType'] === 'number')
-                                                                <input type="number" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" {{ $field['required'] ? 'required' : '' }}>
-                                                            @elseif ($field['fieldType'] === 'date')
-                                                                <input type="date" class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" value="{{ $value }}" {{ $field['required'] ? 'required' : '' }}>
-                                                            @elseif ($field['fieldType'] === 'select')
-                                                                <select class="form-control" id="{{ $field['fieldName'] }}" name="{{ $field['fieldName'] }}" {{ $field['required'] ? 'required' : '' }}>
-                                                                    @foreach ($field['options'] as $option)
-                                                                        <option value="{{ $option }}" {{ $value == $option ? 'selected' : '' }}>{{ $option }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            @elseif ($field['fieldType'] === 'radio')
-                                                                @foreach ($field['options'] as $option)
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="{{ $field['fieldName'] }}" id="{{ $field['fieldName'] . '_' . $option }}" value="{{ $option }}" {{ $value == $option ? 'checked' : '' }} {{ $field['required'] ? 'required' : '' }}>
-                                                                        <label class="form-check-label" for="{{ $field['fieldName'] . '_' . $option }}">
-                                                                            {{ $option }}
-                                                                        </label>
-                                                                    </div>
-                                                                @endforeach
-                                                            @endif
-                                                        </div>
-                                                    @endforeach
+                                                    <div class="row">
+                                                    <div class="form-group col-md-4">
+                                                    <label for="first_name">First name</label>
+                                                    <input type="text" class="form-control" id="first_name"
+                                                           name="first_name"
+                                                            required>
                                                 </div>
 
-{{--                                                <div class="row gy-4">--}}
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'first_name','title' => 'First Name'])--}}
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'last_name','title' => 'Last Name'])--}}
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'email','type' => 'email','title' => 'Email Address'])--}}
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'work_phone','type' => 'tel','title' => 'Work Number'])--}}
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'phone','type' => 'tel','title' => 'Mobile Number'])--}}
-{{--                                                    @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'hire_type','title' => 'Hire Type','options' => ['Social domestic','Rent to to buy','Credit hire', 'Insurance']])--}}
+                                                <div class="form-group col-md-4">
+                                                    <label for="last_name">Last name</label>
+                                                    <input type="text" class="form-control" id="last_name"
+                                                           name="last_name"
+                                                          required>
+                                                </div>
 
-{{--                                                    <br>--}}
-{{--                                                    @include('admin.partials.form.text', ['attributes' => 'disabled', 'colSize' => 'col-md-4', 'value' => $role, 'fieldName' => 'role', 'type' => 'hidden','title' => ''])--}}
-{{--                                                    <input name="role" type="hidden" value="{{ $role }}" />--}}
+                                                <div class="form-group col-md-4">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" class="form-control" id="email"
+                                                           name="email"
+                                                          required>
+                                                </div>
 
-{{--                                                </div>--}}
+                                                <div class="form-group col-md-4">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" class="form-control" id="phone"
+                                                           name="phone"
+                                                          required>
+                                                </div>
 
+                                                <div class="form-group col-md-4">
+                                                    <label for="work_phone">Work phone</label>
+                                                    <input type="text" class="form-control" id="work_phone"
+                                                           name="work_phone"
+                                                           >
+                                                </div>
 
+                                                <div class="form-group col-md-4">
+                                                    <label for="hire_type">Hire type</label>
+                                                    <select class="form-control" id="hire_type" name="hire_type">
+                                                        <option value="Social Domestic" >Social Domestic</option>
+                                                        <option value="Rent to Buy" >Rent to Buy</option>
+                                                        <option value="Credit Hire" >Credit Hire</option>
+                                                        <option value="Insurance" >Insurance</option>
+                                                    </select>
+                                                </div>
+
+                                                </div>
+                                                </div>
 
 
                                                 <div class="form-group mt-3">

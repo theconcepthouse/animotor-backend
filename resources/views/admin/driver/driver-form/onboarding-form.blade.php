@@ -99,25 +99,45 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
-                                                            <label for="registration_number">Registration number</label>
-                                                            <input type="text" class="form-control" id="registration_number" name="vehicle[registration_number]"
-                                                                   value="{{ old('vehicle.registration_number', $form->vehicle['registration_number'] ?? '') }}">
+                                                        <label class="form-label">Select Vehicle</label>
+                                                               <div class="form-control-wrap">
+                                                                <select class="form-select js-select2 select2-hidden-accessible" id="vehicle_select" data-search="on" aria-hidden="true">
+                                                                    <option selected disabled>Select Vehicle</option>
+                                                                    @foreach($vehicles as $index => $item)
+                                                                        @php
+                                                                            $vehicleDetails = is_array($item->vehicle_details) ? $item->vehicle_details : [];
+                                                                        @endphp
+                                                                        <option value="{{ $item->id }}" data-registration="{{ $vehicleDetails['registration_number'] ?? '' }}" data-select2-id="{{ $item->id }}">
+                                                                            {{ $vehicleDetails['vehicle_name'] ?? '' }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                            <div class="form-group col-md-4">
+                                                                <label for="registration_number">Registration number</label>
+                                                                <input style="background-color: #e6e6e6" type="text" class="form-control" id="registration_number" name="vehicle[registration_number]"
+                                                                       value="{{ old('vehicle.registration_number', $form->vehicle['registration_number'] ?? '') }}" readonly>
+                                                            </div>
+
+
+                                                        <div class="form-group col-md-4">
+                                                                <label for="vehicle_make">Car Make</label>
+                                                                <input style="background-color: #e6e6e6" type="text" class="form-control" id="vehicle_make" name="vehicle[car_make]"
+                                                                       value="{{ old('vehicle.car_make', $form->vehicle['car_make'] ?? '') }}" readonly>
+                                                            </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="car_model">Car model</label>
+                                                            <input style="background-color: #e6e6e6" type="text" class="form-control" id="vehicle_model" name="vehicle[car_model]"
+                                                                   value="{{ old('vehicle.car_model', $form->vehicle['car_model'] ?? '') }}" readonly>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="insurance_group">Insurance group</label>
                                                             <input type="text" class="form-control" id="insurance_group" name="vehicle[insurance_group]"
                                                                    value="{{ old('vehicle.insurance_group', $form->vehicle['insurance_group'] ?? '') }}">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="car_model">Car model</label>
-                                                            <input type="text" class="form-control" id="car_model" name="vehicle[car_model]"
-                                                                   value="{{ old('vehicle.car_model', $form->vehicle['car_model'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="car_make">Car make</label>
-                                                            <input type="text" class="form-control" id="car_make" name="vehicle[car_make]"
-                                                                   value="{{ old('vehicle.car_make', $form->vehicle['car_make'] ?? '') }}">
-                                                        </div>
+
                                                         <div class="form-group col-md-4">
                                                             <label for="date_out">Date out</label>
                                                             <input type="date" class="form-control" id="date_out" name="vehicle[date_out]"
@@ -147,6 +167,11 @@
                                                     </div>
                                                     <div>
                                                        <div class="row">
+                                                            @php
+                                                                // Check if the rate is a string, then decode it, otherwise use it as it is
+                                                                $rates = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : $driverForm->rate;
+                                                                $rates = $rates ?? [];
+                                                            @endphp
                                                         @forelse($rates as $index => $rate)
                                                             <div class="form-group col-md-3">
                                                                 <label for="item_{{ $index }}">Item</label>
@@ -337,52 +362,103 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" id="modalDefault">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <em class="icon ni ni-cross"></em>
+        </a>
+        <div class="modal-header">
+            <h5 class="modal-title">Add Rate Item</h5>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('admin.saveRate') }}" method="POST">
+                @csrf
+                <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                <input type="hidden" name="form_id" value="{{ $form->id }}">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="item">Item</label>
+                        <input type="text" class="form-control" id="item" name="rate[item]">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="rate">Rate</label>
+                        <input type="number" class="form-control" id="rate" name="rate[rate]">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="unit">Unit</label>
+                        <input type="number" class="form-control" id="unit" name="rate[units]">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" id="price" name="rate[price]">
+                    </div>
 
-     <div class="modal fade" tabindex="-1" id="modalDefault">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <em class="icon ni ni-cross"></em>
-                                                                </a>
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Add Rate Item</h5>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form action="{{ route('admin.saveRate') }}" method="POST">
-                                                                        @csrf
-                                                                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                                                                        <input type="hidden" name="form_id" value="{{ $form->id }}">
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="item">Item</label>
-                                                                                <input type="text" class="form-control" id="item" name="rate[item]">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="rate">Rate</label>
-                                                                                <input type="number" class="form-control" id="rate" name="rate[rate]">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="unit">Unit</label>
-                                                                                <input type="number" class="form-control" id="unit" name="rate[units]">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="price">Price</label>
-                                                                                <input type="number" class="form-control" id="price" name="rate[price]">
-                                                                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
 
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="col-6">
-                                                                                <button class="btn btn-primary">Save</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
+        </div>
 
-                                                                </div>
+        </div>
+        </div>
+        </div>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        // Initialize Select2
+        $('.js-select2').select2();
+
+        // Fetch driverId and formId from Blade variables
+        var driverId = '{{ $driver->id }}';
+        var formId = '{{ $form->id }}';
+
+        // On vehicle selection change
+        $('#vehicle_select').on('change', function() {
+            // Get the selected vehicle ID
+            var vehicleId = $(this).val();
+
+            // Construct the URL dynamically with Blade
+            var url = '{{ route('admin.fetchDriverForm', ['driverId' => ':driverId', 'formId' => ':formId']) }}';
+            url = url.replace(':driverId', driverId).replace(':formId', formId) + '?vehicleId=' + encodeURIComponent(vehicleId);
+
+            // Log URL for debugging
+            console.log(url);
+
+            // Perform AJAX request to fetch vehicle details
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    // Set the input fields with the fetched vehicle details
+                    $('#registration_number').val(response.registration_number);
+                    $('#vehicle_make').val(response.make);
+                    $('#vehicle_model').val(response.model);
+                },
+                error: function(xhr, status, error) {
+                    // Handle error (e.g., clear input or show a message)
+                    $('#registration_number').val('');
+                    $('#vehicle_make').val('');
+                    $('#vehicle_model').val('');
+                    console.error('Failed to fetch vehicle details:', xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {

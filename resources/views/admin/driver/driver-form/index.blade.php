@@ -286,10 +286,10 @@
                 </div>
                 <div class="modal-body">
 
-                <form action="{{ route('admin.copyDriverForm', $formData->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.copyDriverForm') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                    <input type="hidden" name="form_id" value="{{ $formData->id }}">
+                    <input type="hidden" name="form_id" value="{{ $formData }}">
 
                         <div class="row gy-4">
                             <div class="col-md-3 col-sm-6">

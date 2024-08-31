@@ -8,7 +8,9 @@ use App\Models\Form;
 use App\Models\FormData;
 use App\Models\History;
 use App\Models\HistoryData;
+use App\Models\Payment;
 use App\Models\User;
+use App\Models\Vehicle;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -23,7 +25,7 @@ class DriverFormController extends Controller
         return view('admin.driver.driver-form.index', compact('forms', 'actionForms','driver', 'formData'));
     }
 
-    public function fetchDriverForm($driverId, $formId)
+    public function fetchDriverForm($driverId, $formId, Request $request)
     {
         $driver = User::findOrFail($driverId);
         $form = DriverForm::findOrFail($formId);
@@ -66,11 +68,25 @@ class DriverFormController extends Controller
         $driverForm = DriverForm::where('driver_id', $driverId)
         ->where('id', $formId)
         ->firstOrFail();
-        $rates = json_decode($driverForm->rate, true) ?? [];
+        $vehicles = Vehicle::all();
+
+
+        $vehicleId = $request->query('vehicleId');
+        $vehicle = Vehicle::find($vehicleId);
+
+        if ($vehicle) {
+            $vehicleDetails = is_array($vehicle->vehicle_details) ? $vehicle->vehicle_details : [];
+            return response()->json([
+                'registration_number' => $vehicleDetails['registration_number'] ?? '',
+                'make' => $vehicleDetails['make'] ?? '',
+                'model' => $vehicleDetails['model'] ?? ''
+            ]);
+        }
+
 
         return match ($form->name) {
             'Customer Registration' => view('admin.driver.driver-form.customer-registration', compact('driver', 'form', 'selectedForm')),
-            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'rates')),
+            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'driverForm', 'vehicles')),
             'Hire Agreement' => view('admin.driver.driver-form.hire-form', compact('driver', 'form', 'selectedForm')),
             'Proposal Form' => view('admin.driver.driver-form.proposal-form', compact('driver', 'form', 'selectedForm')),
             'Checklist Form' => view('admin.driver.driver-form.checklist-form', compact('driver', 'form', 'selectedForm')),
@@ -105,7 +121,7 @@ class DriverFormController extends Controller
             'personal_details',
             'address',
             'vehicle',
-            'rate',
+//            'rate',
             'charges',
             'signature',
             'declaration',
@@ -302,10 +318,11 @@ class DriverFormController extends Controller
 
 
 
-    public function copyDriverForm(Request $request, $formId)
+    public function copyDriverForm(Request $request)
     {
 
     $driverId = $request->input('driver_id');
+    $formId = $request->input('form_id');
 
     $fieldsToUpdate = [
         'personal_details',
@@ -533,50 +550,62 @@ class DriverFormController extends Controller
         $driver = User::find($driverId);
         return view('admin.driver.others.histories', compact('histories', 'driver'));
     }
+
+
     public function saveRate(Request $request)
-{
-//    return $request;
-    $driverId = $request->input('driver_id');
-    $formId = $request->input('form_id');
+    {
+        $driverId = $request->input('driver_id');
+        $formId = $request->input('form_id');
 
-    $validated = $request->validate([
-        'rate' => 'nullable|array',
-        'rate.item' => 'nullable|string',
-        'rate.rate' => 'nullable|integer',
-        'rate.units' => 'nullable|integer',
-        'rate.price' => 'nullable|integer',
-        'subtotal' => 'nullable|integer',
-        'total_due' => 'nullable|integer',
-        'total_paid' => 'nullable|integer',
-    ]);
+        $validated = $request->validate([
+            'rate' => 'nullable|array',
+            'rate.item' => 'nullable|string',
+            'rate.rate' => 'nullable|integer',
+            'rate.units' => 'nullable|integer',
+            'rate.price' => 'nullable|integer',
+            'subtotal' => 'nullable|integer',
+            'total_due' => 'nullable|integer',
+            'total_paid' => 'nullable|integer',
+        ]);
 
+        $driverForm = DriverForm::where('driver_id', $driverId)
+            ->where('id', $formId)
+            ->firstOrFail();
 
-    $driverForm = DriverForm::where('driver_id', $driverId)
-        ->where('id', $formId)
-        ->firstOrFail();
+        // Decode existing rates or initialize as an empty array
+        $existingRates = json_decode($driverForm->rate, true) ?? [];
 
-    // Get the existing rates or initialize as an empty array
-//     $existingRates = $driverForm->rate ?? [];
-     $existingRates = json_decode($driverForm->rate, true) ?? [];
+        // Prepare the new rate data
+        $newRate = [
+            'item' => $validated['rate']['item'] ?? null,
+            'rate' => $validated['rate']['rate'] ?? null,
+            'units' => $validated['rate']['units'] ?? null,
+            'price' => $validated['rate']['price'] ?? null,
+        ];
 
-    // Prepare the new rate data
-    $newRate = [
-        'item' => $validated['rate']['item'] ?? null,
-        'rate' => $validated['rate']['rate'] ?? null,
-        'units' => $validated['rate']['units'] ?? null,
-        'price' => $validated['rate']['price'] ?? null,
-    ];
+        // Append the new rate to the existing rates array
+        $existingRates[] = $newRate;
 
-    // Append the new rate to the existing rates array
-    $existingRates[] = $newRate;
+        // Update the DriverForm with the new rates array as JSON
+        $driverForm->rate = json_encode($existingRates);
+        $driverForm->save();
 
-    // Update the DriverForm with the new rates array as JSON
-    $driverForm->rate = json_encode($existingRates);
-    $driverForm->save();
-//    $driverForm->update(['rate' => json_encode($existingRates)]);
+        // Process the new rate to create payment entries
+        if ($newRate['units'] && $newRate['price']) {
+            $pricePerUnit = $newRate['price'] / $newRate['units'];
 
-    return redirect()->back()->with('success', 'Form submitted successfully.');
-}
+            for ($i = 0; $i < $newRate['units']; $i++) {
+                Payment::create([
+                    'driver_id' => $driverId,
+                    'due_date' => now()->addDays($i * 7),
+                    'amount' => $pricePerUnit,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Form submitted successfully.');
+    }
+
 
 
 

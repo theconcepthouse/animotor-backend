@@ -60,7 +60,7 @@
     <br>
     <table>
         <tbody>
-        <h4 style="margin-bottom: 0px">Hirer Details:</h4>
+        <h5 style="margin-bottom: 0px">Hirer Details:</h5>
         <tr style="margin-top: 0px">
             <td>
                 <label style="margin-bottom: 25px">First Name</label>
@@ -99,63 +99,63 @@
             <tr style="margin-top: 0px">
                 <td>
                     <label style="margin-bottom: 25px">Street Name</label>
-                    <span>{{ $submittedData['address_line'] ?? '' }}</span>
+                    <span>{{ $formData->address['address_line'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">City</label>
-                    <span>{{ $submittedData['city'] ?? '' }}</span>
+                    <span>{{ $formData->address['city'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">County</label>
-                    <span>{{ $submittedData['country'] ?? '' }}</span>
+                    <span>{{ $formData->address['country'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">Postcode</label>
-                    <span>{{ $submittedData['postcode'] ?? '' }}</span>
+                    <span>{{ $formData->address['postcode'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
             </tr>
         </tbody>
 
         <tbody >
-            <h4 style="margin-bottom: 0px">Vehicle Details: </h4>
+            <h5 style="margin-bottom: 0px">Vehicle Details: </h5>
             <tr style="margin-top: 0px">
                 <td>
                     <label style="margin-bottom: 25px">Registration number</label>
-                    <span>{{ $submittedData['registration_number'] ?? '' }}</span>
+                    <span>{{ $formData->vehicle['registration_number'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">Insurance group</label>
-                    <span>{{ $submittedData['insurance_group'] ?? '' }}</span>
+                    <span>{{ $formData->vehicle['insurance_group'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">Car Make/Model</label>
-                    <span>{{ $submittedData['car_make'] ?? '' }}{{ $submittedData['car_model'] ?? '' }}</span>
+                    <span>{{ $formData->vehicle['car_make'] ?? '' }}{{ $submittedData['car_model'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label style="margin-bottom: 25px">Date out</label>
-                    <span>{{ $submittedData['date_out'] ?? '' }}</span>
+                    <span>{{ $formData->vehicle['date_out'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">Date Due</label>
-                    <span>{{ $submittedData['date_due'] ?? '' }}</span>
+                    <span>{{ $formData->vehicle['date_due'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
             </tr>
         </tbody>
         <tbody >
-            <h4 style="margin-bottom: 0px; white-space: nowrap">STATEMENT OF LIABILITY: </h4>
+            <h5 style="margin-bottom: 0px; white-space: nowrap">STATEMENT OF LIABILITY: </h5>
             <tr >
-                <td colspan="3">
+                <td colspan="4">
                     <p style="text-align: justify; color: #463b3b">
                         I hereby acknowledge that during the currency of this agreement, I shall be Liable as the owner of the vehicle
                         let me there-under in respect of any fixed penalty Offence committed in respect of the vehicle under part III of
@@ -170,9 +170,9 @@
             </tr>
         </tbody>
         <tbody >
-            <h4 style="margin-bottom: 0px; white-space: nowrap">DECLARATION: </h4>
+            <h5 style="margin-bottom: 0px; white-space: nowrap">DECLARATION: </h5>
             <tr >
-                <td colspan="3">
+                <td colspan="4">
                     <p style="text-align: justify; color: #463b3b">
                         declare that the information given in this form is correct and complete. In addition, I hereby acknowledge and
                         confirm that during the duration of the vehicle hire I shall be liable for any penalty charges (PCNs), parking or
@@ -182,7 +182,7 @@
                         period.
                     </p>
                      <div style="display: flex; ">
-                        <div style="margin-right: 10px; font-size: 18px">
+                        <div style="margin-right: 10px; margin-top: 10px; font-size: 15px">
                             <span>Date: {{ $formData->declaration['signature_date'] ?? '' }}......./......./....../</span>
                             <span> Signature: <img src="{{ $formData->declaration['signature_2'] ?? '' }}" alt="Signature Image" style="max-height: 100px; width: auto;">__________________</span>
 

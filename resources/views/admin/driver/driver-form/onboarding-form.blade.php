@@ -227,18 +227,18 @@
                                                     <div class="row mt-3">
                                                          <div class="form-group col-md-4">
                                                             <label for="sub_total">Sub total</label>
-                                                            <input type="number" class="form-control" id="sub_total" name="rate[sub_total]"
-                                                                   value="{{ old('rate.sub_total', $form->rate['sub_total'] ?? '') }}">
+                                                            <input style="background: #e6e6e6" type="number" class="form-control" id="sub_total" name="rate_total[sub_total]"
+                                                                   value="{{ $priceSum }}" readonly >
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="total_paid">Total paid</label>
-                                                            <input type="number" class="form-control" id="total_paid" name="rate[total_paid]"
-                                                                   value="{{ old('rate.total_paid', $form->rate['total_paid'] ?? '') }}">
+                                                            <input type="number" class="form-control" id="total_paid" name="rate_total[total_paid]"
+                                                                   value="{{ old('rate_total.total_paid', $form->rate_total['total_paid'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="total_due">Total due</label>
-                                                            <input type="number" class="form-control" id="total_due" name="rate[total_due]"
-                                                                   value="{{ old('rate.total_due', $form->rate['total_due'] ?? '') }}">
+                                                            <input type="number" class="form-control" id="total_due" name="rate_total[total_due]"
+                                                                   value="{{ old('rate_total.total_due', $form->rate_total['total_due'] ?? '') }}">
                                                         </div>
                                                     </div>
                                                 </div>

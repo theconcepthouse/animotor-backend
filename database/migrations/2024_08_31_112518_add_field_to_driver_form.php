@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('driver_forms', function (Blueprint $table) {
-            //
+           $table->json('rate_total')->after('rate')->nullable();
         });
     }
 

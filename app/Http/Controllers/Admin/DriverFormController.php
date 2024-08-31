@@ -68,9 +68,8 @@ class DriverFormController extends Controller
         $driverForm = DriverForm::where('driver_id', $driverId)
         ->where('id', $formId)
         ->firstOrFail();
+
         $vehicles = Vehicle::all();
-
-
         $vehicleId = $request->query('vehicleId');
         $vehicle = Vehicle::find($vehicleId);
 
@@ -83,10 +82,20 @@ class DriverFormController extends Controller
             ]);
         }
 
+        // Decode the rate JSON data
+        $rateData = json_decode($driverForm->rate, true);
+        $priceSum = 0;
+
+        // Loop through the rate items
+        foreach ($rateData as $key => $rate) {
+            if (is_array($rate) && isset($rate['price'])) {
+                $priceSum += (float) $rate['price'];  // Convert price to float and add to sum
+            }
+        }
 
         return match ($form->name) {
             'Customer Registration' => view('admin.driver.driver-form.customer-registration', compact('driver', 'form', 'selectedForm')),
-            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'driverForm', 'vehicles')),
+            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'driverForm', 'vehicles', 'priceSum')),
             'Hire Agreement' => view('admin.driver.driver-form.hire-form', compact('driver', 'form', 'selectedForm')),
             'Proposal Form' => view('admin.driver.driver-form.proposal-form', compact('driver', 'form', 'selectedForm')),
             'Checklist Form' => view('admin.driver.driver-form.checklist-form', compact('driver', 'form', 'selectedForm')),
@@ -122,6 +131,7 @@ class DriverFormController extends Controller
             'address',
             'vehicle',
 //            'rate',
+            'rate_total',
             'charges',
             'signature',
             'declaration',

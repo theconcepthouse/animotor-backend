@@ -158,7 +158,7 @@
                                                                 @if($payments)
                                                                     @foreach($payments as $item)
                                                                     <tr>
-                                                                        <td>{{ date('Y-m-d', strtotime($item->due_date)) }}</td>
+                                                                        <td>{{ date('d M, Y', strtotime($item->due_date)) }}</td>
                                                                         <td>{{ "£".$item?->amount }}
                                                                             <a data-bs-toggle="modal"  href="#addPayment{{ $item->id }}" style="font-size: 20px; margin-left: 5px"><i class="ni ni-eye"></i></a>
                                                                         </td>

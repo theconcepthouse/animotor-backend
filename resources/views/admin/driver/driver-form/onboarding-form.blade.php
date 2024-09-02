@@ -108,7 +108,7 @@
                                                                             $vehicleDetails = is_array($item->vehicle_details) ? $item->vehicle_details : [];
                                                                         @endphp
                                                                         <option value="{{ $item->id }}" data-registration="{{ $vehicleDetails['registration_number'] ?? '' }}" data-select2-id="{{ $item->id }}">
-                                                                            {{ $vehicleDetails['vehicle_name'] ?? '' }}
+                                                                            {{ $vehicleDetails['registration_number'] ?? '' }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
@@ -464,6 +464,32 @@
         });
     });
 </script>
+
+   <script>
+  // Function to calculate total due
+  function calculateTotalDue() {
+    // Get the values of sub_total and total_paid inputs
+    const subTotal = parseFloat(document.getElementById('sub_total').value) || 0;
+    const totalPaidInput = document.getElementById('total_paid');
+    const totalPaid = parseFloat(totalPaidInput.value);
+
+    // Check if total_paid has a valid input
+    if (!isNaN(totalPaid)) {
+      // Calculate the total due
+      const totalDue = subTotal - totalPaid;
+
+      // Set the calculated total due to the total_due input
+      document.getElementById('total_due').value = totalDue.toFixed(2); // Ensure 2 decimal places
+    } else {
+      // Clear the total_due input if no valid total_paid value is entered
+      document.getElementById('total_due').value = '';
+    }
+  }
+
+  // Add event listener to recalculate total due when total_paid changes
+  document.getElementById('total_paid').addEventListener('input', calculateTotalDue);
+</script>
+
 
 
 

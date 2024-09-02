@@ -32,6 +32,7 @@
             display: block;
             font-weight: lighter;
             margin-top: 18px; /* Space above the label */
+            text-transform: capitalize;
         }
         .underline {
             display: block;
@@ -74,7 +75,7 @@
             </td>
              <td>
                 <label style="margin-bottom: 25px; white-space: nowrap">Driver licence issuing country</label>
-                <span>{{ $formData->personal_details['driver_licence_issuing_country'] ?? '' }}</span>
+                <span>{{ $formData->drivers_license['driver_licence_issuing_country'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
         </tr>
@@ -82,7 +83,7 @@
 
             <td>
                 <label style="margin-bottom: 25px">Driver licence number</label>
-                <span>{{ $formData->personal_details['driver_licence_number'] ?? '' }}</span>
+                <span>{{ $formData->drivers_license['license_number'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
             <td>
@@ -196,8 +197,161 @@
         </tbody>
 
     </table>
+    <div class="page-break"></div>
 
-{{--    <div class="page-break"></div>--}}
+    <table>
+
+       <tbody>
+        <h4 style="margin-bottom: 0px">Charges Details:</h4>
+        <tr style="margin-top: 0px">
+            <td>
+                <label style="margin-bottom: 25px">Late payment per day</label>
+                <span>£ {{ $formData->charges['late_payment_per_day'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Admin charge for PCN</label>
+                <span>£ {{ $formData->charges['admin_charge_for_pcn_ticket'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Admin charge for speeding ticket</label>
+                <span>£ {{ $formData->charges['admin_charge_for_speeding_ticket'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="margin-bottom: 25px">Admin charge for bus lane tickets</label>
+                <span>£ {{ $formData->charges['admin_charge_for_bus_lane_tickets'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Returning vehicle dirty minor</label>
+                <span>£ {{ $formData->charges['returning_vehicle_dirty_minor'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Returning vehicle dirty major</label>
+                <span>£ {{ $formData->charges['returning_vehicle_dirty_major'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="margin-bottom: 25px">Repossession personal visit minimum</label>
+                <span>{{ $formData->charges['repossession_personal_visit_minimum'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Milage limit</label>
+                <span>{{ $formData->charges['milage_limit'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <label style="margin-bottom: 25px">Lost damaged key charges</label>
+                <span>£ {{ $formData->charges['lost_damaged_key_charges'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Vehicle recovery charges</label>
+                <span>£ {{ $formData->charges['vehicle_recovery_charges'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Accident non-fault excess fee</label>
+                <span>£ {{ $formData->charges['accident_non_fault_excess_fee'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="margin-bottom: 25px">Accident fault-based excess fee</label>
+                <span>{{ $formData->charges['accident_fault_based_excess_fee'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+
+        <tbody >
+            <h4 style="margin-bottom: 0px">Hire Insurance:</h4>
+            <tr>
+                <td colspan="4">
+                    <p>
+                        Hirer shall be fully liable for all
+                        collision damage, third party liability arising out of the use of
+                        the vehicle, any resultant loss of hire charges, and all
+                        damage to the vehicle, whether interior/exterior, including
+                        damage to wind screens and /or tyres however caused. It is
+                        strictly the hirer’s duty to ensure that his own insurers have
+                        been notified of the foregoing terms and relevant cover
+                        obtained.
+                    </p>
+                </td>
+
+            </tr>
+            <h4 style="margin-bottom: 0px">Hire Insurance Details:</h4>
+            <tr style="margin-top: 0px">
+                <td>
+                    <label style="margin-bottom: 25px">Own company</label>
+                    <span>{{ $formData->hirer_insurance['own_insurance'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Insurance company</label>
+                    <span>{{ $formData->hirer_insurance['insurance_company'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Insurance company</label>
+                    <span>{{ $formData->hirer_insurance['policy_number'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+
+
+            </tr>
+        </tbody>
+
+        <tbody >
+            <h4 style="margin-bottom: 0px; white-space: nowrap">DECLARATION: </h4>
+            <tr >
+                <td colspan="4">
+                    <p style="text-align: justify; color: #463b3b">
+                         I MR,{{ $formData->personal_details['first_name'].' '.$formData->personal_details['last_name'] ?? '' }}
+                    declare that the information given in this form is correct and
+                    complete. In addition, I hereby acknowledge and confirm
+                    that during the duration of the vehicle hire I shall be liable
+                    for any penalty charges (PCNs), parking or traffic fines
+                    including such penalties or excess charges howsoever
+                    issued. It is further agreed that the full cost of repair to the
+                    vehicle and replacement costs resulting from the theft or
+                    damage of telematics, camera or vehicle tracking equipment
+                    will be met by the nominated hirer above, if such theft or
+                    damage occurs during the hire period.
+                    </p>
+                     <div style="display: flex; ">
+                        <div style="margin-right: 10px; margin-top: 10px; font-size: 15px">
+                            <span>Date: {{ $formData->declaration['signature_date'] ?? '' }}......./......./....../</span>
+                            <span> Company Signature: <img src="{{ $formData->declaration['signature_2'] ?? '' }}" alt="Signature Image" style="max-height: 100px; width: auto;">__________________</span>
+
+                        </div>
+
+
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+
+
+  </table>
+
+
 
 </div>
 </body>

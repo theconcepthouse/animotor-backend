@@ -333,7 +333,6 @@
                                                        </div>
                                                     </div>
 
-
                                                       <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="lost_damaged_key_charges">Lost damaged key charges</label>
@@ -489,13 +488,6 @@
   // Add event listener to recalculate total due when total_paid changes
   document.getElementById('total_paid').addEventListener('input', calculateTotalDue);
 </script>
-
-
-
-
-
-
-
 
 
     <script>

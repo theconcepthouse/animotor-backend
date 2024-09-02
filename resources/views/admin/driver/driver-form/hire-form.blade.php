@@ -70,7 +70,7 @@
 
                                                        <div class="form-group col-md-4" id="form-group-driver_licence_issuing_country" style="">
                                                                 <label for="driver_licence_issuing_country">Driver licence issuing country</label>
-                                                                 <select class="form-control" id="country" name="personal_details[driver_licence_issuing_country]">
+                                                                 <select class="form-control" id="country" name="drivers_license[driver_licence_issuing_country]">
                                                                     @php
                                                                         $selectedCountry = old('personal_details.driver_licence_issuing_country', $selectedForm->personal_details['driver_licence_issuing_country'] ?? '');
                                                                     @endphp
@@ -650,118 +650,115 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="container mt-4">
+
+                                                <div class="container mt-5">
                                                     <div class="mb-4">
-                                                        <h4 class="title nk-block-title">Additional fees and charges
+                                                       <h4 class="title nk-block-title">Additional fees and charges
                                                             applicable to this agreement</h4>
                                                     </div>
-
-                                                   <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="late_payment_per_day">Late payment</label>
-                                                        <input type="text" class="form-control"
-                                                               id="late_payment_per_day" name="additional_fee[late_payment_per_day]"
-                                                               value="{{ old('additional_fee.late_payment_per_day', $selectedForm->additional_fee['late_payment_per_day'] ?? $form->additional_fee['late_payment_per_day'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="admin_charge_for_pcn_ticket">Admin charge for pcn ticket</label>
-                                                        <input type="text" class="form-control"
-                                                               id="admin_charge_for_pcn_ticket" name="additional_fee[admin_charge_for_pcn_ticket]"
-                                                               value="{{ old('additional_fee.admin_charge_for_pcn_ticket', $selectedForm->additional_fee['admin_charge_for_pcn_ticket'] ?? $form->additional_fee['admin_charge_for_pcn_ticket'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="admin_charge_for_speeding_ticket">Admin charge for speeding ticket</label>
-                                                        <input type="text" class="form-control"
-                                                               id="admin_charge_for_speeding_ticket" name="additional_fee[admin_charge_for_speeding_ticket]"
-                                                               value="{{ old('additional_fee.admin_charge_for_speeding_ticket', $selectedForm->additional_fee['admin_charge_for_speeding_ticket'] ?? $form->additional_fee['admin_charge_for_speeding_ticket'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="admin_charge_for_bus_lane_tickets">Admin charge for bus lane tickets</label>
-                                                        <input type="text" class="form-control"
-                                                               id="admin_charge_for_bus_lane_tickets" name="additional_fee[admin_charge_for_bus_lane_tickets]"
-                                                               value="{{ old('additional_fee.admin_charge_for_bus_lane_tickets', $selectedForm->additional_fee['admin_charge_for_bus_lane_tickets'] ?? $form->additional_fee['admin_charge_for_bus_lane_tickets'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="returning_vehicle_dirty_minor">Returning vehicle dirty minor</label>
-                                                        <input type="text" class="form-control"
-                                                               id="returning_vehicle_dirty_minor" name="additional_fee[returning_vehicle_dirty_minor]"
-                                                               value="{{ old('additional_fee.returning_vehicle_dirty_minor', $selectedForm->additional_fee['returning_vehicle_dirty_minor'] ?? $form->additional_fee['returning_vehicle_dirty_minor'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="returning_vehicle_dirty_major">Returning vehicle dirty major</label>
-                                                        <input type="text" class="form-control"
-                                                               id="returning_vehicle_dirty_major" name="additional_fee[returning_vehicle_dirty_major]"
-                                                               value="{{ old('additional_fee.returning_vehicle_dirty_major', $selectedForm->additional_fee['returning_vehicle_dirty_major'] ?? $form->additional_fee['returning_vehicle_dirty_major'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="repossession_personal_visit_minimum">Repossession personal visit minimum</label>
-                                                        <input type="text" class="form-control"
-                                                               id="repossession_personal_visit_minimum" name="additional_fee[repossession_personal_visit_minimum]"
-                                                               value="{{ old('additional_fee.repossession_personal_visit_minimum', $selectedForm->additional_fee['repossession_personal_visit_minimum'] ?? $form->additional_fee['repossession_personal_visit_minimum'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="milage_limit">Milage limit</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                   name="additional_fee[milage_limit]" id="milage_limit_Yes"
-                                                                   value="Yes" {{ old('additional_fee.milage_limit', $selectedForm->additional_fee['milage_limit'] ?? $form->additional_fee['milage_limit'] ?? '') == 'Yes' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="milage_limit_Yes">
-                                                                Yes
-                                                            </label>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="late_payment_per_day">Late payment per day</label>
+                                                            <input type="number" class="form-control" id="late_payment_per_day" name="charges[late_payment_per_day]"
+                                                                   value="{{ old('charges.late_payment_per_day', $form->charges['late_payment_per_day'] ?? '') }}">
                                                         </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio"
-                                                                   name="additional_fee[milage_limit]" id="milage_limit_No"
-                                                                   value="No" {{ old('additional_fee.milage_limit', $selectedForm->additional_fee['milage_limit'] ?? $form->additional_fee['milage_limit'] ?? '') == 'No' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="milage_limit_No">
-                                                                No
-                                                            </label>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="admin_charge_for_pcn_ticket">Admin charge for pcn ticket</label>
+                                                            <input type="number" class="form-control" id="admin_charge_for_pcn_ticket" name="charges[admin_charge_for_pcn_ticket]"
+                                                                   value="{{ old('charges.admin_charge_for_pcn_ticket', $form->charges['admin_charge_for_pcn_ticket'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="admin_charge_for_speeding_ticket">Admin charge for speeding ticket</label>
+                                                            <input type="number" class="form-control" id="admin_charge_for_speeding_ticket" name="charges[admin_charge_for_speeding_ticket]"
+                                                                   value="{{ old('charges.admin_charge_for_speeding_ticket', $form->charges['admin_charge_for_speeding_ticket'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="admin_charge_for_bus_lane_tickets">Admin charge for bus lane tickets</label>
+                                                            <input type="number" class="form-control" id="admin_charge_for_bus_lane_tickets" name="charges[admin_charge_for_bus_lane_tickets]"
+                                                                   value="{{ old('charges.admin_charge_for_bus_lane_tickets', $form->charges['admin_charge_for_bus_lane_tickets'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="returning_vehicle_dirty_minor">Returning vehicle dirty minor</label>
+                                                            <input type="number" class="form-control" id="returning_vehicle_dirty_minor" name="charges[returning_vehicle_dirty_minor]"
+                                                                   value="{{ old('charges.returning_vehicle_dirty_minor', $form->charges['returning_vehicle_dirty_minor'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="returning_vehicle_dirty_major">Returning vehicle dirty major</label>
+                                                            <input type="number" class="form-control" id="returning_vehicle_dirty_major" name="charges[returning_vehicle_dirty_major]"
+                                                                   value="{{ old('charges.returning_vehicle_dirty_major', $form->charges['returning_vehicle_dirty_major'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="repossession_personal_visit_minimum">Repossession personal visit minimum</label>
+                                                            <input type="number" class="form-control" id="repossession_personal_visit_minimum" name="charges[repossession_personal_visit_minimum]"
+                                                                   value="{{ old('charges.repossession_personal_visit_minimum', $form->charges['repossession_personal_visit_minimum'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="milage_limit">Milage limit</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="charges[milage_limit]" id="milage_limit_Yes" value="Yes"
+                                                                       {{ old('charges.milage_limit', $form->charges['milage_limit'] ?? '') == 'Yes' ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="milage_limit_Yes">Yes</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="charges[milage_limit]" id="milage_limit_No" value="No"
+                                                                       {{ old('charges.milage_limit', $form->charges['milage_limit'] ?? '') == 'No' ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="milage_limit_No">No</label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div id="milageLimitDetails" style="display: none;">
+                                                         <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                            <label for="milage_limit_type">Milage limit type</label>
+                                                            <select class="form-control" id="milage_limit_type" name="charges[milage_limit_type]">
+                                                                <option value="Per Day" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Day' ? 'selected' : '' }}>Per Day</option>
+                                                                <option value="Per Week" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Week' ? 'selected' : '' }}>Per Week</option>
+                                                                <option value="Per Month" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Month' ? 'selected' : '' }}>Per Month</option>
+                                                            </select>
+                                                        </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="milage_limit_value">Milage limit value</label>
+                                                                <input type="number" class="form-control" id="milage_limit_value" name="charges[milage_limit_value]"
+                                                                       value="{{ old('charges.milage_limit_value', $form->charges['milage_limit_value'] ?? '') }}">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                            <label for="excess_milage_fee">Excess milage fee</label>
+                                                            <input type="text" class="form-control" id="excess_milage_fee" name="charges[excess_milage_fee]"
+                                                                   value="{{ old('charges.excess_milage_fee', $form->charges['excess_milage_fee'] ?? '') }}">
+                                                        </div>
+                                                       </div>
+                                                    </div>
+
+                                                      <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="lost_damaged_key_charges">Lost damaged key charges</label>
+                                                            <input type="number" class="form-control" id="lost_damaged_key_charges" name="charges[lost_damaged_key_charges]"
+                                                                   value="{{ old('charges.lost_damaged_key_charges', $form->charges['lost_damaged_key_charges'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="vehicle_recovery_charges">Vehicle recovery charges</label>
+                                                            <input type="number" class="form-control" id="vehicle_recovery_charges" name="charges[vehicle_recovery_charges]"
+                                                                   value="{{ old('charges.vehicle_recovery_charges', $form->charges['vehicle_recovery_charges'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="accident_non_fault_excess_fee">Accident non fault excess fee</label>
+                                                            <input type="number" class="form-control" id="accident_non_fault_excess_fee" name="charges[accident_non_fault_excess_fee]"
+                                                                   value="{{ old('charges.accident_non_fault_excess_fee', $form->charges['accident_non_fault_excess_fee'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="accident_fault_based_excess_fee">Accident fault based excess fee</label>
+                                                            <input type="number" class="form-control" id="accident_fault_based_excess_fee" name="charges[accident_fault_based_excess_fee]"
+                                                                   value="{{ old('charges.accident_fault_based_excess_fee', $form->charges['accident_fault_based_excess_fee'] ?? '') }}">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="milage_limit_text">Milage limit text</label>
-                                                        <input type="text" class="form-control"
-                                                               id="milage_limit_text" name="additional_fee[milage_limit_text]"
-                                                               value="{{ old('additional_fee.milage_limit_text', $selectedForm->additional_fee['milage_limit_text'] ?? $form->additional_fee['milage_limit_text'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="excess_mileage_fee_per_mile">Excess mileage fee per mile</label>
-                                                        <input type="text" class="form-control"
-                                                               id="excess_mileage_fee_per_mile" name="additional_fee[excess_mileage_fee_per_mile]"
-                                                               value="{{ old('additional_fee.excess_mileage_fee_per_mile', $selectedForm->additional_fee['excess_mileage_fee_per_mile'] ?? $form->additional_fee['excess_mileage_fee_per_mile'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="lost_damaged_key_charges">Lost damaged key charges</label>
-                                                        <input type="text" class="form-control"
-                                                               id="lost_damaged_key_charges" name="additional_fee[lost_damaged_key_charges]"
-                                                               value="{{ old('additional_fee.lost_damaged_key_charges', $selectedForm->additional_fee['lost_damaged_key_charges'] ?? $form->additional_fee['lost_damaged_key_charges'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="vehicle_recovery_charges">Vehicle recovery charges</label>
-                                                        <input type="text" class="form-control"
-                                                               id="vehicle_recovery_charges" name="additional_fee[vehicle_recovery_charges]"
-                                                               value="{{ old('additional_fee.vehicle_recovery_charges', $selectedForm->additional_fee['vehicle_recovery_charges'] ?? $form->additional_fee['vehicle_recovery_charges'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="accident_non_fault_excess_fee">Accident non fault excess fee</label>
-                                                        <input type="text" class="form-control"
-                                                               id="accident_non_fault_excess_fee" name="additional_fee[accident_non_fault_excess_fee]"
-                                                               value="{{ old('additional_fee.accident_non_fault_excess_fee', $selectedForm->additional_fee['accident_non_fault_excess_fee'] ?? $form->additional_fee['accident_non_fault_excess_fee'] ?? '') }}">
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="accident_fault_based_excess_fee">Accident fault based excess fee</label>
-                                                        <input type="text" class="form-control"
-                                                               id="accident_fault_based_excess_fee" name="additional_fee[accident_fault_based_excess_fee]"
-                                                               value="{{ old('additional_fee.accident_fault_based_excess_fee', $selectedForm->additional_fee['accident_fault_based_excess_fee'] ?? $form->additional_fee['accident_fault_based_excess_fee'] ?? '') }}">
-                                                    </div>
-                                                </div>
-
                                                 </div>
 
                                                 <div class="container mt-4">
                                                     <div class="mb-4">
                                                         <h4 class="title nk-block-title">Hirer Insurance Details</h4>
                                                     </div>
+
 
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
@@ -783,19 +780,28 @@
                                                                 </label>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="insurance_company">Insurance company</label>
-                                                            <input type="text" class="form-control"
-                                                                   id="insurance_company" name="hirer_insurance[insurance_company]"
-                                                                   value="{{ old('hirer_insurance.insurance_company', $selectedForm->hirer_insurance['insurance_company'] ?? $form->hirer_insurance['insurance_company'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
+
+
+                                                        <div id="insuranceDetails" style="display: none;">
+                                                             <div class="row">
+                                                                 <div class="form-group col-md-4" >
+                                                                <label for="insurance_company">Insurance company</label>
+                                                                <input type="text" class="form-control"
+                                                                       id="insurance_company" name="hirer_insurance[insurance_company]"
+                                                                           value="{{ old('hirer_insurance.insurance_company', $selectedForm->hirer_insurance['insurance_company'] ?? $form->hirer_insurance['insurance_company'] ?? '') }}">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
                                                             <label for="policy_number">Policy number</label>
                                                             <input type="text" class="form-control" id="policy_number"
                                                                    name="hirer_insurance[policy_number]"
                                                                    value="{{ old('hirer_insurance.policy_number', $selectedForm->hirer_insurance['policy_number'] ?? $form->hirer_insurance['policy_number'] ?? '') }}">
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                             </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4" >
                                                             <label for="type_of_cover">Type of cover</label>
                                                             <select class="form-control" id="type_of_cover"
                                                                     name="hirer_insurance[type_of_cover]">
@@ -803,9 +809,6 @@
                                                                 <option value="Third party" {{ old('hirer_insurance.type_of_cover', $selectedForm->hirer_insurance['type_of_cover'] ?? $form->hirer_insurance['type_of_cover'] ?? '') == 'Third party' ? 'selected' : '' }}>Third party</option>
                                                                 <option value="Third party, fire and theft" {{ old('hirer_insurance.type_of_cover', $selectedForm->hirer_insurance['type_of_cover'] ?? $form->hirer_insurance['type_of_cover'] ?? '') == 'Third party, fire and theft' ? 'selected' : '' }}>Third party, fire and theft</option>
                                                             </select>
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="terms_and_conditions">Terms and conditions</label>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="date">Date</label>
@@ -875,9 +878,6 @@
                                                                 <option value="Third party" {{ old('fleet_insurance.type_of_cover', $selectedForm->fleet_insurance['type_of_cover'] ?? $form->fleet_insurance['type_of_cover'] ?? '') == 'Third party' ? 'selected' : '' }}>Third party</option>
                                                                 <option value="Third party, fire and theft" {{ old('fleet_insurance.type_of_cover', $selectedForm->fleet_insurance['type_of_cover'] ?? $form->fleet_insurance['type_of_cover'] ?? '') == 'Third party, fire and theft' ? 'selected' : '' }}>Third party, fire and theft</option>
                                                             </select>
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="terms_and_conditions">Terms and conditions</label>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="date">Date</label>
@@ -1024,6 +1024,46 @@
         </div>
     </div>
 
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to show or hide the div based on the selected radio button
+            function toggleMilageLimitDetails() {
+                const milageLimitYes = document.getElementById('milage_limit_Yes');
+                const milageLimitDetails = document.getElementById('milageLimitDetails');
+
+                if (milageLimitYes.checked) {
+                    milageLimitDetails.style.display = 'block'; // Show div
+                } else {
+                    milageLimitDetails.style.display = 'none'; // Hide div
+                }
+            }
+
+            // Attach event listeners to radio buttons
+            document.getElementById('milage_limit_Yes').addEventListener('click', toggleMilageLimitDetails);
+            document.getElementById('milage_limit_No').addEventListener('click', toggleMilageLimitDetails);
+
+            // Run the function on page load to set the correct initial state
+            toggleMilageLimitDetails();
+        });
+        function toggleMilageLimitDetails() {
+                const milageLimitYes = document.getElementById('milage_limit_Yes');
+                const milageLimitDetails = document.getElementById('milageLimitDetails');
+
+                if (milageLimitYes.checked) {
+                    milageLimitDetails.style.display = 'block'; // Show div
+                } else {
+                    milageLimitDetails.style.display = 'none'; // Hide div
+                }
+            }
+
+            // Attach event listeners to radio buttons
+            document.getElementById('milage_limit_Yes').addEventListener('click', toggleMilageLimitDetails);
+            document.getElementById('milage_limit_No').addEventListener('click', toggleMilageLimitDetails);
+
+            // Run the function on page load to set the correct initial state
+            toggleMilageLimitDetails();
+        });
+</script>
     <!-- Modal for displaying the expanded image -->
     <div id="imageModal" class="modal" style="display:none;">
         <span class="close">&times;</span>
@@ -1120,6 +1160,61 @@
         modal.style.display = "none";
     }
 </script>
+
+     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the radio buttons and the mileage details div
+        var milageYes = document.getElementById('milage_limit_Yes');
+        var milageNo = document.getElementById('milage_limit_No');
+        var milageLimitDetails = document.getElementById('milageLimitDetails');
+
+        // Function to toggle the display of mileage details
+        function toggleMilageDetails() {
+            if (milageYes.checked) {
+                milageLimitDetails.style.display = 'block';
+            } else {
+                milageLimitDetails.style.display = 'none';
+            }
+        }
+
+        // Add event listeners to the radio buttons
+        milageYes.addEventListener('change', toggleMilageDetails);
+        milageNo.addEventListener('change', toggleMilageDetails);
+
+        // Initialize display based on the current state
+        toggleMilageDetails();
+    });
+</script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the radio buttons and the insurance details div
+        var insuranceYes = document.getElementById('own_insurance_Yes');
+        var insuranceNo = document.getElementById('own_insurance_No');
+        var insuranceDetails = document.getElementById('insuranceDetails');
+
+        // Function to toggle the display of insurance details
+        function toggleInsuranceDetails() {
+            if (insuranceYes.checked) {
+                insuranceDetails.style.display = 'block';
+            } else {
+                insuranceDetails.style.display = 'none';
+            }
+        }
+
+        // Add event listeners to the radio buttons
+        insuranceYes.addEventListener('change', toggleInsuranceDetails);
+        insuranceNo.addEventListener('change', toggleInsuranceDetails);
+
+        // Initialize display based on the current state
+        toggleInsuranceDetails();
+    });
+</script>
+
+
+
+
+
 
 
 @endsection

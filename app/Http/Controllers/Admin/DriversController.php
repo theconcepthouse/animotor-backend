@@ -48,7 +48,8 @@ class DriversController extends Controller
     }
 
     public function all(){
-        return view('admin.driver.index');
+        $drivers = User::whereHasRole(['driver'])->latest()->get();
+        return view('admin.driver.index', compact('drivers'));
     }
 
     public function documents($driver_id, DriverDocumentService $driverDocumentService){
@@ -189,20 +190,12 @@ class DriversController extends Controller
     }
 
 
-    public function history($driverId)
+
+    public function deleteDriver($driverId)
     {
         $driver = User::findOrFail($driverId);
-        $histories = History::where('driver_id', $driverId)->get();
-
-        return view('admin.driver.history', compact('driver', 'histories'));
-    }
-
-    public function viewHistory($id, $driverId)
-    {
-        $driver = User::findOrFail($driverId);
-        $history = History::findOrFail($id);
-
-        return view('admin.driver.view-history', compact('driver', 'history'));
+        $driver->delete();
+        return redirect()->back()->with('success','Driver successfully deleted');
     }
 
 

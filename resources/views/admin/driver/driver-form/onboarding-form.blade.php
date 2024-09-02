@@ -168,31 +168,43 @@
                                                     <div>
                                                        <div class="row">
                                                             @php
-                                                                // Check if the rate is a string, then decode it, otherwise use it as it is
-                                                                $rates = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : $driverForm->rate;
+                                                                // Check if rate is a string before decoding, else use the existing array or empty array
+                                                                $rates = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
                                                                 $rates = $rates ?? [];
                                                             @endphp
                                                         @forelse($rates as $index => $rate)
-                                                            <div class="form-group col-md-3">
-                                                                <label for="item_{{ $index }}">Item</label>
-                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" id="item_{{ $index }}" name="rate[{{ $index }}][item]"
-                                                                       value="{{ old('rate.' . $index . '.item', $rate['item'] ?? '') }}">
+                                                            <div class="row">
+                                                                    <div class="form-group col-md-3">
+                                                                    <label for="item_{{ $index }}">Item</label>
+                                                                    <input style="background: #e6e6e6" readonly type="text" class="form-control" id="item_{{ $index }}" name="rate[{{ $index }}][item]"
+                                                                           value="{{ old('rate.' . $index . '.item', $rate['item'] ?? '') }}">
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="rate_{{ $index }}">Rate</label>
+                                                                    <input style="background: #e6e6e6" readonly type="number" class="form-control" id="rate_{{ $index }}" name="rate[{{ $index }}][rate]"
+                                                                           value="{{ old('rate.' . $index . '.rate', $rate['rate'] ?? '') }}">
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="unit_{{ $index }}">Unit</label>
+                                                                    <input style="background: #e6e6e6" readonly type="text" class="form-control" id="unit_{{ $index }}" name="rate[{{ $index }}][units]"
+                                                                           value="{{ old('rate.' . $index . '.units', $rate['units'] ?? '') }}">
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="price_{{ $index }}">Price</label>
+                                                                    <input style="background: #e6e6e6" readonly type="number" class="form-control" id="price_{{ $index }}" name="rate[{{ $index }}][price]"
+                                                                           value="{{ old('rate.' . $index . '.price', $rate['price'] ?? '') }}">
+{{--                                                                    <a href="" class="btn btn-link"><em class="icon ni ni-delete"></em></a>--}}
+                                                                </div>
                                                             </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label for="rate_{{ $index }}">Rate</label>
-                                                                <input style="background: #e6e6e6" readonly type="number" class="form-control" id="rate_{{ $index }}" name="rate[{{ $index }}][rate]"
-                                                                       value="{{ old('rate.' . $index . '.rate', $rate['rate'] ?? '') }}">
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label for="unit_{{ $index }}">Unit</label>
-                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" id="unit_{{ $index }}" name="rate[{{ $index }}][units]"
-                                                                       value="{{ old('rate.' . $index . '.units', $rate['units'] ?? '') }}">
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label for="price_{{ $index }}">Price</label>
-                                                                <input style="background: #e6e6e6" readonly type="number" class="form-control" id="price_{{ $index }}" name="rate[{{ $index }}][price]"
-                                                                       value="{{ old('rate.' . $index . '.price', $rate['price'] ?? '') }}">
-                                                            </div>
+                                                             <!-- Hidden inputs for driver_id and rate_index -->
+
+{{--                                                            <input type="hidden" name="driver_id" value="{{ $driverForm->driver_id }}" class="driver_id">--}}
+{{--                                                            <input type="hidden" name="rate_index" value="{{ $index }}" class="rate_index">--}}
+{{--                                                    --}}
+{{--                                                            <!-- Delete button -->--}}
+{{--                                                            <button type="button" class="btn btn-danger delete-rate-btn" data-driver-id="{{ $driverForm->driver_id }}" data-rate-index="{{ $index }}">--}}
+{{--                                                                <i class="fa fa-trash"></i>--}}
+{{--                                                            </button>--}}
                                                            @empty
                                                              <div class="form-group col-md-3">
                                                                 <label >Item</label>

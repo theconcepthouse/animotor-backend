@@ -141,6 +141,17 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $fullname;
     }
 
+    public function status()
+    {
+        if ($this->status == "unapproved")
+        {
+            return '<span class="badge badge-sm badge-dim bg-outline-warning ">Unapproved <em class="ni ni-edit"></em></span>';
+        }elseif ($this->status == "approved"){
+            return '<span class="badge badge-sm bg-success ">Approved <em class="ni ni-edit"></em></span>';
+        }
+        return '<span class="badge badge-sm bg-danger ">Not Set</span>';
+    }
+
 
     public function getMonifyAccountAttribute($val)
     {

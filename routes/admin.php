@@ -178,9 +178,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('add/document/{userId}', [DriversController::class, 'addDocument'])->name('addDocument');
     Route::post('add/new/document/', [DriversController::class, 'addNewDoc'])->name('addNewDoc');
     Route::post('store/document/', [DriversController::class, 'storeDocument'])->name('storeDocument');
-    Route::get('/driver/{driverId}/history', [DriversController::class, 'history'])->name('history');
-    Route::get('/driver/{driverId}/history/{id}', [DriversController::class, 'viewHistory'])->name('viewHistory');
-
+    Route::delete('delete/driver/{driverId}', [DriversController::class, 'deleteDriver'])->name('deleteDriver');
 
     Route::get('driver/note/{driverId}', [NoteController::class, 'notes'])->name('notes');
     Route::get('driver/note/chat/{driverId}', [NoteController::class, 'noteChat'])->name('noteChat');

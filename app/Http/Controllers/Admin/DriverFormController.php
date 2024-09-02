@@ -83,13 +83,12 @@ class DriverFormController extends Controller
         }
 
         // Decode the rate JSON data
-        $rateData = json_decode($driverForm->rate, true);
+        $rateData = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
         $priceSum = 0;
 
-        // Loop through the rate items
         foreach ($rateData as $key => $rate) {
             if (is_array($rate) && isset($rate['price'])) {
-                $priceSum += (float) $rate['price'];  // Convert price to float and add to sum
+                $priceSum += (float) $rate['price'];
             }
         }
 
@@ -582,10 +581,7 @@ class DriverFormController extends Controller
             ->where('id', $formId)
             ->firstOrFail();
 
-        // Decode existing rates or initialize as an empty array
-        $existingRates = json_decode($driverForm->rate, true) ?? [];
-
-        // Prepare the new rate data
+        $existingRates = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
         $newRate = [
             'item' => $validated['rate']['item'] ?? null,
             'rate' => $validated['rate']['rate'] ?? null,
@@ -595,8 +591,6 @@ class DriverFormController extends Controller
 
         // Append the new rate to the existing rates array
         $existingRates[] = $newRate;
-
-        // Update the DriverForm with the new rates array as JSON
         $driverForm->rate = json_encode($existingRates);
         $driverForm->save();
 
@@ -615,6 +609,41 @@ class DriverFormController extends Controller
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
+
+    public function deleteRate(Request $request)
+    {
+        $driverId = $request->input('driver_id');
+        $formId = $request->input('form_id');
+        $rateIndex = $request->input('rate_index'); // Index of the rate item to be deleted
+
+        // Fetch the DriverForm record
+        $driverForm = DriverForm::where('driver_id', $driverId)
+            ->where('id', $formId)
+            ->firstOrFail();
+
+        // Decode the rate field JSON data
+        $rateData = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
+
+        // Check if the rate index exists in the rate data array
+        if (isset($rateData[$rateIndex])) {
+            // Remove the specific rate item
+            unset($rateData[$rateIndex]);
+
+            // Reindex the array to avoid JSON conversion issues
+            $rateData = array_values($rateData);
+
+            // Encode the updated rate data back to JSON
+            $driverForm->rate = json_encode($rateData);
+
+            // Save the updated DriverForm
+            $driverForm->save();
+
+            return response()->json(['success' => true, 'message' => 'Rate item deleted successfully.']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Rate item not found.'], 404);
+        }
+    }
+
 
 
 

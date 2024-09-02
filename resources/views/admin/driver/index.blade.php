@@ -103,15 +103,15 @@
                                                          <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                         <div class="modal-header">
-                                                        <h5 class="modal-title">Update Vehicle Status</h5>
+                                                        <h5 class="modal-title">Update Driver Status</h5>
                                                         <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                             <em class="icon ni ni-cross"></em>
                                                         </a>
                                                         </div>
                                                         <div class="modal-body">
-                                                        <form action="{{ route('admin.vehicleStatus') }}" method="POST">
+                                                        <form action="{{ route('admin.driverStatus', $item->id) }}" method="POST">
                                                             @csrf
-                                                            <input type="hidden" name="vehicle_id" value="{{ $item?->id }}">
+{{--                                                            <input type="hidden" name="driver_id" value="{{ $item?->id }}">--}}
                                                             <div class="row">
                                                                 <div class="col-lg-10">
                                                                     <select name="status" class="form-control" >

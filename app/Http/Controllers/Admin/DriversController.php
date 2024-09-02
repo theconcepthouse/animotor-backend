@@ -198,6 +198,14 @@ class DriversController extends Controller
         return redirect()->back()->with('success','Driver successfully deleted');
     }
 
+    public function driverStatus(Request $request, $driverId)
+    {
+        $driver = User::findOrFail($driverId);
+        $driver->status = $request->status;
+        $driver->save();
+        return redirect()->back()->with('success','Driver status successfully updated');
+    }
+
 
 
 

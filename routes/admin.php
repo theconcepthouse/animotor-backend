@@ -179,6 +179,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('add/new/document/', [DriversController::class, 'addNewDoc'])->name('addNewDoc');
     Route::post('store/document/', [DriversController::class, 'storeDocument'])->name('storeDocument');
     Route::delete('delete/driver/{driverId}', [DriversController::class, 'deleteDriver'])->name('deleteDriver');
+    Route::post('update/driver/status/{driverId}', [DriversController::class, 'driverStatus'])->name('driverStatus');
 
     Route::get('driver/note/{driverId}', [NoteController::class, 'notes'])->name('notes');
     Route::get('driver/note/chat/{driverId}', [NoteController::class, 'noteChat'])->name('noteChat');

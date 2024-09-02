@@ -327,7 +327,7 @@
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                             <label for="excess_milage_fee">Excess milage fee</label>
-                                                            <input type="number" class="form-control" id="excess_milage_fee" name="charges[excess_milage_fee]"
+                                                            <input type="text" class="form-control" id="excess_milage_fee" name="charges[excess_milage_fee]"
                                                                    value="{{ old('charges.excess_milage_fee', $form->charges['excess_milage_fee'] ?? '') }}">
                                                         </div>
                                                        </div>

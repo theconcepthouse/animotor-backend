@@ -277,8 +277,8 @@
                                                         <div class="form-group col-md-4" id="form-group-driver_licence_number">
                                                             <label for="driver_licence_number">Driver licence number</label>
                                                             <input type="text" class="form-control" id="driver_licence_number"
-                                                                   name="personal_details[driver_licence_number]"
-                                                                   value="{{ old('personal_details.driver_licence_number', $selectedForm->personal_details['driver_licence_number'] ?? $form->personal_details['driver_licence_number'] ?? '') }}">
+                                                                   name="drivers_license[license_number]"
+                                                                   value="{{ old('drivers_license.license_number', $selectedForm->drivers_license['license_number'] ?? $form->drivers_license['licence_number'] ?? '') }}">
                                                         </div>
 
                                                         <div class="form-group col-md-4" id="form-group-date_of_birth">

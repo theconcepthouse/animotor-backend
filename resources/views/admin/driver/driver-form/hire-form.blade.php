@@ -67,6 +67,23 @@
                                                                    value="{{ old('personal_details.phone', $selectedForm->personal_details['phone'] ?? $form->personal_details['phone'] ?? '') }}">
                                                         </div>
 
+                                                        <div class="form-group col-md-4 " style="display: none">
+                                                            <label for="work_phone">Work phone</label>
+                                                            <input type="text" class="form-control" id="work_phone"
+                                                                   name="personal_details[work_phone]"
+                                                                   value="{{ old('personal_details.work_phone', $form->personal_details['work_phone'] ?? '') }}">
+                                                        </div>
+
+                                                        <div class="form-group col-md-4" style="display: none">
+                                                            <label for="hire_type">Hire type</label>
+                                                            <select class="form-control" id="hire_type" name="personal_details[hire_type]">
+                                                                <option value="Social Domestic" {{ old('personal_details.hire_type', $form->personal_details['hire_type'] ?? '') == 'Social Domestic' ? 'selected' : '' }}>Social Domestic</option>
+                                                                <option value="Rent to Buy" {{ old('personal_details.hire_type', $form->personal_details['hire_type'] ?? '') == 'Rent to Buy' ? 'selected' : '' }}>Rent to Buy</option>
+                                                                <option value="Credit Hire" {{ old('personal_details.hire_type', $form->personal_details['hire_type'] ?? '') == 'Credit Hire' ? 'selected' : '' }}>Credit Hire</option>
+                                                                <option value="Insurance" {{ old('personal_details.hire_type', $form->personal_details['hire_type'] ?? '') == 'Insurance' ? 'selected' : '' }}>Insurance</option>
+                                                            </select>
+                                                        </div>
+
 
                                                        <div class="form-group col-md-4" id="form-group-driver_licence_issuing_country" style="">
                                                                 <label for="driver_licence_issuing_country">Driver licence issuing country</label>
@@ -288,6 +305,25 @@
                                                                    value="{{ old('personal_details.date_of_birth', $selectedForm->personal_details['date_of_birth'] ?? $form->personal_details['date_of_birth'] ?? '')}}">
                                                         </div>
                                                     </div>
+                                                   <div style="display: none">
+                                                           <div class="form-group col-md-4">
+                                                        <label for="ni_number">Ni number</label>
+                                                        <input type="text" class="form-control" id="ni_number"
+                                                                   name="personal_details[ni_number]" value="{{ old('personal_details.ni_number', $form->personal_details['ni_number'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="occupation">Occupation</label>
+                                                            <input type="text" class="form-control" id="occupation"
+                                                                  name="personal_details[occupation]" value="{{ old('personal_details.occupation', $form->personal_details['occupation'] ?? '') }}">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="how_long_resident_in_uk">How long resident in
+                                                                uk</label>
+                                                            <input type="text" class="form-control"
+                                                                   id="how_long_resident_in_uk"
+                                                                   name="personal_details[how_long_resident_in_uk]" value="{{ old('personal_details.how_long_resident_in_uk', $form->personal_details['how_long_resident_in_uk'] ?? '') }}">
+                                                        </div>
+                                                   </div>
                                                 </div>
 
                                                 <div class="container mt-4">
@@ -586,6 +622,32 @@
                                                                value="{{ old('vehicle.time_back', $selectedForm->vehicle['time_back'] ?? $form->vehicle['time_back'] ?? '') }}">
                                                     </div>
                                                 </div>
+                                                    <div style="display: none">
+                                                            <div class="form-group col-md-4">
+                                                            <label for="number_of_seat">Number of seats</label>
+                                                            <input type="text" class="form-control" id="number_of_seat"
+                                                                   name="vehicle[number_of_seat]"
+                                                                   value="{{ old('vehicle.number_of_seat', $selectedForm->vehicle['number_of_seat'] ?? $form->vehicle['number_of_seat'] ?? '') }}" >
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="year">Year</label>
+                                                            <input type="text" class="form-control" id="year"
+                                                                   name="vehicle[year]"
+                                                                   value="{{ old('vehicle.year', $selectedForm->vehicle['year'] ?? $form->vehicle['year'] ?? '') }}" >
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="engine_size">Engine size</label>
+                                                            <input type="text" class="form-control" id="engine_size"
+                                                                   name="vehicle[engine_size]"
+                                                                   value="{{ old('vehicle.engine_size', $selectedForm->vehicle['engine_size'] ?? $form->vehicle['engine_size'] ?? '') }}" >
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="current_value">Current value</label>
+                                                            <input type="text" class="form-control" id="current_value"
+                                                                   name="vehicle[current_value]"
+                                                                   value="{{ old('vehicle.current_value', $selectedForm->vehicle['current_value'] ?? $form->vehicle['current_value'] ?? '') }}" >
+                                                        </div>
+                                                    </div>
 
                                                 </div>
 

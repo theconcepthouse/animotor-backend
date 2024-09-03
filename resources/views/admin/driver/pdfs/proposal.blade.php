@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $form->name }}</title>
+    <title>{{ $formData->name }}</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -74,51 +74,51 @@
     <tr style="margin-top: 0px">
         <td>
             <label style="margin-bottom: 25px">First Name</label>
-            <span>{{ $form->personal_details['first_name'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['first_name'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Last Name</label>
-            <span>{{ $form->personal_details['last_name'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['last_name'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px; white-space: nowrap">Email</label>
-            <span>{{ $form->personal_details['email'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['email'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
     </tr>
     <tr>
         <td>
             <label style="margin-bottom: 25px">Phone</label>
-            <span>{{ $form->personal_details['phone'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['phone'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Work Phone</label>
-            <span>{{ $form->personal_details['work_phone'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['work_phone'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Hire Type</label>
-            <span>{{ $form->personal_details['hire_type'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['hire_type'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
     </tr>
     <tr>
         <td>
             <label style="margin-bottom: 25px">Ni Number</label>
-            <span>{{ $form->personal_details['ni_number'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['ni_number'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Occupation</label>
-            <span>{{ $form->personal_details['occupation'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['occupation'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">How Long Resident in UK</label>
-            <span>{{ $form->personal_details['how_long_resident_in_uk'] ?? '' }}</span>
+            <span>{{ $formData->personal_details['how_long_resident_in_uk'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
     </tr>
@@ -131,29 +131,29 @@
     <tr>
         <td>
             <label style="margin-bottom: 25px">Address Line</label>
-            <span>{{ $form->address['address_line'] ?? '' }}</span>
+            <span>{{ $formData->address['address_line'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Address Line 2</label>
-            <span>{{ $form->address['address_line_2'] ?? '' }}</span>
+            <span>{{ $formData->address['address_line_2'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Country</label>
-            <span>{{ $form->address['country'] ?? '' }}</span>
+            <span>{{ $formData->address['country'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
     </tr>
     <tr>
         <td>
             <label style="margin-bottom: 25px">City</label>
-            <span>{{ $form->address['city'] ?? '' }}</span>
+            <span>{{ $formData->address['city'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Postcode</label>
-            <span>{{ $form->address['postcode'] ?? '' }}</span>
+            <span>{{ $formData->address['postcode'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td></td>
@@ -166,91 +166,111 @@
             <tr style="margin-top: 0px">
                 <td>
                     <label style="margin-bottom: 25px">License Type</label>
-                    <span>{{ $form->drivers_license['license_type'] ?? '' }}</span>
+                    <span>{{ $formData->drivers_license['license_type'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">License Number</label>
-                    <span>{{ $form->drivers_license['license_number'] ?? '' }}</span>
+                    <span>{{ $formData->drivers_license['license_number'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">License Issue Date</label>
-                    <span>{{ $form->drivers_license['license_issue_date'] ?? '' }}</span>
+                    <span>{{ $formData->drivers_license['license_issue_date'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label style="margin-bottom: 25px">License Expire Date</label>
-                    <span>{{ $form->drivers_license['license_expire_date'] ?? '' }}</span>
+                    <span>{{ $formData->drivers_license['license_expire_date'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">Date Driving Test Passed</label>
-                    <span>{{ $form->drivers_license['date_driving_test_passed'] ?? '' }}</span>
+                    <span>{{ $formData->drivers_license['date_driving_test_passed'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
                 <td>
                     <label style="margin-bottom: 25px">DVLA Check Code</label>
-                    <span>{{ $form->drivers_license['dvla_check_code'] ?? '' }}</span>
+                    <span>{{ $formData->drivers_license['dvla_check_code'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
             </tr>
         </tbody>
-        <br>
+
+    </table>
+    <div class="page-break"></div>
+    <table>
+
         <tbody>
     <h4 style="margin-bottom: 0px">Vehicle Details:</h4>
     <tr style="margin-top: 0px">
         <td>
             <label style="margin-bottom: 25px">Registration Number</label>
-            <span>{{ $form->vehicle['registration_number'] ?? '' }}</span>
+            <span>{{ $formData->vehicle['registration_number'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
-            <label style="margin-bottom: 25px">Insurance Group</label>
-            <span>{{ $form->vehicle['insurance_group'] ?? '' }}</span>
+            <label style="margin-bottom: 25px">Car Make</label>
+            <span>{{ $formData->vehicle['car_make'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
             <label style="margin-bottom: 25px">Car Model</label>
-            <span>{{ $form->vehicle['car_model'] ?? '' }}</span>
+            <span>{{ $formData->vehicle['car_model'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
     </tr>
     <tr>
+
         <td>
-            <label style="margin-bottom: 25px">Car Make</label>
-            <span>{{ $form->vehicle['car_make'] ?? '' }}</span>
+            <label style="margin-bottom: 25px">Number Of Seat</label>
+            <span>{{ $formData->vehicle['number_of_seat'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
-            <label style="margin-bottom: 25px">Date Out</label>
-            <span>{{ $form->vehicle['date_out'] ?? '' }}</span>
+            <label style="margin-bottom: 25px">Engine Size</label>
+            <span>{{ $formData->vehicle['engine_size'] ?? '' }}</span>
             <span class="underline"></span>
         </td>
         <td>
-            <label style="margin-bottom: 25px">Date Due</label>
-            <span>{{ $form->vehicle['date_due'] ?? '' }}</span>
+            <label style="margin-bottom: 25px">Current value</label>
+            <span>{{ $formData->vehicle['current_value'] ?? '' }}</span>
             <span class="underline"></span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label style="margin-bottom: 25px">Time Out</label>
-            <span>{{ $form->vehicle['time_out'] ?? '' }}</span>
-            <span class="underline"></span>
-        </td>
-        <td>
-            <label style="margin-bottom: 25px">Time Back</label>
-            <span>{{ $form->vehicle['time_back'] ?? '' }}</span>
-            <span class="underline"></span>
-        </td>
-        <td>
         </td>
     </tr>
 </tbody>
 
+        @if(isset($formData->taxi_license) && isset($formData->taxi_license['is_driver_hold_taxi_licence']) && $formData->taxi_license['is_driver_hold_taxi_licence'] == "Yes")
+
+         <tbody>
+            <h4 style="margin-bottom: 0px">Taxi License:</h4>
+            <tr style="margin-top: 0px">
+                <td>
+                    <label style="margin-bottom: 25px">Issuing Authority</label>
+                    <span>{{ $formData->taxi_license['issuing_authority'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">How Long</label>
+                    <span>{{ $formData->taxi_license['how_long'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">How Long Resident In Uk</label>
+                    <span>{{ $formData->taxi_license['how_long_resident_in_uk'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">License Number</label>
+                    <span>{{ $formData->taxi_license['license_number'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+            </tr>
+        </tbody>
+        @else
+        @endif
 
 
     </table>

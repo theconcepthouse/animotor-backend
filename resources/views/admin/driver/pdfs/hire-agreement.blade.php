@@ -61,7 +61,7 @@
     <br>
     <table>
         <tbody>
-        <h5 style="margin-bottom: 0px">Hirer Details:</h5>
+        <h4 style="margin-bottom: 0px">Hirer Details:</h4>
         <tr style="margin-top: 0px">
             <td>
                 <label style="margin-bottom: 25px">First Name</label>
@@ -122,7 +122,7 @@
         </tbody>
 
         <tbody >
-            <h5 style="margin-bottom: 0px">Vehicle Details: </h5>
+            <h4 style="margin-bottom: 0px">Vehicle Details: </h4>
             <tr style="margin-top: 0px">
                 <td>
                     <label style="margin-bottom: 25px">Registration number</label>
@@ -135,8 +135,13 @@
                     <span class="underline"></span>
                 </td>
                 <td>
-                    <label style="margin-bottom: 25px">Car Make/Model</label>
-                    <span>{{ $formData->vehicle['car_make'] ?? '' }}{{ $submittedData['car_model'] ?? '' }}</span>
+                    <label style="margin-bottom: 25px">Car Make</label>
+                    <span>{{ $formData->vehicle['car_make'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Car Model</label>
+                    <span>{{ $formData->vehicle['car_model'] ?? '' }}</span>
                     <span class="underline"></span>
                 </td>
             </tr>

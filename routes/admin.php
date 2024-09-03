@@ -257,7 +257,10 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('/copy/driver/form/', [DriverFormController::class, 'copyDriverForm'])->name('copyDriverForm');
     Route::get('/history/driver/{driverId}/', [DriverFormController::class, 'driverFormHistory'])->name('driverFormHistory');
     Route::post('/save/rate/driver/', [DriverFormController::class, 'saveRate'])->name('saveRate');
-//    Route::post('create/driver/history/{driverId}', [DriverFormController::class, 'storeHistoryData'])->name('storeHistoryData');
+    Route::post('/save/claims/driver/', [DriverFormController::class, 'saveClaim'])->name('saveClaim');
+    Route::post('/store/conviction/', [DriverFormController::class, 'saveConvictions'])->name('saveConvictions');
+    Route::post('/store/criminal/conviction', [DriverFormController::class, 'saveCriminalConvictions'])->name('saveCriminalConvictions');
+    Route::post('/store/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
 
 });
 

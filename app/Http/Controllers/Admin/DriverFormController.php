@@ -293,9 +293,9 @@ class DriverFormController extends Controller
             case 'Proposal Form':
                 return 'admin.driver.pdfs.proposal';
             case 'Checklist Form':
-                return 'admin.driver.pdfs.checklist';
+                return 'admin.driver.pdfs.checklist-pdf';
             case 'Payment Sheet':
-                return 'admin.driver.pdfs.payment-sheet';
+                return 'admin.driver.pdfs.payment-sheet-pdf';
             case 'Return Vehicle':
                 return 'admin.driver.pdfs.return-vehicle';
             case 'Report Vehicle Defect':

@@ -261,12 +261,12 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
-                                                            <label for="late_payment_per_day">Late payment per day</label>
+                                                            <label for="late_payment_per_day">Late Payment Amount</label>
                                                             <input type="number" class="form-control" id="late_payment_per_day" name="charges[late_payment_per_day]"
                                                                    value="{{ old('charges.late_payment_per_day', $form->charges['late_payment_per_day'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label for="admin_charge_for_pcn_ticket">Admin charge for pcn ticket</label>
+                                                            <label for="admin_charge_for_pcn_ticket">Admin PCN charge</label>
                                                             <input type="number" class="form-control" id="admin_charge_for_pcn_ticket" name="charges[admin_charge_for_pcn_ticket]"
                                                                    value="{{ old('charges.admin_charge_for_pcn_ticket', $form->charges['admin_charge_for_pcn_ticket'] ?? '') }}">
                                                         </div>

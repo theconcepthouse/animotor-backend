@@ -244,14 +244,14 @@
                                                                         <td>{{ $item->name }}</td>
                                                                         <td>{{ date('d M, Y', strtotime($item->due_date)) }}</td>
                                                                         <td>{{ "£".$item?->amount }}
-                                                                            <a data-bs-toggle="modal"  href="#addPayment{{ $item->id }}" style="font-size: 20px; margin-left: 5px"><i class="ni ni-eye"></i></a>
+                                                                            <a data-bs-toggle="modal"  href="#addPayment-{{ $item->id }}" style="font-size: 20px; margin-left: 5px"><i class="ni ni-eye"></i></a>
                                                                         </td>
                                                                         <td>{{ $item?->received_date  }}</td>
                                                                         <td>{{ "£".$item?->received_amount }}</td>
                                                                         <td>{{ "£".$item?->balance }}</td>
-                                                                        <td>{{ "£".$item?->late_payment_days }}</td>
+                                                                        <td>{{ $item->late_payment_days ?? '' }} Day(s)</td>
                                                                     </tr>
-                                                                         <div class="modal fade modal-lg" tabindex="-1" id="addPayment{{ $item->id }}" >
+                                                                         <div class="modal fade modal-lg" tabindex="-1" id="addPayment-{{ $item->id }}" >
                                                                             <div class="modal-dialog" role="document">
                                                                                   <div class="modal-content">
                                                                                     <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>

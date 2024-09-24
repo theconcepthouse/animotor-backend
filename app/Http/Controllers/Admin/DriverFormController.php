@@ -83,7 +83,7 @@ class DriverFormController extends Controller
         }
 
         $priceSum = Rate::where('driver_id', $driverId)->sum('price');
-        $rates = Rate::where('driver_id', $driverId)->get();
+        $rates = Rate::where('driver_id', $driverId)->where('payment_item', 0)->get();
 
        $deposit = Rate::where('driver_id', $driverId)
                ->whereRaw('LOWER(item) = ?', ['deposit'])

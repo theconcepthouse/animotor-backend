@@ -23,7 +23,6 @@ return new class extends Migration
 
             $table->json('personal_details')->nullable();
             $table->json('vehicle')->nullable();
-            $table->json('rate')->nullable();
             $table->json('charges')->nullable();
             $table->json('address')->nullable();
             $table->json('signature')->nullable();

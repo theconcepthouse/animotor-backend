@@ -55,26 +55,107 @@
                                                 <table class="table table-bordered">
                                                     <thead class="thead-light">
                                                         <tr>
+                                                            <th scope="col">Date</th>
                                                             <th scope="col">Item</th>
                                                             <th scope="col">Unit</th>
                                                             <th scope="col">Amount</th>
+{{--                                                            <th scope="col">Paid</th>--}}
+                                                            <th scope="col">...</th>
 
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                     @foreach ($rateItems as $rateItem)
-                                                        @foreach ($rateItem['other_items'] as $item)
+                                                     @foreach ($rates as $index => $item)
                                                         <tr>
-                                                            <td class="text-capitalize">{{ $item['item']  }}</td>
-                                                            <td>{{ $item['units'] }}</td>
-                                                            <td>£{{ $item['price'] }}</td>
+                                                            <td >{{ date('d M, Y', strtotime($item->created_at)) }}</td>
+                                                            <td class="text-capitalize">{{ $item->payment_name ?? '' }}</td>
+                                                            <td>{{ $item->payment_unit }}</td>
+                                                            <td>£{{ $item->payment_price ?? '' }}</td>
+{{--                                                            <td>£{{ $item->payment_paid ?? '' }}</td>--}}
+                                                            <td>
+                                                                <a data-bs-toggle="modal"  href="#addItem-{{ $item->id }}" style="font-size: 20px; margin-left: 5px"><i class="ni ni-edit"></i></a>
+                                                            </td>
                                                         </tr>
-                                                      @endforeach
+                                                         <div class="modal fade modal-lg" tabindex="-1" id="addItem-{{ $item->id }}" >
+                                                            <div class="modal-dialog" role="document">
+                                                                  <div class="modal-content">
+                                                                    <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                                                                    <div class="modal-body modal-body-md">
+                                                                       <form action="{{ route('admin.RateItem', $driver->id) }}" method="POST">
+                                                                           @csrf
+                                                                           <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                           <input type="hidden" name="item_id" value="{{ $item->id }}">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="num">Name</label>
+                                                                                    <input type="text" class="form-control" id="num" name="payment_name" placeholder="Name" required
+                                                                                        value="{{ old('payment_name', $item->payment_name ?? '') }}">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="amount">Unit</label>
+                                                                                    <input type="number" class="form-control" id="amount" name="payment_unit" placeholder="Unit" required
+                                                                                        value="{{ old('payment_unit', $item->payment_unit ?? '') }}">
+                                                                                </div>
+
+                                                                                 <div class="form-group col-md-6 mt-2">
+                                                                                    <label >Price</label>
+                                                                                    <input type="number" class="form-control" name="payment_price" placeholder="Price" required
+                                                                                        value="{{ old('payment_price', $item->payment_price ?? '') }}">
+                                                                                </div>
+{{--                                                                                <div class="form-group col-md-6 mt-2">--}}
+{{--                                                                                    <label for="receivedDate">Paid</label>--}}
+{{--                                                                                    <input type="number" class="form-control" id="receivedDate" name="payment_paid" placeholder="Paid"--}}
+{{--                                                                                        value="{{ old('payment_paid', $item->payment_paid ?? '') }}">--}}
+{{--                                                                                </div>--}}
+
+                                                                            </div>
+
+                                                                        <button type="submit" class="btn btn-primary mt-3">Update</button>
+                                                                  </form>
+
+                                                                    </div><!-- .modal-body -->
+                                                                </div>
+                                                                <!-- .modal-content -->
+                                                            </div>
+                                                      </div>
                                                      @endforeach
 
 
                                                     </tbody>
                                                 </table>
+                                                 <div class="modal fade modal-lg" tabindex="-1" id="addItem" >
+                                                    <div class="modal-dialog" role="document">
+                                                          <div class="modal-content">
+                                                            <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                                                            <div class="modal-body modal-body-md">
+                                                               <form action="{{ route('admin.RateItem', $driver->id) }}" method="POST">
+                                                                   @csrf
+                                                                   <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="num">Name</label>
+                                                                            <input type="text" class="form-control" id="num" name="payment_name" placeholder="Name" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="amount">Unit</label>
+                                                                            <input type="number" class="form-control" id="amount" name="payment_unit" placeholder="Unit" required>
+                                                                        </div>
+
+                                                                         <div class="form-group col-md-6">
+                                                                            <label for="receivedDate">Price</label>
+                                                                            <input type="number" class="form-control" id="receivedDate" name="payment_price" placeholder="Price" required>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                <button type="submit" class="btn btn-primary mt-3">Save</button>
+                                                          </form>
+
+                                                            </div><!-- .modal-body -->
+                                                        </div>
+                                                        <!-- .modal-content -->
+                                                    </div>
+                                                </div>
                                             </div>
                                             <!-- .nk-tb-list -->
                                         </div>
@@ -108,6 +189,7 @@
 
                                                             </tbody>
                                                         </table>
+
                                                     </div>
                                             <!-- .nk-tb-list -->
                                         </div>
@@ -146,6 +228,7 @@
                                                             <table class="table table-striped">
                                                                 <thead class="thead-light">
                                                                     <tr>
+                                                                        <th scope="col">Type</th>
                                                                         <th scope="col">Due Date</th>
                                                                         <th scope="col">Amount</th>
                                                                         <th scope="col">Received Date</th>
@@ -158,11 +241,12 @@
                                                                 @if($payments)
                                                                     @foreach($payments as $item)
                                                                     <tr>
+                                                                        <td>{{ $item->name }}</td>
                                                                         <td>{{ date('d M, Y', strtotime($item->due_date)) }}</td>
                                                                         <td>{{ "£".$item?->amount }}
                                                                             <a data-bs-toggle="modal"  href="#addPayment{{ $item->id }}" style="font-size: 20px; margin-left: 5px"><i class="ni ni-eye"></i></a>
                                                                         </td>
-                                                                        <td>{{ $item?->received_date }}</td>
+                                                                        <td>{{ $item?->received_date  }}</td>
                                                                         <td>{{ "£".$item?->received_amount }}</td>
                                                                         <td>{{ "£".$item?->balance }}</td>
                                                                         <td>{{ "£".$item?->late_payment_days }}</td>
@@ -247,40 +331,7 @@
 
 
 
-     <div class="modal fade modal-lg" tabindex="-1" id="addItem" >
-        <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                <div class="modal-body modal-body-md">
-                   <form action="{{ route('admin.addPaymentItem') }}" method="POST">
-                       @csrf
-                       <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="num">Item</label>
-                            <input type="text" class="form-control" id="num" name="other_items[0][item]" placeholder="Item" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="amount">Unit</label>
-                            <input type="number" class="form-control" id="amount" name="other_items[0][units]" placeholder="Amount" required>
-                        </div>
 
-                         <div class="form-group col-md-4">
-                            <label for="receivedDate">Price</label>
-                            <input type="number" class="form-control" id="receivedDate" name="other_items[0][price]" placeholder="Price" required>
-                        </div>
-
-
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Save</button>
-              </form>
-
-                </div><!-- .modal-body -->
-            </div>
-            <!-- .modal-content -->
-        </div>
-    </div>
 
 
 

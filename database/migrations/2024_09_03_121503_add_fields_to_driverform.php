@@ -16,6 +16,7 @@ return new class extends Migration
             $table->json('conviction_details')->nullable()->after('convictions');
             $table->json('conviction_details_2')->nullable()->after('conviction_details');
             $table->json('conviction_details_3')->nullable()->after('conviction_details_2');
+            $table->text('agreement')->nullable();
         });
     }
 
@@ -25,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('driver_forms', function (Blueprint $table) {
-            $table->dropColumn(['claim_details', 'conviction_details', 'conviction_details_2', 'conviction_details_3']);
+            $table->dropColumn(['claim_details', 'conviction_details', 'conviction_details_2', 'conviction_details_3', 'agreement']);
         });
     }
 };

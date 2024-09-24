@@ -21,6 +21,8 @@ return new class extends Migration
             $table->decimal('balance', 10, 2)->nullable();
             $table->integer('late_payment_days')->nullable();
             $table->json('items')->nullable();
+            $table->string('name')->nullable();
+            $table->bigInteger('rate_id')->nullable();
             $table->timestamps();
 
             $table->foreign('driver_id')->references('id')->on('users')

@@ -509,12 +509,12 @@
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="how_long">How long</label>
-                                                            <input type="date" class="form-control" id="how_long" name="taxi_license[how_long]"
+                                                            <input type="text" class="form-control" id="how_long" name="taxi_license[how_long]"
                                                                    value="{{ old('taxi_license.how_long', $selectedForm->taxi_license['how_long'] ?? $form->taxi_license['how_long'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="how_long_resident_in_uk">How long resident in UK</label>
-                                                            <input type="date" class="form-control" id="how_long_resident_in_uk" name="taxi_license[how_long_resident_in_uk]"
+                                                            <input type="text" class="form-control" id="how_long_resident_in_uk" name="taxi_license[how_long_resident_in_uk]"
                                                                    value="{{ old('taxi_license.how_long_resident_in_uk', $selectedForm->taxi_license['how_long_resident_in_uk'] ?? $form->taxi_license['how_long_resident_in_uk'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-3">
@@ -528,227 +528,6 @@
 
 
                                                 </div>
-
-                                                 <div class="container mt-4">
-                                                    <div class="mb-4">
-                                                        <h4 class="title nk-block-title">Claim Details</h4>
-                                                    </div>
-
-                                                    <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="accident_claim">Accident claim</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="claim[accident_claim]" id="accident_claim_yes" value="Yes"
-                                                                   {{ old('claim.accident_claim', $form->claim['accident_claim'] ?? '') == 'Yes' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="accident_claim_yes">Yes</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="claim[accident_claim]" id="accident_claim_no" value="No"
-                                                                   {{ old('claim.accident_claim', $form->claim['accident_claim'] ?? '') == 'No' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="accident_claim_no">No</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="accidentClaimDetails">
-
-                                                          <div class="row">
-                                                              <div class="col-lg-2">
-                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDefault">Add Claim</button>
-                                                              </div>
-                                                            @php
-                                                                // Check if rate is a string before decoding, else use the existing array or empty array
-                                                                $claims = is_string($driverForm->claim_details) ? json_decode($driverForm->claim_details, true) : (is_array($driverForm->claim_details) ? $driverForm->claim_details : []);
-                                                                $claims = $claims ?? [];
-                                                            @endphp
-                                                             <div class="col-lg-10">
-                                                                 <table class="table table-striped">
-                                                                <tr>
-                                                                    <th>Claim Type</th>
-                                                                    <th>Claim Date</th>
-                                                                    <th>Claim Time</th>
-                                                                    <th>Status</th>
-                                                                    <th>Incident</th>
-                                                                </tr>
-                                                                 @forelse($claims as $index => $claim)
-                                                                    <tr>
-                                                                        <td>{{ $claim['type_of_claim'] ?? '' }}</td>
-                                                                        <td>{{ date('d M, Y', strtotime($claim['claim_date'])) ?? '' }}</td>
-                                                                        <td>{{ date('h:i A', strtotime($claim['claim_time'])) ?? '' }}</td>
-                                                                         <td>{{ $claim['status'] ?? '' }}</td>
-                                                                        <td>{{ $claim['describe_incident'] ?? '' }}</td>
-                                                                    </tr>
-                                                                     @empty
-                                                                  @endforelse
-                                                            </table>
-                                                             </div>
-
-                                                          </div>
-                                                    </div>
-                                                </div>
-                                                 </div>
-
-                                                 <hr>
-
-                                                <div class="container mt-4">
-                                                    <div class="mb-4">
-                                                        <h4 class="title nk-block-title">Convictions Details</h4>
-                                                    </div>
-
-                                                   <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="motoring_convictions">Motoring convictions</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="convictions[motoring_convictions]"
-                                                                   id="motoring_convictions_Yes" value="Yes"
-                                                                   {{ old('convictions.motoring_convictions', $selectedForm->convictions['motoring_convictions'] ?? $form->convictions['motoring_convictions'] ?? '') == 'Yes' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="motoring_convictions_Yes">Yes</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="convictions[motoring_convictions]"
-                                                                   id="motoring_convictions_No" value="No"
-                                                                   {{ old('convictions.motoring_convictions', $selectedForm->convictions['motoring_convictions'] ?? $form->convictions['motoring_convictions'] ?? '') == 'No' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="motoring_convictions_No">No</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="motoringConvictionDetails">
-                                                        <div class="row">
-                                                              <div class="col-lg-2">
-                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addConviction">Add Conviction</button>
-                                                              </div>
-                                                            @php
-                                                                // Check if rate is a string before decoding, else use the existing array or empty array
-                                                                $convictions = is_string($driverForm->conviction_details) ? json_decode($driverForm->conviction_details, true) : (is_array($driverForm->conviction_details)
-                                                                 ? $driverForm->conviction_details : []);
-                                                                $convictions = $convictions ?? [];
-                                                            @endphp
-                                                             <div class="col-lg-10">
-                                                                 <table class="table table-striped">
-                                                                <tr>
-                                                                    <th>Conviction code</th>
-                                                                    <th>Penalty points</th>
-                                                                    <th>Conviction date</th>
-                                                                    <th>Expiry date</th>
-                                                                </tr>
-                                                                 @forelse($convictions as $index => $item)
-                                                                    <tr>
-                                                                        <td>{{ $item['conviction_code'] ?? '' }}</td>
-                                                                        <td>{{ $item['penalty_points'] ?? '' }}</td>
-                                                                        <td>{{ date('d M, Y', strtotime($item['conviction_date'])) ?? '' }}</td>
-                                                                        <td>{{ date('d M, Y', strtotime($item['expiry_date'])) ?? '' }}</td>
-                                                                    </tr>
-                                                                     @empty
-                                                                  @endforelse
-                                                            </table>
-                                                             </div>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                    <hr>
-
-                                                    <div class="row mt-3">
-                                                    <!-- Criminal Conviction Section -->
-                                                    <div class="form-group col-md-4">
-                                                        <label for="criminal_conviction">Criminal conviction</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="convictions[criminal_conviction]"
-                                                                   id="criminal_conviction_Yes" value="Yes"
-                                                                   {{ old('convictions.criminal_conviction', $selectedForm->convictions['criminal_conviction'] ?? $form->convictions['criminal_conviction'] ?? '') == 'Yes' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="criminal_conviction_Yes">Yes</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="convictions[criminal_conviction]"
-                                                                   id="criminal_conviction_No" value="No"
-                                                                   {{ old('convictions.criminal_conviction', $selectedForm->convictions['criminal_conviction'] ?? $form->convictions['criminal_conviction'] ?? '') == 'No' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="criminal_conviction_No">No</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="criminalConvictionDetails">
-                                                        <div class="row">
-                                                              <div class="col-lg-2">
-                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addCriminalConviction">Add Criminal Conviction</button>
-                                                              </div>
-                                                            @php
-                                                                // Check if rate is a string before decoding, else use the existing array or empty array
-                                                                $convictions = is_string($driverForm->conviction_details_2) ? json_decode($driverForm->conviction_details_2, true) : (is_array($driverForm->conviction_details_2)
-                                                                 ? $driverForm->conviction_details_2 : []);
-                                                                $convictions = $convictions ?? [];
-                                                            @endphp
-                                                             <div class="col-lg-10">
-                                                                 <table class="table table-striped">
-                                                                <tr>
-                                                                    <th>Conviction</th>
-                                                                </tr>
-                                                                 @forelse($convictions as $index => $item)
-                                                                    <tr>
-                                                                        <td>{{ $item['describe_conviction'] ?? '' }}</td>
-                                                                    </tr>
-                                                                     @empty
-                                                                  @endforelse
-                                                                </table>
-                                                             </div>
-
-                                                        </div>
-
-
-                                                    </div>
-
-                                                    <!-- Motor Insurance Refusal Section -->
-
-                                                </div>
-                                                    <hr>
-                                                    <div class="row mt-3">
-                                                        <div class="form-group col-md-4">
-                                                        <label for="ever_been_refused_motor_insurance">Ever been refused motor insurance</label>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="convictions[ever_been_refused_motor_insurance]"
-                                                                   id="ever_been_refused_motor_insurance_Yes" value="Yes"
-                                                                   {{ old('convictions.ever_been_refused_motor_insurance', $selectedForm->convictions['ever_been_refused_motor_insurance'] ?? $form->convictions['ever_been_refused_motor_insurance'] ?? '') == 'Yes' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="ever_been_refused_motor_insurance_Yes">Yes</label>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="convictions[ever_been_refused_motor_insurance]"
-                                                                   id="ever_been_refused_motor_insurance_No" value="No"
-                                                                   {{ old('convictions.ever_been_refused_motor_insurance', $selectedForm->convictions['ever_been_refused_motor_insurance'] ?? $form->convictions['ever_been_refused_motor_insurance'] ?? '') == 'No' ? 'checked' : '' }}>
-                                                            <label class="form-check-label" for="ever_been_refused_motor_insurance_No">No</label>
-                                                        </div>
-                                                    </div>
-
-                                                        <div id="motorInsuranceRefusalDetails">
-                                                              <div class="row">
-                                                              <div class="col-lg-2">
-                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addCriminalConviction">Add Refusal</button>
-                                                              </div>
-                                                            @php
-                                                                // Check if rate is a string before decoding, else use the existing array or empty array
-                                                                $convictions = is_string($driverForm->conviction_details_3) ? json_decode($driverForm->conviction_details_3, true) : (is_array($driverForm->conviction_details_3)
-                                                                 ? $driverForm->conviction_details_3 : []);
-                                                                $convictions = $convictions ?? [];
-                                                            @endphp
-                                                             <div class="col-lg-10">
-                                                                 <table class="table table-striped">
-                                                                <tr>
-                                                                    <th>Refusal Description</th>
-                                                                </tr>
-                                                                 @forelse($convictions as $index => $item)
-                                                                    <tr>
-                                                                        <td>{{ $item['describe_refusals'] ?? '' }}</td>
-                                                                    </tr>
-                                                                     @empty
-                                                                  @endforelse
-                                                                </table>
-                                                             </div>
-
-                                                        </div>
-                                                    </div>
-                                                    </div>
-
-                                                </div>
-                                                 <hr>
-
 
 
                                                 <div class="container mt-4">
@@ -827,65 +606,444 @@
 
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
-                                                            <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
-                                                                        'field' => 'documents[driving_license_front]',
-                                                                        'image' => $selectedForm->documents['driving_license_front'] ?? $form->documents['driving_license_front'] ?? '',
-                                                                        'id' => 'file' . Str::uuid(),
-                                                                        'title' => 'Driving License Front',
-                                                                        'colSize' => 'col-md-12 col-sm-6',
-                                                                        ])
-
-                                                            </div>
+                                                            @include('admin.partials.image-upload', [
+                                                                    'field' => 'documents[driving_license_front]',
+                                                                    'image' => $selectedForm->documents['driving_license_front'] ?? $form->documents['driving_license_front'] ?? '',
+                                                                    'id' => 'file' . Str::uuid(),
+                                                                    'title' => 'Driving License Front',
+                                                                    'colSize' => 'col-md-12 col-sm-6',
+                                                                    ])
                                                         </div>
 
                                                         <div class="form-group col-md-4">
-                                                            <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
+                                                             @include('admin.partials.image-upload', [
                                                                         'field' => 'documents[driving_license_back]',
                                                                         'image' => $selectedForm->documents['driving_license_back'] ?? $form->documents['driving_license_back'] ?? '',
                                                                         'id' => 'file' . Str::uuid(),
                                                                         'title' => 'Driving License Back',
                                                                         'colSize' => 'col-md-12 col-sm-6',
                                                                         ])
-
-                                                            </div>
                                                         </div>
 
                                                         <div class="form-group col-md-4">
-                                                            <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
+                                                           @include('admin.partials.image-upload', [
                                                                         'field' => 'documents[proof_of_address]',
                                                                         'image' => $selectedForm->documents['proof_of_address'] ?? $form->documents['proof_of_address'] ?? '',
                                                                         'id' => 'file' . Str::uuid(),
                                                                         'title' => 'Proof Of Address',
                                                                         'colSize' => 'col-md-12 col-sm-6',
                                                                         ])
-
-                                                            </div>
-
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
-                                                                        'field' => 'documents[license_summery_sheet]',
-                                                                        'image' => $selectedForm->documents['license_summery_sheet'] ?? $form->documents['license_summery_sheet'] ?? '',
-                                                                        'id' => 'file' . Str::uuid(),
-                                                                        'title' => 'License summery sheet',
-                                                                        'colSize' => 'col-md-12 col-sm-6',
-                                                                        ])
-
-                                                            </div>
+                                                            @include('admin.partials.image-upload', [
+                                                                    'field' => 'documents[license_summery_sheet]',
+                                                                    'image' => $selectedForm->documents['license_summery_sheet'] ?? $form->documents['license_summery_sheet'] ?? '',
+                                                                    'id' => 'file' . Str::uuid(),
+                                                                    'title' => 'License summery sheet',
+                                                                    'colSize' => 'col-md-12 col-sm-6',
+                                                                    ])
 
                                                         </div>
                                                     </div>
                                                 </div>
 
 
-                                                <div class="form-group mt-3">
+                                                <div class="container">
+                                                    <div class="form-group mt-3">
                                                     <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                                                 </div>
+                                                </div>
                                             </form>
+                                            <hr>
+
+                                                <div class="container mt-4">
+                                                    <div class="mb-4">
+                                                        <h4 class="title nk-block-title">Claim Details</h4>
+                                                    </div>
+
+                                                    <div class="row">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="accident_claim">Accident claim</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="claim[accident_claim]" id="accident_claim_yes" value="Yes"
+                                                                   {{ old('claim.accident_claim', $form->claim['accident_claim'] ?? '') == 'Yes' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="accident_claim_yes">Yes</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="claim[accident_claim]" id="accident_claim_no" value="No"
+                                                                   {{ old('claim.accident_claim', $form->claim['accident_claim'] ?? '') == 'No' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="accident_claim_no">No</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="accidentClaimDetails">
+
+                                                          <div class="row">
+                                                              <div class="col-lg-2">
+                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDefault">Add Claim</button>
+                                                              </div>
+                                                            @php
+                                                                // Check if rate is a string before decoding, else use the existing array or empty array
+                                                                $claims = is_string($driverForm->claim_details) ? json_decode($driverForm->claim_details, true) : (is_array($driverForm->claim_details) ? $driverForm->claim_details : []);
+                                                                $claims = $claims ?? [];
+                                                            @endphp
+                                                             <div class="col-lg-10">
+                                                                 <table class="table table-striped">
+                                                                <tr>
+                                                                    <th>Claim Type</th>
+                                                                    <th>Claim Date</th>
+                                                                    <th>Claim Time</th>
+                                                                    <th>Status</th>
+                                                                    <th>Incident</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                 @forelse($claims as $index => $claim)
+                                                                    <tr>
+                                                                        <td>{{ $claim['type_of_claim'] ?? '' }}</td>
+                                                                        <td>{{ date('d M, Y', strtotime($claim['claim_date'])) ?? '' }}</td>
+                                                                        <td>{{ date('h:i A', strtotime($claim['claim_time'])) ?? '' }}</td>
+                                                                        <td>{{ $claim['status'] ?? '' }}</td>
+                                                                        <td>{{ $claim['describe_incident'] ?? '' }}</td>
+                                                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $index }}"><em class="icon ni ni-edit"></em></a></td>
+                                                                    </tr>
+
+                                                                    <div class="modal fade" tabindex="-1" id="modalDefault-{{ $index }}">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                    <em class="icon ni ni-cross"></em>
+                                                                                </a>
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Edit Claim</h5>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="{{ route('admin.updateClaim') }}" method="POST">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                                        <input type="hidden" name="form_id" value="{{ $form->id }}">
+                                                                                        <input type="hidden" name="claim_index" value="{{ $index }}">
+
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="type_of_claim_{{ $index }}">Type of claim</label>
+                                                                                                <select class="form-control" id="type_of_claim_{{ $index }}" name="claim_details[{{ $index }}][type_of_claim]">
+                                                                                                    <option selected disabled>Choose Claim</option>
+                                                                                                    <option value="Fault" {{ old('claim_details.' . $index . '.type_of_claim', $claim['type_of_claim'] ?? '') == 'Fault' ? 'selected' : '' }}>Fault</option>
+                                                                                                    <option value="None fault" {{ old('claim_details.' . $index . '.type_of_claim', $claim['type_of_claim'] ?? '') == 'None fault' ? 'selected' : '' }}>None fault</option>
+                                                                                                    <option value="Fire" {{ old('claim_details.' . $index . '.type_of_claim', $claim['type_of_claim'] ?? '') == 'Fire' ? 'selected' : '' }}>Fire</option>
+                                                                                                    <option value="Theft" {{ old('claim_details.' . $index . '.type_of_claim', $claim['type_of_claim'] ?? '') == 'Theft' ? 'selected' : '' }}>Theft</option>
+                                                                                                </select>
+                                                                                            </div>
+
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="status_{{ $index }}">Status</label>
+                                                                                                <select class="form-control" id="status_{{ $index }}" name="claim_details[{{ $index }}][status]">
+                                                                                                    <option selected disabled>Choose Status</option>
+                                                                                                    <option value="Open" {{ old('claim_details.' . $index . '.status', $claim['status'] ?? '') == 'Open' ? 'selected' : '' }}>Open</option>
+                                                                                                    <option value="Closed" {{ old('claim_details.' . $index . '.status', $claim['status'] ?? '') == 'Closed' ? 'selected' : '' }}>Closed</option>
+                                                                                                </select>
+                                                                                            </div>
+
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="claim_date_{{ $index }}">Claim date</label>
+                                                                                                <input type="date" class="form-control" id="claim_date_{{ $index }}" name="claim_details[{{ $index }}][claim_date]"
+                                                                                                       value="{{ old('claim_details.' . $index . '.claim_date', $claim['claim_date']) }}">
+                                                                                            </div>
+
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="claim_time_{{ $index }}">Claim time</label>
+                                                                                                <input type="time" class="form-control" id="claim_time_{{ $index }}" name="claim_details[{{ $index }}][claim_time]"
+                                                                                                       value="{{ old('claim_details.' . $index . '.claim_time', $claim['claim_time']) }}">
+                                                                                            </div>
+
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="describe_incident_{{ $index }}">Describe incident circumstances</label>
+                                                                                                <textarea name="claim_details[{{ $index }}][describe_incident]"
+                                                                                                          id="describe_incident_{{ $index }}"
+                                                                                                          class="form-control"
+                                                                                                          cols="5"
+                                                                                                          rows="10">
+                                                                                                    {{ old('claim_details.' . $index . '.describe_incident', $claim['describe_incident']) }}
+                                                                                                </textarea>
+                                                                                            </div>
+
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <button class="btn btn-primary">Submit</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @empty
+                                                                    <tr>
+                                                                        <td colspan="6">No claims found.</td>
+                                                                    </tr>
+                                                                @endforelse
+
+                                                            </table>
+                                                             </div>
+
+                                                          </div>
+                                                    </div>
+                                                </div>
+                                                 </div>
+
+                                                 <hr>
+
+                                                <div class="container mt-4">
+                                                    <div class="mb-4">
+                                                        <h4 class="title nk-block-title">Convictions Details</h4>
+                                                    </div>
+
+                                                   <div class="row">
+                                                    <div class="form-group col-md-4">
+                                                        <label for="motoring_convictions">Motoring convictions</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="convictions[motoring_convictions]"
+                                                                   id="motoring_convictions_Yes" value="Yes"
+                                                                   {{ old('convictions.motoring_convictions', $selectedForm->convictions['motoring_convictions'] ?? $form->convictions['motoring_convictions'] ?? '') == 'Yes' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="motoring_convictions_Yes">Yes</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="convictions[motoring_convictions]"
+                                                                   id="motoring_convictions_No" value="No"
+                                                                   {{ old('convictions.motoring_convictions', $selectedForm->convictions['motoring_convictions'] ?? $form->convictions['motoring_convictions'] ?? '') == 'No' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="motoring_convictions_No">No</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="motoringConvictionDetails">
+                                                        <div class="row">
+                                                              <div class="col-lg-2">
+                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addConviction">Add Conviction</button>
+                                                              </div>
+                                                            @php
+                                                                // Check if rate is a string before decoding, else use the existing array or empty array
+                                                                $convictions = is_string($driverForm->conviction_details) ? json_decode($driverForm->conviction_details, true) : (is_array($driverForm->conviction_details)
+                                                                 ? $driverForm->conviction_details : []);
+                                                                $convictions = $convictions ?? [];
+                                                            @endphp
+                                                             <div class="col-lg-10">
+                                                                 <table class="table table-striped">
+                                                                <tr>
+                                                                    <th>Conviction code</th>
+                                                                    <th>Penalty points</th>
+                                                                    <th>Conviction date</th>
+                                                                    <th>Expiry date</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                 @forelse($convictions as $index => $item)
+                                                                    <tr>
+                                                                        <td>{{ $item['conviction_code'] ?? '' }}</td>
+                                                                        <td>{{ $item['penalty_points'] ?? '' }}</td>
+                                                                        <td>{{ date('d M, Y', strtotime($item['conviction_date'])) ?? '' }}</td>
+                                                                        <td>{{ date('d M, Y', strtotime($item['expiry_date'])) ?? '' }}</td>
+                                                                         <td><a href="" data-bs-toggle="modal" data-bs-target="#editConviction-{{ $index }}"><em class="icon ni ni-edit"></em></a></td>
+                                                                    </tr>
+
+                                                                     <div class="modal fade" tabindex="-1" id="editConviction-{{ $index }}">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                    <em class="icon ni ni-cross"></em>
+                                                                                </a>
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Edit Conviction</h5>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="{{ route('admin.updateConvictions') }}" method="POST">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                                        <input type="hidden" name="form_id" value="{{ $form->id }}">
+                                                                                         <input type="hidden" name="conviction_index" value="{{ $index }}">
+
+                                                                                         <div class="row">
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="conviction_code">Conviction code</label>
+                                                                                            <input type="text" class="form-control" id="conviction_code" name="conviction_details[{{ $index }}][conviction_code]"
+                                                                                                value="{{ old('conviction_details.' . $index . '.conviction_code', $item['conviction_code']) }}">
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="penalty_points">Penalty points</label>
+                                                                                            <input type="text" class="form-control" id="penalty_points" name="conviction_details[{{ $index }}][penalty_points]"
+                                                                                                value="{{ old('conviction_details.' . $index . '.penalty_points', $item['penalty_points']) }}">
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="conviction_date">Conviction date</label>
+                                                                                            <input type="date" class="form-control" id="conviction_date" name="conviction_details[{{ $index }}][conviction_date]"
+                                                                                                value="{{ old('conviction_details.' . $index . '.conviction_date', $item['conviction_date']) }}">
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="expiry_date">Expiry date</label>
+                                                                                            <input type="date" class="form-control" id="expiry_date" name="conviction_details[{{ $index }}][expiry_date]"
+                                                                                                value="{{ old('conviction_details.' . $index . '.expiry_date', $item['expiry_date']) }}">
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-12">
+                                                                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    </form>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                     @empty
+                                                                  @endforelse
+                                                            </table>
+                                                             </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                    <hr>
+
+                                                    <div class="row mt-3">
+                                                    <!-- Criminal Conviction Section -->
+                                                    <div class="form-group col-md-4">
+                                                        <label for="criminal_conviction">Criminal conviction</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="convictions[criminal_conviction]"
+                                                                   id="criminal_conviction_Yes" value="Yes"
+                                                                   {{ old('convictions.criminal_conviction', $selectedForm->convictions['criminal_conviction'] ?? $form->convictions['criminal_conviction'] ?? '') == 'Yes' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="criminal_conviction_Yes">Yes</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="convictions[criminal_conviction]"
+                                                                   id="criminal_conviction_No" value="No"
+                                                                   {{ old('convictions.criminal_conviction', $selectedForm->convictions['criminal_conviction'] ?? $form->convictions['criminal_conviction'] ?? '') == 'No' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="criminal_conviction_No">No</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="criminalConvictionDetails">
+                                                        <div class="row">
+                                                              <div class="col-lg-2">
+                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addCriminalConviction">Add Criminal Conviction</button>
+                                                              </div>
+                                                            @php
+                                                                // Check if rate is a string before decoding, else use the existing array or empty array
+                                                                $convictions = is_string($driverForm->conviction_details_2) ? json_decode($driverForm->conviction_details_2, true) : (is_array($driverForm->conviction_details_2)
+                                                                 ? $driverForm->conviction_details_2 : []);
+                                                                $convictions = $convictions ?? [];
+                                                            @endphp
+                                                             <div class="col-lg-10">
+                                                                 <table class="table table-striped">
+                                                                <tr>
+                                                                    <th>Conviction</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                 @forelse($convictions as $index => $item)
+                                                                    <tr>
+                                                                        <td>{{ $item['describe_conviction'] ?? '' }}</td>
+                                                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#addCriminalConviction-{{ $index }}"><em class="icon ni ni-edit"></em></a></td>
+                                                                    </tr>
+                                                                     <div class="modal fade" tabindex="-1" id="addCriminalConviction-{{ $index }}">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                    <em class="icon ni ni-cross"></em>
+                                                                                </a>
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title">Edit Criminal Conviction</h5>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form action="{{ route('admin.updateCriminalConvictions') }}" method="POST">
+                                                                                        @csrf
+                                                                                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                                        <input type="hidden" name="form_id" value="{{ $form->id }}">
+                                                                                        <input type="hidden" name="conviction_index" value="{{ $index }}">
+
+                                                                                         <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="describe_conviction_{{ $index }}">Describe conviction</label>
+                                                                                                <textarea class="form-control" id="describe_conviction_{{ $index }}"
+                                                                                                          name="conviction_details_2[{{ $index }}][describe_conviction]"
+                                                                                                          cols="5" rows="5">{{ old('conviction_details_2.' . $index . '.describe_conviction', $item['describe_conviction']) }}</textarea>
+                                                                                            </div>
+
+                                                                                              <div class="form-group col-md-12">
+                                                                                                  <button class="btn btn-primary" type="submit">Submit</button>
+                                                                                              </div>
+                                                                                        </div>
+                                                                                    </form>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                     @empty
+                                                                  @endforelse
+                                                                </table>
+                                                             </div>
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <!-- Motor Insurance Refusal Section -->
+
+                                                </div>
+                                                    <hr>
+                                                    <div class="row mt-3">
+                                                        <div class="form-group col-md-4">
+                                                        <label for="ever_been_refused_motor_insurance">Ever been refused motor insurance</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="convictions[ever_been_refused_motor_insurance]"
+                                                                   id="ever_been_refused_motor_insurance_Yes" value="Yes"
+                                                                   {{ old('convictions.ever_been_refused_motor_insurance', $selectedForm->convictions['ever_been_refused_motor_insurance'] ?? $form->convictions['ever_been_refused_motor_insurance'] ?? '') == 'Yes' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="ever_been_refused_motor_insurance_Yes">Yes</label>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="convictions[ever_been_refused_motor_insurance]"
+                                                                   id="ever_been_refused_motor_insurance_No" value="No"
+                                                                   {{ old('convictions.ever_been_refused_motor_insurance', $selectedForm->convictions['ever_been_refused_motor_insurance'] ?? $form->convictions['ever_been_refused_motor_insurance'] ?? '') == 'No' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="ever_been_refused_motor_insurance_No">No</label>
+                                                        </div>
+                                                    </div>
+
+                                                        <div id="motorInsuranceRefusalDetails">
+                                                              <div class="row">
+                                                              <div class="col-lg-2">
+                                                                  <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addRefusalConvictions">Add Refusal</button>
+                                                              </div>
+                                                            @php
+                                                                // Check if rate is a string before decoding, else use the existing array or empty array
+                                                                $convictions = is_string($driverForm->conviction_details_3) ? json_decode($driverForm->conviction_details_3, true) : (is_array($driverForm->conviction_details_3)
+                                                                 ? $driverForm->conviction_details_3 : []);
+                                                                $convictions = $convictions ?? [];
+                                                            @endphp
+                                                             <div class="col-lg-10">
+                                                                 <table class="table table-striped">
+                                                                <tr>
+                                                                    <th>Refusal Description</th>
+                                                                </tr>
+                                                                 @forelse($convictions as $index => $item)
+                                                                    <tr>
+                                                                        <td>{{ $item['describe_refusals_3'] ?? '' }}</td>
+                                                                    </tr>
+                                                                     @empty
+                                                                  @endforelse
+                                                                </table>
+                                                             </div>
+
+                                                        </div>
+                                                    </div>
+                                                    </div>
+
+                                                </div>
+                                                 <hr>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -949,9 +1107,10 @@
                         <label for="claim_time">Claim time</label>
                         <input type="time" class="form-control" id="claim_time" name="claim_details[claim_time]">
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <label for="describe_incident_circumstances">Describe incident circumstances</label>
-                        <input type="text" class="form-control" id="describe_incident_circumstances" name="claim_details[describe_incident]">
+
+                        <textarea cols="10" rows="5" class="form-control" id="describe_incident_circumstances" name="claim_details[describe_incident]"></textarea>
                     </div>
                     <div class="form-group col-md-12">
                         <button class="btn btn-primary">Submit</button>
@@ -1011,67 +1170,67 @@
 </div>
 
     <div class="modal fade" tabindex="-1" id="addCriminalConviction">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <em class="icon ni ni-cross"></em>
-            </a>
-            <div class="modal-header">
-                <h5 class="modal-title">Add Criminal Conviction</h5>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('admin.saveCriminalConvictions') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                    <input type="hidden" name="form_id" value="{{ $form->id }}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Criminal Conviction</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.saveCriminalConvictions') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                        <input type="hidden" name="form_id" value="{{ $form->id }}">
 
-                     <div class="row">
-                        <div class="form-group col-md-12">
-                            <label for="describe_conviction">Describe conviction</label>
-                            <textarea class="form-control" id="describe_conviction" name="conviction_details_2[describe_conviction]"
-                                      cols="5" rows="5"></textarea>
+                         <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="describe_conviction">Describe conviction</label>
+                                <textarea class="form-control" id="describe_conviction" name="conviction_details_2[describe_conviction]"
+                                          cols="5" rows="5"></textarea>
+                            </div>
+                              <div class="form-group col-md-12">
+                                  <button class="btn btn-primary" type="submit">Submit</button>
+                              </div>
                         </div>
-                          <div class="form-group col-md-12">
-                              <button class="btn btn-primary" type="submit">Submit</button>
-                          </div>
-                    </div>
-                </form>
+                    </form>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
     <div class="modal fade" tabindex="-1" id="addRefusalConvictions">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <em class="icon ni ni-cross"></em>
-            </a>
-            <div class="modal-header">
-                <h5 class="modal-title">Add Refusal Conviction</h5>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('admin.saveRefusalConvictions') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                    <input type="hidden" name="form_id" value="{{ $form->id }}">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Refusal Conviction</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.saveRefusalConvictions') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                        <input type="hidden" name="form_id" value="{{ $form->id }}">
 
-                     <div class="row">
-                        <div class="form-group col-md-12">
-                            <label for="describe_conviction">Describe conviction</label>
-                            <textarea class="form-control" id="describe_conviction" name="conviction_details_3[describe_refusals]"
-                                      cols="5" rows="5"></textarea>
+                         <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="describe_conviction">Describe conviction</label>
+                                <textarea class="form-control" id="describe_conviction" name="conviction_details_3[describe_refusals_3]"
+                                          cols="5" rows="5"></textarea>
+                            </div>
+                              <div class="form-group col-md-12">
+                                  <button class="btn btn-primary" type="submit">Submit</button>
+                              </div>
                         </div>
-                          <div class="form-group col-md-12">
-                              <button class="btn btn-primary" type="submit">Submit</button>
-                          </div>
-                    </div>
-                </form>
+                    </form>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {

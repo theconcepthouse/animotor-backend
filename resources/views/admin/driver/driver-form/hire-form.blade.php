@@ -1,7 +1,12 @@
 @extends('admin.layout.app')
 @section('content')
+    <style>
+        label {
+            text-transform: capitalize;
+        }
+    </style>
 
-    <div class="nk-content ">
+    <div class="nk-content mt-5">
         <div class="container-fluid">
             <div class="nk-content-inner">
                 <div class="nk-content-body">
@@ -755,15 +760,15 @@
                                                                    value="{{ old('charges.repossession_personal_visit_minimum', $form->charges['repossession_personal_visit_minimum'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label for="milage_limit">Milage limit</label>
+                                                            <label for="milage_limit">Mileage limit</label>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="charges[milage_limit]" id="milage_limit_Yes" value="Yes"
-                                                                       {{ old('charges.milage_limit', $form->charges['milage_limit'] ?? '') == 'Yes' ? 'checked' : '' }}>
+                                                                <input class="form-check-input" type="radio" name="charges[mileage_limit]" id="milage_limit_Yes" value="Yes"
+                                                                       {{ old('charges.mileage_limit', $form->charges['mileage_limit'] ?? '') == 'Yes' ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="milage_limit_Yes">Yes</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="charges[milage_limit]" id="milage_limit_No" value="No"
-                                                                       {{ old('charges.milage_limit', $form->charges['milage_limit'] ?? '') == 'No' ? 'checked' : '' }}>
+                                                                <input class="form-check-input" type="radio" name="charges[mileage_limit]" id="milage_limit_No" value="No"
+                                                                       {{ old('charges.mileage_limit', $form->charges['mileage_limit'] ?? '') == 'No' ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="milage_limit_No">No</label>
                                                             </div>
                                                         </div>
@@ -772,22 +777,22 @@
                                                     <div id="milageLimitDetails" style="display: none;">
                                                          <div class="row">
                                                             <div class="form-group col-md-4">
-                                                            <label for="milage_limit_type">Milage limit type</label>
-                                                            <select class="form-control" id="milage_limit_type" name="charges[milage_limit_type]">
-                                                                <option value="Per Day" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Day' ? 'selected' : '' }}>Per Day</option>
-                                                                <option value="Per Week" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Week' ? 'selected' : '' }}>Per Week</option>
-                                                                <option value="Per Month" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Month' ? 'selected' : '' }}>Per Month</option>
+                                                            <label for="mileage_limit_type">Mileage limit type</label>
+                                                            <select class="form-control" id="mileage_limit_type" name="charges[mileage_limit_type]">
+                                                                <option value="Per Day" {{ old('charges.mileage_limit_type', $form->charges['mileage_limit_type'] ?? '') == 'Per Day' ? 'selected' : '' }}>Per Day</option>
+                                                                <option value="Per Week" {{ old('charges.mileage_limit_type', $form->charges['mileage_limit_type'] ?? '') == 'Per Week' ? 'selected' : '' }}>Per Week</option>
+                                                                <option value="Per Month" {{ old('charges.mileage_limit_type', $form->charges['mileage_limit_type'] ?? '') == 'Per Month' ? 'selected' : '' }}>Per Month</option>
                                                             </select>
                                                         </div>
                                                             <div class="form-group col-md-4">
-                                                                <label for="milage_limit_value">Milage limit value</label>
-                                                                <input type="number" class="form-control" id="milage_limit_value" name="charges[milage_limit_value]"
-                                                                       value="{{ old('charges.milage_limit_value', $form->charges['milage_limit_value'] ?? '') }}">
+                                                                <label for="milage_limit_value">Mileage limit value</label>
+                                                                <input type="number" class="form-control" id="mileage_limit_value" name="charges[mileage_limit_value]"
+                                                                       value="{{ old('charges.mileage_limit_value', $form->charges['mileage_limit_value'] ?? '') }}">
                                                             </div>
                                                             <div class="form-group col-md-4">
-                                                            <label for="excess_milage_fee">Excess milage fee</label>
-                                                            <input type="text" class="form-control" id="excess_milage_fee" name="charges[excess_milage_fee]"
-                                                                   value="{{ old('charges.excess_milage_fee', $form->charges['excess_milage_fee'] ?? '') }}">
+                                                            <label for="excess_milage_fee">Excess mileage fee</label>
+                                                            <input type="text" class="form-control" id="excess_mileage_fee" name="charges[excess_mileage_fee]"
+                                                                   value="{{ old('charges.excess_mileage_fee', $form->charges['excess_mileage_fee'] ?? '') }}">
                                                         </div>
                                                        </div>
                                                     </div>
@@ -853,7 +858,7 @@
                                                                            value="{{ old('hirer_insurance.insurance_company', $selectedForm->hirer_insurance['insurance_company'] ?? $form->hirer_insurance['insurance_company'] ?? '') }}">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                            <label for="policy_number">Policy number</label>
+                                                            <label for="policy_number">Policy Number</label>
                                                             <input type="text" class="form-control" id="policy_number"
                                                                    name="hirer_insurance[policy_number]"
                                                                    value="{{ old('hirer_insurance.policy_number', $selectedForm->hirer_insurance['policy_number'] ?? $form->hirer_insurance['policy_number'] ?? '') }}">
@@ -873,20 +878,21 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label for="date">Date</label>
+                                                            <label for="date">Issued Date</label>
                                                             <input type="date" class="form-control" id="date"
-                                                                   name="hirer_insurance[date]"
-                                                                   value="{{ old('hirer_insurance.date', $selectedForm->hirer_insurance['date'] ?? $form->hirer_insurance['date'] ?? '') }}">
+                                                                   name="hirer_insurance[issue_date]"
+                                                                   value="{{ old('fleet_insurance.issue_date', $selectedForm->hirer_insurance['issue_date'] ?? $form->hirer_insurance['date'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label for="lease_agreement_number">Lease agreement number</label>
-                                                            <input type="text" class="form-control"
-                                                                   id="lease_agreement_number" name="hirer_insurance[lease_agreement_number]"
-                                                                   value="{{ old('hirer_insurance.lease_agreement_number', $selectedForm->hirer_insurance['lease_agreement_number'] ?? $form->hirer_insurance['lease_agreement_number'] ?? '') }}">
+                                                            <label for="date">Expiry Date</label>
+                                                            <input type="date" class="form-control" id="date"
+                                                                   name="hirer_insurance[expiry_date]"
+                                                                   value="{{ old('hirer_insurance.expiry_date', $selectedForm->hirer_insurance['expiry_date'] ?? $form->hirer_insurance['expiry_date'] ?? '') }}">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                              <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
+
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                               @include('admin.partials.image-upload', [
                                                                         'field' => 'hirer_insurance[hirer_signature]',
                                                                         'image' => $selectedForm->hirer_insurance['hirer_signature'] ?? '',
                                                                         'id' => 'file' . Str::uuid(),
@@ -894,12 +900,10 @@
                                                                         'colSize' => 'col-md-12 col-sm-6',
                                                                         ])
 
-                                                                </div>
 
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
+                                                             @include('admin.partials.image-upload', [
                                                                         'field' => 'hirer_insurance[company_signature]',
                                                                         'image' => $selectedForm->hirer_insurance['company_signature'] ?? $form->hirer_insurance['company_signature'] ?? '',
                                                                         'id' => 'file' . Str::uuid(),
@@ -907,8 +911,7 @@
                                                                         'colSize' => 'col-md-12 col-sm-6',
                                                                         ])
 
-                                                                </div>
-
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -953,29 +956,25 @@
                                                                    id="lease_agreement_number" name="fleet_insurance[lease_agreement_number]"
                                                                    value="{{ old('fleet_insurance.lease_agreement_number', $selectedForm->fleet_insurance['lease_agreement_number'] ?? $form->fleet_insurance['lease_agreement_number'] ?? '') }}">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                            @include('admin.partials.image-upload', [
                                                                         'field' => 'fleet_insurance[hirer_signature]',
                                                                         'image' => $selectedForm->fleet_insurance['hirer_signature'] ?? $form->fleet_insurance['hirer_signature'] ?? '',
                                                                         'id' => 'file' . Str::uuid(),
                                                                         'title' => 'Hirer Signature',
                                                                         'colSize' => 'col-md-12 col-sm-6',
                                                                         ])
-
-                                                            </div>
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <div class="col-md-5 col-sm-6">
-                                                                    @include('admin.partials.image-upload', [
+                                                            @include('admin.partials.image-upload', [
                                                                         'field' => 'fleet_insurance[company_signature]',
                                                                         'image' => $selectedForm->fleet_insurance['company_signature'] ?? $form->fleet_insurance['company_signature'] ?? '',
                                                                         'id' => 'file' . Str::uuid(),
                                                                         'title' => 'Company Signature',
                                                                         'colSize' => 'col-md-12 col-sm-6',
                                                                         ])
-
-                                                            </div>
+                                                        </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1064,6 +1063,18 @@
                                                                         ])
 
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container mt-4">
+                                                    <div class="mb-4">
+                                                        <h4 class="title nk-block-title">Additional Agreement</h4>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <textarea name="agreement" class="form-control" id="" cols="10" rows="8">
+                                                                {{ old('agreement', $form->agreement) }}
+                                                            </textarea>
                                                         </div>
                                                     </div>
                                                 </div>

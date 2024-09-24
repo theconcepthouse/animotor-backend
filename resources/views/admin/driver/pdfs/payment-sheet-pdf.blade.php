@@ -47,6 +47,9 @@
         .page-break {
             page-break-after: always;
         }
+        label {
+            text-transform: capitalize;
+        }
     </style>
 </head>
 <body>
@@ -67,111 +70,130 @@
     </div>
     <br>
     <table>
-        <tbody>
-        <tr>
-            <td colspan="3">
-                <strong> IMPORTANT NOTICE:</strong>
-               <p>
-                    It is an Offence under the Road Traffic Acts to make a false statement or withhold an y material in formation for the purposes of obtaining a Certificate of Motor Insurance. By completing this Proposal Form you hereby consent to us
-                    using the Personal In formation provided by you to conduct appropriate anti-fraud and DVLA checks. Personal In formation that you provide may also be disclosed to a credit reference agency, which may keep a record of that in formation.
-                    You also consent to this in formation being shared with other outside agencies in the course of investigating an y claim or con f irmin g that the in formation g iven is true and accurate. If you do not report an accident or claim
-                    immediately you may have to pay a £1000 Late Reporting Excess plus £ 720 per day late reporting charges You are not insured to drive your vehicle under this fleet policy until such time as we have approved your application and
-                    issued a Certificate of Insurance, permission letter stating that you are insured.
-                </p>
 
-            </td>
-        </tr>
-        </tbody>
-        <tbody>
-        <h4 style="margin-bottom: 0px">Driver Details:</h4>
-        <tr style="margin-top: 0px">
-            <td>
-                <label style="margin-bottom: 25px">First Name</label>
-                <span>{{ $formData->personal_details['first_name'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">Last Name</label>
-                <span>{{ $formData->personal_details['last_name'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px; white-space: nowrap">Email</label>
-                <span>{{ $formData->personal_details['email'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label style="margin-bottom: 25px">Phone</label>
-                <span>{{ $formData->personal_details['phone'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">Work Phone</label>
-                <span>{{ $formData->personal_details['work_phone'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">Hire Type</label>
-                <span>{{ $formData->personal_details['hire_type'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label style="margin-bottom: 25px">Ni Number</label>
-                <span>{{ $formData->personal_details['ni_number'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">Occupation</label>
-                <span>{{ $formData->personal_details['occupation'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">How Long Resident in UK</label>
-                <span>{{ $formData->personal_details['how_long_resident_in_uk'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-        </tr>
+       <tbody>
+            <h4 style="margin-bottom: 0px">Hire Agreement:</h4>
+
+            <tr>
+                <td>
+                    <label style="margin-bottom: 25px">Hire start date</label>
+                    <span>{{ date('d M, Y', strtotime($formData->vehicle['date_out'] ?? '')) }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Hire Due Date</label>
+                    <span>{{ date('d M, Y', strtotime($formData->vehicle['date_out'] ?? '')) }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td colspan="2">
+                    <label style="margin-bottom: 25px">Hire Type</label>
+                    <span>{{ $formData->personal_details['hire_type'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label style="margin-bottom: 25px">Payment frequency</label>
+                    <span>{{ $formData->payment['payment_frequency'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Duration (in weeks)</label>
+                    <span>{{ $formData->hire['duration'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td colspan="2">
+                    <label style="margin-bottom: 25px">Deposit</label>
+                    <span>{{ $formData->payment['deposit'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label style="margin-bottom: 25px">Total</label>
+                    <span>{{ $formData->rate_total['sub_total'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Total Paid</label>
+                    <span>{{ $formData->rate_total['total_paid'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Total Due</label>
+                    <span>{{ $formData->rate_total['total_due'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label style="margin-bottom: 25px">Hire Total</label>
+                    <span>{{ $formData->payment['hire_total'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">vehicle condition</label>
+                    <span>{{ $formData->rate_total['vehicle_condition'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Total Due</label>
+                    <span>{{ $formData->rate_total['total_due'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <label style="margin-bottom: 25px">Road Tax</label>
+                    <span>{{ $formData->payment['road_tax'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Road tax Amount</label>
+                    <span>{{ $formData->payment['road_tax'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Total Due</label>
+                    <span>{{ $formData->rate_total['total_due'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+
+            </tr>
         </tbody>
 
-        <br>
         <tbody>
-        <h4 style="margin-bottom: 0px">Address Details:</h4>
+            <h4 style="margin-bottom: 0px">Additional Fee Detail:</h4>
 
-        <tr>
-            <td>
-                <label style="margin-bottom: 25px">Address Line</label>
-                <span>{{ $formData->address['address_line'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">Address Line 2</label>
-                <span>{{ $formData->address['address_line_2'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">Country</label>
-                <span>{{ $formData->address['country'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label style="margin-bottom: 25px">City</label>
-                <span>{{ $formData->address['city'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td>
-                <label style="margin-bottom: 25px">Postcode</label>
-                <span>{{ $formData->address['postcode'] ?? '' }}</span>
-                <span class="underline"></span>
-            </td>
-            <td></td>
-        </tr>
+            <tr>
+                <td>
+                    <label style="margin-bottom: 25px">Late Payment Per Day</label>
+                    <span>{{ $formData->charges['late_payment_per_day'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Late Payment Amount</label>
+                    <span>{{ $formData->charges['late_payment_per_day'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Excess Mileage Fee</label>
+                    <span>{{ $formData->charges['excess_milage_fee'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+                <td>
+                    <label style="margin-bottom: 25px">Admin PCN Charge</label>
+                    <span>{{ $formData->charges['admin_charge_for_pcn_ticket'] ?? '' }}</span>
+                    <span class="underline"></span>
+                </td>
+            </tr>
+
         </tbody>
+
 
     </table>
 

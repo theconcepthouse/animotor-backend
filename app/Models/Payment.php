@@ -24,6 +24,8 @@ class Payment extends Model
         'balance',
         'late_payment_days',
         'items',
+        'name',
+        'rate_id',
     ];
 
 

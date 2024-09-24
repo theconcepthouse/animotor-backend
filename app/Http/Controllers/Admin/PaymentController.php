@@ -15,16 +15,9 @@ class PaymentController extends Controller
     {
         $driver = User::findOrFail($driverId);
         $payments = Payment::where('driver_id', $driver->id)->get();
-        $rates = Rate::where('driver_id', $driver->id)->get();
+        $rates = Rate::where('driver_id', $driver->id)->where('payment_item', 1)->get();
 
-        $rateItems = [];
-        foreach ($rates as $rate) {
-            $rateItems[] = [
-                'rate' => $rate,
-                'other_items' => $rate->other_items
-            ];
-        }
-        return view('admin.driver.others.payment-history', compact('driver', 'payments', 'rateItems'));
+        return view('admin.driver.others.payment-history', compact('driver', 'payments', 'rates'));
     }
     public function savePayment(Request $request)
     {
@@ -52,19 +45,30 @@ class PaymentController extends Controller
         return redirect()->back()->with('message', $message);
     }
 
-     public function addPaymentItem(Request $request)
+    public function RateItem(Request $request, $driverId)
     {
 
-        $validated = request()->validate([
-            'other_items' => 'required|array',
-            'items.*.item' => 'nullable|string',
-            'items.*.units' => 'required|integer',
-            'items.*.price' => 'required|integer',
+        $validated = $request->validate([
+            'payment_name' => 'required|string',
+            'payment_unit' => 'required|numeric',
+            'payment_price' => 'required|numeric',
+            'payment_paid' => 'nullable|numeric',
         ]);
 
-        $validated['driver_id'] = $request->get('driver_id');
-        Rate::create($validated);
-        return redirect()->back()->with('success', 'Payment item created successfully.');
+        $validated['driver_id'] = $driverId;
+        $validated['payment_item'] = 1;
+        $itemId = $request->item_id;
+
+        $rate = Rate::where('driver_id', $driverId)->where('id', $itemId)->first();
+        if($rate)
+        {
+            $rate->update($validated);
+            return redirect()->back()->with('success', 'Payment item updated successfully.');
+        }
+
+       Rate::create($validated);
+       return redirect()->back()->with('success', 'Payment item created successfully.');
+
     }
 
 }

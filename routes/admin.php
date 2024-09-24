@@ -197,7 +197,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
     Route::get('payment/history/{driverId}', [PaymentController::class, 'paymentHistory'])->name('paymentHistory');
     Route::post('store/driver/payment', [PaymentController::class, 'savePayment'])->name('savePayment');
-    Route::post('store/payment/item', [PaymentController::class, 'addPaymentItem'])->name('addPaymentItem');
+    Route::post('store/payment/item/{driverId}', [PaymentController::class, 'RateItem'])->name('RateItem');
 
     Route::get('driver/{driverId}/forms/', [FormController::class, 'index'])->name('form.index');
     Route::get('/user/{driverId}/form/{formId}', [FormController::class, 'fetchCustomerForm'])->name('fetchCustomerForm');
@@ -256,11 +256,17 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('/generate-pdf/{formId}/{driverId}', [DriverFormController::class, 'generatePDF'])->name('generatePDF');
     Route::post('/copy/driver/form/', [DriverFormController::class, 'copyDriverForm'])->name('copyDriverForm');
     Route::get('/history/driver/{driverId}/', [DriverFormController::class, 'driverFormHistory'])->name('driverFormHistory');
-    Route::post('/save/rate/driver/', [DriverFormController::class, 'saveRate'])->name('saveRate');
-    Route::post('/save/claims/driver/', [DriverFormController::class, 'saveClaim'])->name('saveClaim');
+
+    Route::post('/save/rate/{driverId}', [DriverFormController::class, 'saveRate'])->name('saveRate');
+    Route::post('/update/rate/', [DriverFormController::class, 'updateRate'])->name('updateRate');
+    Route::post('/update/rate/total/', [DriverFormController::class, 'saveRateTotal'])->name('saveRateTotal');
+    Route::post('/save/claim/', [DriverFormController::class, 'saveClaim'])->name('saveClaim');
+    Route::post('/update/claim/', [DriverFormController::class, 'updateClaim'])->name('updateClaim');
     Route::post('/store/conviction/', [DriverFormController::class, 'saveConvictions'])->name('saveConvictions');
+    Route::post('/update/conviction/', [DriverFormController::class, 'updateConvictions'])->name('updateConvictions');
     Route::post('/store/criminal/conviction', [DriverFormController::class, 'saveCriminalConvictions'])->name('saveCriminalConvictions');
-    Route::post('/store/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
+    Route::post('/update/criminal/conviction', [DriverFormController::class, 'updateCriminalConvictions'])->name('updateCriminalConvictions');
+    Route::post('/save/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
 
 });
 

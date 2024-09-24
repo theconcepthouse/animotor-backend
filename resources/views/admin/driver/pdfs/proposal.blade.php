@@ -69,23 +69,23 @@
     <table>
         <tbody>
         <tr>
-            <td colspan="3">
+            <td colspan="4">
                 <strong> IMPORTANT NOTICE:</strong>
                <p>
                     It is an Offence under the Road Traffic Acts to make a false statement or withhold an y material in formation for the purposes of obtaining a Certificate of Motor Insurance. By completing this Proposal Form you hereby consent to us
                     using the Personal In formation provided by you to conduct appropriate anti-fraud and DVLA checks. Personal In formation that you provide may also be disclosed to a credit reference agency, which may keep a record of that in formation.
                     You also consent to this in formation being shared with other outside agencies in the course of investigating an y claim or con f irmin g that the in formation g iven is true and accurate. If you do not report an accident or claim
-                    immediately you may have to pay a £1000 Late Reporting Excess plus £ 720 per day late reporting charges You are not insured to drive your vehicle under this fleet policy until such time as we have approved your application and
+                    immediately you may have to pay a £1000 Late Reporting Excess plus £720 per day late reporting charges You are not insured to drive your vehicle under this fleet policy until such time as we have approved your application and
                     issued a Certificate of Insurance, permission letter stating that you are insured.
                    <br>
-                   ANI MOTORS reserve the ri ght to decline to an y proposal submitted.
+                   ANI MOTORS reserve the right to decline to any proposal submitted.
                 </p>
 
             </td>
         </tr>
         </tbody>
         <tbody>
-        <h4 style="margin-bottom: 0px">Driver Details:</h4>
+        <h4 style="margin-bottom: 0px">Customer Detail:</h4>
         <tr style="margin-top: 0px">
             <td>
                 <label style="margin-bottom: 25px">First Name</label>
@@ -97,18 +97,18 @@
                 <span>{{ $formData->personal_details['last_name'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
-            <td>
+            <td >
                 <label style="margin-bottom: 25px; white-space: nowrap">Email</label>
                 <span>{{ $formData->personal_details['email'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
-        </tr>
-        <tr>
-            <td>
+             <td>
                 <label style="margin-bottom: 25px">Phone</label>
                 <span>{{ $formData->personal_details['phone'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
+        </tr>
+        <tr>
             <td>
                 <label style="margin-bottom: 25px">Work Phone</label>
                 <span>{{ $formData->personal_details['work_phone'] ?? '' }}</span>
@@ -139,7 +139,6 @@
         </tr>
         </tbody>
 
-        <br>
         <tbody>
         <h4 style="margin-bottom: 0px">Address Details:</h4>
 
@@ -154,7 +153,7 @@
                 <span>{{ $formData->address['address_line_2'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
-            <td>
+            <td colspan="2">
                 <label style="margin-bottom: 25px">Country</label>
                 <span>{{ $formData->address['country'] ?? '' }}</span>
                 <span class="underline"></span>
@@ -237,12 +236,17 @@
                 <span>{{ $formData->vehicle['car_model'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
+             <td>
+                <label style="margin-bottom: 25px">Number Of Seat</label>
+                <span>{{ $formData->vehicle['number_of_seat'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
         </tr>
         <tr>
 
             <td>
-                <label style="margin-bottom: 25px">Number Of Seat</label>
-                <span>{{ $formData->vehicle['number_of_seat'] ?? '' }}</span>
+                <label style="margin-bottom: 25px">Year</label>
+                <span>{{ $formData->vehicle['year'] ?? '' }}</span>
                 <span class="underline"></span>
             </td>
             <td>
@@ -285,22 +289,176 @@
                 </td>
             </tr>
             </tbody>
-        @else
         @endif
+        <tbody>
+        <h4 style="margin-bottom: 0px">Level Of Cover Details:</h4>
+        <tr style="margin-top: 0px">
+            <td>
+                <label style="margin-bottom: 25px">Level Of Cover</label>
+                <span>{{ $formData->level_of_cover['level_cover'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Use of vehicle</label>
+                <span>{{ $formData->level_of_cover['vehicle_use_cover'] ?? '' }}</span>
+                <span class="underline"></span>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+        <div>
+            @if(isset($formData->claim) && isset($formData->claim['accident_claim']) && $formData->claim['accident_claim'] == "Yes")
+            @php
+                // Check if rate is a string before decoding, else use the existing array or empty array
+                $claims = is_string($formData->claim_details) ? json_decode($formData->claim_details, true) : (is_array($formData->claim_details) ? $formData->claim_details : []);
+                $claims = $claims ?? [];
+            @endphp
+            <h4 style="margin-bottom: 5px">Accident Claims:</h4>
+             <table style="width:100%; border: 1px solid black; ">
+                <tr style="border: 1px solid #868686; border-collapse: collapse; background-color: #d1cbcb">
+                    <th style="text-align: left">Claim Type</th>
+                    <th style="text-align: left">Claim Date</th>
+                    <th style="text-align: left">Claim Time</th>
+                    <th style="text-align: left">Status</th>
+                    <th style="text-align: left">Incident</th>
+                </tr>
+                 @forelse($claims as $index => $claim)
+                    <tr>
+                        <td style="text-align: left">{{ $claim['type_of_claim'] ?? '' }}</td>
+                        <td style="text-align: left">{{ date('d M, Y', strtotime($claim['claim_date'])) ?? '' }}</td>
+                        <td style="text-align: left">{{ date('h:i A', strtotime($claim['claim_time'])) ?? '' }}</td>
+                        <td style="text-align: left">{{ $claim['status'] ?? '' }}</td>
+                        <td style="text-align: left">{{ $claim['describe_incident'] ?? '' }}</td>
+                    </tr>
+                @empty
+                @endforelse
+
+            </table>
+        @endif
+        </div>
+        <div>
+            @if(isset($formData->convictions) && isset($formData->convictions['motoring_convictions']) && $formData->convictions['motoring_convictions'] == "Yes")
+            @php
+                // Check if rate is a string before decoding, else use the existing array or empty array
+                $convictions = is_string($formData->conviction_details) ? json_decode($formData->conviction_details, true) : (is_array($formData->conviction_details) ? $formData->conviction_details : []);
+                $convictions = $convictions ?? [];
+            @endphp
+            <h4 style="margin-bottom: 5px">Motoring Convictions:</h4>
+             <table style="width:100%; border: 1px solid black; ">
+                <tr style="border: 1px solid #868686; border-collapse: collapse; background-color: #d1cbcb">
+                    <th style="text-align: left">Conviction code</th>
+                    <th style="text-align: left">Penalty points</th>
+                    <th style="text-align: left">Conviction date</th>
+                    <th style="text-align: left">Expiry date</th>
+                </tr>
+                 @forelse($convictions as $index => $item)
+                    <tr>
+                        <td style="text-align: left">{{ $item['conviction_code'] ?? '' }}</td>
+                        <td style="text-align: left">{{ $item['penalty_points'] ?? '' }}</td>
+                        <td style="text-align: left">{{ date('d M, Y', strtotime($item['conviction_date'])) ?? '' }}</td>
+                        <td style="text-align: left">{{ date('d M, Y', strtotime($item['expiry_date'])) ?? '' }}</td>
+                    </tr>
+
+                     @empty
+                  @endforelse
+
+            </table>
+        @endif
+        </div>
+        <div>
+            @if(isset($formData->convictions) && isset($formData->convictions['criminal_conviction']) && $formData->convictions['criminal_conviction'] == "Yes")
+            @php
+                // Check if rate is a string before decoding, else use the existing array or empty array
+                $convictions = is_string($formData->conviction_details_2) ? json_decode($formData->conviction_details_2, true) : (is_array($formData->conviction_details_2) ? $formData->conviction_details_2 : []);
+                $convictions = $convictions ?? [];
+            @endphp
+            <h4 style="margin-bottom: 5px">Criminal conviction:</h4>
+             <table style="width:100%; border: 1px solid black; ">
+                <tr style="border: 1px solid #868686; border-collapse: collapse; background-color: #d1cbcb">
+                    <th style="text-align: left; width: 20px" >#</th>
+                    <th style="text-align: left" colspan="3">Conviction</th>
+                </tr>
+                 @forelse($convictions as $index => $item)
+                    <tr style="border: 1px solid gray">
+                        <td >{{ $index+1 }}</td>
+                        <td colspan="3">{{ $item['describe_conviction'] ?? '' }}</td>
+                    </tr>
+                     @empty
+                  @endforelse
+
+            </table>
+        @endif
+        </div>
+        <div>
+                @if(isset($formData->convictions) && isset($formData->convictions['criminal_conviction']) && $formData->convictions['criminal_conviction'] == "Yes")
+                @php
+                    $convictions = is_string($formData->conviction_details_3) ? json_decode($formData->conviction_details_3, true) : (is_array($formData->conviction_details_2) ? $formData->conviction_details_3 : []);
+                    $convictions = $convictions ?? [];
+                @endphp
+                <h4 style="margin-bottom: 5px">Refusal Description:</h4>
+                 <table style="width:100%; border: 1px solid black; ">
+                    <tr style="border: 1px solid #868686; border-collapse: collapse; background-color: #d1cbcb">
+                        <th style="text-align: left; width: 20px" >#</th>
+                        <th style="text-align: left" colspan="3">Conviction</th>
+                    </tr>
+                     @forelse($convictions as $index => $item)
+                        <tr style="border: 1px solid gray">
+                            <td >{{ $index+1 }}</td>
+                            <td colspan="3">{{ $item['describe_refusals_3'] ?? '' }}</td>
+                        </tr>
+                         @empty
+                      @endforelse
+
+                </table>
+            @endif
+        </div>
+     <div class="page-break"></div>
+
+    <table>
 
         <tbody>
+        <h4 style="margin-bottom: 0px">Supporting Documents:</h4>
+        <tr style="margin-top: 0px">
+            <td>
+                <label style="margin-bottom: 25px">Driving License Front</label>
+                <img style="height: 200px; width: 200px" src="{{ $formData->documents['driving_license_front'] ?? '' }}" alt="">
+
+            </td>
+             <td>
+                <label style="margin-bottom: 25px">Driving License Back</label>
+                <img style="height: 200px; width: 200px" src="{{ $formData->documents['driving_license_back'] ?? '' }}" alt="">
+
+            </td>
+            <td>
+                <label style="margin-bottom: 25px">Proof of Address</label>
+                <img style="height: 200px; width: 200px" src="{{ $formData->documents['proof_of_address'] ?? '' }}" alt="">
+
+            </td>
+
+        </tr>
+        <tr>
+             <td>
+                <label style="margin-bottom: 25px">License Summary Sheet</label>
+                <img style="height: 200px; width: 200px" src="{{ $formData->documents['license_summery_sheet'] ?? '' }}" alt="">
+
+            </td>
+        </tr>
+        </tbody>
+       <tbody>
         <tr>
             <td colspan="4">
                 <strong> IMPORTANT DECLARATION:</strong>
               <p>
-                I/we declare that all of the above statements are true and complete in every respect and that no material facts or other in formation has been withheld, misrepresented or suppressed, which may increase the risk or in f luence the
-                grantin g of insurance cover by Underwriters. I/we undertake that the vehicle/s to be insured shall not be driven by an y other person other than that declared on the Certi f icate of Motor Insurance and Policy Schedule. I/we further
-                undertake that the vehicles/s to be insured shall be kept in a good condition and state of repair. I/we further declare and agree that i f such statements and particulars are in the handwritin g of an y person other than m ysel
-                f/ourselves such persons shall be deemed to have been m y/our agent for the purposes of completin g this form and I/we agree that this proposal and declaration shall form the basis of the contract between me/us and ANI MOTORS LTD and
-                I/we agree on each renewal to noti fy the ANI MOTORS LTD of an y material facts or chan ges affectin g the continuance of the Insurance and I/we are willin g to accept an Insurance subject to the terms, exceptions and conditions
-                provisionall y contained therein for this class of risk and i f the risk is accepted to pay the premium required.
-                              <br>
-                              ANI MOTORS reserve the ri ght to decline to an y proposal submitted
+                I/we declare that all of the above statements are true and complete in every respect and that no material facts or other in formation has been withheld, misrepresented or suppressed, which may increase the risk or influence the
+                granting of insurance cover by Underwriters. I/we undertake that the vehicle/s to be insured shall not be driven by an y other person other than that declared on the Certificate of Motor Insurance and Policy Schedule. I/we further
+                undertake that the vehicles/s to be insured shall be kept in a good condition and state of repair. I/we further declare and agree that i f such statements and particulars are in the handwriting of an y person other than
+                  myself/ourselves such persons shall be deemed to have been m your agent for the purposes of completing this form and I/we agree that this proposal and declaration shall form the basis of the contract between me/us and ANI MOTORS LTD and
+                I/we agree on each renewal to notify the ANI MOTORS LTD of any material facts or chan ges affecting the continuance of the Insurance and I/we are willing to accept an Insurance subject to the terms, exceptions and conditions
+                provisionally contained therein for this class of risk and i f the risk is accepted to pay the premium required.
+                <br>ANI MOTORS reserve the right to decline to any proposal submitted
             </p>
             <div style="display: flex; ">
                     <div style="margin-right: 10px; margin-top: 10px; font-size: 15px">
@@ -316,8 +474,6 @@
             </td>
         </tr>
         </tbody>
-
-
 
 
     </table>

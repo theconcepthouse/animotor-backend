@@ -95,11 +95,10 @@ class DriversController extends Controller
      public function createDriver(Request $request)
     {
 //        $driver = User::findOrFail($driverId);
-        $form = DriverForm::where('name', 'Customer Registration')->first();
-        $formFieldsJson = json_decode($form->fields, true);
+
         $role = $request->get('role') ?? 'driver';
 
-        return view('admin.driver.create-driver', compact('role', 'form', 'formFieldsJson'));
+        return view('admin.driver.create-driver', compact('role',  ));
     }
 
 
@@ -195,6 +194,8 @@ class DriversController extends Controller
     {
         $driver = User::findOrFail($driverId);
         $driver->delete();
+
+        DriverForm::where('driver_id', $driverId)->delete();
         return redirect()->back()->with('success','Driver successfully deleted');
     }
 

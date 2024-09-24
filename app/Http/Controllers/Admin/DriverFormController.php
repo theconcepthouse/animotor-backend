@@ -9,6 +9,7 @@ use App\Models\FormData;
 use App\Models\History;
 use App\Models\HistoryData;
 use App\Models\Payment;
+use App\Models\Rate;
 use App\Models\User;
 use App\Models\Vehicle;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -33,7 +34,6 @@ class DriverFormController extends Controller
         // Fetch all forms for the given driver
         $forms = DriverForm::where('driver_id', $driverId)->get();
 
-        // Initialize variables for selecting the form with the most filled fields
         $selectedForm = null;
         $maxFilledFieldsCount = 0;
 
@@ -82,23 +82,24 @@ class DriverFormController extends Controller
             ]);
         }
 
-        // Decode the rate JSON data
-        $rateData = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
-        $priceSum = 0;
+        $priceSum = Rate::where('driver_id', $driverId)->sum('price');
+        $rates = Rate::where('driver_id', $driverId)->get();
 
-        foreach ($rateData as $key => $rate) {
-            if (is_array($rate) && isset($rate['price'])) {
-                $priceSum += (float) $rate['price'];
-            }
-        }
+       $deposit = Rate::where('driver_id', $driverId)
+               ->whereRaw('LOWER(item) = ?', ['deposit'])
+               ->sum('price');
+       $roadTax = Rate::where('driver_id', $driverId)
+               ->whereRaw('LOWER(item) = ?', ['road tax'])
+               ->sum('price');
 
         return match ($form->name) {
             'Customer Registration' => view('admin.driver.driver-form.customer-registration', compact('driver', 'form', 'selectedForm')),
-            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'driverForm', 'vehicles', 'priceSum')),
+            'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'driverForm', 'vehicles', 'priceSum', 'rates')),
             'Hire Agreement' => view('admin.driver.driver-form.hire-form', compact('driver', 'form', 'selectedForm')),
             'Proposal Form' => view('admin.driver.driver-form.proposal-form', compact('driver', 'form', 'selectedForm', 'driverForm')),
             'Checklist Form' => view('admin.driver.driver-form.checklist-form', compact('driver', 'form', 'selectedForm')),
-            'Payment Sheet' => view('admin.driver.driver-form.payment-sheet-form', compact('driver', 'form', 'selectedForm')),
+            'Payment Sheet' => view('admin.driver.driver-form.payment-sheet-form', compact('driver', 'form', 'selectedForm',
+                'priceSum', 'driverForm', 'deposit', 'roadTax')),
 
             'Return Vehicle' => view('admin.driver.driver-form.return-vehicle', compact('driver', 'form', 'selectedForm')),
             'Report Vehicle Defect' => view('admin.driver.driver-form.report-defect', compact('driver', 'form', 'selectedForm')),
@@ -169,6 +170,7 @@ class DriverFormController extends Controller
             'mileage',
             'hire',
             'reason',
+            'agreement',
         ];
 
         // Step 1: Fetch and update the current form being submitted
@@ -232,9 +234,6 @@ class DriverFormController extends Controller
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
-
-
-
 
 
     public function updateStatus(Request $request)
@@ -328,78 +327,74 @@ class DriverFormController extends Controller
         return $pdf->stream($form->name . ".pdf");
     }
 
-
-
     public function copyDriverForm(Request $request)
     {
 
-    $driverId = $request->input('driver_id');
-    $formId = $request->input('form_id');
+        $driverId = $request->input('driver_id');
+        $formId = $request->input('form_id');
 
-    $fieldsToUpdate = [
-        'personal_details',
-        'address',
-        'vehicle',
-        'hirer_insurance',
-        'payment',
-        'hire',
-        'reason',
-    ];
+        $fieldsToUpdate = [
+            'personal_details',
+            'address',
+            'vehicle',
+            'hirer_insurance',
+            'payment',
+            'hire',
+            'reason',
+        ];
 
-    // Step 1: Fetch the current form being submitted
-    $driverForm = DriverForm::where('driver_id', $driverId)
-        ->where('id', $formId)
-        ->firstOrFail();
+        // Step 1: Fetch the current form being submitted
+        $driverForm = DriverForm::where('driver_id', $driverId)
+            ->firstOrFail();
 
-    // Update the fields in the current form
-    foreach ($fieldsToUpdate as $field) {
-        if ($request->has($field)) {
-            $newData = $request->input($field);
-            $driverForm->$field = array_merge($driverForm->$field ?? [], $newData);
-        }
-    }
-
-    $driverForm->save();
-
-    // Call createHistory to log changes
-    $this->storeHistoryData($request, $driverId);
-
-    // Update the User table if personal_details are updated, but do not track these changes
-    if ($request->has('personal_details')) {
-        $user = User::find($driverId);
-        $personalDetails = $request->input('personal_details');
-
-        if (isset($personalDetails['email'])) {
-            $user->email = $personalDetails['email'];
-        }
-        if (isset($personalDetails['phone'])) {
-            $user->phone = $personalDetails['phone'];
-        }
-
-        $user->save();
-    }
-
-    // Step 2: Update related forms with the new data
-    $relatedForms = DriverForm::where('driver_id', $driverId)
-        ->where('id', '!=', $formId)
-        ->where('action', 0) // Exclude the current form
-        ->get();
-
-    foreach ($relatedForms as $relatedForm) {
-        $needsUpdate = false;
-
+        // Update the fields in the current form
         foreach ($fieldsToUpdate as $field) {
             if ($request->has($field)) {
                 $newData = $request->input($field);
-                $relatedForm->$field = array_merge($relatedForm->$field ?? [], $newData);
-                $needsUpdate = true;
+                $driverForm->$field = array_merge($driverForm->$field ?? [], $newData);
             }
         }
 
-        if ($needsUpdate) {
-            $relatedForm->save();
+        $driverForm->save();
+
+        // Call createHistory to log changes
+        $this->storeHistoryData($request, $driverId);
+
+        if ($request->has('personal_details')) {
+            $user = User::find($driverId);
+            $personalDetails = $request->input('personal_details');
+
+            if (isset($personalDetails['email'])) {
+                $user->email = $personalDetails['email'];
+            }
+            if (isset($personalDetails['phone'])) {
+                $user->phone = $personalDetails['phone'];
+            }
+
+            $user->save();
         }
-    }
+
+        // Step 2: Update related forms with the new data
+        $relatedForms = DriverForm::where('driver_id', $driverId)
+            ->where('id', '!=', $formId)
+            ->where('action', 0) // Exclude the current form
+            ->get();
+
+        foreach ($relatedForms as $relatedForm) {
+            $needsUpdate = false;
+
+            foreach ($fieldsToUpdate as $field) {
+                if ($request->has($field)) {
+                    $newData = $request->input($field);
+                    $relatedForm->$field = array_merge($relatedForm->$field ?? [], $newData);
+                    $needsUpdate = true;
+                }
+            }
+
+            if ($needsUpdate) {
+                $relatedForm->save();
+            }
+        }
 
     return redirect()->back()->with('success', 'Form submitted successfully.');
 }
@@ -563,85 +558,86 @@ class DriverFormController extends Controller
         return view('admin.driver.others.histories', compact('histories', 'driver'));
     }
 
+    public function saveRate(Request $request, $driverId)
+    {
+        $validated = $request->validate([
+            'item' => 'required|string',
+            'unit' => 'required|numeric',
+            'rate' => 'required|numeric',
+            'price' => 'nullable|numeric',
+        ]);
 
-    public function saveRate(Request $request)
+        $validated['driver_id'] = $driverId;
+        $rateId = $request->get('rate_id');
+        $rate = Rate::where('driver_id', $driverId)->where('id', $rateId)->first();
+
+        if ($rate) {
+            $rate->update($validated);
+            Payment::where('driver_id', $driverId)->where('rate_id', $rate->id)->delete();
+
+            $pricePerUnit = $rate->price / $rate->unit;
+            for ($i = 0; $i < $rate->unit; $i++) {
+                Payment::create([
+                    'driver_id' => $driverId,
+                    'due_date' => now()->addDays($i * 7),
+                    'amount' => $pricePerUnit,
+                    'name' => $rate->item,
+                    'rate_id' => $rate->id,
+                ]);
+            }
+            return redirect()->back()->with('success', 'Rate updated successfully.');
+        }
+        $rate = Rate::create($validated);
+
+        if ($rate->unit && $rate->price) {
+            $pricePerUnit = $rate->price / $rate->unit;
+
+            for ($i = 0; $i < $rate->unit; $i++) {
+                Payment::create([
+                    'driver_id' => $driverId,
+                    'due_date' => now()->addDays($i * 7),
+                    'amount' => $pricePerUnit,
+                    'name' => $rate->item,
+                    'rate_id' => $rate->id,
+                ]);
+            }
+        }
+        return redirect()->back()->with('success', 'Rate saved successfully.');
+
+    }
+
+
+    public function saveRateTotal(Request $request)
     {
         $driverId = $request->input('driver_id');
         $formId = $request->input('form_id');
 
         $validated = $request->validate([
-            'rate' => 'nullable|array',
-            'rate.item' => 'nullable|string',
-            'rate.rate' => 'nullable|integer',
-            'rate.units' => 'nullable|integer',
-            'rate.price' => 'nullable|integer',
+            'rate_total' => 'nullable|array',
+            'rate_total.sub_total' => 'nullable|string',
+            'rate_total.total_paid' => 'nullable|string',
+            'rate_total.total_due' => 'nullable|numeric',
         ]);
 
         $driverForm = DriverForm::where('driver_id', $driverId)
             ->where('id', $formId)
             ->firstOrFail();
 
-        $existingRates = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
-        $newRate = [
-            'item' => $validated['rate']['item'] ?? null,
-            'rate' => $validated['rate']['rate'] ?? null,
-            'units' => $validated['rate']['units'] ?? null,
-            'price' => $validated['rate']['price'] ?? null,
-        ];
-
-        // Append the new rate to the existing rates array
-        $existingRates[] = $newRate;
-        $driverForm->rate = json_encode($existingRates);
+        $driverForm->rate_total = json_encode($validated);
         $driverForm->save();
 
-        // Process the new rate to create payment entries
-        if ($newRate['units'] && $newRate['price']) {
-            $pricePerUnit = $newRate['price'] / $newRate['units'];
+        // Step 2: Update related forms with the same rate_total data
+        $relatedForms = DriverForm::where('driver_id', $driverId)
+            ->where('id', '!=', $formId) // Exclude the current form
+            ->where('action', 0) // Assuming action = 0 means the form is active or relevant
+            ->get();
 
-            for ($i = 0; $i < $newRate['units']; $i++) {
-                Payment::create([
-                    'driver_id' => $driverId,
-                    'due_date' => now()->addDays($i * 7),
-                    'amount' => $pricePerUnit,
-                ]);
-            }
+        foreach ($relatedForms as $relatedForm) {
+            $relatedForm->rate_total = json_encode($validated['rate_total']);
+            $relatedForm->save();
         }
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
-    }
-
-    public function deleteRate(Request $request)
-    {
-        $driverId = $request->input('driver_id');
-        $formId = $request->input('form_id');
-        $rateIndex = $request->input('rate_index'); // Index of the rate item to be deleted
-
-        // Fetch the DriverForm record
-        $driverForm = DriverForm::where('driver_id', $driverId)
-            ->where('id', $formId)
-            ->firstOrFail();
-
-        // Decode the rate field JSON data
-        $rateData = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
-
-        // Check if the rate index exists in the rate data array
-        if (isset($rateData[$rateIndex])) {
-            // Remove the specific rate item
-            unset($rateData[$rateIndex]);
-
-            // Reindex the array to avoid JSON conversion issues
-            $rateData = array_values($rateData);
-
-            // Encode the updated rate data back to JSON
-            $driverForm->rate = json_encode($rateData);
-
-            // Save the updated DriverForm
-            $driverForm->save();
-
-            return response()->json(['success' => true, 'message' => 'Rate item deleted successfully.']);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Rate item not found.'], 404);
-        }
     }
 
     public function saveClaim(Request $request)
@@ -675,9 +671,61 @@ class DriverFormController extends Controller
         // Append the new rate to the existing rates array
         $existingClaim[] = $newClaim;
         $driverForm->claim_details = json_encode($existingClaim);
+
+        $claim = is_string($driverForm->claim) ? json_decode($driverForm->claim, true)
+            : (is_array($driverForm->claim) ? $driverForm->claim : []);
+
+        $claim['accident_claim'] = "Yes";
+        $driverForm->claim = $claim;
+
         $driverForm->save();
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
+    }
+    public function updateClaim(Request $request)
+    {
+        $driverId = $request->input('driver_id');
+        $formId = $request->input('form_id');
+        $claimIndex = $request->input('claim_index');
+
+        // Validate the inputs
+        $validated = $request->validate([
+            'claim_index' => 'required|integer|min:0',
+            'claim_details' => 'nullable|array',
+            'claim_details.' . $claimIndex . '.type_of_claim' => 'nullable|string',
+            'claim_details.' . $claimIndex . '.status' => 'nullable|string',
+            'claim_details.' . $claimIndex . '.claim_date' => 'nullable|date',
+            'claim_details.' . $claimIndex . '.claim_time' => 'nullable|string',
+            'claim_details.' . $claimIndex . '.describe_incident' => 'nullable|string',
+        ]);
+
+        // Fetch the driver form
+        $driverForm = DriverForm::where('driver_id', $driverId)
+            ->where('id', $formId)
+            ->firstOrFail();
+
+        // Decode the existing claims from JSON
+        $existingClaims = is_string($driverForm->claim_details) ? json_decode($driverForm->claim_details, true) : (is_array($driverForm->claim_details) ? $driverForm->claim_details : []);
+
+        // Validate that the claim index exists
+        if (!isset($existingClaims[$claimIndex])) {
+            return redirect()->back()->with('error', 'Claim not found.');
+        }
+
+        // Update the existing claim at the specified index
+        $existingClaims[$claimIndex] = [
+            'type_of_claim' => $validated['claim_details'][$claimIndex]['type_of_claim'] ?? $existingClaims[$claimIndex]['type_of_claim'],
+            'status' => $validated['claim_details'][$claimIndex]['status'] ?? $existingClaims[$claimIndex]['status'],
+            'claim_date' => $validated['claim_details'][$claimIndex]['claim_date'] ?? $existingClaims[$claimIndex]['claim_date'],
+            'claim_time' => $validated['claim_details'][$claimIndex]['claim_time'] ?? $existingClaims[$claimIndex]['claim_time'],
+            'describe_incident' => $validated['claim_details'][$claimIndex]['describe_incident'] ?? $existingClaims[$claimIndex]['describe_incident'],
+        ];
+
+        // Save the updated claims back to the database
+        $driverForm->claim_details = json_encode($existingClaims);
+        $driverForm->save();
+
+        return redirect()->back()->with('success', 'Claim updated successfully.');
     }
 
     public function saveConvictions(Request $request)
@@ -710,9 +758,60 @@ class DriverFormController extends Controller
 
         $existingData[] = $newData;
         $driverForm->conviction_details = json_encode($existingData);
+
+        $convictions = is_string($driverForm->convictions) ? json_decode($driverForm->convictions, true)
+            : (is_array($driverForm->convictions) ? $driverForm->convictions : []);
+
+        $convictions['motoring_convictions'] = "Yes";
+        $driverForm->convictions = $convictions;
+
         $driverForm->save();
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
+    }
+
+    public function updateConvictions(Request $request)
+    {
+        $driverId = $request->input('driver_id');
+        $formId = $request->input('form_id');
+        $convictionIndex = $request->input('conviction_index');
+
+        // Validate the inputs
+        $validated = $request->validate([
+            'conviction_index' => 'required|integer|min:0',
+            'conviction_details' => 'nullable|array',
+            'conviction_details.' . $convictionIndex . '.conviction_code' => 'nullable|integer',
+            'conviction_details.' . $convictionIndex . '.penalty_points' => 'nullable|integer',
+            'conviction_details.' . $convictionIndex . '.conviction_date' => 'nullable|date',
+            'conviction_details.' . $convictionIndex . '.expiry_date' => 'nullable|date',
+        ]);
+
+        // Fetch the driver form
+        $driverForm = DriverForm::where('driver_id', $driverId)
+            ->where('id', $formId)
+            ->firstOrFail();
+
+        // Decode the existing conviction details from JSON
+        $existingConvictions = is_string($driverForm->conviction_details) ? json_decode($driverForm->conviction_details, true) : (is_array($driverForm->conviction_details) ? $driverForm->conviction_details : []);
+
+        // Validate that the conviction index exists
+        if (!isset($existingConvictions[$convictionIndex])) {
+            return redirect()->back()->with('error', 'Conviction not found.');
+        }
+
+        // Update the existing conviction at the specified index
+        $existingConvictions[$convictionIndex] = [
+            'conviction_code' => $validated['conviction_details'][$convictionIndex]['conviction_code'] ?? $existingConvictions[$convictionIndex]['conviction_code'],
+            'penalty_points' => $validated['conviction_details'][$convictionIndex]['penalty_points'] ?? $existingConvictions[$convictionIndex]['penalty_points'],
+            'conviction_date' => $validated['conviction_details'][$convictionIndex]['conviction_date'] ?? $existingConvictions[$convictionIndex]['conviction_date'],
+            'expiry_date' => $validated['conviction_details'][$convictionIndex]['expiry_date'] ?? $existingConvictions[$convictionIndex]['expiry_date'],
+        ];
+
+        // Save the updated conviction details back to the database
+        $driverForm->conviction_details = json_encode($existingConvictions);
+        $driverForm->save();
+
+        return redirect()->back()->with('success', 'Conviction updated successfully.');
     }
 
     public function saveCriminalConvictions(Request $request)
@@ -739,38 +838,150 @@ class DriverFormController extends Controller
 
         $existingData[] = $newData;
         $driverForm->conviction_details_2 = json_encode($existingData);
+
+        $convictions = is_string($driverForm->convictions) ? json_decode($driverForm->convictions, true)
+            : (is_array($driverForm->convictions) ? $driverForm->convictions : []);
+        $convictions['criminal_conviction'] = "Yes";
+        $driverForm->convictions = $convictions;
+
         $driverForm->save();
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
+    public function updateCriminalConvictions(Request $request)
+    {
+        $driverId = $request->input('driver_id');
+        $formId = $request->input('form_id');
+        $convictionIndex = $request->input('conviction_index');
+
+        // Validate the inputs
+        $validated = $request->validate([
+            'conviction_index' => 'required|integer|min:0',
+            'conviction_details_2' => 'nullable|array',
+            'conviction_details_2.' . $convictionIndex . '.describe_conviction' => 'nullable|string',
+        ]);
+
+        // Fetch the driver form
+        $driverForm = DriverForm::where('driver_id', $driverId)
+            ->where('id', $formId)
+            ->firstOrFail();
+
+        // Decode the existing criminal convictions from JSON
+        $existingData = is_string($driverForm->conviction_details_2)
+            ? json_decode($driverForm->conviction_details_2, true)
+            : (is_array($driverForm->conviction_details_2)
+                ? $driverForm->conviction_details_2
+                : []);
+
+        // Validate that the conviction index exists
+        if (!isset($existingData[$convictionIndex])) {
+            return redirect()->back()->with('error', 'Criminal conviction not found.');
+        }
+
+        // Update the existing criminal conviction at the specified index
+        $existingData[$convictionIndex] = [
+            'describe_conviction' => $validated['conviction_details_2'][$convictionIndex]['describe_conviction']
+                ?? $existingData[$convictionIndex]['describe_conviction'],
+        ];
+
+        // Save the updated criminal convictions back to the database
+        $driverForm->conviction_details_2 = json_encode($existingData);
+        $driverForm->save();
+
+        return redirect()->back()->with('success', 'Criminal conviction updated successfully.');
+    }
+
     public function saveRefusalConvictions(Request $request)
     {
         $driverId = $request->input('driver_id');
         $formId = $request->input('form_id');
 
+        // Validate the input
         $validated = $request->validate([
             'conviction_details_3' => 'nullable|array',
-            'conviction_details_3.describe_refusals' => 'nullable|string',
+            'conviction_details_3.describe_refusals_3' => 'nullable|string',
         ]);
 
+        // Fetch the driver form
         $driverForm = DriverForm::where('driver_id', $driverId)
             ->where('id', $formId)
             ->firstOrFail();
 
-        $existingData = is_string($driverForm->conviction_details_3) ? json_decode($driverForm->conviction_details_3, true) : (is_array($driverForm->conviction_details_3) ?
-            $driverForm->conviction_details_3 : []);
+        // Decode existing conviction_details_3
+        $existingData = is_string($driverForm->conviction_details_3)
+            ? json_decode($driverForm->conviction_details_3, true)
+            : (is_array($driverForm->conviction_details_3)
+                ? $driverForm->conviction_details_3
+                : []);
 
-
+        // Prepare new data
         $newData = [
-            'describe_refusals' => $validated['conviction_details_3']['describe_refusals'] ?? null,
+            'describe_refusals_3' => $validated['conviction_details_3']['describe_refusals_3'] ?? null,
         ];
 
+        // Append new data to existing data
         $existingData[] = $newData;
         $driverForm->conviction_details_3 = json_encode($existingData);
+
+        // Update the convictions field
+        $convictions = is_string($driverForm->convictions)
+            ? json_decode($driverForm->convictions, true)
+            : (is_array($driverForm->convictions)
+                ? $driverForm->convictions
+                : []);
+
+        // Set 'ever_been_refused_motor_insurance' to "Yes"
+        $convictions['ever_been_refused_motor_insurance'] = "Yes";
+        $driverForm->convictions = $convictions;
+
         $driverForm->save();
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
+
+    public function updateRefusalConvictions(Request $request)
+    {
+        $driverId = $request->input('driver_id');
+        $formId = $request->input('form_id');
+        $convictionIndex = $request->input('conviction_index');
+
+        // Validate the inputs
+        $validated = $request->validate([
+            'conviction_index' => 'required|integer|min:0',
+            'conviction_details_3' => 'nullable|array',
+            'conviction_details_3.' . $convictionIndex . '.describe_refusals' => 'nullable|string',
+        ]);
+
+        // Fetch the driver form
+        $driverForm = DriverForm::where('driver_id', $driverId)
+            ->where('id', $formId)
+            ->firstOrFail();
+
+        // Decode the existing refusal convictions from JSON
+        $existingData = is_string($driverForm->conviction_details_3)
+            ? json_decode($driverForm->conviction_details_3, true)
+            : (is_array($driverForm->conviction_details_3)
+                ? $driverForm->conviction_details_3
+                : []);
+
+        // Validate that the conviction index exists
+        if (!isset($existingData[$convictionIndex])) {
+            return redirect()->back()->with('error', 'Refusal conviction not found.');
+        }
+
+        // Update the existing refusal conviction at the specified index
+        $existingData[$convictionIndex] = [
+            'describe_refusals' => $validated['conviction_details_3'][$convictionIndex]['describe_refusals']
+                ?? $existingData[$convictionIndex]['describe_refusals'],
+        ];
+
+        // Save the updated refusal convictions back to the database
+        $driverForm->conviction_details_3 = json_encode($existingData);
+        $driverForm->save();
+
+        return redirect()->back()->with('success', 'Refusal conviction updated successfully.');
+    }
+
 
 
 

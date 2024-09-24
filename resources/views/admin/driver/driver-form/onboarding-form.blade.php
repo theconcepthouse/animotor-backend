@@ -161,99 +161,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="container mt-5">
-                                                    <div class="mb-4">
-                                                        <h4 class="title nk-block-title">Rate Details</h4>
-                                                    </div>
-                                                    <div>
-                                                       <div class="row">
-                                                            @php
-                                                                // Check if rate is a string before decoding, else use the existing array or empty array
-                                                                $rates = is_string($driverForm->rate) ? json_decode($driverForm->rate, true) : (is_array($driverForm->rate) ? $driverForm->rate : []);
-                                                                $rates = $rates ?? [];
-                                                            @endphp
-                                                        @forelse($rates as $index => $rate)
-                                                            <div class="row">
-                                                                    <div class="form-group col-md-3">
-                                                                    <label for="item_{{ $index }}">Item</label>
-                                                                    <input style="background: #e6e6e6" readonly type="text" class="form-control" id="item_{{ $index }}" name="rate[{{ $index }}][item]"
-                                                                           value="{{ old('rate.' . $index . '.item', $rate['item'] ?? '') }}">
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label for="rate_{{ $index }}">Rate</label>
-                                                                    <input style="background: #e6e6e6" readonly type="number" class="form-control" id="rate_{{ $index }}" name="rate[{{ $index }}][rate]"
-                                                                           value="{{ old('rate.' . $index . '.rate', $rate['rate'] ?? '') }}">
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label for="unit_{{ $index }}">Unit</label>
-                                                                    <input style="background: #e6e6e6" readonly type="text" class="form-control" id="unit_{{ $index }}" name="rate[{{ $index }}][units]"
-                                                                           value="{{ old('rate.' . $index . '.units', $rate['units'] ?? '') }}">
-                                                                </div>
-                                                                <div class="form-group col-md-3">
-                                                                    <label for="price_{{ $index }}">Price</label>
-                                                                    <input style="background: #e6e6e6" readonly type="number" class="form-control" id="price_{{ $index }}" name="rate[{{ $index }}][price]"
-                                                                           value="{{ old('rate.' . $index . '.price', $rate['price'] ?? '') }}">
-{{--                                                                    <a href="" class="btn btn-link"><em class="icon ni ni-delete"></em></a>--}}
-                                                                </div>
-                                                            </div>
-                                                             <!-- Hidden inputs for driver_id and rate_index -->
 
-{{--                                                            <input type="hidden" name="driver_id" value="{{ $driverForm->driver_id }}" class="driver_id">--}}
-{{--                                                            <input type="hidden" name="rate_index" value="{{ $index }}" class="rate_index">--}}
-{{--                                                    --}}
-{{--                                                            <!-- Delete button -->--}}
-{{--                                                            <button type="button" class="btn btn-danger delete-rate-btn" data-driver-id="{{ $driverForm->driver_id }}" data-rate-index="{{ $index }}">--}}
-{{--                                                                <i class="fa fa-trash"></i>--}}
-{{--                                                            </button>--}}
-                                                           @empty
-                                                             <div class="form-group col-md-3">
-                                                                <label >Item</label>
-                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label >Rate</label>
-                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label >Unit</label>
-                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
-                                                            </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label for="price">Price</label>
-                                                                <input style="background: #e6e6e6" readonly type="text" class="form-control" value="Not Set">
-                                                            </div>
-
-
-                                                        @endforelse
-                                                    </div>
-
-                                                    </div>
-                                                    <div class="row">
-
-                                                        <!-- Modal Trigger Code -->
-                                                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modalDefault">Add New</button>
-
-                                                    <!-- Modal Content Code -->
-
-                                                    </div>
-                                                    <div class="row mt-3">
-                                                         <div class="form-group col-md-4">
-                                                            <label for="sub_total">Sub total</label>
-                                                            <input style="background: #e6e6e6" type="number" class="form-control" id="sub_total" name="rate_total[sub_total]"
-                                                                   value="{{ $priceSum }}" readonly >
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="total_paid">Total paid</label>
-                                                            <input type="number" class="form-control" id="total_paid" name="rate_total[total_paid]"
-                                                                   value="{{ old('rate_total.total_paid', $form->rate_total['total_paid'] ?? '') }}">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="total_due">Total due</label>
-                                                            <input type="number" class="form-control" id="total_due" name="rate_total[total_due]"
-                                                                   value="{{ old('rate_total.total_due', $form->rate_total['total_due'] ?? '') }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                                 <div class="container mt-5">
                                                     <div class="mb-4">
@@ -313,7 +221,7 @@
                                                     <div id="milageLimitDetails" style="display: none;">
                                                          <div class="row">
                                                             <div class="form-group col-md-4">
-                                                            <label for="milage_limit_type">Milage limit type</label>
+                                                            <label for="milage_limit_type">Mileage limit type</label>
                                                             <select class="form-control" id="milage_limit_type" name="charges[milage_limit_type]">
                                                                 <option value="Per Day" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Day' ? 'selected' : '' }}>Per Day</option>
                                                                 <option value="Per Week" {{ old('charges.milage_limit_type', $form->charges['milage_limit_type'] ?? '') == 'Per Week' ? 'selected' : '' }}>Per Week</option>
@@ -361,6 +269,142 @@
                                                     <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                                                 </div>
                                             </form>
+                                            <hr>
+                                             <div class="container mt-5">
+                                                    <div class="mb-4">
+                                                        <h4 class="title nk-block-title">Rate Details</h4>
+                                                    </div>
+                                                    <div>
+                                                       <div class="row">
+
+                                                            @forelse($rates as $index => $item)
+                                                                <div class="row">
+                                                                     <div class="form-group col-md-3">
+                                                                        <label >Item</label>
+                                                                        <input style="background: #e6e6e6" readonly type="text" class="form-control"  name="item"
+                                                                               value="{{ old('item', $item->item ?? '') }}">
+                                                                    </div>
+                                                                    <div class="form-group col-md-3">
+                                                                        <label >Rate</label>
+                                                                        <input style="background: #e6e6e6" readonly type="text" class="form-control"  name="item"
+                                                                               value="{{ old('rate', $item->rate ?? '') }}">
+                                                                    </div>
+                                                                    <div class="form-group col-md-2">
+                                                                        <label >Unit</label>
+                                                                        <input style="background: #e6e6e6" readonly type="text" class="form-control"  name="unit"
+                                                                               value="{{ old('unit', $item->unit ?? '') }}">
+                                                                    </div>
+                                                                    <div class="form-group col-md-2">
+                                                                        <label >Price</label>
+                                                                        <input style="background: #e6e6e6" readonly type="text" class="form-control"  name="price"
+                                                                               value="{{ old('price', $item->price ?? '') }}">
+                                                                    </div>
+                                                                    <div class="form-group col-md-2">
+                                                                        <a href="" class="btn btn-primary btn-sm mt-4" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $index }}"><em class="icon ni ni-edit"></em></a>
+                                                                    </div>
+                                                                </div>
+                                                               <div class="modal fade" tabindex="-1" id="modalDefault-{{ $index }}">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <em class="icon ni ni-cross"></em>
+                                                                        </a>
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title">Update Rate Item</h5>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                           <form action="{{ route('admin.saveRate', $driver->id) }}" method="POST"
+                                                                              x-data="{ rate: {{ old('rate', $item->rate ?? 0) }}, unit: {{ old('unit', $item->unit ?? 0) }}, price: 0 }"
+                                                                              x-init="price = rate * unit">
+                                                                            @csrf
+                                                                            <input type="hidden" name="rate_id" value="{{ $item->id }}">
+
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="item">Item Name</label>
+                                                                                    <input type="text" class="form-control mt-2" name="item" placeholder="Items"
+                                                                                           value="{{ old('item', $item->item ?? '') }}">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="rate">Rate</label>
+                                                                                    <input type="number" class="form-control" name="rate" step="0.01" x-model.number="rate"
+                                                                                           @input="price = rate * unit" value="{{ old('rate', $item->rate ?? '') }}">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="unit">Unit</label>
+                                                                                    <input type="number" class="form-control" name="unit" x-model.number="unit"
+                                                                                           @input="price = rate * unit" value="{{ old('unit', $item->unit) }}">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="price">Price</label>
+                                                                                    <input style="background: #e6e6e6" type="number" class="form-control" name="price"
+                                                                                           readonly x-model="price">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <button class="btn btn-primary">Save</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                             <!-- Hidden inputs for driver_id and rate_index -->
+
+                                                           @empty
+                                                             <div class="col-12">
+                                                                 <h5 class="text-center">No Rate Item</h5>
+                                                             </div>
+
+
+                                                        @endforelse
+                                                    </div>
+
+                                                    </div>
+                                                    <div class="col-lg-6">
+
+                                                        <!-- Modal Trigger Code -->
+                                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalDefault">Add New</button>
+
+                                                    <!-- Modal Content Code -->
+
+                                                    </div>
+
+                                                     <form action="{{ route('admin.saveRateTotal') }}" method="POST">
+                                                         @csrf
+                                                          <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                          <input type="hidden" name="form_id" value="{{ $form->id }}">
+                                                         @php
+                                                            $rateTotal = json_decode($form->rate_total, true) ?? [];
+                                                        @endphp
+
+                                                            <div class="row mt-3">
+                                                            <div class="form-group col-md-3">
+                                                                <label for="sub_total">Sub total</label>
+                                                                <input style="background: #e6e6e6" type="number" class="form-control" id="sub_total" value="{{ $priceSum }}" name="rate_total[sub_total]" readonly>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="total_paid">Total paid</label>
+                                                                <input type="number" class="form-control" id="total_paid" name="rate_total[total_paid]"
+                                                                       value="{{ old('rate_total.total_paid', $rateTotal['rate_total']['total_paid'] ?? '') }}" oninput="calculateTotalDue()" step="0.01">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="total_due">Total due</label>
+                                                                <input style="background: #e6e6e6" type="number" readonly class="form-control" id="total_due" name="rate_total[total_due]"
+                                                                       value="{{ old('rate_total.total_due', $rateTotal['rate_total']['total_due'] ?? '') }}">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <button class="btn btn-primary mt-3" type="submit">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                     </form>
+                                                </div>
 
                                         </div>
                                     </div>
@@ -373,124 +417,158 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" tabindex="-1" id="modalDefault">
         <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <em class="icon ni ni-cross"></em>
-        </a>
-        <div class="modal-header">
-            <h5 class="modal-title">Add Rate Item</h5>
-        </div>
-        <div class="modal-body">
-            <form action="{{ route('admin.saveRate') }}" method="POST">
-                @csrf
-                <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                <input type="hidden" name="form_id" value="{{ $form->id }}">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="item">Item</label>
-                        <input type="text" class="form-control" id="item" name="rate[item]">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="rate">Rate</label>
-                        <input type="number" class="form-control" id="rate" name="rate[rate]">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="unit">Unit</label>
-                        <input type="number" class="form-control" id="unit" name="rate[units]">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="price">Price</label>
-                        <input type="number" class="form-control" id="price" name="rate[price]">
-                    </div>
-
+            <div class="modal-content">
+                <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <em class="icon ni ni-cross"></em>
+                </a>
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Rate Item</h5>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                        <button class="btn btn-primary">Save</button>
-                    </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.saveRate', $driver->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                        <input type="hidden" name="form_id" value="{{ $form->id }}">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="item">Item Name</label>
+{{--                                <select name="rate[item]" id="" class="form-control" >--}}
+{{--                                    <option disabled selected>Select Item</option>--}}
+{{--                                    <option value="Rent">Rent - insurance</option>--}}
+{{--                                    <option value="Deposit">Deposit</option>--}}
+{{--                                    <option value="Road-tax">Road Tax</option>--}}
+{{--                                    <option value="Balloon-Payment">Balloon Payment</option>--}}
+{{--                                    <option value="Service-Package">Service Package</option>--}}
+{{--                                </select>--}}
+                                <input type="text" class="form-control mt-2" id="item" name="item" placeholder="Items">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="rate">Rate</label>
+                                <input type="number" class="form-control" id="rate" name="rate" step="0.01">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="unit">Unit</label>
+                                <input type="number" class="form-control" id="unit" name="unit">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="price">Price</label>
+                                <input style="background: #e6e6e6" type="number" class="form-control" id="price" name="price" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
 
+            </div>
         </div>
+    </div>
 
-        </div>
-        </div>
-        </div>
+
+<script>
+    // Get the input fields
+    const rateInput = document.getElementById('rate');
+    const unitInput = document.getElementById('unit');
+    const priceInput = document.getElementById('price');
+    const priceInput2 = document.getElementById('edit_price');
+
+    // Function to calculate and populate price
+    function calculatePrice() {
+        const rate = parseFloat(rateInput.value) || 0;
+        const units = parseFloat(unitInput.value) || 0;
+        const price = rate * units;
+
+        // Update the price fields
+        priceInput.value = price.toFixed(2);  // Set the price with 2 decimal places
+        priceInput2.value = price.toFixed(2); // Set the edit price with 2 decimal places
+    }
+
+    // Add event listeners to rate and unit inputs to recalculate price on input
+    rateInput.addEventListener('input', calculatePrice);
+    unitInput.addEventListener('input', calculatePrice);
+</script>
+
+<script src="//unpkg.com/alpinejs" defer></script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script>
-    $(document).ready(function() {
-        // Initialize Select2
-        $('.js-select2').select2();
+<script>
+$(document).ready(function() {
+    // Initialize Select2
+    $('.js-select2').select2();
 
-        // Fetch driverId and formId from Blade variables
-        var driverId = '{{ $driver->id }}';
-        var formId = '{{ $form->id }}';
+    // Fetch driverId and formId from Blade variables
+    var driverId = '{{ $driver->id }}';
+    var formId = '{{ $form->id }}';
 
-        // On vehicle selection change
-        $('#vehicle_select').on('change', function() {
-            // Get the selected vehicle ID
-            var vehicleId = $(this).val();
+    // On vehicle selection change
+    $('#vehicle_select').on('change', function() {
+        // Get the selected vehicle ID
+        var vehicleId = $(this).val();
 
-            // Construct the URL dynamically with Blade
-            var url = '{{ route('admin.fetchDriverForm', ['driverId' => ':driverId', 'formId' => ':formId']) }}';
-            url = url.replace(':driverId', driverId).replace(':formId', formId) + '?vehicleId=' + encodeURIComponent(vehicleId);
+        // Construct the URL dynamically with Blade
+        var url = '{{ route('admin.fetchDriverForm', ['driverId' => ':driverId', 'formId' => ':formId']) }}';
+        url = url.replace(':driverId', driverId).replace(':formId', formId) + '?vehicleId=' + encodeURIComponent(vehicleId);
 
-            // Log URL for debugging
-            console.log(url);
+        // Log URL for debugging
+        console.log(url);
 
-            // Perform AJAX request to fetch vehicle details
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function(response) {
-                    // Set the input fields with the fetched vehicle details
-                    $('#registration_number').val(response.registration_number);
-                    $('#vehicle_make').val(response.make);
-                    $('#vehicle_model').val(response.model);
-                },
-                error: function(xhr, status, error) {
-                    // Handle error (e.g., clear input or show a message)
-                    $('#registration_number').val('');
-                    $('#vehicle_make').val('');
-                    $('#vehicle_model').val('');
-                    console.error('Failed to fetch vehicle details:', xhr.responseText);
-                }
-            });
+        // Perform AJAX request to fetch vehicle details
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(response) {
+                // Set the input fields with the fetched vehicle details
+                $('#registration_number').val(response.registration_number);
+                $('#vehicle_make').val(response.make);
+                $('#vehicle_model').val(response.model);
+            },
+            error: function(xhr, status, error) {
+                // Handle error (e.g., clear input or show a message)
+                $('#registration_number').val('');
+                $('#vehicle_make').val('');
+                $('#vehicle_model').val('');
+                console.error('Failed to fetch vehicle details:', xhr.responseText);
+            }
         });
     });
+});
 </script>
 
-   <script>
-  // Function to calculate total due
-  function calculateTotalDue() {
-    // Get the values of sub_total and total_paid inputs
-    const subTotal = parseFloat(document.getElementById('sub_total').value) || 0;
-    const totalPaidInput = document.getElementById('total_paid');
-    const totalPaid = parseFloat(totalPaidInput.value);
+<script>
+// Function to calculate total due
+function calculateTotalDue() {
+// Get the values of sub_total and total_paid inputs
+const subTotal = parseFloat(document.getElementById('sub_total').value) || 0;
+const totalPaidInput = document.getElementById('total_paid');
+const totalPaid = parseFloat(totalPaidInput.value);
 
-    // Check if total_paid has a valid input
-    if (!isNaN(totalPaid)) {
-      // Calculate the total due
-      const totalDue = subTotal - totalPaid;
+// Check if total_paid has a valid input
+if (!isNaN(totalPaid)) {
+  // Calculate the total due
+  const totalDue = subTotal - totalPaid;
 
-      // Set the calculated total due to the total_due input
-      document.getElementById('total_due').value = totalDue.toFixed(2); // Ensure 2 decimal places
-    } else {
-      // Clear the total_due input if no valid total_paid value is entered
-      document.getElementById('total_due').value = '';
-    }
-  }
+  // Set the calculated total due to the total_due input
+  document.getElementById('total_due').value = totalDue.toFixed(2); // Ensure 2 decimal places
+} else {
+  // Clear the total_due input if no valid total_paid value is entered
+  document.getElementById('total_due').value = '';
+}
+}
 
-  // Add event listener to recalculate total due when total_paid changes
-  document.getElementById('total_paid').addEventListener('input', calculateTotalDue);
+// Add event listener to recalculate total due when total_paid changes
+document.getElementById('total_paid').addEventListener('input', calculateTotalDue);
 </script>
 
 
-    <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         // Function to show or hide the div based on the selected radio button
         function toggleMilageLimitDetails() {

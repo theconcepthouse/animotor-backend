@@ -63,6 +63,7 @@ class DriverForm extends Model
         'mileage',
         'hire',
         'reason',
+        'agreement',
     ];
 
     protected $casts = [

@@ -229,12 +229,12 @@
                                                             </select>
                                                         </div>
                                                             <div class="form-group col-md-4">
-                                                                <label for="milage_limit_value">Milage limit value</label>
+                                                                <label for="milage_limit_value">Mileage limit value</label>
                                                                 <input type="number" class="form-control" id="milage_limit_value" name="charges[milage_limit_value]"
                                                                        value="{{ old('charges.milage_limit_value', $form->charges['milage_limit_value'] ?? '') }}">
                                                             </div>
                                                             <div class="form-group col-md-4">
-                                                            <label for="excess_milage_fee">Excess milage fee</label>
+                                                            <label for="excess_milage_fee">Excess mileage fee</label>
                                                             <input type="text" class="form-control" id="excess_milage_fee" name="charges[excess_milage_fee]"
                                                                    value="{{ old('charges.excess_milage_fee', $form->charges['excess_milage_fee'] ?? '') }}">
                                                         </div>
@@ -435,15 +435,14 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="item">Item Name</label>
-{{--                                <select name="rate[item]" id="" class="form-control" >--}}
-{{--                                    <option disabled selected>Select Item</option>--}}
-{{--                                    <option value="Rent">Rent - insurance</option>--}}
-{{--                                    <option value="Deposit">Deposit</option>--}}
-{{--                                    <option value="Road-tax">Road Tax</option>--}}
-{{--                                    <option value="Balloon-Payment">Balloon Payment</option>--}}
-{{--                                    <option value="Service-Package">Service Package</option>--}}
-{{--                                </select>--}}
                                 <input type="text" class="form-control mt-2" id="item" name="item" placeholder="Items">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="item">Rate Interval</label>
+                                <select name="interval" id="" class="form-control" >
+                                    <option value="week">Weekly</option>
+                                    <option value="month">Monthly</option>
+                                </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="rate">Rate</label>
@@ -458,7 +457,7 @@
                                 <input style="background: #e6e6e6" type="number" class="form-control" id="price" name="price" readonly>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-6">
                                 <button class="btn btn-primary">Save</button>
                             </div>

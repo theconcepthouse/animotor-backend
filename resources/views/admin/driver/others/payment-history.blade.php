@@ -239,18 +239,36 @@
                                                                 </thead>
                                                                 <tbody>
                                                                 @if($payments)
-                                                                    @foreach($payments as $item)
-                                                                    <tr>
-                                                                        <td>{{ $item->name }}</td>
-                                                                        <td>{{ date('d M, Y', strtotime($item->due_date)) }}</td>
-                                                                        <td>{{ "£".$item?->amount }}
-                                                                            <a data-bs-toggle="modal"  href="#addPayment-{{ $item->id }}" style="font-size: 20px; margin-left: 5px"><i class="ni ni-eye"></i></a>
-                                                                        </td>
-                                                                        <td>{{ $item?->received_date  }}</td>
-                                                                        <td>{{ "£".$item?->received_amount }}</td>
-                                                                        <td>{{ "£".$item?->balance }}</td>
-                                                                        <td>{{ $item->late_payment_days ?? '' }} Day(s)</td>
-                                                                    </tr>
+                                                                   @foreach($payments as $item)
+                                                                        <tr>
+                                                                            <td class="text-capitalize">{{ $item->name }}</td>
+                                                                            <td>{{ date('d M, Y', strtotime($item->due_date)) }}</td>
+                                                                            <td>
+                                                                                @if($item?->amount)
+                                                                                    £{{ $item->amount }}
+                                                                                @endif
+                                                                                <a data-bs-toggle="modal" href="#addPayment-{{ $item->id }}" style="font-size: 20px; margin-left: 5px">
+                                                                                    <i class="ni ni-eye"></i>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>{{ $item?->received_date ?? '' }}</td>
+                                                                            <td>
+                                                                                @if($item?->received_amount)
+                                                                                    £{{ $item->received_amount }}
+                                                                                @endif
+                                                                            </td>
+                                                                            <td>
+                                                                                @if($item?->balance)
+                                                                                    £{{ $item->balance }}
+                                                                                @endif
+                                                                            </td>
+                                                                            <td>
+                                                                                @if($item?->late_payment_days)
+                                                                                    {{ $item->late_payment_days }} Day(s)
+                                                                                @endif
+                                                                            </td>
+                                                                        </tr>
+
                                                                          <div class="modal fade modal-lg" tabindex="-1" id="addPayment-{{ $item->id }}" >
                                                                             <div class="modal-dialog" role="document">
                                                                                   <div class="modal-content">

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->double('rate')->nullable();
             $table->double('price')->nullable();
 
+
 //            $table->json('other_items')->nullable();
 //            $table->integer('others')->nullable();
 

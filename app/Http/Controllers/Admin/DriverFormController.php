@@ -589,19 +589,19 @@ class DriverFormController extends Controller
         }
         $rate = Rate::create($validated);
 
-        if ($rate->unit && $rate->price) {
-            $pricePerUnit = $rate->price / $rate->unit;
+        $intervalDays = $rate->interval == 'week' ? 7 : 30;  // Set interval based on weekly or monthly
+        $pricePerUnit = $rate->price / $rate->unit;
 
-            for ($i = 0; $i < $rate->unit; $i++) {
-                Payment::create([
-                    'driver_id' => $driverId,
-                    'due_date' => now()->addDays($i * 7),
-                    'amount' => $pricePerUnit,
-                    'name' => $rate->item,
-                    'rate_id' => $rate->id,
-                ]);
-            }
+        for ($i = 0; $i < $rate->unit; $i++) {
+            Payment::create([
+                'driver_id' => $driverId,
+                'due_date' => now()->addDays($i * $intervalDays),
+                'amount' => $pricePerUnit,
+                'name' => $rate->item,
+                'rate_id' => $rate->id,
+            ]);
         }
+
         return redirect()->back()->with('success', 'Rate saved successfully.');
 
     }
@@ -652,7 +652,6 @@ class DriverFormController extends Controller
             'claim_details.claim_date' => 'nullable|string',
             'claim_details.claim_time' => 'nullable|string',
             'claim_details.describe_incident' => 'nullable|string',
-
         ]);
 
         $driverForm = DriverForm::where('driver_id', $driverId)

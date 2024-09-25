@@ -17,8 +17,8 @@ return new class extends Migration
             $table->date('due_date')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
             $table->date('received_date')->nullable();
-            $table->decimal('received_amount', 10, 2)->nullable();
-            $table->decimal('balance', 10, 2)->nullable();
+            $table->decimal('received_amount', 10, 2)->default(0);
+            $table->decimal('balance', 10, 2)->default(0);
             $table->integer('late_payment_days')->nullable();
             $table->json('items')->nullable();
             $table->string('name')->nullable();

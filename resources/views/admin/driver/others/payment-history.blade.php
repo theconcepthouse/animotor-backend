@@ -220,114 +220,135 @@
                                                         {{ session()->get('message') }}
                                                     </div>
                                                 @endif
-                                                <div class="row">
-
-                                                    <div class="container mt-5">
-
-                                                        <div class="table-responsive">
-                                                            <table class="table table-striped">
-                                                                <thead class="thead-light">
-                                                                    <tr>
-                                                                        <th scope="col">Type</th>
-                                                                        <th scope="col">Due Date</th>
-                                                                        <th scope="col">Amount</th>
-                                                                        <th scope="col">Received Date</th>
-                                                                        <th scope="col">£ Received</th>
-                                                                        <th scope="col">£ Balance</th>
-                                                                        <th scope="col">Late Payment Days</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                @if($payments)
-                                                                   @foreach($payments as $item)
-                                                                        <tr>
-                                                                            <td class="text-capitalize">{{ $item->name }}</td>
-                                                                            <td>{{ date('d M, Y', strtotime($item->due_date)) }}</td>
-                                                                            <td>
-                                                                                @if($item?->amount)
-                                                                                    £{{ $item->amount }}
-                                                                                @endif
-                                                                                <a data-bs-toggle="modal" href="#addPayment-{{ $item->id }}" style="font-size: 20px; margin-left: 5px">
-                                                                                    <i class="ni ni-eye"></i>
-                                                                                </a>
-                                                                            </td>
-                                                                            <td>{{ $item?->received_date ?? '' }}</td>
-                                                                            <td>
-                                                                                @if($item?->received_amount)
-                                                                                    £{{ $item->received_amount }}
-                                                                                @endif
-                                                                            </td>
-                                                                            <td>
-                                                                                @if($item?->balance)
-                                                                                    £{{ $item->balance }}
-                                                                                @endif
-                                                                            </td>
-                                                                            <td>
-                                                                                @if($item?->late_payment_days)
-                                                                                    {{ $item->late_payment_days }} Day(s)
-                                                                                @endif
-                                                                            </td>
-                                                                        </tr>
-
-                                                                         <div class="modal fade modal-lg" tabindex="-1" id="addPayment-{{ $item->id }}" >
-                                                                            <div class="modal-dialog" role="document">
-                                                                                  <div class="modal-content">
-                                                                                    <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
-                                                                                    <div class="modal-body modal-body-md">
-                                                                                       <form action="{{ route('admin.savePayment') }}" method="POST">
-                                                                                           @csrf
-                                                                                           <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                                                                                           <input type="hidden" name="payment_id" value="{{ $item->id }}">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="dueDate">Due Date</label>
-                                                                                                <input style="background: #e6e6e6"  readonly type="date" class="form-control" id="dueDate" name="due_date" value="{{ date('Y-m-d', strtotime($item->due_date)) }}" placeholder="Due Date" required>
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="amount">Amount</label>
-                                                                                                <input style="background: #e6e6e6" type="number" class="form-control" readonly id="amount" name="amount" value="{{ $item->amount }}" placeholder="Amount" >
-                                                                                            </div>
-
-                                                                                             <div class="form-group col-md-6">
-                                                                                                <label for="receivedDate">Received Date</label>
-                                                                                                <input data-date-format="yyyy-mm-dd" type="date" class="form-control" id="receivedDate" name="received_date" value="{{ $item->received_date }}" placeholder="Received Date" >
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="receivedAmount">£ Received</label>
-                                                                                                <input type="number" class="form-control" id="receivedAmount" name="received_amount" value="{{ $item->received_amount }}" placeholder="£ Received" >
-                                                                                            </div>
-
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="balance">£ Balance</label>
-                                                                                                <input type="number" class="form-control" id="balance" name="balance" value="{{ $item->balance }}" placeholder="£ Balance" >
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="latePaymentDays">Late Payment Days</label>
-                                                                                                <input type="number" class="form-control" id="latePaymentDays" name="late_payment_days" value="{{ $item->late_payment_days }}" placeholder="Late Payment Days" >
-                                                                                            </div>
-
-                                                                                        </div>
-
-                                                                                        <button type="submit" class="btn btn-primary">Save</button>
-                                                                                  </form>
-
-                                                                                    </div><!-- .modal-body -->
-                                                                                </div>
-                                                                                <!-- .modal-content -->
-                                                                            </div>
-                                                                        </div>
-                                                                    @endforeach
-                                                                @endif
-
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
 
 
                                            </div>
+                                             <div class="container-fluid mt-5">
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th scope="col">Type</th>
+                                                                <th scope="col">Due Date</th>
+                                                                <th scope="col">Amount</th>
+                                                                <th scope="col">Received Date</th>
+                                                                <th scope="col">Received</th>
+                                                                <th scope="col">Balance Due</th>
+                                                                <th scope="col">Late Payment Days</th>
+                                                                <th scope="col">Summary</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @php
+                                                            $displayedRateIds = [];
+                                                        @endphp
+                                                        @if($payments)
+                                                           @foreach($payments as $item)
+                                                                <tr >
+                                                                    <td class="text-capitalize">{{ $item->name }}</td>
+                                                                    <td>{{ date('d M, Y', strtotime($item->due_date)) }}</td>
+                                                                    <td>
+                                                                        @if($item?->amount)
+                                                                            £{{ $item->amount }}
+                                                                        @endif
+                                                                        <a data-bs-toggle="modal" href="#addPayment-{{ $item->id }}" style="font-size: 20px; margin-left: 5px">
+                                                                            <i class="ni ni-eye"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item->received_date)
+                                                                            {{ date('d M, Y', strtotime($item->received_date)) ?? '' }}
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item?->received_amount)
+                                                                            £{{ $item->received_amount }}
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item?->balance)
+                                                                            £{{ $item->balance ?? '0' }}
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item?->late_payment_days)
+                                                                            {{ $item->late_payment_days }} Day(s)
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+
+                                                                          @if(!in_array($item->rate_id, $displayedRateIds))
+                                                                            @if(isset($subtotals[$item->rate_id]))
+                                                                                <h6>Subtotal: £{{ $subtotals[$item->rate_id] }}</h6>
+                                                                                <h6>Total Paid: £{{ $totalPaidByRate[$item->rate_id] ?? 0 }}</h6>
+                                                                                <h6>Total Due: £{{ $totalDueByRate[$item->rate_id] ?? 0 }}</h6>
+                                                                            @endif
+                                                                            @php
+                                                                                // Mark this rate_id as displayed
+                                                                                $displayedRateIds[] = $item->rate_id;
+                                                                            @endphp
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+
+                                                                 <div class="modal fade modal-lg" tabindex="-1" id="addPayment-{{ $item->id }}" >
+                                                                    <div class="modal-dialog" role="document">
+                                                                          <div class="modal-content">
+                                                                            <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+                                                                            <div class="modal-body modal-body-md">
+                                                                              <form action="{{ route('admin.savePayment') }}" method="POST">
+                                                                                    @csrf
+                                                                                    <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                                    <input type="hidden" name="payment_id" value="{{ $item->id }}">
+
+                                                                                    <div class="row">
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="dueDate">Due Date</label>
+                                                                                            <input style="background: #e6e6e6" readonly type="date" class="form-control" id="dueDate" name="due_date" value="{{ date('Y-m-d', strtotime($item->due_date)) }}" placeholder="Due Date" required>
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="amount">Amount</label>
+                                                                                            <input style="background: #e6e6e6" type="number" class="form-control" id="amount" name="amount" value="{{ $item->amount }}" placeholder="Amount" readonly>
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="receivedDate">Received Date</label>
+                                                                                            <input data-date-format="yyyy-mm-dd" type="date" class="form-control" id="receivedDate" name="received_date" value="{{ $item->received_date }}" placeholder="Received Date">
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="receivedAmount">£ Received</label>
+                                                                                            <input type="number" class="form-control" id="receivedAmount" name="received_amount" value="{{ $item->received_amount }}" placeholder="£ Received" oninput="calculateBalance()">
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="balance">£ Balance</label>
+                                                                                            <input type="number" class="form-control" id="balance" name="balance" value="{{ $item->balance }}" placeholder="£ Balance" >
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="latePaymentDays">Late Payment Days</label>
+                                                                                            <input type="number" class="form-control" id="latePaymentDays" name="late_payment_days" value="{{ $item->late_payment_days }}" placeholder="Late Payment Days">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <button type="submit" class="btn btn-primary">Save</button>
+                                                                                </form>
+
+                                                                            </div><!-- .modal-body -->
+                                                                        </div>
+                                                                        <!-- .modal-content -->
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        @endif
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
 
                                             <!-- .nk-tb-list -->
                                         </div>
@@ -354,10 +375,26 @@
 
 
 
+{{--<script src="//unpkg.com/alpinejs" defer></script>--}}
 
-@endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    // Function to calculate balance
+    function calculateBalance() {
+        // Get the amount and received amount
+        const amount = parseFloat(document.getElementById('amount').value) || 0;
+        const receivedAmountInput = document.getElementById('receivedAmount');
+        const receivedAmount = parseFloat(receivedAmountInput.value) || 0;
 
-@section('js')
+        // Calculate balance
+        const balance = amount - receivedAmount;
 
+        // Update the balance input field
+        document.getElementById('balance').value = balance.toFixed(2); // Ensure 2 decimal places
+    }
+
+    // Add event listener to recalculate balance when received amount changes
+    document.getElementById('receivedAmount').addEventListener('input', calculateBalance);
+</script>
 
 @endsection

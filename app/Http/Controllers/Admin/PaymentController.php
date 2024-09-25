@@ -14,11 +14,35 @@ class PaymentController extends Controller
     public function paymentHistory($driverId)
     {
         $driver = User::findOrFail($driverId);
-        $payments = Payment::where('driver_id', $driver->id)->get();
+        $payments = Payment::where('driver_id', $driver->id)->latest()->get();
         $rates = Rate::where('driver_id', $driver->id)->where('payment_item', 1)->get();
 
-        return view('admin.driver.others.payment-history', compact('driver', 'payments', 'rates'));
+        $groupedPayments = $payments->groupBy('rate_id');
+
+        // Calculate the subtotal (sum of 'amount'), totalPaid (sum of 'received_amount'), and totalDue (subtotal - totalPaid) by 'rate_id'
+        $subtotals = $groupedPayments->map(function ($group) {
+            return $group->sum('amount');
+        });
+
+        $totalPaidByRate = $groupedPayments->map(function ($group) {
+            return $group->sum('received_amount');
+        });
+
+        // Calculate totalDue by rate_id: subtotal - totalPaid
+        $totalDueByRate = $subtotals->map(function ($subtotal, $rateId) use ($totalPaidByRate) {
+            $totalPaid = $totalPaidByRate[$rateId] ?? 0;
+            return $subtotal - $totalPaid;
+        });
+
+        // Optionally, if you want a total sum for all rates combined
+        $subtotalSum = $subtotals->sum();
+        $totalPaidSum = $totalPaidByRate->sum();
+        $totalDueSum = $subtotalSum - $totalPaidSum;
+        return view('admin.driver.others.payment-history', compact('driver', 'payments', 'rates', 'subtotals', 'totalPaidByRate', 'totalDueByRate', 'subtotalSum', 'totalPaidSum', 'totalDueSum'));
+
+
     }
+
     public function savePayment(Request $request)
     {
 
@@ -33,7 +57,6 @@ class PaymentController extends Controller
             'late_payment_days' => 'nullable|integer',
         ]);
 
-        // Check if payment_id is provided to determine create or update
         if (!empty($validated['payment_id'])) {
             $payment = Payment::findOrFail($validated['payment_id']);
             $payment->update($validated);

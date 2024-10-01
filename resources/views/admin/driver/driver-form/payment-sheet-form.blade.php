@@ -116,9 +116,11 @@
                                                     </div>
 
 
-                                                       @php
-                                                            $rateTotal = json_decode($driverForm->rate_total, true) ?? [];
+                                                      @php
+                                                            $rateTotal = is_array($form->rate_total) ? $form->rate_total : json_decode($form->rate_total, true);
+                                                            $rateTotal = $rateTotal ?? [];
                                                         @endphp
+
                                                     <div class="form-group col-md-4">
                                                         <label for="total">Total</label>
                                                         <input style="background: #e6e6e6" readonly type="number" class="form-control" id="total" name="rate_total[sub_total]"
@@ -185,8 +187,8 @@
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                              <label for="excess_mile_amount">Excess Mile Amount</label>
-                                                             <input type="text" class="form-control" id="excess_milage_fee" name="charges[excess_milage_fee]"
-                                                                   value="{{ old('charges.excess_milage_fee', $form->charges['excess_milage_fee'] ?? '') }}">
+                                                             <input type="text" class="form-control" id="excess_milage_fee" name="charges[excess_mileage_fee]"
+                                                                   value="{{ old('charges.excess_mileage_fee', $form->charges['excess_mileage_fee'] ?? '') }}">
 
                                                         </div>
                                                          <div class="form-group col-md-4">

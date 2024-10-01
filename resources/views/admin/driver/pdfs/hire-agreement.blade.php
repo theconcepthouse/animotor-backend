@@ -551,7 +551,7 @@
     <table>
          <tbody>
         <h4 style="margin-bottom: 0px; white-space: nowrap">Additional Terms: </h4>
-       @if(isset($formData->personal_details) && isset($formData->personal_details['hire_type']) && $formData->personal_details['hire_type'] == "Rent to Buy")
+{{--       @if(isset($formData->personal_details) && isset($formData->personal_details['hire_type']) && $formData->personal_details['hire_type'] == "Rent to Buy")--}}
 
            <tr>
             <td colspan="4">
@@ -560,9 +560,9 @@
                 </p>
             </td>
         </tr>
-       @else
-           <h4>No Additional Agreement</h4>
-        @endif
+{{--       @else--}}
+{{--           <h4>No Additional Agreement</h4>--}}
+{{--        @endif--}}
 
         </tbody>
 

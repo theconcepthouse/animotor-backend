@@ -236,6 +236,7 @@
                                                                 <th scope="col">Received</th>
                                                                 <th scope="col">Balance Due</th>
                                                                 <th scope="col">Late Payment Days</th>
+                                                                <th scope="col">Status</th>
                                                                 <th scope="col">Summary</th>
                                                             </tr>
                                                         </thead>
@@ -263,7 +264,7 @@
                                                                     </td>
                                                                     <td>
                                                                         @if($item?->received_amount)
-                                                                            £{{ $item->received_amount }}
+                                                                            £{{ $item->received_amount ?? ''}}
                                                                         @endif
                                                                     </td>
                                                                     <td>
@@ -273,7 +274,18 @@
                                                                     </td>
                                                                     <td>
                                                                         @if($item?->late_payment_days)
-                                                                            {{ $item->late_payment_days }} Day(s)
+                                                                            {{ $item->late_payment_days ?? '0'}} Day(s)
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>
+                                                                        @if($item->amount == $item->received_amount)
+                                                                            <span class="badge bg-success">Paid</span>
+                                                                        @elseif($item->due_date < \Carbon\Carbon::now() && $item->amount > $item->received_amount)
+                                                                            <span class="badge bg-danger"> Due</span>
+                                                                        @elseif($item->due_date <= \Carbon\Carbon::now() && $item->balance > 0)
+                                                                            <span class="badge bg-danger">Balance Due</span>
+                                                                        @else
+                                                                            <span class="badge bg-warning">Upcoming</span>
                                                                         @endif
                                                                     </td>
                                                                     <td>

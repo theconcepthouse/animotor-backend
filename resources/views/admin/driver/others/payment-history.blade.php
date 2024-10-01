@@ -310,27 +310,27 @@
 
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="amount">Amount</label>
-                                                                                            <input style="background: #e6e6e6" type="number" class="form-control" id="amount" name="amount" value="{{ $item->amount }}" placeholder="Amount" readonly>
+                                                                                            <input style="background: #e6e6e6" type="number" class="form-control" id="amount" name="amount" value="{{ $item->amount ?? ''}}" placeholder="Amount" readonly>
                                                                                         </div>
 
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="receivedDate">Received Date</label>
-                                                                                            <input data-date-format="yyyy-mm-dd" type="date" class="form-control" id="receivedDate" name="received_date" value="{{ $item->received_date }}" placeholder="Received Date">
+                                                                                            <input data-date-format="yyyy-mm-dd" type="date" class="form-control" id="receivedDate" name="received_date" value="{{ $item->received_date ?? '' }}" placeholder="Received Date">
                                                                                         </div>
 
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="receivedAmount">£ Received</label>
-                                                                                            <input type="number" class="form-control" id="receivedAmount" name="received_amount" value="{{ $item->received_amount }}" placeholder="£ Received" >
+                                                                                            <input type="number" class="form-control" id="receivedAmount" name="received_amount" value="{{ $item->received_amount ?? '' }}" placeholder="£ Received" >
                                                                                         </div>
 
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="balance">£ Balance</label>
-                                                                                            <input type="number" class="form-control" id="balance" name="balance" value="{{ $item->balance }}" placeholder="£ Balance" >
+                                                                                            <input type="number" class="form-control" id="balance" name="balance" value="{{ $item->balance ?? ''}}" placeholder="£ Balance" >
                                                                                         </div>
 
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="latePaymentDays">Late Payment Days</label>
-                                                                                            <input type="number" class="form-control" id="latePaymentDays" name="late_payment_days" value="{{ $item->late_payment_days }}" placeholder="Late Payment Days">
+                                                                                            <input type="number" class="form-control" id="latePaymentDays" name="late_payment_days" value="{{ $item->late_payment_days ?? '' }}" placeholder="Late Payment Days">
                                                                                         </div>
                                                                                     </div>
 

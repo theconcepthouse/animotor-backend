@@ -377,24 +377,24 @@
 
 {{--<script src="//unpkg.com/alpinejs" defer></script>--}}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-    // Function to calculate balance
-    function calculateBalance() {
-        // Get the amount and received amount
-        const amount = parseFloat(document.getElementById('amount').value) || 0;
-        const receivedAmountInput = document.getElementById('receivedAmount');
-        const receivedAmount = parseFloat(receivedAmountInput.value) || 0;
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
+{{--    <script>--}}
+{{--    // Function to calculate balance--}}
+{{--    function calculateBalance() {--}}
+{{--        // Get the amount and received amount--}}
+{{--        const amount = parseFloat(document.getElementById('amount').value) || 0;--}}
+{{--        const receivedAmountInput = document.getElementById('receivedAmount');--}}
+{{--        const receivedAmount = parseFloat(receivedAmountInput.value) || 0;--}}
 
-        // Calculate balance
-        const balance = amount - receivedAmount;
+{{--        // Calculate balance--}}
+{{--        const balance = amount - receivedAmount;--}}
 
-        // Update the balance input field
-        document.getElementById('balance').value = balance.toFixed(2); // Ensure 2 decimal places
-    }
+{{--        // Update the balance input field--}}
+{{--        document.getElementById('balance').value = balance.toFixed(2); // Ensure 2 decimal places--}}
+{{--    }--}}
 
-    // Add event listener to recalculate balance when received amount changes
-    document.getElementById('receivedAmount').addEventListener('input', calculateBalance);
-</script>
+{{--    // Add event listener to recalculate balance when received amount changes--}}
+{{--    document.getElementById('receivedAmount').addEventListener('input', calculateBalance);--}}
+{{--</script>--}}
 
 @endsection

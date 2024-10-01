@@ -5,7 +5,7 @@
 {{--    @endphp--}}
 
 
-<div class="nk-block nk-block-lg" wire:poll.30s>
+<div class="nk-block nk-block-lg" >
 
 
     <div class="nk-block-head">

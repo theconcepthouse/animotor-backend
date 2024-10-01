@@ -381,8 +381,13 @@
                                                           <input type="hidden" name="driver_id" value="{{ $driver->id }}">
                                                           <input type="hidden" name="form_id" value="{{ $form->id }}">
                                                          @php
-                                                            $rateTotal = json_decode($form->rate_total, true) ?? [];
-                                                        @endphp
+    // Check if $form->rate_total is an array or JSON string
+    $rateTotal = is_array($form->rate_total) ? $form->rate_total : json_decode($form->rate_total, true);
+
+    // Ensure it's an array (in case json_decode fails)
+    $rateTotal = $rateTotal ?? [];
+@endphp
+
 
                                                             <div class="row mt-3">
                                                             <div class="form-group col-md-3">

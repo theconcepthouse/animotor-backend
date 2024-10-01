@@ -441,27 +441,20 @@
                                                     </div>
 
                                                     <div class="row mb-3">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="taxi_number">Taxi number</label>
-                    <input type="text" id="taxi_number" class="form-control" wire:model="taxi_number">
-                </div>
-            </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="dvla_check_code">DVLA check code</label>
+                                                                <input type="text" id="dvla_check_code" class="form-control" wire:model="dvla_check_code">
+                                                            </div>
+                                                        </div>
 
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="dvla_check_code">DVLA check code</label>
-                    <input type="text" id="dvla_check_code" class="form-control" wire:model="dvla_check_code">
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="issuing_authority">Issuing authority</label>
-                    <input type="text" id="issuing_authority" class="form-control" wire:model="issuing_authority">
-                </div>
-            </div>
-        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label for="issuing_authority">Issuing authority</label>
+                                                                <input type="text" id="issuing_authority" class="form-control" wire:model="issuing_authority">
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                               </div>
                                           </div>

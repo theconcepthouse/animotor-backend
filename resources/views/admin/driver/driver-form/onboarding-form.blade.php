@@ -328,10 +328,10 @@
                                                                                 <div class="form-group col-md-6">
                                                                                     <label for="item">Rate Interval</label>
                                                                                     <select name="interval" id="" class="form-control" required>
-                                                                                        <option selected disabled >Choose Interval</option>
-                                                                                        <option value="7">Weekly</option>
-                                                                                        <option value="30">Monthly</option>
+                                                                                        <option value="7" {{ old('interval', $item->interval) == 7 ? 'selected' : '' }}>Weekly</option>
+                                                                                        <option value="30" {{ old('interval', $item->interval) == 30 ? 'selected' : '' }}>Monthly</option>
                                                                                     </select>
+
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
                                                                                     <label for="rate">Rate</label>
@@ -449,7 +449,6 @@
                             <div class="form-group col-md-6">
                                 <label for="item">Rate Interval</label>
                                  <select name="interval" id="" class="form-control" required>
-{{--                                    <option selected disabled >Choose Interval</option>--}}
                                     <option value="7">Weekly</option>
                                     <option value="30">Monthly</option>
                                 </select>

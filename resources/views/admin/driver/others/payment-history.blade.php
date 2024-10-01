@@ -320,7 +320,7 @@
 
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="receivedAmount">£ Received</label>
-                                                                                            <input type="number" class="form-control" id="receivedAmount" name="received_amount" value="{{ $item->received_amount }}" placeholder="£ Received" oninput="calculateBalance()">
+                                                                                            <input type="number" class="form-control" id="receivedAmount" name="received_amount" value="{{ $item->received_amount }}" placeholder="£ Received" >
                                                                                         </div>
 
                                                                                         <div class="form-group col-md-6">

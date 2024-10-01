@@ -559,52 +559,53 @@ class DriverFormController extends Controller
     }
 
     public function saveRate(Request $request, $driverId)
-    {
-        $validated = $request->validate([
-            'item' => 'required|string',
-            'unit' => 'required|numeric',
-            'rate' => 'required|numeric',
-            'price' => 'nullable|numeric',
-        ]);
+{
 
-        $validated['driver_id'] = $driverId;
-        $rateId = $request->get('rate_id');
-        $rate = Rate::where('driver_id', $driverId)->where('id', $rateId)->first();
+    $validated = $request->validate([
+        'item' => 'required|string',
+        'unit' => 'required|numeric',
+        'rate' => 'required|numeric',
+        'price' => 'nullable|numeric',
+        'interval' => 'required|integer',  // 'interval' is an integer (7 or 30)
+    ]);
 
-        if ($rate) {
-            $rate->update($validated);
-            Payment::where('driver_id', $driverId)->where('rate_id', $rate->id)->delete();
+    $validated['driver_id'] = $driverId;
+    $rateId = $request->get('rate_id');
+    $rate = Rate::where('driver_id', $driverId)->where('id', $rateId)->first();
 
-            $pricePerUnit = $rate->price / $rate->unit;
-            for ($i = 0; $i < $rate->unit; $i++) {
-                Payment::create([
-                    'driver_id' => $driverId,
-                    'due_date' => now()->addDays($i * 7),
-                    'amount' => $pricePerUnit,
-                    'name' => $rate->item,
-                    'rate_id' => $rate->id,
-                ]);
-            }
-            return redirect()->back()->with('success', 'Rate updated successfully.');
-        }
-        $rate = Rate::create($validated);
+    if ($rate) {
+        $rate->update($validated);
+        Payment::where('driver_id', $driverId)->where('rate_id', $rate->id)->delete();
 
-        $intervalDays = $rate->interval == 'week' ? 7 : 30;  // Set interval based on weekly or monthly
         $pricePerUnit = $rate->price / $rate->unit;
-
         for ($i = 0; $i < $rate->unit; $i++) {
             Payment::create([
                 'driver_id' => $driverId,
-                'due_date' => now()->addDays($i * $intervalDays),
+                'due_date' => now()->addDays($i * $validated['interval']),  // Use the interval directly
                 'amount' => $pricePerUnit,
                 'name' => $rate->item,
                 'rate_id' => $rate->id,
             ]);
         }
-
-        return redirect()->back()->with('success', 'Rate saved successfully.');
-
+        return redirect()->back()->with('success', 'Rate updated successfully.');
     }
+
+    $rate = Rate::create($validated);
+    $pricePerUnit = $rate->price / $rate->unit;
+
+    for ($i = 0; $i < $rate->unit; $i++) {
+        Payment::create([
+            'driver_id' => $driverId,
+            'due_date' => now()->addDays($i * $validated['interval']),  // Use the interval directly
+            'amount' => $pricePerUnit,
+            'name' => $rate->item,
+            'rate_id' => $rate->id,
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'Rate saved successfully.');
+}
+
 
 
     public function saveRateTotal(Request $request)

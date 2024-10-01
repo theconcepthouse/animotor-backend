@@ -326,6 +326,14 @@
                                                                                            value="{{ old('item', $item->item ?? '') }}">
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
+                                                                                    <label for="item">Rate Interval</label>
+                                                                                    <select name="interval" id="" class="form-control" required>
+                                                                                        <option selected disabled >Choose Interval</option>
+                                                                                        <option value="7">Weekly</option>
+                                                                                        <option value="30">Monthly</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="rate">Rate</label>
                                                                                     <input type="number" class="form-control" name="rate" step="0.01" x-model.number="rate"
                                                                                            @input="price = rate * unit" value="{{ old('rate', $item->rate ?? '') }}">
@@ -440,9 +448,10 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="item">Rate Interval</label>
-                                <select name="interval" id="" class="form-control" >
-                                    <option value="week">Weekly</option>
-                                    <option value="month">Monthly</option>
+                                 <select name="interval" id="" class="form-control" required>
+{{--                                    <option selected disabled >Choose Interval</option>--}}
+                                    <option value="7">Weekly</option>
+                                    <option value="30">Monthly</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">

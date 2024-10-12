@@ -58,9 +58,7 @@
                                                             <th scope="col">Date</th>
                                                             <th scope="col">Item</th>
                                                             <th scope="col">Unit</th>
-                                                            <th scope="col">Amount</th>
-{{--                                                            <th scope="col">Paid</th>--}}
-                                                            <th scope="col">...</th>
+                                                            <th scope="col">Price</th>
 
                                                         </tr>
                                                     </thead>
@@ -70,10 +68,10 @@
                                                             <td >{{ date('d M, Y', strtotime($item->created_at)) }}</td>
                                                             <td class="text-capitalize">{{ $item->payment_name ?? '' }}</td>
                                                             <td>{{ $item->payment_unit }}</td>
-                                                            <td>£{{ $item->payment_price ?? '' }}</td>
-{{--                                                            <td>£{{ $item->payment_paid ?? '' }}</td>--}}
-                                                            <td>
-                                                                <a data-bs-toggle="modal"  href="#addItem-{{ $item->id }}" style="font-size: 20px; margin-left: 5px"><i class="ni ni-edit"></i></a>
+                                                            <td>£{{ $item->payment_price ?? '' }}
+                                                                <a data-bs-toggle="modal"  href="#addItem-{{ $item->id }}" style="font-size: 20px; margin-left: 5px">
+                                                               <i class="ni ni-eye"></i></a>
+
                                                             </td>
                                                         </tr>
                                                          <div class="modal fade modal-lg" tabindex="-1" id="addItem-{{ $item->id }}" >
@@ -173,7 +171,7 @@
                                                                 <tr>
                                                                     <th scope="col">Item</th>
                                                                     <th scope="col">Unit</th>
-                                                                    <th scope="col">Amount</th>
+                                                                    <th scope="col">Price</th>
 
                                                                 </tr>
                                                             </thead>

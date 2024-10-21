@@ -103,6 +103,9 @@
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACF6bkjbHGX_apTFV60dxGQh98DGKyNhg&libraries=places"></script>
+
+
 
 
 @livewireScripts

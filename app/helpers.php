@@ -199,8 +199,10 @@ function listTime(): array
 
 function amt($amt): string
 {
-    return settings('currency_symbol','$').number_format($amt, 2);
+    // Cast $amt to a float before formatting
+    return settings('currency_symbol', '$') . number_format((float)$amt, 2);
 }
+
 
 
 if (!function_exists('menus')) {

@@ -1394,7 +1394,7 @@
                                                     <td>{{ $item?->region?->name }}</td>
 
                                                     <td>{{ $item->status }}</td>
-                                                    <td>{{ amt($item->grand_total) }}</td>
+                                                    <td>{{ number_format($item->grand_total, 2) }}</td>
 
 
                                                     {{--    <td></td>--}}

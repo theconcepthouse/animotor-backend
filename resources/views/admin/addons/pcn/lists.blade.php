@@ -13,7 +13,7 @@
                         <livewire:admin.addons.pcn.index />
 
 
-                    </div><!-- .nk-block -->
+                    </div>
                 </div>
             </div>
         </div>

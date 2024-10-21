@@ -69,13 +69,13 @@
                                                         <div class="form-group col-md-4">
                                                             <label for="location_of_vehicle">Location of Vehicle</label>
                                                             <input type="text" class="form-control" id="location_of_vehicle" name="report_vehicle[location_of_vehicle]"
-                                                                   value="{{ old('report_vehicle.location_of_vehicle', $selectedForm->report_vehicle['location_of_vehicle'] ?? $form->report_vehicle['location_of_vehicle'] ?? '') }}" required>
+                                                                   value="{{ old('report_vehicle.location_of_vehicle', $selectedForm->report_vehicle['location_of_vehicle'] ?? $form->report_vehicle['location_of_vehicle'] ?? '') }}" >
                                                         </div>
 
                                                         <div class="form-group col-md-4">
                                                             <label for="post_code">Post Code</label>
                                                             <input type="text" class="form-control" id="post_code" name="report_vehicle[post_code]"
-                                                                   value="{{ old('report_vehicle.post_code', $selectedForm->report_vehicle['post_code'] ?? $form->report_vehicle['post_code'] ?? '') }}" required>
+                                                                   value="{{ old('report_vehicle.post_code', $selectedForm->report_vehicle['post_code'] ?? $form->report_vehicle['post_code'] ?? '') }}" >
                                                         </div>
 
                                                         <div class="form-group col-md-4">
@@ -92,17 +92,17 @@
                                                             <label for="severity">Severity</label>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="report_vehicle[severity]" id="severity_Low" value="Low"
-                                                                       {{ old('report_vehicle.severity', $selectedForm->report_vehicle['severity'] ?? $form->report_vehicle['severity'] ?? '') == 'Low' ? 'checked' : '' }} required>
+                                                                       {{ old('report_vehicle.severity', $selectedForm->report_vehicle['severity'] ?? $form->report_vehicle['severity'] ?? '') == 'Low' ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="severity_Low">Low</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="report_vehicle[severity]" id="severity_Medium" value="Medium"
-                                                                       {{ old('report_vehicle.severity', $selectedForm->report_vehicle['severity'] ?? $form->report_vehicle['severity'] ?? '') == 'Medium' ? 'checked' : '' }} required>
+                                                                       {{ old('report_vehicle.severity', $selectedForm->report_vehicle['severity'] ?? $form->report_vehicle['severity'] ?? '') == 'Medium' ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="severity_Medium">Medium</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="report_vehicle[severity]" id="severity_High" value="High"
-                                                                       {{ old('report_vehicle.severity', $selectedForm->report_vehicle['severity'] ?? $form->report_vehicle['severity'] ?? '') == 'High' ? 'checked' : '' }} required>
+                                                                       {{ old('report_vehicle.severity', $selectedForm->report_vehicle['severity'] ?? $form->report_vehicle['severity'] ?? '') == 'High' ? 'checked' : '' }} >
                                                                 <label class="form-check-label" for="severity_High">High</label>
                                                             </div>
                                                         </div>

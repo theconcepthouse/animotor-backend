@@ -41,37 +41,37 @@
                                                             <label for="inspection_mileage">Inspection mileage</label>
                                                             <input type="text" class="form-control" id="inspection_mileage"
                                                                    name="monthly_maintenance[inspection_mileage]"
-                                                                   value="{{ old('monthly_maintenance.inspection_mileage', $selectedForm->monthly_maintenance['inspection_mileage'] ?? $form->monthly_maintenance['inspection_mileage'] ?? '') }}" required>
+                                                                   value="{{ old('monthly_maintenance.inspection_mileage', $selectedForm->monthly_maintenance['inspection_mileage'] ?? $form->monthly_maintenance['inspection_mileage'] ?? '') }}" >
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="inspection_date">Inspection date</label>
                                                             <input type="date" class="form-control" id="inspection_date"
                                                                    name="monthly_maintenance[inspection_date]"
-                                                                   value="{{ old('monthly_maintenance.inspection_date', $selectedForm->monthly_maintenance['inspection_date'] ?? $form->monthly_maintenance['inspection_date'] ?? '') }}" required>
+                                                                   value="{{ old('monthly_maintenance.inspection_date', $selectedForm->monthly_maintenance['inspection_date'] ?? $form->monthly_maintenance['inspection_date'] ?? '') }}" >
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="last_inspection_mileage">Last inspection mileage</label>
                                                             <input type="text" class="form-control" id="last_inspection_mileage"
                                                                    name="monthly_maintenance[last_inspection_mileage]"
-                                                                   value="{{ old('monthly_maintenance.last_inspection_mileage', $selectedForm->monthly_maintenance['last_inspection_mileage'] ?? $form->monthly_maintenance['last_inspection_mileage'] ?? '') }}" required>
+                                                                   value="{{ old('monthly_maintenance.last_inspection_mileage', $selectedForm->monthly_maintenance['last_inspection_mileage'] ?? $form->monthly_maintenance['last_inspection_mileage'] ?? '') }}" >
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="last_inspection_date">Last inspection date</label>
                                                             <input type="date" class="form-control" id="last_inspection_date"
                                                                    name="monthly_maintenance[last_inspection_date]"
-                                                                   value="{{ old('monthly_maintenance.last_inspection_date', $selectedForm->monthly_maintenance['last_inspection_date'] ?? $form->monthly_maintenance['last_inspection_date'] ?? '') }}" required>
+                                                                   value="{{ old('monthly_maintenance.last_inspection_date', $selectedForm->monthly_maintenance['last_inspection_date'] ?? $form->monthly_maintenance['last_inspection_date'] ?? '') }}" >
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="last_service_mileage">Last service mileage</label>
                                                             <input type="text" class="form-control" id="last_service_mileage"
                                                                    name="monthly_maintenance[last_service_mileage]"
-                                                                   value="{{ old('monthly_maintenance.last_service_mileage', $selectedForm->monthly_maintenance['last_service_mileage'] ?? $form->monthly_maintenance['last_service_mileage'] ?? '') }}" required>
+                                                                   value="{{ old('monthly_maintenance.last_service_mileage', $selectedForm->monthly_maintenance['last_service_mileage'] ?? $form->monthly_maintenance['last_service_mileage'] ?? '') }}" >
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="last_service_date">Last service date</label>
                                                             <input type="date" class="form-control" id="last_service_date"
                                                                    name="monthly_maintenance[last_service_date]"
-                                                                   value="{{ old('monthly_maintenance.last_service_date', $selectedForm->monthly_maintenance['last_service_date'] ?? $form->monthly_maintenance['last_service_date'] ?? '') }}" required>
+                                                                   value="{{ old('monthly_maintenance.last_service_date', $selectedForm->monthly_maintenance['last_service_date'] ?? $form->monthly_maintenance['last_service_date'] ?? '') }}" >
                                                         </div>
                                                         <div class="col-md-5 col-sm-6">
                                                             @include('admin.partials.image-upload', [
@@ -96,19 +96,19 @@
                                                         <label for="repair_date">Repair date</label>
                                                         <input type="date" class="form-control" id="repair_date"
                                                                name="monthly_maintenance[repair_date]"
-                                                               value="{{ old('monthly_maintenance.repair_date', $selectedForm->monthly_maintenance['repair_date'] ?? $form->monthly_maintenance['repair_date'] ?? '') }}" required>
+                                                               value="{{ old('monthly_maintenance.repair_date', $selectedForm->monthly_maintenance['repair_date'] ?? $form->monthly_maintenance['repair_date'] ?? '') }}" >
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="garage_name">Garage name</label>
                                                         <input type="text" class="form-control" id="garage_name"
                                                                name="monthly_maintenance[garage_name]"
-                                                               value="{{ old('monthly_maintenance.garage_name', $selectedForm->monthly_maintenance['garage_name'] ?? $form->monthly_maintenance['garage_name'] ?? '') }}" required>
+                                                               value="{{ old('monthly_maintenance.garage_name', $selectedForm->monthly_maintenance['garage_name'] ?? $form->monthly_maintenance['garage_name'] ?? '') }}" >
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="cost">Cost</label>
                                                         <input type="text" class="form-control" id="cost"
                                                                name="monthly_maintenance[cost]"
-                                                               value="{{ old('monthly_maintenance.cost', $selectedForm->monthly_maintenance['cost'] ?? $form->monthly_maintenance['cost'] ?? '') }}" required>
+                                                               value="{{ old('monthly_maintenance.cost', $selectedForm->monthly_maintenance['cost'] ?? $form->monthly_maintenance['cost'] ?? '') }}" >
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="garage_details">Garage details</label>

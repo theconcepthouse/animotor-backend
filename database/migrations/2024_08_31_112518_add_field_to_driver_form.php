@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('driver_forms', function (Blueprint $table) {
-            //
+           $table->dropColumn('rate_total');
         });
     }
 };

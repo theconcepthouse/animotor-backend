@@ -602,7 +602,7 @@
                                                         <div class="form-group col-md-4">
                                                             <label for="issuer">Issuer</label>
                                                             <input type="text" class="form-control" id="issuer" name="report_accident[insurance_issuer]"
-                                                                   value="{{ old('report_accident.insurance_issuer', $selectedForm->report_accident['insurance_issuer'] ?? $form->report_accident['insurance_issuer'] ?? '') }}" required>
+                                                                   value="{{ old('report_accident.insurance_issuer', $selectedForm->report_accident['insurance_issuer'] ?? $form->report_accident['insurance_issuer'] ?? '') }}" >
                                                         </div>
 
                                                         <div class="form-group col-md-4">
@@ -616,7 +616,7 @@
                                                         <div class="form-group col-md-4">
                                                             <label for="policy_number">Policy Number</label>
                                                             <input type="number" class="form-control" id="policy_number" name="report_accident[insurance_policy_number]"
-                                                                   value="{{ old('report_accident.insurance_policy_number', $selectedForm->report_accident['insurance_policy_number'] ?? $form->report_accident['insurance_policy_number'] ?? '') }}" required>
+                                                                   value="{{ old('report_accident.insurance_policy_number', $selectedForm->report_accident['insurance_policy_number'] ?? $form->report_accident['insurance_policy_number'] ?? '') }}" >
                                                         </div>
                                                     </div>
                                                 </div>

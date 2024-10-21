@@ -21,11 +21,11 @@ return new class extends Migration
             $table->date('date_of_contravention')->nullable();
             $table->date('deadline_date')->nullable();
             $table->string('issuing_authority')->nullable();
-            $table->string('priority')->nullable(); //['Urgent', 'High', 'Medium', 'Low']
+            $table->string('priority')->nullable();
             $table->text('notes')->nullable();
-            $table->string('status')->nullable(); //['Send to driver', 'Representation made', 'Statutory deceleration', 'Paid', 'Appealed']
+            $table->string('status')->nullable();
 
-             $table->string('linkup_with_driver')->nullable();
+            $table->string('linkup_with_driver')->nullable();
             $table->string('linkup_with_vehicle_registration_no')->nullable();
             $table->string('notify_to_driver')->nullable();
             $table->string('notify_to_staff_member')->nullable();

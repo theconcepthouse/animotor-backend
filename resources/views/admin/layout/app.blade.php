@@ -381,7 +381,7 @@
     ];
 
     $menuArray[] = [
-        'url' => route('admin.pcn.index'),
+        'url' => route('admin.pcns.index'),
         'text' => 'PCNS',
         'route' => 'cars-read',
         'icon' => 'ni ni-note-add-fill',

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('issuing_authority')->nullable();
             $table->string('priority')->nullable(); //['Urgent', 'High', 'Medium', 'Low']
             $table->text('notes')->nullable();
-            $table->string('status')->nullable(); //['Send to driver', 'Representation made', 'Statutory deceleration', 'Paid', 'Appealed']
+            $table->string('status')->nullable();
 
              $table->longText('report')->nullable();
              $table->string('linkup_with_driver')->nullable();

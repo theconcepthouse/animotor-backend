@@ -33,7 +33,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('vehicles', function (Blueprint $table) {
-            //
+            $table->dropColumn('vehicle_details', 'vehicle_details', 'transmission', 'specification', 'mot',
+                'road_tax', 'service', 'driver', 'documents', 'finance', 'damage_history', 'repair', 'status');
         });
     }
 };

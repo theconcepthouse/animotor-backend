@@ -245,6 +245,13 @@
             'icon' => 'ni ni-users-fill',
         ],
 
+         [
+            'url' => route('admin.regions.index'),
+            'route' => 'regions-read',
+            'text' => 'Regions',
+            'icon' => 'ni ni-globe',
+        ],
+
     ];
     if (hasTrips()) {
          $menuArray[] = [

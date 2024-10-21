@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Country;
 use App\Models\Region;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -43,6 +44,8 @@ class Booking extends Component
     public $showdiv = false;
     public $search = "";
     public $records;
+    public $city;
+    public $state;
     public $empDetails;
 
     public function mount(){
@@ -98,40 +101,151 @@ class Booking extends Component
         }
     }
 
-    public function setLocation($type, $id, $name){
 
-        if($type == 'pick_up'){
+    public function updatedPickUpLocation()
+    {
+        if (strlen($this->pick_up_location) >= 3) {
+            $this->fetchLocations('pick_up');
+        } else {
             $this->pickup_locations = [];
-            $this->pick_up_location_id = $id;
-            $this->pick_up_location = $name;
-        }
-        if($type == 'drop_off'){
-            $this->drop_off_locations  = [];
-            $this->drop_off_location_id = $id;
-            $this->drop_off_location = $name;
         }
     }
+
+    public function updatedDropOffLocation()
+    {
+        // Call Google Places API to get suggestions
+        if (strlen($this->drop_off_location) >= 3) { // Minimum length for search
+
+            $this->fetchLocations('drop_off');
+        } else {
+            $this->drop_off_locations = [];
+        }
+    }
+
+    public function fetchLocations($type)
+    {
+        $response = Http::get('https://maps.googleapis.com/maps/api/place/autocomplete/json', [
+            'input' => $type == 'pick_up' ? $this->pick_up_location : $this->drop_off_location,
+            'components' => 'country:gb',
+            'key' => env('GOOGLE_MAPS_API_KEY'),
+        ]);
+
+        if ($response->successful()) {
+            $filtered_predictions = $response->json()['predictions'];
+
+
+
+            if($type == 'pick_up'){
+                $this->pickup_locations = $filtered_predictions;
+            }else{
+
+                $this->drop_off_locations = $filtered_predictions;
+            }
+
+
+        } else {
+            if($type == 'pick_up'){
+                $this->pickup_locations = [];
+            }else{
+                $this->drop_off_locations = [];
+            }
+        }
+    }
+
+    public function selectLocation($place_id, $place, $type)
+    {
+        if($type == 'drop_off'){
+            $this->drop_off_location = $place;
+            $this->drop_off_locations = [];
+
+        }else{
+            $this->pick_up_location = $place;
+            $this->pickup_locations = [];
+        }
+        $this->fetchPlaceDetails($place_id, $type);
+    }
+
+
+
+
+//    public function setLocation($type, $id, $name){
+//
+//        if($type == 'pick_up'){
+//            $this->pickup_locations = [];
+//            $this->pick_up_location_id = $id;
+//            $this->pick_up_location = $name;
+//        }
+//        if($type == 'drop_off'){
+//            $this->drop_off_locations  = [];
+//            $this->drop_off_location_id = $id;
+//            $this->drop_off_location = $name;
+//        }
+//    }
+
+
+    public function fetchPlaceDetails($placeId, $type)
+    {
+        $this->city = '';
+
+        $response = Http::get('https://maps.googleapis.com/maps/api/place/details/json', [
+            'place_id' => $placeId,
+            'key' => env('GOOGLE_MAPS_API_KEY'),
+        ]);
+
+        if ($response->successful()) {
+            $result = $response->json()['result'];
+
+            // Extracting city and state
+            foreach ($result['address_components'] as $component) {
+                if (in_array('locality', $component['types'])) {
+                    $this->city = $component['long_name']; // City
+                }
+                if (in_array('administrative_area_level_1', $component['types'])) {
+                    $this->state = $component['long_name']; // State
+                }
+            }
+
+          $region = Region::withoutAirport()->orderby('name', 'asc')
+              ->where('name', 'like', '%' . $this->city . '%')
+              ->orWhere('cities', 'like', '%' . $this->city . '%')
+                ->first();
+
+//            dd($region);
+
+            if($region){
+                if($type == 'pick_up'){
+                    $this->pick_up_location_id = $region->id;
+                }else{
+                    $this->drop_off_location_id = $region->id;
+                }
+            }
+        }
+
+
+    }
+
 
     public function updatedPickUpDate(){
 //        dd($this->pick_up_date);
     }
-    public function updatedPickUpLocation(){
-        if(strlen($this->pick_up_location) >= 1) {
-            $this->pickup_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->pick_up_location . '%')
-                ->limit(5)->get();
-        }else{
-            return [];
-        }
-    }
 
-    public function updatedDropOffLocation(){
-        if(strlen($this->drop_off_location) >= 1) {
-            $this->drop_off_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->drop_off_location . '%')
-                ->limit(5)->get();
-        }else{
-            return [];
-        }
-    }
+//    public function updatedPickUpLocation(){
+//        if(strlen($this->pick_up_location) >= 1) {
+//            $this->pickup_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->pick_up_location . '%')
+//                ->limit(5)->get();
+//        }else{
+//            return [];
+//        }
+//    }
+
+//    public function updatedDropOffLocation(){
+//        if(strlen($this->drop_off_location) >= 1) {
+//            $this->drop_off_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->drop_off_location . '%')
+//                ->limit(5)->get();
+//        }else{
+//            return [];
+//        }
+//    }
 
 
     public function save()

@@ -43,6 +43,7 @@
                                                     <th>S/N</th>
                                                     <th>Image</th>
                                                     <th>Name</th>
+                                                    <th>Cities / Towns</th>
                                                     <th>Currency</th>
                                                     <th>Timezone</th>
                                                     <th>Country</th>
@@ -63,6 +64,7 @@
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td><img src="{{ $item->image }}" style="height: 40px;" /></td>
                                                         <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->cities }}</td>
                                                         <td>{{ $item->currency_symbol }}</td>
                                                         <td>{{ $item->timezone }}</td>
                                                         <td>{{ $item?->country?->name ?? 'None' }}</td>

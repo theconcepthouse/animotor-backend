@@ -54,7 +54,10 @@
 
 
                             <div class="search-box dating__item">
-                                <input placeholder="Pick-up location" type='text' wire:model.live="pick_up_location"  />
+
+                                <input placeholder="Pick-up location"
+                                       autocomplete="off"
+                                       type='text' wire:model.live="pick_up_location"  />
 
                                 @error('pick_up_location')
                                 <div class="error"><span class="text-danger">{{ $message }}</span></div>
@@ -65,12 +68,20 @@
                                     <ul>
                                         @foreach($this->pickup_locations as $item)
 
-                                            <li id="{{ $item->id }}" wire:click="setLocation('{{ 'pick_up' }}', '{{ $item->id }}', '{{ $item->name }}')">{{ $item->name}}</li>
+
+                                            <li wire:click="selectLocation('{{ $item['place_id'] }}', '{{ $item['description'] }}', 'pick_up')">
+                                                {{ $item['description'] }}
+                                            </li>
+
+{{--                                            <li id="{{ $item->id }}" wire:click="setLocation('{{ 'pick_up' }}', '{{ $item->id }}', '{{ $item->name }}')">{{ $item->name}}</li>--}}
 
                                         @endforeach
                                     </ul>
                                 @endif
+
+
                             </div>
+
                             <div class="search-box dating__item">
                                 <input placeholder="Drop-off location" type='text' wire:model.live="drop_off_location"  />
 
@@ -85,7 +96,11 @@
                                     <ul >
                                         @foreach($this->drop_off_locations as $item)
 
-                                            <li id="{{ $item->id }}" wire:click="setLocation('{{ 'drop_off' }}', '{{ $item->id }}','{{ $item->name }}')">{{ $item->name}}</li>
+                                            <li wire:click="selectLocation('{{ $item['place_id'] }}', '{{ $item['description'] }}', 'drop_off')">
+                                            {{ $item['description'] }}
+                                            </li>
+
+{{--                                            <li id="{{ $item->id }}" wire:click="setLocation('{{ 'drop_off' }}', '{{ $item->id }}','{{ $item->name }}')">{{ $item->name}}</li>--}}
 
                                         @endforeach
                                     </ul>
@@ -163,6 +178,5 @@
 
         </div>
         @endif
-
     </div>
 </div>

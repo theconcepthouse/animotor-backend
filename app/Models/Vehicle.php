@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Addons\pcn;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Vehicle extends Model
@@ -44,6 +46,7 @@ class Vehicle extends Model
 
     public function status()
     {
+
         if ($this->status == "pending")
         {
             return '<span class="badge badge-sm badge-dim bg-outline-warning ">Pending <em class="ni ni-edit"></em></span>';
@@ -53,6 +56,12 @@ class Vehicle extends Model
             return '<span class="badge badge-sm bg-success ">Completed <em class="ni ni-edit"></em></span>';
         }
         return '<span class="badge badge-sm bg-danger ">None</span>';
+
+    }
+
+    public function pcns(): HasMany
+    {
+        return $this->hasMany(DriverPcn::class);
     }
 
 }

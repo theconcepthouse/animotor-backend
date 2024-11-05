@@ -235,6 +235,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('send/message', [MessageController::class, 'store'])->name('message.store');
     Route::get('sent/messages', [MessageController::class, 'sent'])->name('message.sent');
     Route::get('show/message/{id}', [MessageController::class, 'show'])->name('message.show');
+    Route::delete('delete/message/{id}', [MessageController::class, 'destroy'])->name('message.destroy');
 
     Route::get('mail-tracker', [MailTrackerController::class, 'index'])->name('mailTracker.index');
     Route::get('create/mail-tracker', [MailTrackerController::class, 'create'])->name('mailTracker.create');
@@ -270,6 +271,9 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
     Route::get('all/pcn', [PCNController::class, 'index'])->name('pcns.index');
     Route::get('create/pcns', [PCNController::class, 'create'])->name('pcns.create');
+    Route::post('store/pcns', [PCNController::class, 'store'])->name('pcns.store');
+    Route::get('pcn/log/{pcnId}', [PCNController::class, 'addPcnLog'])->name('pcn.addPcnLog');
+    Route::post('store/pcns/log', [PCNController::class, 'storePcnLog'])->name('pcns.storePcnLog');
 
 });
 

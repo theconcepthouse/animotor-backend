@@ -30,6 +30,11 @@ class DriverPcn extends Model
         'reminder'
     ];
 
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
+
 
 
 }

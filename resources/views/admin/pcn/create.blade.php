@@ -32,7 +32,7 @@
                                             <div class="container mt-5">
                                                 <div class="form-container">
                                                     <h3 class="text-center mb-4">PCN Log</h3>
-                                                   <form action="" method="POST">
+                                                   <form class="px-5" action="{{ route('admin.pcns.store') }}" method="POST">
                                                        @csrf
                                                        @if(session()->has('error'))
                                                             <div class="alert alert-danger">
@@ -44,18 +44,24 @@
                                                                 {{ session()->get('message') }}
                                                             </div>
                                                         @endif
-                                                      
+
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label class="form-label" for="datePostReceived">Date post received</label>
                                                             <input type="date" class="form-control" id="datePostReceived" name="date_post_received" placeholder="Date post received">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label class="form-label" for="from">VRM</label>
-                                                            <input type="text" class="form-control" id="from" name="vrm" placeholder="MUKHTAR-0579">
+                                                            <label class="form-label" for="from">From (VRM)</label>
+                                                             <select name="vehicle_id" id="" class="form-control">
+                                                                 <option disabled selected>Select VRM</option>
+                                                                @foreach($vehicles as $item)
+                                                                    <option value="{{ $item->id }}">{{ $item->vehicle_details['registration_number'] }}</option>
+                                                                @endforeach
+                                                            </select>
+{{--                                                            <input type="text" class="form-control" id="from" name="vrm" placeholder="MUKHTAR-0579">--}}
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label class="form-label" for="pcnNo">PCN no.</label>
+                                                            <label class="form-label" for="pcnNo">PCN No.</label>
                                                             <input type="text" class="form-control" id="pcnNo" name="pcn_no" placeholder="MUKHTAR-0579">
                                                         </div>
                                                         <div class="form-group col-md-6">

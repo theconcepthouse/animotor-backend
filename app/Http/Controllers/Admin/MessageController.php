@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
    public function index()
    {
-       $messageCount = Message::where('type', 1)->count();
-       $messages = Message::where('type', 1)->latest()->paginate(100);
-       return view('admin.message.index', compact('messages', 'messageCount'));
+       $inboxCount = Message::where('type', 2)->count();
+       $sentCount = Message::where('type', 1)->count();
+       $messages = Message::where('type', 2)->latest()->paginate(100);
+       $drivers = User::all();
+       return view('admin.message.index', compact('messages', 'inboxCount', 'drivers', 'sentCount'));
    }
 
    public function create()
@@ -48,15 +51,26 @@ class MessageController extends Controller
     }
 
     public function sent(){
-        $messageCount = Message::where('type', 1)->count();
-        $messages = Message::where('type', 0)->latest()->paginate(100);
-        return view('admin.message.sent', compact('messages', 'messageCount'));
+        $sentCount = Message::where('type', 1)->count();
+        $inboxCount = Message::where('type', 2)->count();
+        $messages = Message::where('type', 1)->latest()->paginate(100);
+        $drivers = User::all();
+        return view('admin.message.sent', compact('messages', 'sentCount', 'inboxCount', 'drivers'));
     }
 
     public function show($id){
-       $messageCount = Message::where('type', 1)->count();
+       $sentCount = Message::where('type', 1)->count();
+       $inboxCount = Message::where('type', 2)->count();
        $message = Message::findOrFail($id);
-       return view('admin.message.view', compact('message', 'messageCount'));
+       $drivers = User::all();
+       return view('admin.message.view', compact('message', 'inboxCount', 'sentCount', 'drivers'));
+    }
+
+    public function destroy($id)
+    {
+        $message = Message::findOrFail($id);
+        $message->delete();
+        return redirect()->back()->with('success', 'Message deleted successfully.');
     }
 
 }

@@ -60,11 +60,9 @@
                                             <table class="datatable-init- table-bordered- tab nowrap table" data-export-title="{{ __('admin.export_title') }}">
                                                 <thead>
                                                 <tr>
-                                                    <th><input type="checkbox" wire:model.live="selectAll"></th>
                                                     <th>{{ __('admin.sn') }}</th>
                                                     <th>{{ __('admin.vrm') }}</th>
                                                     <th>{{ __('admin.pcn_no') }}</th>
-                                                    <th>{{ __('admin.booking_no') }}</th>
                                                     <th>{{ __('admin.offence_date') }}</th>
                                                     <th>{{ __('admin.offence_type') }}</th>
                                                     <th>{{ __('admin.status') }}</th>
@@ -74,12 +72,10 @@
                                                 <tbody>
                                                 @foreach($pcns as $item)
                                                     <tr>
-                                                        <td><input type="checkbox" wire:model.live="selected_items" value="{{ $item->id }}"></td>
-                                                        <td>{{ $loop->index+1 }}</td>
-                                                        <td><a href="{{ route('admin.admin.pcn.car', $item->vrm) }}"> {{ $item->vrm }}</a></td>
+                                                        <td>#{{ $loop->index+1 }}</td>
+                                                        <td><a class="btn btn-warning"> {{ $item->vrm }}</a></td>
                                                         <td>{{ $item->pcn_no }}</td>
-                                                        <td>{{ $item?->booking?->booking_number }}</td>
-                                                        <td>{{ $item->date_time }}</td>
+                                                        <td>{{ date('d M, Y', strtotime($item->date_of_contravention)) }}</td>
                                                         <td>{{ $item->offence_type }}</td>
                                                         <td>{{ $item->status }}</td>
 

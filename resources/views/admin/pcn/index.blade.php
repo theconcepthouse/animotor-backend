@@ -78,8 +78,6 @@
                                                         <td>{{ date('d M, Y', strtotime($item->date_of_contravention)) }}</td>
                                                         <td>{{ $item->offence_type }}</td>
                                                         <td>{{ $item->status }}</td>
-
-
                                                     </tr>
                                                 @endforeach
 

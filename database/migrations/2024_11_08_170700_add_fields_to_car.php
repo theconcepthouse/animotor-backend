@@ -12,11 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->string('insurance_group')->nullable();
-            $table->dateTime('date_out')->nullable();
-            $table->dateTime('time_out')->nullable();
-            $table->dateTime('date_due')->nullable();
-            $table->dateTime('time_due')->nullable();
+           $table->json('driver')->nullable();
         });
     }
 
@@ -26,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('cars', function (Blueprint $table) {
-            $table->dropColumn('insurance_group', 'date_out', 'time_out', 'date_due', 'time_due');
+           $table->dropColumn('driver_details');
         });
     }
 };

@@ -270,12 +270,18 @@
             'icon' => 'ni ni-view-x2',
         ];
 
-         $menuArray[] = [
-        'text' => 'Vehicle',
-         'url' => route('admin.vehicle.index'),
-        'icon' => 'ni ni-truck',
-        'route' => 'cars-read'
-    ];
+//         $menuArray[] = [
+//            'text' => 'Vehicle',
+//             'url' => route('admin.vehicle.index'),
+//            'icon' => 'ni ni-truck',
+//            'route' => 'cars-read'
+//        ];
+        $menuArray[] = [
+            'text' => 'Car',
+             'url' => route('admin.cars.index'),
+            'icon' => 'ni ni-truck',
+            'route' => 'cars-read'
+        ];
 
 
 //

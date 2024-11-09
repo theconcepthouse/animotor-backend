@@ -76,10 +76,8 @@
                                                         <td><a class="btn btn-warning"> {{ $item->vrm }}</a></td>
                                                         <td>{{ $item->pcn_no }}</td>
                                                         <td>{{ date('d M, Y', strtotime($item->date_of_contravention)) }}</td>
-                                                        <td>{{ $item->offence_type }}</td>
+                                                        <td>{{ $item->type }}</td>
                                                         <td>{{ $item->status }}</td>
-
-
                                                     </tr>
                                                 @endforeach
 
@@ -109,7 +107,6 @@
             </div>
         </div>
     </div>
-
 
 
 @endsection

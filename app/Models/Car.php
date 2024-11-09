@@ -30,7 +30,8 @@ class Car extends Model
     protected $with = ['company'];
 
     protected $casts = [
-        'extras' => 'array'
+        'extras' => 'array',
+        'driver' => 'array',
     ];
 
     public function region(): BelongsTo

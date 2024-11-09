@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('form_data', function (Blueprint $table) {
-            $table->string('status_2')->nullable();
+        Schema::table('driver_pcns', function (Blueprint $table) {
+            $table->string('type')->nullable();
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('form_data', function (Blueprint $table) {
-            $table->dropColumn('status_2');
+        Schema::table('driver_pcns', function (Blueprint $table) {
+            $table->dropColumn('type');
         });
     }
 };

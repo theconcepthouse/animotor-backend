@@ -199,18 +199,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('store/driver/payment', [PaymentController::class, 'savePayment'])->name('savePayment');
     Route::post('store/payment/item/{driverId}', [PaymentController::class, 'RateItem'])->name('RateItem');
 
-    Route::get('driver/{driverId}/forms/', [FormController::class, 'index'])->name('form.index');
-    Route::get('/user/{driverId}/form/{formId}', [FormController::class, 'fetchCustomerForm'])->name('fetchCustomerForm');
-    Route::post('/submit/driver/form', [FormController::class, 'submitForm'])->name('submitForm');
-    Route::get('/duplicate/form/{formId}/{driverId}', [FormController::class, 'duplicateForm'])->name('duplicateForm');
-    Route::get('/duplicated/form/{formId}/driver/{driverId}', [FormController::class, 'duplicatedForm'])->name('DuplicatedForm');
-
-
     Route::get('vehicle', [VehicleController::class, 'index'])->name('vehicle.index');
-
-    Route::get('fleet/plans', [FleetPlanningController::class, 'index'])->name('fleet.index');
-    Route::post('store/plan', [FleetPlanningController::class, 'store'])->name('fleet.store');
-    Route::delete('/delete-event/{id}', [FleetPlanningController::class, 'destroy']);
 
     Route::get('fleet/events', [FleetEventController::class, 'index'])->name('fleetEvent');
     Route::get('past/fleet/events', [FleetEventController::class, 'pastEvents'])->name('pastEvents');
@@ -268,6 +257,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('/store/criminal/conviction', [DriverFormController::class, 'saveCriminalConvictions'])->name('saveCriminalConvictions');
     Route::post('/update/criminal/conviction', [DriverFormController::class, 'updateCriminalConvictions'])->name('updateCriminalConvictions');
     Route::post('/save/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
+
 
     Route::get('all/pcn', [PCNController::class, 'index'])->name('pcns.index');
     Route::get('create/pcns', [PCNController::class, 'create'])->name('pcns.create');

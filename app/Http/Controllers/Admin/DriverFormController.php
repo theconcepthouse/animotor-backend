@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Car;
 use App\Models\DriverForm;
 use App\Models\Form;
 use App\Models\FormData;
@@ -69,16 +70,16 @@ class DriverFormController extends Controller
         ->where('id', $formId)
         ->firstOrFail();
 
-        $vehicles = Vehicle::all();
+        $vehicles = Car::all();
         $vehicleId = $request->query('vehicleId');
-        $vehicle = Vehicle::find($vehicleId);
+        $vehicle = Car::find($vehicleId);
 
         if ($vehicle) {
-            $vehicleDetails = is_array($vehicle->vehicle_details) ? $vehicle->vehicle_details : [];
+//            $vehicleDetails = is_array($vehicle->vehicle_details) ? $vehicle->vehicle_details : [];
             return response()->json([
-                'registration_number' => $vehicleDetails['registration_number'] ?? '',
-                'make' => $vehicleDetails['make'] ?? '',
-                'model' => $vehicleDetails['model'] ?? ''
+                'registration_number' => $vehicle->registration_number ?? '',
+                'make' => $vehicle->make ?? '',
+                'model' => $vehicle->model ?? ''
             ]);
         }
 

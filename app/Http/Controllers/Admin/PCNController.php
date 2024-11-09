@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Car;
 use App\Models\DriverPcn;
 use App\Models\FleetEvent;
 use App\Models\User;
@@ -20,7 +21,7 @@ class PCNController extends Controller
 
     public function create()
     {
-        $vehicles = Vehicle::all();
+        $vehicles = Car::all();
         return view('admin.pcn.create', compact('vehicles'));
     }
 
@@ -28,7 +29,7 @@ class PCNController extends Controller
     {
         $rules = [
             'date_post_received' => 'nullable|date',
-            'vrm' => 'required|string',
+            'vrm' => 'nullable|string',
             'pcn_no' => 'nullable|string',
             'date_of_issue' => 'nullable|date',
             'date_of_contravention' => 'nullable|date',
@@ -37,6 +38,7 @@ class PCNController extends Controller
             'priority' => 'nullable|string|in:Urgent,High,Medium,Low',
             'notes' => 'nullable|string',
             'status' => 'nullable|string',
+            'type' => 'nullable|string',
         ];
         $validated = $request->validate($rules);
         $pcnLog = DriverPcn::create($validated);

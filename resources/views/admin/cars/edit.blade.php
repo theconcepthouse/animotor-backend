@@ -7,7 +7,7 @@
                 <div class="nk-content-body">
                     <div class="components-preview wide-md- mx-auto">
 
-                        <livewire:admin.cars.form :car="$car" :car_types="$car_types" :car_models="$car_models" :car_makes="$car_makes" />
+                        <livewire:admin.cars.form :car="$car" :car_types="$car_types" :car_models="$car_models" :car_makes="$car_makes" :drivers="$drivers"/>
 
 
 

@@ -27,7 +27,8 @@ class DriverPcn extends Model
         'notify_to_driver',
         'notify_to_staff_member',
         'notify_to_other',
-        'reminder'
+        'reminder',
+        'type'
     ];
 
     public function vehicle()

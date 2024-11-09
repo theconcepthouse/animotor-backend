@@ -1,75 +1,14 @@
-<div class="nk-block nk-block-lg">
-    <div class="nk-block-between g-3">
-        <div class="nk-block-head-content ">
-            <h4 class="title nk-block-title">{{ 'Editing ' .$car->title  }} {{ $steps[$step - 1] }}</h4>
-              @if($step > 1)
-                    <h4 wire:click="goBack" class="title nk-block-title" style="cursor: pointer">
-                        <img src="{{ asset('assets/img/icons/arrow-left.png') }}" />
-                        {{ $steps[$step - 1] }}
-                    </h4>
-              @endif
-
-
-            <div class="mt-2">
-{{--                <p><span class="btn btn-warning me-5">{{ $car->registration_number }}</span> Make : {{ $car->make }}</p>--}}
-            </div>
-        </div>
-
-        <div class="nk-block-head-content">
-            <a href="{{ request()->has('back_url') ? request()->get('back_url') : route('admin.cars.index') }}" wire:navigate class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
-            <a href="{{ request()->has('back_url') ? request()->get('back_url') : route('admin.cars.index') }}" wire:navigate class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
-        </div>
-
-    </div>
-    <div class="row g-gs">
-
-        <div class="col-lg-12">
-            <div class="card card-bordered- h-100">
-                <div class="card-inner">
-
-                    <form method="post" wire:submit="saveUpdate">
-                        <div class="row">
-                            <div class="step-form">
-                                @foreach($steps as $item)
-                                    @if($loop->index == 9)
-                                        </div>
-                                        <div class="step-form">
-                                    @endif
-                                    <div wire:key="{{ $item }}" wire:click="setStep({{ $loop->index + 1 }})"
-                                         class="step {{ $step > $loop->index + 1 ? 'prev' : '' }} {{ $step == $loop->index + 1 ? 'active' : '' }}">
-                                        @if($step > $loop->index + 1)
-                                            <img class="step_img" src="{{ asset('admin/assets/images/mark.png') }}" style="height: 30px"/>
-                                        @else
-                                            <p>{{ $item }}</p>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
-
-                        </div>
-
-                        @if(session()->has('success'))
-                            <div class="alert alert-success">
-                                {{ session()->get('success') }}
-                            </div>
-                        @endif
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        {{--    {{ $step }}--}}
-
-                        <div class="container">
-
-                             @if($step == 1)
+ <div class="container">
+                            @if($step == 1)
                             <div wire:key="1" class="row mt-3">
+
+                                <h5>Add Vehicle</h5>
+                                @include('admin.cars.form', ['car' => null, 'car_types' => $car_types, 'car_makes' => $car_makes])
+
+                            </div>
+                            @endif
+                             @if($step == 2)
+                            <div wire:key="2" class="row mt-3">
 
                                 <div class="col-md-4 mt-3">
 
@@ -238,8 +177,8 @@
                             </div>
                             @endif
 
-                            @if($step == 2)
-                                <div wire:key="2" class="row justify-content-center">
+                            @if($step == 3)
+                                <div wire:key="3" class="row justify-content-center">
 
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
@@ -258,8 +197,8 @@
                                 </div>
                             @endif
 
-                            @if($step == 3)
-                                <div wire:key="3" class="row mt-3">
+                            @if($step == 4)
+                                <div wire:key="4" class="row mt-3">
 
                                     <div class="col-md-4 mt-3">
                                         <div class="form-group">
@@ -380,7 +319,7 @@
                                 </div>
                             @endif
 
-                            @if($step == 4)
+                            @if($step == 5)
                                 <div class="row mt-3">
 
                                     <div class="col-md-4 mt-3">
@@ -476,7 +415,7 @@
                                 @endif
                             @endif
 
-                            @if($step == 5)
+                            @if($step == 6)
                             <div wire:key="3" class="row mt-3">
 
                                 <div class="col-md-6 mt-3">
@@ -531,7 +470,7 @@
                             </div>
                             @endif
 
-                            @if($step == 6)
+                            @if($step == 7)
                                 <div wire:key="3" class="row mt-3">
 
                                     <div class="col-md-6 mt-3">
@@ -625,141 +564,22 @@
                                     </div>
                                 @endif
                             @endif
-                            @if($step == 7)
-                                 <div wire:key="7" class="mt-4">
-                                      <div class="row mb-3">
-                                        <div class="col-md-4">
-                                            <label for="driverName" class="form-label">Driver Name</label>
-                                            <select wire:model="driver.name" id="" class="form-control">
-                                                @foreach($drivers as $item)
-                                                    <option value="{{ $item->fullname() }}">{{ $item->fullname() }}</option>
-                                                @endforeach
-                                            </select>
-{{--                                            <input type="text" class="form-control" id="driverName" wire:model="driver.name" placeholder="John Doe">--}}
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="driverPhoto" class="form-label">Photo</label>
-                                            <input type="file" class="form-control" id="driverPhoto" wire:model="driver.photo">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label for="yearsExperience" class="form-label">Years of Experience</label>
-                                            <input type="number" class="form-control" id="yearsExperience" wire:model="driver.years_experience" placeholder="15 years">
-                                        </div>
-                                    </div>
-
-                                        <!-- Experience -->
-                                        <div class="row mb-3">
-                                            <div class="col-md-4">
-                                                <label for="specialSkills" class="form-label">Special Skills</label>
-                                                <input type="text" class="form-control" id="specialSkills" wire:model="driver.special_skills" placeholder="Defensive driving, off-road driving">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="primaryLanguage" class="form-label">Primary Language</label>
-                                                <input type="text" class="form-control" id="primaryLanguage" wire:model="driver.primary_language" placeholder="English">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="additionalLanguages" class="form-label">Additional Languages</label>
-                                                <input type="text" class="form-control" id="additionalLanguages" wire:model="driver.additional_languages" placeholder="Spanish, French">
-                                            </div>
-                                        </div>
-
-                                        <!-- Local Knowledge -->
-                                        <div class="row mb-3">
-                                            <div class="col-md-3">
-                                                <label for="areaExpertise" class="form-label">Area Expertise</label>
-                                                <input type="text" class="form-control" id="areaExpertise" wire:model="driver.area_expertise" placeholder="New York City">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="tourGuideExperience" class="form-label">Tour Guide Experience</label>
-                                                <input type="text" class="form-control" id="tourGuideExperience" wire:model="driver.tour_guide_experience" placeholder="5 years">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="drivingLicenses" class="form-label">Driving Licenses</label>
-                                                <input type="text" class="form-control" id="drivingLicenses" wire:model="driver.driving_licenses" placeholder="CDL, motorcycle license">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="certifications" class="form-label">Certifications</label>
-                                                <input type="text" class="form-control" id="certifications" wire:model="driver.certifications" placeholder="First Aid Certified, Advanced Defensive Driving">
-                                            </div>
-                                        </div>
+                            @if($step == 8)
+                            <div class="row">
 
 
-                                                <!-- Reviews and Ratings -->
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="mb-3">
-                                                            <label for="customerReviews" class="form-label">Customer Reviews</label>
-                                                            <textarea class="form-control" id="customerReviews" rows="4" wire:model="driver.customer_reviews" placeholder='"John was an excellent driver and guide..."'></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="mb-3">
-                                                        <label for="overallRating" class="form-label">Overall Rating</label>
-                                                        <input type="text" class="form-control" id="overallRating" wire:model="driver.overall_rating" placeholder="★★★★☆ (4.8 out of 5)">
-                                                    </div>
-                                                    </div>
-                                                </div>
+                                <div class="col-12 mb-2 mt-2">
+                                    <h6>Driver Details</h6>
+                                </div>
 
-                                                <!-- Availability -->
-                                                <div class="row mb-3">
-                                                    <div class="col-md-6">
-                                                        <label for="workHours" class="form-label">Work Hours</label>
-                                                        <input type="text" class="form-control" id="workHours" wire:model="driver.work_hours" placeholder="8:00 AM to 8:00 PM">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="daysOff" class="form-label">Days Off</label>
-                                                        <input type="text" class="form-control" id="daysOff" wire:model="driver.days_off" placeholder="Sundays and public holidays">
-                                                    </div>
-                                                </div>
 
-                                                <!-- Contact Information -->
-                                                <div class="row mb-3">
-                                                    <div class="col-md-6">
-                                                        <label for="phoneNumber" class="form-label">Phone Number</label>
-                                                        <input type="tel" class="form-control" id="phoneNumber" wire:model="driver.phone_number" placeholder="(555) 123-4567">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="emailAddress" class="form-label">Email Address</label>
-                                                        <input type="email" class="form-control" id="emailAddress" wire:model="driver.email_address" placeholder="john.doe@example.com">
-                                                    </div>
-                                                </div>
-
-                                                <!-- Terms and Conditions -->
-                                                <h4 class="mt-4">Terms and Conditions</h4>
-
-                                                <div class="mb-3">
-                                                    <label for="workingHours" class="form-label">Driver's Working Hours</label>
-                                                    <textarea class="form-control" id="workingHours" rows="3" wire:model="driver.working_hours" placeholder="Standard Hours, Overtime..."></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="driverBreaks" class="form-label">Driver Breaks</label>
-                                                    <textarea class="form-control" id="driverBreaks" rows="3" wire:model="driver.driver_breaks" placeholder="Mandatory Breaks, Extended Trips..."></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="accommodation" class="form-label">Accommodation for Overnight Stays</label>
-                                                    <textarea class="form-control" id="accommodation" rows="3" wire:model="driver.accommodation" placeholder="Customer Responsibility, Additional Charges..."></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="food" class="form-label">Driver’s Food</label>
-                                                    <textarea class="form-control" id="food" rows="3" wire:model="driver.food" placeholder="During Standard Hours, Overtime and Overnight..."></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="tollTax" class="form-label">Toll Tax</label>
-                                                    <textarea class="form-control" id="tollTax" rows="3" wire:model="driver.toll_tax" placeholder="Customer Responsibility, Reimbursement..."></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="dropoffLocation" class="form-label">Drop-off Location</label>
-                                                    <textarea class="form-control" id="dropoffLocation" rows="3" wire:model="driver.dropoff_location" placeholder="Different Drop-off Location..."></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="miscellaneous" class="form-label">Miscellaneous</label>
-                                                    <textarea class="form-control" id="miscellaneous" rows="3" wire:model="driver.miscellaneous" placeholder="Traffic Violations, Personal Belongings, Cancellation Policy..."></textarea>
-                                                </div>
-                                        </div>
-
+                                <div class="form-group mt-3">
+                                    <button type="button" wire:click="addExtras" class="btn btn-lg btn-success">Save</button>
+                                </div>
+                            </div>
                             @endif
 
-                            @if($step == 8)
+                            @if($step == 9)
                             <div class="row">
 
 
@@ -807,7 +627,7 @@
                                 </div>
                             </div>
                             @endif
-                            @if($step == 9)
+                            @if($step == 10)
                                 <div class="row mt-3">
                                     <div class="col-12 mb-2">
                                         <div class="form-group">
@@ -849,7 +669,7 @@
 
                                 </div>
                             @endif
-                            @if($step == 10)
+                            @if($step == 11)
                                 <div class="my-3">
                                     <h4 class="text-center">Documents</h4>
                                 </div>
@@ -1000,7 +820,7 @@
                                 @endif
 
                             @endif
-                            @if($step == 11)
+                            @if($step == 12)
                                 <div class="my-3">
                                     <h4 class="text-center">Finance</h4>
                                 </div>
@@ -1115,7 +935,7 @@
 
                             @endif
 
-                            @if($step == 12)
+                            @if($step == 13)
                                 <div class="my-3">
                                     <h4 class="text-center">Damage History</h4>
                                 </div>
@@ -1236,7 +1056,7 @@
 
                             @endif
 
-                             @if($step == 13)
+                             @if($step == 14)
                                 <div class="my-3">
                                     <h4 class="text-center">Add Repair</h4>
                                 </div>
@@ -1413,7 +1233,7 @@
                                 @endif
 
                             @endif
-                            @if($step == 14)
+                            @if($step == 15)
                                 <div class="my-3">
                                     <h4 class="text-center">Add PCN</h4>
                                 </div>
@@ -1543,7 +1363,7 @@
                                     </div>
                                 @endif
                             @endif
-                            @if($step == 15)
+                            @if($step == 16)
                                 <div class="my-3">
                                     <h4 class="text-center">Reports</h4>
                                 </div>
@@ -1617,7 +1437,7 @@
                                 @endif
                             @endif
 
-                            @if($step == 16)
+                            @if($step == 17)
                                 <div class="my-3">
 
                                     <h4 class="text-center">Subscription</h4>
@@ -1693,15 +1513,3 @@
                         </div>
 
                  </div>
-
-
-
-
-
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div><!-- .nk-block -->

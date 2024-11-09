@@ -128,6 +128,7 @@ trait FillableTraits
         'tracker_no',
         'description',
         'registration_number',
+        'driver',
     ];
 
     protected array $user = [

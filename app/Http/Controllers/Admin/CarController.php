@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Models\CarExtra;
 use App\Models\Region;
+use App\Models\User;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Models\VehicleType;
@@ -61,8 +62,9 @@ class CarController extends Controller
             }else{
                 $car_models = VehicleModel::where('name', $car_makes?->first()?->id)->get();
             }
+            $drivers = User::whereHasRole('rider')->get();
 
-            return view('admin.cars.edit', compact('car','car_types','car_models','car_makes'));
+            return view('admin.cars.edit', compact('car','car_types','car_models','car_makes', 'drivers'));
 
     }
 

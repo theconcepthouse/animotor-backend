@@ -301,7 +301,7 @@
                                   @if($step == 7)
                                       <!-- Personal Information -->
                                      <div wire:key="7">
-                                            <div class="row mb-3">
+                                      <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="driverName" class="form-label">Name</label>
                                             <input type="text" class="form-control" id="driverName" wire:model="driver.name" placeholder="John Doe">
@@ -316,41 +316,41 @@
                                         </div>
                                     </div>
 
-                                                <!-- Experience -->
-                                                <div class="row mb-3">
-                                                    <div class="col-md-4">
-                                                        <label for="specialSkills" class="form-label">Special Skills</label>
-                                                        <input type="text" class="form-control" id="specialSkills" wire:model="driver.special_skills" placeholder="Defensive driving, off-road driving">
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label for="primaryLanguage" class="form-label">Primary Language</label>
-                                                        <input type="text" class="form-control" id="primaryLanguage" wire:model="driver.primary_language" placeholder="English">
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label for="additionalLanguages" class="form-label">Additional Languages</label>
-                                                        <input type="text" class="form-control" id="additionalLanguages" wire:model="driver.additional_languages" placeholder="Spanish, French">
-                                                    </div>
-                                                </div>
+                                        <!-- Experience -->
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                <label for="specialSkills" class="form-label">Special Skills</label>
+                                                <input type="text" class="form-control" id="specialSkills" wire:model="driver.special_skills" placeholder="Defensive driving, off-road driving">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="primaryLanguage" class="form-label">Primary Language</label>
+                                                <input type="text" class="form-control" id="primaryLanguage" wire:model="driver.primary_language" placeholder="English">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="additionalLanguages" class="form-label">Additional Languages</label>
+                                                <input type="text" class="form-control" id="additionalLanguages" wire:model="driver.additional_languages" placeholder="Spanish, French">
+                                            </div>
+                                        </div>
 
-                                                <!-- Local Knowledge -->
-                                                <div class="row mb-3">
-                                                    <div class="col-md-3">
-                                                        <label for="areaExpertise" class="form-label">Area Expertise</label>
-                                                        <input type="text" class="form-control" id="areaExpertise" wire:model="driver.area_expertise" placeholder="New York City">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="tourGuideExperience" class="form-label">Tour Guide Experience</label>
-                                                        <input type="text" class="form-control" id="tourGuideExperience" wire:model="driver.tour_guide_experience" placeholder="5 years">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="drivingLicenses" class="form-label">Driving Licenses</label>
-                                                        <input type="text" class="form-control" id="drivingLicenses" wire:model="driver.driving_licenses" placeholder="CDL, motorcycle license">
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label for="certifications" class="form-label">Certifications</label>
-                                                        <input type="text" class="form-control" id="certifications" wire:model="driver.certifications" placeholder="First Aid Certified, Advanced Defensive Driving">
-                                                    </div>
-                                                </div>
+                                        <!-- Local Knowledge -->
+                                        <div class="row mb-3">
+                                            <div class="col-md-3">
+                                                <label for="areaExpertise" class="form-label">Area Expertise</label>
+                                                <input type="text" class="form-control" id="areaExpertise" wire:model="driver.area_expertise" placeholder="New York City">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="tourGuideExperience" class="form-label">Tour Guide Experience</label>
+                                                <input type="text" class="form-control" id="tourGuideExperience" wire:model="driver.tour_guide_experience" placeholder="5 years">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="drivingLicenses" class="form-label">Driving Licenses</label>
+                                                <input type="text" class="form-control" id="drivingLicenses" wire:model="driver.driving_licenses" placeholder="CDL, motorcycle license">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="certifications" class="form-label">Certifications</label>
+                                                <input type="text" class="form-control" id="certifications" wire:model="driver.certifications" placeholder="First Aid Certified, Advanced Defensive Driving">
+                                            </div>
+                                        </div>
 
 
                                                 <!-- Reviews and Ratings -->

@@ -104,11 +104,8 @@
                                                                 <select class="form-select js-select2 select2-hidden-accessible" id="vehicle_select" data-search="on" aria-hidden="true">
                                                                     <option selected disabled>Select Vehicle</option>
                                                                     @foreach($vehicles as $index => $item)
-                                                                        @php
-                                                                            $vehicleDetails = is_array($item->vehicle_details) ? $item->vehicle_details : [];
-                                                                        @endphp
-                                                                        <option value="{{ $item->id }}" data-registration="{{ $vehicleDetails['registration_number'] ?? '' }}" data-select2-id="{{ $item->id }}">
-                                                                            {{ $vehicleDetails['registration_number'] ?? '' }}
+                                                                        <option value="{{ $item->id }}" data-registration="{{ $item->registration_number ?? '' }}" data-select2-id="{{ $item->id }}">
+                                                                            {{ $item->registration_number ?? '' }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>

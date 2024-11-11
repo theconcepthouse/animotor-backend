@@ -8,6 +8,7 @@ use App\Models\Region;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
 use App\Services\FileUploadService;
+use Illuminate\Support\Facades\File;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -122,13 +123,14 @@ class Form extends Component
         'MOT',
         'Road Tax',
         'Service',
+        'Driver Details',
         'Addons',
         'Booking Information',
         'Documents',
         'Finance',
-        'Demage History',
+        'Damage History',
         'Add repair',
-        'PCNS Listing',
+        'PCNS Listing 15',
         'Reports',
         'Subscriptions',
     ];
@@ -148,6 +150,7 @@ class Form extends Component
     public $car_types = null;
     public $car_makes;
     public $car_models;
+    public $drivers;
 
     public $pcn_no;
     public $date_time;
@@ -160,6 +163,7 @@ class Form extends Component
     public $booking_id;
     public $region_id;
     public $regions;
+    public $driver = [];
 
 
 
@@ -248,13 +252,17 @@ class Form extends Component
             $this->saveTax();
             return $this->step++;
         }
+        if ($this->step == 7) {
+            $this->saveDriver();
+            return $this->step++;
+        }
 
-        if ($this->step == 15) {
+        if ($this->step == 16) {
            return $this->updateSubscription();
         }
 
 
-        if ($this->step == 10) {
+        if ($this->step == 11) {
             $this->updateFinance();
             return $this->step++;
         }
@@ -265,14 +273,14 @@ class Form extends Component
             return $this->step++;
         }
 
-        if ($this->step == 7) {
+        if ($this->step == 8) {
             if(isset($this->extras['title'])){
                 $this->addExtras();
             }
             return $this->step++;
         }
 
-        if ($this->step == 8) {
+        if ($this->step == 9) {
             return $this->updateBookingInfo();
         }
 
@@ -305,8 +313,6 @@ class Form extends Component
 
     public function saveSpec()
     {
-
-
         $validated = $this->validate([
             'engine_size' => ['required', 'string'],
             'fuel_type' => ['required', 'string'],
@@ -321,7 +327,6 @@ class Form extends Component
         $this->car->update($validated);
 
         $this->successMsg();
-
 
     }
 
@@ -706,6 +711,47 @@ class Form extends Component
 
     }
 
+    public function saveDriver()
+    {
+
+        $validated = $this->validate([
+            'driver.file' => 'nullable|image|mimes:jpg,jpeg,png|max:5024',
+        ]);
+
+        $this->driver = [
+            'name' => $this->driver['name'] ?? null,
+            'photo' => $validated ? $this->storeImageWithOriginalName($this->driver['photo'], 'files') : null,
+            'years_experience' => $this->driver['years_experience'] ?? null,
+            'special_skills' => $this->driver['special_skills'] ?? null,
+            'primary_language' => $this->driver['primary_language'] ?? null,
+            'additional_languages' => $this->driver['additional_languages'] ?? null,
+            'area_expertise' => $this->driver['area_expertise'] ?? null,
+            'tour_guide_experience' => $this->driver['tour_guide_experience'] ?? null,
+            'driving_licenses' => $this->driver['driving_licenses'] ?? null,
+            'certifications' => $this->driver['certifications'] ?? null,
+            'customer_reviews' => $this->driver['customer_reviews'] ?? null,
+            'overall_rating' => $this->driver['overall_rating'] ?? null,
+            'work_hours' => $this->driver['work_hours'] ?? null,
+            'days_off' => $this->driver['days_off'] ?? null,
+            'phone_number' => $this->driver['phone_number'] ?? null,
+            'email_address' => $this->driver['email_address'] ?? null,
+            'working_hours' => $this->driver['working_hours'] ?? null,
+            'driver_breaks' => $this->driver['driver_breaks'] ?? null,
+            'accommodation' => $this->driver['accommodation'] ?? null,
+            'food' => $this->driver['food'] ?? null,
+            'toll_tax' => $this->driver['toll_tax'] ?? null,
+            'dropoff_location' => $this->driver['dropoff_location'] ?? null,
+            'miscellaneous' => $this->driver['miscellaneous'] ?? null,
+        ];
+
+        $vehicle = Car::find($this->car->id);
+        if ($vehicle)
+        {
+            $vehicle->update(['driver' => $this->driver]);
+        }
+
+    }
+
     public function removeService($index)
     {
         array_splice($this->car->service, $index, 1);
@@ -729,4 +775,18 @@ class Form extends Component
             'next_service_mileage' => '',
         ];
     }
+
+    private function storeImageWithOriginalName($file, $path)
+    {
+        $fullPath = storage_path('app/public/' . $path);
+
+        if (!File::exists($fullPath)) {
+            File::makeDirectory($fullPath, 0755, true);
+        }
+
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/'.$path, $filename);
+        return asset('storage/'.$path.'/'.$filename);
+    }
+
 }

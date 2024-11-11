@@ -34,6 +34,15 @@
                                                     <h3 class="text-center mb-4">PCN Log</h3>
                                                    <form class="px-5" action="{{ route('admin.pcns.store') }}" method="POST">
                                                        @csrf
+                                                       @if ($errors->any())
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                        @if(session()->has('error'))
                                                             <div class="alert alert-danger">
                                                                 {{ session()->get('error') }}
@@ -46,16 +55,20 @@
                                                         @endif
 
                                                     <div class="row">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-4">
                                                             <label class="form-label" for="datePostReceived">Date post received</label>
                                                             <input type="date" class="form-control" id="datePostReceived" name="date_post_received" placeholder="Date post received">
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="form-label" for="datePostReceived">Offence Type</label>
+                                                            <input type="text" class="form-control" id="datePostReceived" name="type" placeholder="Offence Type">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
                                                             <label class="form-label" for="from">From (VRM)</label>
-                                                             <select name="vehicle_id" id="" class="form-control">
+                                                             <select name="vrm" id="" class="form-control">
                                                                  <option disabled selected>Select VRM</option>
                                                                 @foreach($vehicles as $item)
-                                                                    <option value="{{ $item->id }}">{{ $item->vehicle_details['registration_number'] }}</option>
+                                                                    <option value="{{ $item->registration_number }}">{{ $item->registration_number }} ({{ $item->model }})</option>
                                                                 @endforeach
                                                             </select>
 {{--                                                            <input type="text" class="form-control" id="from" name="vrm" placeholder="MUKHTAR-0579">--}}

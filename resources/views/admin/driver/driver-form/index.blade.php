@@ -203,7 +203,7 @@
                                                                 <ul style="justify-content: center" class="nk-tb-actions gx-2">
                                                                     <li class="nk-tb-action">
 {{--                                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalLarge-{{ $item?->id }}" class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>--}}
-                                                                        <a href="{{ route('admin.duplicateForm', ['formId' => $item->id, 'driverId' => $driver->id]) }}"  class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>
+                                                                        <a href="#"  class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>
                                                                     </li>
                                                                     <li class="nk-tb-action">
                                                                         <a href="{{ route('admin.addDocument', $driver->id) }}" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Document" data-bs-original-title="Details"><em class="icon ni ni-upload-cloud"></em></a>

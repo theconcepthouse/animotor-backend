@@ -192,28 +192,28 @@
 
     </style>
 
-    <style>
-        .registration-container {
-            background-color: #FFD700; /* Gold background for the registration number */
-            border-radius: 5px;
-            padding: 5px 10px;
-            display: inline-block;
-        }
+{{--    <style>--}}
+{{--        .registration-container {--}}
+{{--            background-color: #FFD700; /* Gold background for the registration number */--}}
+{{--            border-radius: 5px;--}}
+{{--            padding: 5px 10px;--}}
+{{--            display: inline-block;--}}
+{{--        }--}}
 
-        .registration-number {
-            font-weight: bold;
-            color: #000; /* Black text color */
-            font-size: 16px;
-        }
+{{--        .registration-number {--}}
+{{--            font-weight: bold;--}}
+{{--            color: #000; /* Black text color */--}}
+{{--            font-size: 16px;--}}
+{{--        }--}}
 
-        .vehicle_name {
-            font-weight: bold;
-            font-size: 18px;
-            margin: 0;
-            color: #333; /* Dark gray for vehicle name */
-        }
+{{--        .vehicle_name {--}}
+{{--            font-weight: bold;--}}
+{{--            font-size: 18px;--}}
+{{--            margin: 0;--}}
+{{--            color: #333; /* Dark gray for vehicle name */--}}
+{{--        }--}}
 
-    </style>
+{{--    </style>--}}
 
 </head>
 

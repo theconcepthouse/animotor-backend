@@ -33,7 +33,6 @@ return new class extends Migration
             $table->decimal('drop_off_lat', 10, 7)->nullable();
             $table->decimal('drop_off_lng', 10, 7)->nullable();
 
-
             $table->string('car_id')->nullable();
             $table->boolean('completed')->default(0);
             $table->boolean('cancelled')->default(0);

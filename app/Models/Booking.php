@@ -26,12 +26,13 @@ class Booking extends Model
 
 //    protected  $with = ['car'];
 
-    protected $appends = ['days','booking_info_urlink','booking_info_url'];
+    protected $appends = ['days','booking_info_urlink','booking_info_url', 'manage_booking_url'];
 
     public function car(): BelongsTo
     {
         return $this->belongsTo(Car::class, 'car_id');
     }
+    
 
     public function getDaysAttribute(): int
     {
@@ -45,10 +46,18 @@ class Booking extends Model
     {
         return route('booking', $this->id);
     }
-  public function getBookingInfoUrlAttribute(): string
+
+    public function getBookingInfoUrlAttribute(): string
     {
         return route('booking', $this->id);
     }
+
+    public function getManageBookingUrlAttribute(): string
+    {
+        return route('booking.view', $this->id);
+    }
+
+
 
 
     public function customer(): BelongsTo

@@ -630,12 +630,12 @@
                                       <div class="row mb-3">
                                         <div class="col-md-4">
                                             <label for="driverName" class="form-label">Driver Name</label>
-                                            <select wire:model="driver.name" id="" class="form-control">
-                                                @foreach($drivers as $item)
-                                                    <option value="{{ $item->fullname() }}">{{ $item->fullname() }}</option>
-                                                @endforeach
-                                            </select>
-{{--                                            <input type="text" class="form-control" id="driverName" wire:model="driver.name" placeholder="John Doe">--}}
+{{--                                            <select wire:model="driver.name" id="" class="form-control">--}}
+{{--                                                @foreach($drivers as $item)--}}
+{{--                                                    <option value="{{ $item->fullname() }}">{{ $item->fullname() }}</option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
+                                            <input type="text" class="form-control" id="driverName" wire:model="driver.name" placeholder="John Doe">
                                         </div>
                                         <div class="col-md-4">
                                             <label for="driverPhoto" class="form-label">Photo</label>

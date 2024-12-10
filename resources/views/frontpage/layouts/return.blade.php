@@ -236,6 +236,7 @@
 
     </style>
 
+
     @yield('style')
 
 </head>

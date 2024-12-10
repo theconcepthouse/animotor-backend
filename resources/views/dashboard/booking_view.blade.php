@@ -6,28 +6,7 @@
     @if(!request()->has('app'))
         @include('frontpage.partials.layout.header')
     @endif
-    <style>
-        .registration-container {
-    background-color: #FFD700; /* Gold background for the registration number */
-    border-radius: 5px;
-    padding: 5px 10px;
-    display: inline-block;
-}
 
-.registration-number {
-    font-weight: bold;
-    color: #000; /* Black text color */
-    font-size: 16px;
-}
-
-.vehicle_name {
-    font-weight: bold;
-    font-size: 18px;
-    margin: 0;
-    color: #333; /* Dark gray for vehicle name */
-}
-
-    </style>
 
 
     <section class="pt-120 pb-120 booking_view">
@@ -43,8 +22,8 @@
 {{--            </div>--}}
 
 
-            <div class="col-12 justify-content-center d-flex mb-3">
-                <div class="vehicle p-3 d-flex align-items-center">
+            <div class="col-12 d-flex justify-content-center mb-3">
+                <div class="vehicle p-3 d-flex align-items-center justify-content-center">
                     <div class="registration-container me-2">
                         <span class="registration-number">
                             {{ $booking?->car?->registration_number }}

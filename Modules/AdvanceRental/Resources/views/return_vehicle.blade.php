@@ -22,15 +22,28 @@
                     <input name="car_id" type="hidden" value="{{ $booking->car_id }}" />
 
                     <div class="row">
-                        <div class="col-12 justify-content-center d-flex mb-3 mt-5">
-                            <div class="vehicle p-4">
-                                <div class="d-flex justify-content-center">
-                                    <p class="vehicle_no">{{ $booking?->car?->registration_number }}</p>
 
-                                </div>
-                                <h6 class="vehicle_name mt-3">{{ $booking?->car?->title }}</h6>
-                            </div>
-                        </div>
+                       <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+    <div class="vehicle w-100 p-3 d-flex align-items-center bg-secondary rounded">
+        <!-- Back Arrow -->
+        <a href="javascript:history.back()" class="text-dark text-decoration-none me-3">
+            <i class="fas fa-arrow-circle-left fs-4"></i>
+        </a>
+
+        <!-- Centered Content -->
+        <div class="d-flex justify-content-center w-100">
+            <div class="registration-container me-2">
+                <span class="registration-number bg-warning text-dark fw-bold px-3 py-1 rounded">
+                    {{ $booking?->car?->registration_number }}
+                </span>
+            </div>
+            <h6 class="vehicle_name mb-0 fw-bold">
+                {{ $booking?->car?->title }}
+            </h6>
+        </div>
+    </div>
+</div>
+
 
                         <div class="col-12 justify-content-center mt-5 text-center">
                             <h4>Choose return date and time</h4>

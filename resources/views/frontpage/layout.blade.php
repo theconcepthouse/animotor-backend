@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.css">
 
     <link rel="stylesheet" href="/vendor/sweetalert/sweetalert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" integrity="sha512-BnbUDfEUfV0Slx6TunuB042k9tuKe3xrD6q4mg5Ed72LTgzDIcLPxg6yI2gcMFRyomt+yJJxE+zJwNmxki6/RA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     @yield('style')
@@ -188,6 +189,29 @@
          .is_app_top .flight__onewaysection {
              padding-top: 90px!important;
          }
+
+    </style>
+
+    <style>
+        .registration-container {
+            background-color: #FFD700; /* Gold background for the registration number */
+            border-radius: 5px;
+            padding: 5px 10px;
+            display: inline-block;
+        }
+
+        .registration-number {
+            font-weight: bold;
+            color: #000; /* Black text color */
+            font-size: 16px;
+        }
+
+        .vehicle_name {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 0;
+            color: #333; /* Dark gray for vehicle name */
+        }
 
     </style>
 

@@ -10,15 +10,16 @@
 
     <section class="pt-120 pb-120 booking_view">
         <div class="row- justify-content-center- text-center">
-            <div class="col-12 justify-content-center d-flex mb-3">
-                <div class="vehicle p-3">
-                    <div class="d-flex justify-content-center">
-                        <p class="vehicle_no">{{ $booking?->car?->car?->registration_number }}</p>
-
-                    </div>
-                    <h6 class="vehicle_name mt-2">{{ $booking?->car?->title }}</h6>
+           <div class="col-12 d-flex justify-content-center mb-3">
+            <div class="vehicle p-3 d-flex align-items-center justify-content-center">
+                <div class="registration-container me-2">
+                    <span class="registration-number">
+                        {{ $booking?->car?->registration_number }}
+                    </span>
                 </div>
+                <h6 class="vehicle_name">{{ $booking?->car?->title }}</h6>
             </div>
+        </div>
 
             <div class="col-12 justify-content-center">
                 <a href="{{ route('return') }}" class="cmn__btn">
@@ -52,7 +53,7 @@
             </div>
             <div class="col-12 mt-4 justify-content-center">
                 <a href="#" class="cmn__btn">
-                    <span>Monthly Maintanance</span>
+                    <span>Monthly Maintenance</span>
                 </a>
             </div>
         </div>

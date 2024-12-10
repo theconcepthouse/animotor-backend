@@ -108,6 +108,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
 
         Route::post('get/lats', [UserController::class, 'getLats']);
     });
+    
 
 
     Route::group(['prefix' => 'booking','middleware' => ['auth:sanctum']], function () {

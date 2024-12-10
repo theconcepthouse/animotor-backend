@@ -32,6 +32,7 @@ class Booking extends Model
     {
         return $this->belongsTo(Car::class, 'car_id');
     }
+    
 
     public function getDaysAttribute(): int
     {

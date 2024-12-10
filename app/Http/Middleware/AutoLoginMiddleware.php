@@ -18,6 +18,7 @@ class AutoLoginMiddleware
             session(['is_webview' => true]);
         }
 
+        
         if ($request->has('token')) {
            $token = $request->input('token');
 

@@ -142,9 +142,11 @@
 {{--</footer>--}}
 {{--<!-- Footer End -->--}}
 
+@if(!is_app())
 
-@if(strlen(settings('frontend_footer')) > 50)
-{!! settings('frontend_footer') !!}
-@else
-{!! default_footer() !!}
+    @if(strlen(settings('frontend_footer')) > 50)
+    {!! settings('frontend_footer') !!}
+    @else
+    {!! default_footer() !!}
+    @endif
 @endif

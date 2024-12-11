@@ -25,17 +25,30 @@
     <section class="signup__section bluar__shape__ form_border_10">
         <div class="container ">
             <div class="row align-items-center justify-content-between">
+                <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                    <div style="height: 60px" class="vehicle w-100 p-3 d-flex align-items-center  rounded">
+                        <!-- Back Arrow -->
+                        <a href="javascript:history.back()" class="text-dark text-decoration-none me-3">
+                            <i class="far fa-arrow-alt-circle-left fs-5"></i>
+                        </a>
+
+                        <!-- Centered Content -->
+                        <div class="d-flex justify-content-center w-100">
+                            <div class="registration-container me-2">
+                                <span class="registration-number bg-warning text-dark fs-6 fw-bold px-3 py-1 rounded">
+                                    {{ $booking?->car?->registration_number }}
+                                </span>
+                            </div>
+                            <h6 class="vehicle_name mb-0 fw-bold">
+                                {{ $booking?->car?->title }}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
 
 
                 <div class="col-12 justify-content-center d-flex mb-3">
-                    <div class="vehicle p-3">
-                        <div class="d-flex justify-content-center">
-                            <p class="vehicle_no">{{ $booking?->car?->car?->registration_number }}</p>
-
-                        </div>
-                        <h6 class="vehicle_name mt-4 text-center">{{ $booking?->car?->title }}</h6>
-                        <h6 class="vehicle_name mt-3 text-center">Inspection</h6>
-                    </div>
+                    <h3 class="vehicle_name mt-3 text-center">Inspection</h3>
                 </div>
 
 

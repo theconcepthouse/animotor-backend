@@ -33,6 +33,7 @@
 
     <section class="signup__section bluar__shape__ form_border_10">
         <div class="container ">
+
             <div class="row align-items-center justify-content-between">
 
                 <div class="col-12 d-flex justify-content-center mb-5">

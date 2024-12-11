@@ -30,9 +30,10 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-9 col-xl-9 step_content">
+                    <div style="padding-left: 20px !important;" class="col-md-10 col-xl-9 step_content">
                         <div class="card-inner">
-                            <div class="nk-stepper-content">
+                            <div  class="nk-stepper-content ">
+
 
                                 <form method="post" wire:submit="saveUpdate">
 

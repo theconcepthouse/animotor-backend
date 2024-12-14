@@ -699,7 +699,7 @@ class BookingController extends Controller
             ->where('customer_id', auth()->id());
 
         if($status == 'active'){
-            $bookings->whereIn('status',['pending','active']);
+            $bookings->whereIn('status',['pending','active', 'upcoming']);
         }
 
         if($status == 'past'){

@@ -718,7 +718,7 @@ class BookingController extends Controller
     }
 
 
-    public function cancelBooking(Request $request)
+    public function cancelBooking(Request $request): JsonResponse
     {
         try {
             $booking = Booking::findOrFail($request->id);
@@ -766,6 +766,45 @@ class BookingController extends Controller
             ], 500);
         }
     }
+
+    // In your BookingController.php
+
+    public function updateBookingDates(Request $request): JsonResponse
+    {
+        try {
+            $request->validate([
+                'id' => 'required',
+                'pick_up_date' => 'required|date',
+                'pick_up_time' => 'required',
+                'drop_off_date' => 'required|date',
+                'drop_off_time' => 'required',
+            ]);
+
+            $booking = Booking::findOrFail($request->id);
+
+            // Update booking dates
+            $booking->pick_up_date = $request->pick_up_date;
+            $booking->pick_up_time = $request->pick_up_time;
+            $booking->drop_off_date = $request->drop_off_date;
+            $booking->drop_off_time = $request->drop_off_time;
+
+            $booking->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Booking dates updated successfully',
+                'data' => $booking
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
 
     public function destroy(TripRequest $tripRequest)
     {

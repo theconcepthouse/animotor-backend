@@ -119,9 +119,11 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('car/listings', [BookingController::class, 'getAllCars']);
 
         Route::post('book', [BookingController::class, 'store']);
-        Route::post('cancel/booking', [BookingController::class, 'cancelBooking']);
-        Route::get('pending', [TripRequestController::class, 'myActiveRide']);
         Route::get('history', [BookingController::class, 'bookingHistory']);
+        Route::post('cancel/booking', [BookingController::class, 'cancelBooking']);
+        Route::post('/update/dates', [BookingController::class, 'updateBookingDates']);
+
+        Route::get('pending', [TripRequestController::class, 'myActiveRide']);
         Route::post('update/status', [TripRequestController::class, 'updateStatus']);
         Route::post('update/booking', [TripRequestController::class, 'update']);
         Route::post('share/feedback', [TripRequestController::class, 'shareFeedback']);

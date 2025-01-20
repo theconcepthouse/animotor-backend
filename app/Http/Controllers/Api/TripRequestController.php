@@ -286,7 +286,7 @@ class TripRequestController extends Controller
     {
         try {
             $trip = TripRequest::find($request['id']);
-            $driver = User::find($trip->driver_id);
+            $driver = User::find($trip->customer_id);
             $trip->status = $request['status'];
 
 

@@ -717,47 +717,55 @@ class BookingController extends Controller
 
     }
 
-    public function cancelBooking(Request $request): JsonResponse
-{
-    try {
-        $booking = Booking::findOrFail($request->id);
 
-        // Set cancellation details
-        $booking->status = 'cancelled';
-        $booking->cancelled = 1;
-        $booking->comment = $request->cancellation_reason ?? 'Cancelled by customer via app';
+    public function cancelBooking(Request $request)
+    {
+        try {
+            $booking = Booking::findOrFail($request->id);
 
-        $booking->save();
+            // Set cancellation details
+            $booking->status = 'cancelled';
+            $booking->cancelled = true;
+            $booking->cancelled_by = auth()->user()->email;
+            $booking->comment = $request->cancellation_reason ?? 'Cancelled by customer via app';
 
-        // Send notification to relevant parties
-        if($booking->customer) {
-            $user = $booking->customer;
+            $booking->save();
 
-            $message['title'] = "Booking cancelled";
-            $message['link'] = route('booking', $booking->id);
-            $message['link_text'] = 'View booking';
-            $message['message'] = 'Your booking has been cancelled';
-            $message['lines'] = [
-                "<strong>Please contact support for more details</strong>",
-            ];
+            // Try to send notification but don't let it block the main operation
+            try {
+                if($booking->customer) {
+                    $user = $booking->customer;
+                    $message['title'] = "Booking cancelled";
+                    $message['link'] = route('booking', $booking->id);
+                    $message['link_text'] = 'View booking';
+                    $message['message'] = 'Your booking has been cancelled';
+                    $message['lines'] = [
+                        "<strong>Please contact support for more details</strong>",
+                    ];
 
-            $user->notify(new AccountNotification($message));
+                    // Send notification in background or queue
+                    dispatch(function() use ($user, $message) {
+                        $user->notify(new AccountNotification($message));
+                    })->afterResponse();
+                }
+            } catch (\Exception $e) {
+                // Log notification error but don't fail the cancellation
+                \Log::error('Notification failed: ' . $e->getMessage());
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Booking cancelled successfully',
+                'data' => $booking
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'failed',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Booking cancelled successfully',
-            'data' => $booking
-        ]);
-
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => 'failed',
-            'error' => $e->getMessage()
-        ], 500);
     }
-}
-
 
     public function destroy(TripRequest $tripRequest)
     {

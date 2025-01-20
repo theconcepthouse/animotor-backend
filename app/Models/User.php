@@ -53,11 +53,6 @@ class User extends Authenticatable implements LaratrustUser, Wallet
 
     protected $appends = ['is_avatar_set','unapproved_documents','latest_transactions','name','status_text','account_balance','full_phone','currency'];
 
-    public function formDatas()
-    {
-        return $this->hasMany(FormData::class, 'user_id');
-    }
-
     public function getFormsWithData()
     {
         return $this->formDatas()->with('form')->get();

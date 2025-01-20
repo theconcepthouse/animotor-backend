@@ -11,6 +11,7 @@ use App\Models\TripRequest;
 
 use App\Models\User;
 use App\Models\VehicleType;
+use App\Notifications\AccountNotification;
 use App\Services\BookingRequestService;
 use App\Services\DistanceService;
 use App\Services\Firebase\FirestoreService;
@@ -715,6 +716,47 @@ class BookingController extends Controller
         return $this->successResponse($msg, $data);
 
     }
+
+    public function cancelBooking(Request $request): JsonResponse
+{
+    try {
+        $booking = Booking::findOrFail($request->id);
+
+        // Set cancellation details
+        $booking->status = 'cancelled';
+        $booking->cancelled = 1;
+        $booking->comment = $request->cancellation_reason ?? 'Cancelled by customer via app';
+
+        $booking->save();
+
+        // Send notification to relevant parties
+        if($booking->customer) {
+            $user = $booking->customer;
+
+            $message['title'] = "Booking cancelled";
+            $message['link'] = route('booking', $booking->id);
+            $message['link_text'] = 'View booking';
+            $message['message'] = 'Your booking has been cancelled';
+            $message['lines'] = [
+                "<strong>Please contact support for more details</strong>",
+            ];
+
+            $user->notify(new AccountNotification($message));
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Booking cancelled successfully',
+            'data' => $booking
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'failed',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 
 
     public function destroy(TripRequest $tripRequest)

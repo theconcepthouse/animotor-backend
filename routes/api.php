@@ -110,7 +110,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
     });
 
 
-    
+
 
     Route::group(['prefix' => 'booking','middleware' => ['auth:sanctum']], function () {
 //    Route::group(['prefix' => 'booking'], function () {
@@ -119,6 +119,7 @@ Route::group(['prefix' => 'v1/'], function ($router) {
         Route::post('car/listings', [BookingController::class, 'getAllCars']);
 
         Route::post('book', [BookingController::class, 'store']);
+        Route::post('cancel/booking', [BookingController::class, 'cancelBooking']);
         Route::get('pending', [TripRequestController::class, 'myActiveRide']);
         Route::get('history', [BookingController::class, 'bookingHistory']);
         Route::post('update/status', [TripRequestController::class, 'updateStatus']);
@@ -131,5 +132,3 @@ Route::group(['prefix' => 'v1/'], function ($router) {
     });
 
 });
-
-

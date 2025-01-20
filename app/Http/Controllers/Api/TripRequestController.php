@@ -286,9 +286,16 @@ class TripRequestController extends Controller
     {
         try {
             $trip = TripRequest::find($request['id']);
+
+            if (!$trip) {
+                return response()->json([
+                    'error' => 'Trip not found',
+                    'status' => 'failed'
+                ], 404);
+            }
+            
             $driver = User::find($trip->customer_id);
             $trip->status = $request['status'];
-
 
 
             if($request['status'] == 'cancelled_by_driver' || $request['status'] == 'cancelled_by_booker'){

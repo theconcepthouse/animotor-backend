@@ -61,15 +61,15 @@
                                                                     'title' => 'Driving License Front',
                                                                     'colSize' => 'col-md-12 col-sm-6',
                                                                     ])
-                                                                <h5 class="card-title">{{ $item?->document?->name }} </h5>
-                                                                <a data-bs-toggle="modal" href="#update{{ $item->id }}"  style="margin-left: 80%; font-size: 20px"><i class="ni ni-upload-cloud ml-5"></i></a>
+                                                                <h5 class="card-title">{{ $item?->document?->name ?? ''}} </h5>
+                                                                <a data-bs-toggle="modal" href="#update{{ $item->id ?? ''}}"  style="margin-left: 80%; font-size: 20px"><i class="ni ni-upload-cloud ml-5"></i></a>
 
                                                                 <p class="card-text">License No: {{ $item?->driving_license_number ?? '-' }} </p>
                                                                 <p class="card-text">Expiry Date: {{ $item->expiry_date ?? '-' }} </p>
 
                                                                <div style="margin-left: 80%" class="pull-right">
-                                                                    <a data-bs-toggle="modal" href="#viewImage{{ $item->id }}" style="margin-right: 20px; font-size: 20px"><i class="ni ni-eye"></i></a>
-                                                                    <a data-bs-toggle="modal" href="#viewImage{{ $item->id }}" style=" font-size: 20px"><i class="ni ni-download"></i></a>
+                                                                    <a data-bs-toggle="modal" href="#viewImage{{ $item->id ?? ''}}" style="margin-right: 20px; font-size: 20px"><i class="ni ni-eye"></i></a>
+                                                                    <a data-bs-toggle="modal" href="#viewImage{{ $item->id ?? '' }}" style=" font-size: 20px"><i class="ni ni-download"></i></a>
                                                                </div>
                                                             </div>
                                                         </div>
@@ -78,7 +78,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="card card-bordered mb-2">
                                                                 <div class="card-inner">
-                                                                    <h5 class="card-title">{{ $item?->document?->name }} </h5>
+                                                                    <h5 class="card-title">{{ $item?->document?->name ?? '' }} </h5>
                                                                     <a data-bs-toggle="modal" href="#update{{ $item->id }}"  style="margin-left: 80%; font-size: 20px"><i class="ni ni-upload-cloud ml-5"></i></a>
 
                                                                     <p class="card-text">License No: {{ $item?->driving_license_number ?? '-' }} </p>
@@ -211,7 +211,7 @@
             <div class="modal-content">
                 <a href="#" class="close" data-bs-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
                 <div class="modal-body modal-body-md">
-                    <h5 class="title">{{ $driver->name }} {{ $item?->document?->name }} image</h5>
+                    <h5 class="title">{{ $driver->name }} {{ $item?->document?->name ?? ''}} image</h5>
 
                     <div class="row">
                         <img src="{{ $item->file }}" />

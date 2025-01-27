@@ -208,9 +208,6 @@
                                                                     <li class="nk-tb-action">
                                                                         <a href="{{ route('admin.fetchDriverForm', ['driverId' => $driver->id, 'formId' => $item->id]) }}"  class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Details"><em class="icon ni ni-eye"></em></a>
                                                                     </li>
-                                                                    <li class="nk-tb-action">
-                                                                        <a href="{{ route('admin.notes', $driver->id) }}" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Notes"><em class="icon ni ni-edit"></em></a>
-                                                                    </li>
                                                                 </ul>
                                                             </div>
                                                         </div>

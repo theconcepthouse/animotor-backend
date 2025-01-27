@@ -166,36 +166,30 @@
             </td>
             <td>
                 <label style="margin-bottom: 25px">Time Out</label>
-                <span>{{ date('h:i A', strtotime($formData->vehicle['time_out'])) ?? '' }}</span>
+                <span>
+                    @isset($formData->vehicle['time_out'])
+                        {{ date('h:i A', strtotime($formData->vehicle['time_out'])) }}
+                    @else
+                        {{ '' }}
+                    @endisset
+                </span>
+{{--                <span>{{ date('h:i A', strtotime($formData->vehicle['time_out'])) ?? '' }}</span>--}}
                 <span class="underline"></span>
-            </td> <td>
+            </td>
+            <td>
                 <label style="margin-bottom: 25px">Time Back</label>
-                <span>{{ date('h:i A', strtotime($formData->vehicle['time_back'])) ?? '' }}</span>
+                <span>
+                    @isset($formData->vehicle['time_back'])
+                        {{ date('h:i A', strtotime($formData->vehicle['time_back'])) }}
+                    @else
+                        {{ '' }}
+                    @endisset
+                </span>
+{{--                <span>{{ date('h:i A', strtotime($formData->vehicle['time_back'])) ?? '' }}</span>--}}
                 <span class="underline"></span>
             </td>
         </tr>
-{{--        <tr>--}}
-{{--            <td>--}}
-{{--                <label style="margin-bottom: 25px">Number of Seat</label>--}}
-{{--                <span>{{ $formData->vehicle['number_of_seat'] ?? '' }}</span>--}}
-{{--                <span class="underline"></span>--}}
-{{--            </td>--}}
-{{--            <td>--}}
-{{--                <label style="margin-bottom: 25px">Year</label>--}}
-{{--                <span>{{ $formData->vehicle['year'] ?? '' }}</span>--}}
-{{--                <span class="underline"></span>--}}
-{{--            </td>--}}
-{{--            <td>--}}
-{{--                <label style="margin-bottom: 25px">Engine Size</label>--}}
-{{--                <span>{{ $formData->vehicle['engine_size'] ?? '' }}</span>--}}
-{{--                <span class="underline"></span>--}}
-{{--            </td>--}}
-{{--            <td>--}}
-{{--                <label style="margin-bottom: 25px">Current Value</label>--}}
-{{--                <span>{{ $formData->vehicle['current_value'] ?? '' }}</span>--}}
-{{--                <span class="underline"></span>--}}
-{{--            </td>--}}
-{{--        </tr>--}}
+
         </tbody>
         <tbody>
         <h5 style="margin-bottom: 0px; white-space: nowrap">STATEMENT OF LIABILITY: </h5>
@@ -518,7 +512,7 @@
                 <td colspan="4">
                     <p style="text-align: justify; color: #463b3b">
                         I
-                        MR,{{ $formData->personal_details['first_name'].' '.$formData->personal_details['last_name'] ?? '' }}
+                        MR,{{ ($formData->personal_details['first_name'] ?? '') . ' ' . ($formData->personal_details['last_name'] ?? '') }}
                         declare that the information given in this form is correct and
                         complete. In addition, I hereby acknowledge and confirm
                         that during the duration of the vehicle hire I shall be liable
@@ -549,22 +543,18 @@
      <div class="page-break"></div>
 
     <table>
-         <tbody>
-        <h4 style="margin-bottom: 0px; white-space: nowrap">Additional Terms: </h4>
-{{--       @if(isset($formData->personal_details) && isset($formData->personal_details['hire_type']) && $formData->personal_details['hire_type'] == "Rent to Buy")--}}
-
-           <tr>
-            <td colspan="4">
-                <p style="text-align: justify; color: #463b3b">
-                   {{ $form->agreement ?? '' }}
-                </p>
-            </td>
-        </tr>
-{{--       @else--}}
-{{--           <h4>No Additional Agreement</h4>--}}
-{{--        @endif--}}
-
-        </tbody>
+         @if(!empty($formData->agreement))
+            <tbody>
+                <h4 style="margin-bottom: 0px; white-space: nowrap">Additional Terms: </h4>
+                <tr>
+                    <td colspan="4">
+                        <p style="text-align: justify; color: #463b3b">
+                            {{ $formData->agreement }}
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        @endif
 
     </table>
 

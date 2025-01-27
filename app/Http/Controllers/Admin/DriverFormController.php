@@ -24,7 +24,7 @@ class DriverFormController extends Controller
         $actionForms = DriverForm::where('driver_id', $driverId)->where('action', 1)->get();
         $driver = User::find($driverId);
         $formData = DriverForm::where('driver_id', $driverId)->first();
-        return view('admin.driver.driver-form.index', compact('forms', 'actionForms','driver', 'formData'));
+        return view('admin.driver.driver-form.index', compact('forms', 'actionForms', 'driver', 'formData'));
     }
 
     public function fetchDriverForm($driverId, $formId, Request $request)
@@ -67,8 +67,8 @@ class DriverFormController extends Controller
         }
 
         $driverForm = DriverForm::where('driver_id', $driverId)
-        ->where('id', $formId)
-        ->firstOrFail();
+            ->where('id', $formId)
+            ->firstOrFail();
 
         $vehicles = Car::all();
         $vehicleId = $request->query('vehicleId');
@@ -86,12 +86,12 @@ class DriverFormController extends Controller
         $priceSum = Rate::where('driver_id', $driverId)->sum('price');
         $rates = Rate::where('driver_id', $driverId)->where('payment_item', 0)->get();
 
-       $deposit = Rate::where('driver_id', $driverId)
-               ->whereRaw('LOWER(item) = ?', ['deposit'])
-               ->sum('price');
-       $roadTax = Rate::where('driver_id', $driverId)
-               ->whereRaw('LOWER(item) = ?', ['road tax'])
-               ->sum('price');
+        $deposit = Rate::where('driver_id', $driverId)
+            ->whereRaw('LOWER(item) = ?', ['deposit'])
+            ->sum('price');
+        $roadTax = Rate::where('driver_id', $driverId)
+            ->whereRaw('LOWER(item) = ?', ['road tax'])
+            ->sum('price');
 
         return match ($form->name) {
             'Customer Registration' => view('admin.driver.driver-form.customer-registration', compact('driver', 'form', 'selectedForm')),
@@ -238,13 +238,13 @@ class DriverFormController extends Controller
 
 
     public function updateStatus(Request $request)
-{
-    $formId = $request->form_id;
-    $form = DriverForm::find($formId);
-    $form->status = $request->status;
-    $form->save();
-    return redirect()->back()->with(['success' => 'Form status updated successfully']);
-}
+    {
+        $formId = $request->form_id;
+        $form = DriverForm::find($formId);
+        $form->status = $request->status;
+        $form->save();
+        return redirect()->back()->with(['success' => 'Form status updated successfully']);
+    }
 
     public function driverDocuments($driverId)
     {
@@ -254,32 +254,32 @@ class DriverFormController extends Controller
     }
 
     public function updateDocument(Request $request, $driverId)
-{
-    $driver = User::findOrFail($driverId);
+    {
+        $driver = User::findOrFail($driverId);
 
-    // Validate the incoming document
-    $request->validate([
-        'documents' => 'required|array',
-        'document_type' => 'required|string',
-        'documents.*' => 'nullable|string', // Assuming document paths are passed as strings
-    ]);
+        // Validate the incoming document
+        $request->validate([
+            'documents' => 'required|array',
+            'document_type' => 'required|string',
+            'documents.*' => 'nullable|string', // Assuming document paths are passed as strings
+        ]);
 
-    $documentType = $request->input('document_type');
-    $documentPath = $request->input('documents.' . $documentType);
+        $documentType = $request->input('document_type');
+        $documentPath = $request->input('documents.' . $documentType);
 
-    $driverForms = DriverForm::where('driver_id', $driver->id)->where('action', 0)->get();
+        $driverForms = DriverForm::where('driver_id', $driver->id)->where('action', 0)->get();
 
-    foreach ($driverForms as $driverForm) {
-        $documents = $driverForm->documents;
-        $documents[$documentType] = $documentPath;
+        foreach ($driverForms as $driverForm) {
+            $documents = $driverForm->documents;
+            $documents[$documentType] = $documentPath;
 
-        // Save the updated documents array back to the form
-        $driverForm->documents = $documents;
-        $driverForm->save();
+            // Save the updated documents array back to the form
+            $driverForm->documents = $documents;
+            $driverForm->save();
+        }
+
+        return redirect()->back()->with('success', 'Document updated successfully for all forms.');
     }
-
-    return redirect()->back()->with('success', 'Document updated successfully for all forms.');
-}
 
     private function selectPdfView($formName)
     {
@@ -304,6 +304,7 @@ class DriverFormController extends Controller
                 return null; // Return null if no matching view found
         }
     }
+
     public function generatePDF($formId, $driverId)
     {
         $form = DriverForm::findOrFail($formId);
@@ -397,8 +398,8 @@ class DriverFormController extends Controller
             }
         }
 
-    return redirect()->back()->with('success', 'Form submitted successfully.');
-}
+        return redirect()->back()->with('success', 'Form submitted successfully.');
+    }
 
     public function storeHistoryData(Request $request, $driverId)
     {
@@ -530,7 +531,7 @@ class DriverFormController extends Controller
             ],
             'reason' => [
                 'reason_for_change' => $request->input('address_reason_for_change'),
-                'date_of_change' =>  now(),
+                'date_of_change' => now(),
             ],
         ];
 
@@ -552,7 +553,7 @@ class DriverFormController extends Controller
     }
 
 
-   public function driverFormHistory($driverId)
+    public function driverFormHistory($driverId)
     {
         $histories = HistoryData::where('driver_id', $driverId)->latest()->get();
         $driver = User::find($driverId);
@@ -560,25 +561,40 @@ class DriverFormController extends Controller
     }
 
     public function saveRate(Request $request, $driverId)
-{
+    {
 
-    $validated = $request->validate([
-        'item' => 'required|string',
-        'unit' => 'required|numeric',
-        'rate' => 'required|numeric',
-        'price' => 'nullable|numeric',
-        'interval' => 'required|integer',  // 'interval' is an integer (7 or 30)
-    ]);
+        $validated = $request->validate([
+            'item' => 'required|string',
+            'unit' => 'required|numeric',
+            'rate' => 'required|numeric',
+            'price' => 'nullable|numeric',
+            'interval' => 'required|integer',  // 'interval' is an integer (7 or 30)
+        ]);
 
-    $validated['driver_id'] = $driverId;
-    $rateId = $request->get('rate_id');
-    $rate = Rate::where('driver_id', $driverId)->where('id', $rateId)->first();
+        $validated['driver_id'] = $driverId;
+        $rateId = $request->get('rate_id');
+        $rate = Rate::where('driver_id', $driverId)->where('id', $rateId)->first();
 
-    if ($rate) {
-        $rate->update($validated);
-        Payment::where('driver_id', $driverId)->where('rate_id', $rate->id)->delete();
+        if ($rate) {
+            $rate->update($validated);
+            Payment::where('driver_id', $driverId)->where('rate_id', $rate->id)->delete();
 
+            $pricePerUnit = $rate->price / $rate->unit;
+            for ($i = 0; $i < $rate->unit; $i++) {
+                Payment::create([
+                    'driver_id' => $driverId,
+                    'due_date' => now()->addDays($i * $validated['interval']),  // Use the interval directly
+                    'amount' => $pricePerUnit,
+                    'name' => $rate->item,
+                    'rate_id' => $rate->id,
+                ]);
+            }
+            return redirect()->back()->with('success', 'Rate updated successfully.');
+        }
+
+        $rate = Rate::create($validated);
         $pricePerUnit = $rate->price / $rate->unit;
+
         for ($i = 0; $i < $rate->unit; $i++) {
             Payment::create([
                 'driver_id' => $driverId,
@@ -588,25 +604,9 @@ class DriverFormController extends Controller
                 'rate_id' => $rate->id,
             ]);
         }
-        return redirect()->back()->with('success', 'Rate updated successfully.');
+
+        return redirect()->back()->with('success', 'Rate saved successfully.');
     }
-
-    $rate = Rate::create($validated);
-    $pricePerUnit = $rate->price / $rate->unit;
-
-    for ($i = 0; $i < $rate->unit; $i++) {
-        Payment::create([
-            'driver_id' => $driverId,
-            'due_date' => now()->addDays($i * $validated['interval']),  // Use the interval directly
-            'amount' => $pricePerUnit,
-            'name' => $rate->item,
-            'rate_id' => $rate->id,
-        ]);
-    }
-
-    return redirect()->back()->with('success', 'Rate saved successfully.');
-}
-
 
 
     public function saveRateTotal(Request $request)
@@ -683,6 +683,7 @@ class DriverFormController extends Controller
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
+
     public function updateClaim(Request $request)
     {
         $driverId = $request->input('driver_id');
@@ -849,6 +850,7 @@ class DriverFormController extends Controller
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
+
     public function updateCriminalConvictions(Request $request)
     {
         $driverId = $request->input('driver_id');
@@ -982,18 +984,6 @@ class DriverFormController extends Controller
 
         return redirect()->back()->with('success', 'Refusal conviction updated successfully.');
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

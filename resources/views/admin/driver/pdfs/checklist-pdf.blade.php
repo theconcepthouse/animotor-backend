@@ -48,7 +48,8 @@
 <div class="container">
     <div class="row ">
         <div class="col-md-6">
-            <img height="50" width="120" src="https://animotor.co.uk/storage/photos/9a9ede47-d4e9-4205-b546-c6437d4914f5/ANI_Motors_Logo.jpg" alt="{{ env('APP_NAME') }} Logo"  class="img-fluid">
+            <h3>{{ env('APP_NAME') }}</h3>
+{{--            <img height="50" width="120" src="https://animotor.co.uk/storage/photos/9a9ede47-d4e9-4205-b546-c6437d4914f5/ANI_Motors_Logo.jpg" alt="{{ env('APP_NAME') }} Logo"  class="img-fluid">--}}
         </div>
        <div style="font-size: 10px; text-align: right" class="col-md-6">
             <div style="align-items: flex-end; margin-left: 30em" >

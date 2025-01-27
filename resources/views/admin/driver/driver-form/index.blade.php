@@ -12,7 +12,7 @@
                 <div class="nk-content-body">
                      <div class="container mb-3 mt-4">
                          <h4>Driver Name: {{ $driver->name }}</h4>
-                          <strong>Pass: {{ $driver->pass ?? 'Not set' }}</strong>
+{{--                          <strong>Pass: {{ $driver->pass ?? 'Not set' }}</strong>--}}
                      </div>
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -203,17 +203,10 @@
                                                                  <input type="hidden" name="form_id" value="{{ $item->id }}">
                                                                 <ul style="justify-content: center" class="nk-tb-actions gx-2">
                                                                     <li class="nk-tb-action">
-{{--                                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalLarge-{{ $item?->id }}" class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>--}}
-                                                                        <a href="#"  class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>
-                                                                    </li>
-                                                                    <li class="nk-tb-action">
-                                                                        <a href="{{ route('admin.addDocument', $driver->id) }}" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Document" data-bs-original-title="Details"><em class="icon ni ni-upload-cloud"></em></a>
+                                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalLarge" class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>
                                                                     </li>
                                                                     <li class="nk-tb-action">
                                                                         <a href="{{ route('admin.fetchDriverForm', ['driverId' => $driver->id, 'formId' => $item->id]) }}"  class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Details"><em class="icon ni ni-eye"></em></a>
-                                                                    </li>
-                                                                    <li class="nk-tb-action">
-                                                                        <a href="{{ route('admin.generatePDF', ['formId' => $item->id, 'driverId' => $driver->id]) }}" target="_blank" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Document"><em class="icon ni ni-file"></em></a>
                                                                     </li>
                                                                     <li class="nk-tb-action">
                                                                         <a href="{{ route('admin.notes', $driver->id) }}" class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Notes"><em class="icon ni ni-edit"></em></a>

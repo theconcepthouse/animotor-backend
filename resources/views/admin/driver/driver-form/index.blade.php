@@ -12,6 +12,7 @@
                 <div class="nk-content-body">
                      <div class="container mb-3 mt-4">
                          <h4>Driver Name: {{ $driver->name }}</h4>
+                          <strong>Pass: {{ $driver->pass ?? 'Not set' }}</strong>
                      </div>
                     @if ($errors->any())
                         <div class="alert alert-danger">

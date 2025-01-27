@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Services\DriverDocumentService;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 
@@ -104,6 +105,7 @@ class DriversController extends Controller
 
      public function storeDriver(Request $request)
     {
+
         if(isOwner() && !in_array($request->input('role'), ['manager','rider'])){
             return redirect()->route('admin.dashboard')->with('failure','you are not permitted to create this user');
         }
@@ -116,16 +118,21 @@ class DriversController extends Controller
             'work_phone' => 'nullable',
             'hire_type' => 'required',
             'role' => 'required',
+            'password' => 'required|string|min:3',
         ];
 
+
         $data = $request->validate($rules);
-        $data['password'] = bcrypt('password');
+        $data['password'] = Hash::make($request->password);
+        $data['pass'] = $request->password;
+
 
         // Check if user exists, if yes, update; if no, create new
         $user = User::updateOrCreate(
             ['id' => $request->driver_id],
             $data
         );
+
         $user->syncRoles([$data['role']]);
 
         $formId = $request->get('form_id');

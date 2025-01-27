@@ -142,6 +142,7 @@ trait FillableTraits
         'map_lng',
         'email_verified_at',
         'password',
+        'pass',
         'comment',
         'status',
         'address',

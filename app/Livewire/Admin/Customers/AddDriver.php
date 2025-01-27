@@ -13,6 +13,7 @@ use App\Models\TaxiLicense;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -33,6 +34,7 @@ class AddDriver extends Component
     public $work_phone = '';
     public $hire_type = '';
     public $role = '';
+    public $password = '';
     public $registration_number = '';
     public $make = '';
     public $model = '';
@@ -82,8 +84,9 @@ class AddDriver extends Component
     #[Computed]
     public int $step = 1;
 
-    public function goBack(){
-        if($this->step > 1){
+    public function goBack()
+    {
+        if ($this->step > 1) {
             $this->step--;
         }
     }
@@ -94,74 +97,75 @@ class AddDriver extends Component
     }
 
 
-     public function saveDriver()
+    public function saveDriver()
     {
-        if ($this->step == 1){
+        if ($this->step == 1) {
             $this->saveCustomer();
             return $this->step++;
         }
-        if ($this->step == 2){
+        if ($this->step == 2) {
             $this->saveAddress();
             return $this->step++;
         }
-        if ($this->step == 3){
+        if ($this->step == 3) {
             $this->saveLicense();
             return $this->step++;
         }
-        if ($this->step == 4){
+        if ($this->step == 4) {
             $this->saveTaxi();
             return $this->step++;
         }
-        if ($this->step == 5){
+        if ($this->step == 5) {
             $this->saveContact();
             return $this->step++;
         }
-        if ($this->step == 6){
+        if ($this->step == 6) {
             $this->saveDocument();
             return $this->step++;
         }
         $this->successMsg();
     }
 
-   public function saveCustomer()
-{
-    // Validate the input data
-    $validated = $this->validate([
-        'first_name' => 'string|min:1|max:255|required',
-        'last_name' => 'nullable',
-        'phone' => 'string|min:1|max:255|required|unique:users',
-        'email' => 'string|min:1|max:255|required|unique:users|email',
-        'work_phone' => 'nullable',
-        'role' => 'required',
-    ]);
+    public function saveCustomer()
+    {
+        // Validate the input data
+        $validated = $this->validate([
+            'first_name' => 'string|min:1|max:255|required',
+            'last_name' => 'nullable',
+            'phone' => 'string|min:1|max:255|required|unique:users',
+            'email' => 'string|min:1|max:255|required|unique:users|email',
+            'work_phone' => 'nullable',
+            'role' => 'required',
+            'password' => 'required|string|min:3',
+        ]);
 
-    // Add company_id if the user is an owner
-    if (isOwner()) {
-        $validated['company_id'] = companyId();
+        // Add company_id if the user is an owner
+        if (isOwner()) {
+            $validated['company_id'] = companyId();
+        }
+
+        $validated['password'] = Hash::make($validated['password']);
+
+        // Create a new user and assign the role
+        $customer = User::create($validated);
+        $customer->addRole($validated['role']);
+        $this->userId = $customer->id;
+
+        // Create an instance of DriverForm using the user ID
+        $this->createDriverForm($this->userId);
+        $form = DriverForm::where('driver_id', $this->userId)->first();
+        $form->update([
+            'personal_details' => [
+                'first_name' => $validated['first_name'],
+                'last_name' => $validated['last_name'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+                'work_phone' => $validated['work_phone'],
+            ]
+        ]);
+
+        $this->successMsg();
     }
-
-    $validated['password'] = bcrypt('password');
-
-    // Create a new user and assign the role
-    $customer = User::create($validated);
-    $customer->addRole($validated['role']);
-    $this->userId = $customer->id;
-
-    // Create an instance of DriverForm using the user ID
-    $this->createDriverForm($this->userId);
-    $form = DriverForm::where('driver_id', $this->userId)->first();
-    $form->update([
-        'personal_details' => [
-            'first_name' => $validated['first_name'],
-            'last_name' => $validated['last_name'],
-            'phone' => $validated['phone'],
-            'email' => $validated['email'],
-            'work_phone' => $validated['work_phone'],
-        ]
-    ]);
-
-    $this->successMsg();
-}
 
     public function saveAddress()
     {
@@ -259,9 +263,9 @@ class AddDriver extends Component
 
         $validated['id'] = $this->userId;
         $userId = User::where('id', $this->userId)->first();
-        if ($userId){
+        if ($userId) {
             $userId->update($validated);
-        }else {
+        } else {
             User::create($validated);
         }
 
@@ -270,7 +274,7 @@ class AddDriver extends Component
     }
 
     public function saveDocument()
-   {
+    {
         $validated = $this->validate([
             'driver_license_front' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
             'driver_license_back' => 'nullable|image|mimes:jpg,jpeg,png|max:1024',
@@ -292,7 +296,7 @@ class AddDriver extends Component
         ]);
 
         return redirect()->route('admin.drivers');
-  }
+    }
 
     private function storeImageWithOriginalName($file, $path)
     {
@@ -303,8 +307,8 @@ class AddDriver extends Component
         }
 
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('public/'.$path, $filename);
-        return asset('storage/'.$path.'/'.$filename);
+        $file->storeAs('public/' . $path, $filename);
+        return asset('storage/' . $path . '/' . $filename);
     }
 
     public function successMsg()
@@ -321,67 +325,67 @@ class AddDriver extends Component
 
     private function createDriverForm($driverId): null
     {
-    $formNames = [
-        'Customer Registration',
-        'Onboarding Form',
-        'Hire Agreement',
-        'Proposal Form',
-        'Checklist Form',
-        'Payment Sheet',
-    ];
-    $actionFormNames = [
-        'Return Vehicle',
-        'Report Vehicle Defect',
-        'Report Accident',
-        'Change of Address',
-        'Monthly Maintenance',
-        'Submit Mileage',
-    ];
-
-    // Only exclude fields that are strictly necessary
-    $excludeFields = ['id', 'driver_id', 'name', 'status', 'sending_method', 'state', 'action'];
-    $columns = Schema::getColumnListing('driver_forms');
-
-    // Identify JSON fields by excluding the necessary fields
-    $jsonFields = array_diff($columns, $excludeFields);
-
-    foreach ($formNames as $name) {
-        $data = [
-            'driver_id' => $driverId,
-            'name' => $name,
-            'status' => 'pending',
-            'sending_method' => null,
-            'state' => 'Generated',
-            'action' => 0,
+        $formNames = [
+            'Customer Registration',
+            'Onboarding Form',
+            'Hire Agreement',
+            'Proposal Form',
+            'Checklist Form',
+            'Payment Sheet',
+        ];
+        $actionFormNames = [
+            'Return Vehicle',
+            'Report Vehicle Defect',
+            'Report Accident',
+            'Change of Address',
+            'Monthly Maintenance',
+            'Submit Mileage',
         ];
 
-        // Explicitly set only the intended JSON fields to null
-        foreach ($jsonFields as $field) {
-            $data[$field] = null;
+        // Only exclude fields that are strictly necessary
+        $excludeFields = ['id', 'driver_id', 'name', 'status', 'sending_method', 'state', 'action'];
+        $columns = Schema::getColumnListing('driver_forms');
+
+        // Identify JSON fields by excluding the necessary fields
+        $jsonFields = array_diff($columns, $excludeFields);
+
+        foreach ($formNames as $name) {
+            $data = [
+                'driver_id' => $driverId,
+                'name' => $name,
+                'status' => 'pending',
+                'sending_method' => null,
+                'state' => 'Generated',
+                'action' => 0,
+            ];
+
+            // Explicitly set only the intended JSON fields to null
+            foreach ($jsonFields as $field) {
+                $data[$field] = null;
+            }
+
+            DriverForm::create($data);
         }
 
-        DriverForm::create($data);
-    }
+        foreach ($actionFormNames as $name) {
+            $data = [
+                'driver_id' => $driverId,
+                'name' => $name,
+                'status' => 'pending',
+                'sending_method' => null,
+                'state' => 'Generated',
+                'action' => 1,
+            ];
 
-    foreach ($actionFormNames as $name) {
-        $data = [
-            'driver_id' => $driverId,
-            'name' => $name,
-            'status' => 'pending',
-            'sending_method' => null,
-            'state' => 'Generated',
-            'action' => 1,
-        ];
+            foreach ($jsonFields as $field) {
+                $data[$field] = null;
+            }
 
-        foreach ($jsonFields as $field) {
-            $data[$field] = null;
+            DriverForm::create($data);
         }
 
-        DriverForm::create($data);
+        return $form ?? null;
     }
-
-    return $form ?? null;
-}
 
 
 }

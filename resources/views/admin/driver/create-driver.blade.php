@@ -93,6 +93,12 @@
                                                         <option value="Insurance" >Insurance</option>
                                                     </select>
                                                 </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="password">Password</label>
+                                                    <input type="password" class="form-control" id="password"
+                                                           name="password"
+                                                           >
+                                                </div>
 
                                                 </div>
                                                 </div>

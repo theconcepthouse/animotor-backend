@@ -90,6 +90,10 @@
                                             <div class="col-md-4">
                                                 <input type="hidden" id="role" name="role" wire:model="{{ $role }}" >
                                             </div>
+                                             <div class="col-md-4">
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" wire:model="password" class="form-control" id="password" name="password" >
+                                            </div>
 
                                         </div>
                                     @endif

@@ -116,6 +116,12 @@ class DriverForm extends Model
         'reason' => 'array',
     ];
 
+    protected $attributes = [
+        'personal_details' => '{}',
+        'vehicle' => '{}',
+        'agreement' => '{}',
+    ];
+
 
     public function status()
     {

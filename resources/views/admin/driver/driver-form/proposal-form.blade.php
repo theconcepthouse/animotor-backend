@@ -798,6 +798,15 @@
                                                     </div>
 
                                                    <div class="row">
+                                                       @if ($errors->any())
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                     <div class="form-group col-md-4">
                                                         <label for="motoring_convictions">Motoring convictions</label>
                                                         <div class="form-check">
@@ -903,6 +912,50 @@
                                                         </div>
 
                                                     </div>
+                                                       <div class="modal fade" tabindex="-1" id="addConviction">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                <em class="icon ni ni-cross"></em>
+                                                            </a>
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Add Conviction</h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('admin.saveConvictions') }}" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                                    <input type="hidden" name="form_id" value="{{ $form->id }}">
+
+                                                                     <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="conviction_code">Conviction code</label>
+                                                                            <input type="text" class="form-control" id="conviction_code" name="conviction_details[conviction_code]">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="penalty_points">Penalty points</label>
+                                                                            <input type="text" class="form-control" id="penalty_points" name="conviction_details[penalty_points]">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="conviction_date">Conviction date</label>
+                                                                            <input type="date" class="form-control" id="conviction_date" name="conviction_details[conviction_date]">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="expiry_date">Expiry date</label>
+                                                                            <input type="date" class="form-control" id="expiry_date" name="conviction_details[expiry_date]">
+                                                                        </div>
+
+                                                                          <div class="form-group col-md-12">
+                                                                              <button class="btn btn-primary" type="submit">Submit</button>
+                                                                          </div>
+
+                                                                       </div>
+                                                                </form>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 </div>
                                                     <hr>
 
@@ -1124,50 +1177,7 @@
     </div>
 </div>
 
-    <div class="modal fade" tabindex="-1" id="addConviction">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <em class="icon ni ni-cross"></em>
-            </a>
-            <div class="modal-header">
-                <h5 class="modal-title">Add Conviction</h5>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('admin.saveConvictions') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                    <input type="hidden" name="form_id" value="{{ $form->id }}">
 
-                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="conviction_code">Conviction code</label>
-                            <input type="text" class="form-control" id="conviction_code" name="conviction_details[conviction_code]">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="penalty_points">Penalty points</label>
-                            <input type="text" class="form-control" id="penalty_points" name="conviction_details[penalty_points]">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="conviction_date">Conviction date</label>
-                            <input type="date" class="form-control" id="conviction_date" name="conviction_details[conviction_date]">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="expiry_date">Expiry date</label>
-                            <input type="date" class="form-control" id="expiry_date" name="conviction_details[expiry_date]">
-                        </div>
-
-                          <div class="form-group col-md-12">
-                              <button class="btn btn-primary" type="submit">Submit</button>
-                          </div>
-
-                       </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
 
     <div class="modal fade" tabindex="-1" id="addCriminalConviction">
         <div class="modal-dialog" role="document">

@@ -732,44 +732,40 @@ class DriverFormController extends Controller
 
     public function saveConvictions(Request $request)
     {
-        $driverId = $request->input('driver_id');
-        $formId = $request->input('form_id');
 
         $validated = $request->validate([
+            'driver_id' => 'required',
+            'form_id' => 'required',
             'conviction_details' => 'nullable|array',
-            'conviction_details.conviction_code' => 'nullable|integer',
-            'conviction_details.penalty_points' => 'nullable|integer',
-            'conviction_details.conviction_date' => 'nullable|string',
-            'conviction_details.expiry_date' => 'nullable|string',
+            'conviction_details.conviction_code' => 'nullable|string',
+            'conviction_details.penalty_points' => 'nullable|string',
+            'conviction_details.conviction_date' => 'nullable|date',
+            'conviction_details.expiry_date' => 'nullable|date',
         ]);
 
-        $driverForm = DriverForm::where('driver_id', $driverId)
-            ->where('id', $formId)
+        $driverForm = DriverForm::where('driver_id', $validated['driver_id'])
+            ->where('id', $validated['form_id'])
             ->firstOrFail();
 
-        $existingData = is_string($driverForm->conviction_details) ? json_decode($driverForm->conviction_details, true) : (is_array($driverForm->conviction_details) ?
-            $driverForm->conviction_details : []);
-
-
-        $newData = [
+        // Update conviction_details
+        $existingConvictions = $driverForm->conviction_details ?? [];
+        $existingConvictions[] = [
             'conviction_code' => $validated['conviction_details']['conviction_code'] ?? null,
             'penalty_points' => $validated['conviction_details']['penalty_points'] ?? null,
             'conviction_date' => $validated['conviction_details']['conviction_date'] ?? null,
             'expiry_date' => $validated['conviction_details']['expiry_date'] ?? null,
         ];
+        $driverForm->conviction_details = $existingConvictions;
 
-        $existingData[] = $newData;
-        $driverForm->conviction_details = json_encode($existingData);
-
-        $convictions = is_string($driverForm->convictions) ? json_decode($driverForm->convictions, true)
-            : (is_array($driverForm->convictions) ? $driverForm->convictions : []);
-
-        $convictions['motoring_convictions'] = "Yes";
-        $driverForm->convictions = $convictions;
+        // Update convictions flag
+        $driverForm->convictions = array_merge(
+            $driverForm->convictions ?? [],
+            ['motoring_convictions' => 'Yes']
+        );
 
         $driverForm->save();
 
-        return redirect()->back()->with('success', 'Form submitted successfully.');
+        return redirect()->back()->with('success', 'Convictions saved successfully.');
     }
 
     public function updateConvictions(Request $request)

@@ -50,15 +50,19 @@ class PaymentController extends Controller
             'payment_id' => 'required|uuid',
             'driver_id' => 'required|uuid',
             'due_date' => 'nullable|date',
-            'amount' => 'nullable|numeric',
+            'amount' => 'required|numeric|min:0.01',
             'received_date' => 'nullable|date',
-            'received_amount' => 'nullable|numeric',
+            'received_amount' => 'nullable|numeric|max:' . $request->amount,
             'balance' => 'nullable|numeric',
             'late_payment_days' => 'nullable|integer',
         ]);
+        $payment = Payment::findOrFail($validated['payment_id']);
+
+        if($validated['amount'] > $payment->amount ) {
+            return redirect()->back()->with('error', 'Received Amount is greater than expected amount');
+        }
 
         if (!empty($validated['payment_id'])) {
-            $payment = Payment::findOrFail($validated['payment_id']);
             $payment->update($validated);
             $message = 'Payment updated successfully.';
         } else {

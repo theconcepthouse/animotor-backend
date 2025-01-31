@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('date_of_contravention')->nullable();
             $table->date('deadline_date')->nullable();
             $table->string('issuing_authority')->nullable();
-            $table->string('priority')->nullable(); //['Urgent', 'High', 'Medium', 'Low']
+            $table->string('priority')->nullable();
             $table->text('notes')->nullable();
             $table->string('status')->nullable();
 

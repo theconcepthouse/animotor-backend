@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('p_c_n_s', function (Blueprint $table) {
              $table->uuid('id')->primary();
-             $table->bigInteger('driver_id');
+             $table->uuid('driver_id');
              $table->date('date_post_received')->nullable();
             $table->string('vrm')->nullable();
             $table->string('pcn_no')->nullable();

@@ -257,7 +257,7 @@
          $menuArray[] = [
         'url' => route('admin.drivers'),
         'route' => 'drivers-read',
-        'text' => 'Drivers',
+        'text' => 'Users',
         'icon' => 'ni ni-users',
         ];
     }

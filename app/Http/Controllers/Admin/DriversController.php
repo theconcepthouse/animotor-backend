@@ -49,7 +49,7 @@ class DriversController extends Controller
     }
 
     public function all(){
-        $drivers = User::whereHasRole(['driver', 'customer'])->latest()->get();
+        $drivers = User::whereHasRole(['driver', 'rider'])->latest()->get();
         return view('admin.driver.index', compact('drivers'));
     }
 

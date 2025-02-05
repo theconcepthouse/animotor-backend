@@ -127,6 +127,8 @@ class AuthController extends Controller
 
             DB::commit();
 
+            $this->createDriverForm($user->id);
+
             return $this->successResponse('Information successfully saved', $user);
         } catch (Exception $e) {
             DB::rollback();

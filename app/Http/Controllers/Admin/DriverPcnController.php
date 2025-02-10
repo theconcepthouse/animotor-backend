@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Addons\pcn;
+use App\Models\Car;
 use App\Models\DriverPcn;
 use App\Models\FleetEvent;
 use App\Models\Form;
@@ -25,7 +26,8 @@ class DriverPcnController extends Controller
     public function addDriverPcn($driverId)
     {
         $driver = User::findOrFail($driverId);
-        return view('admin.driver.others.pcn.addPcn', compact('driver'));
+        $cars = Car::all();
+        return view('admin.driver.others.pcn.addPcn', compact('driver', 'cars'));
     }
 
     public function storeDriverPcn(Request $request, $driverId)

@@ -55,7 +55,12 @@
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="form-label" for="from">VRM</label>
-                                                            <input type="text" class="form-control" id="from" name="vrm" placeholder="MUKHTAR-0579">
+                                                            <select name="vrm" class="form-control" id="">
+                                                                @foreach($cars as $item)
+                                                                    <option value="{{ $item->registration_number ?? '' }}">{{ $item->registration_number ?? '' }}</option>
+                                                                @endforeach
+                                                            </select>
+
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="form-label" for="pcnNo">PCN no.</label>

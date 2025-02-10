@@ -193,6 +193,8 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::get('add/pcn-log/{pcnId}/driver/{driverId}', [DriverPcnController::class, 'addPcnLog'])->name('addPcnLog');
     Route::post('store/pcn-log/driver/{driverId}', [DriverPcnController::class, 'storePcnLog'])->name('storePcnLog');
     Route::delete('delete/pcn-log/{pcnId}', [DriverPcnController::class, 'deleteDriverPcn'])->name('deleteDriverPcn');
+    Route::get('edit/pcn-log/{pcnId}/{driverId}', [DriverPcnController::class, 'editDriverPcn'])->name('editDriverPcn');
+    Route::post('update/pcn-log/{pcnId}', [DriverPcnController::class, 'updateDriverPcn'])->name('updateDriverPcn');
     Route::post('store/pcn/authority', [DriverPcnController::class, 'storePCNAuthority'])->name('storePCNAuthority');
 
 

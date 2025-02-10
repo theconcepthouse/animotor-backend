@@ -100,6 +100,40 @@ class DriverPcnController extends Controller
         return redirect()->route('admin.addPcnLog', ['pcnId' => $pcnId]);
     }
 
+    public function editDriverPcn($pcnId, $driverId)
+    {
+        $driver = User::findOrFail($driverId);
+        $pcn = DriverPcn::findOrFail($pcnId);
+        $cars = Car::all();
+        $authority = PCNAutority::all();
+        return view('admin.driver.others.pcn.edit-pcn', compact('pcn', 'driver', 'cars', 'authority'));
+    }
+
+    public function updateDriverPcn(Request $request, $pcnId)
+    {
+        $rules = [
+            'date_post_received' => 'nullable|date',
+            'vrm' => 'nullable|string',
+            'pcn_no' => 'nullable|string',
+            'date_of_issue' => 'nullable|date',
+            'date_of_contravention' => 'nullable|date',
+            'deadline_date' => 'nullable|date',
+            'issuing_authority' => 'nullable|string',
+            'priority' => 'nullable|string|in:Urgent,High,Medium,Low',
+            'notes' => 'nullable|string',
+            'status' => 'nullable|string',
+        ];
+
+        $validated = $request->validate($rules);
+        $validated['driver_id'] = $request->driver_id;
+
+        $pcnLog = DriverPcn::findOrFail($pcnId);
+        $pcnLog->update($validated);
+
+        return redirect()->back()
+            ->with('message', 'PCN updated successfully.');
+    }
+
 
     public function storePCNAuthority(Request $request)
     {
@@ -108,8 +142,6 @@ class DriverPcnController extends Controller
         $data->save();
         return redirect()->back()->with('message', 'PCN authority added successfully.');
     }
-
-
 
 
 }

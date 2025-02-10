@@ -91,7 +91,7 @@
                                                                         <td>{{ $item->issuing_authority }}</td>
                                                                         <td>{{ $item->status }}</td>
                                                                         <td>
-                                                                            <a href="" class="btn btn-sm"><i class="ni ni-edit"></i></a>
+                                                                            <a href="{{ route('admin.editDriverPcn', ['pcnId' =>$item->id, 'driverId' => $driver->id]) }}" class="btn btn-sm"><i class="ni ni-edit"></i></a>
 
                                                                             <div>
                                                                                 <form method="POST" action="{!! route('admin.deleteDriverPcn', ['pcnId' => $item->id]) !!}" accept-charset="UTF-8">

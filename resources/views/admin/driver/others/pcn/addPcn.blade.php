@@ -64,7 +64,7 @@
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="form-label" for="pcnNo">PCN no.</label>
-                                                            <input type="text" class="form-control" id="pcnNo" name="pcn_no" placeholder="MUKHTAR-0579">
+                                                            <input type="text" class="form-control" id="pcnNo" name="pcn_no" required placeholder="MUKHTAR-0579">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="form-label" for="dateOfIssue">Date of issue</label>
@@ -79,12 +79,15 @@
                                                             <input type="date" class="form-control" id="deadlineDate" name="deadline_date" placeholder="Deadline Date">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label class="form-label" for="issuingAuthority">Issuing authority</label>
+                                                            <label class="form-label" for="issuingAuthority">Issuing authority <a  href="" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></label>
                                                             <select id="issuingAuthority" name="issuing_authority" class="form-control">
-                                                                <option selected>Urgent</option>
-                                                                <option>Authority 1</option>
-                                                                <option>Authority 2</option>
+                                                                @foreach($authority as $item)
+                                                                    <option value="{{ $item->name ?? '' }}">{{ $item->name ?? '' }}</option>
+                                                                @endforeach
                                                             </select>
+{{--                                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</button>--}}
+
+
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label class="form-label" for="priority">Priority</label>
@@ -138,7 +141,30 @@
     </div>
 
 
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Issuing Authority</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form action="{{ route('admin.storePCNAuthority') }}" method="POST">
+              @csrf
+              <div class="form-group">
+                  <label>Add Issuing Authority</label>
+                  <input type="text" name="name" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection
 

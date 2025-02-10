@@ -10,6 +10,7 @@ use App\Models\FleetEvent;
 use App\Models\Form;
 use App\Models\History;
 use App\Models\Note;
+use App\Models\PCNAutority;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class DriverPcnController extends Controller
     {
         $driver = User::findOrFail($driverId);
         $cars = Car::all();
-        return view('admin.driver.others.pcn.addPcn', compact('driver', 'cars'));
+        $authority = PCNAutority::all();
+        return view('admin.driver.others.pcn.addPcn', compact('driver', 'cars', 'authority'));
     }
 
     public function storeDriverPcn(Request $request, $driverId)
@@ -96,6 +98,15 @@ class DriverPcnController extends Controller
         $pcn = DriverPcn::findOrFail($pcnId);
         $pcn->delete();
         return redirect()->route('admin.addPcnLog', ['pcnId' => $pcnId]);
+    }
+
+
+    public function storePCNAuthority(Request $request)
+    {
+        $data = new PCNAutority();
+        $data->name = $request->name;
+        $data->save();
+        return redirect()->back()->with('message', 'PCN authority added successfully.');
     }
 
 

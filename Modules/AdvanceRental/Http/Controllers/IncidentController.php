@@ -42,6 +42,7 @@ class IncidentController extends Controller
 
 
     public function store(Request $request){
+
         $incident = Incident::where('booking_id', $request->input('booking_id'))->first();
         $step = $request->input('step');
 

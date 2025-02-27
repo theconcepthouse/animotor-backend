@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\DriverForm;
 use App\Models\TripRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -58,8 +60,8 @@ class DashboardController extends Controller
     public function bookingView($id){
         $booking = Booking::findOrFail($id);
         return view('dashboard.booking_view', compact('booking'));
-
     }
+
 
     public function return(){
         return view('frontpage.dashboard.return');

@@ -14,6 +14,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\AdvanceRental\Http\Controllers\AdvanceRentalController;
 use Modules\AdvanceRental\Http\Controllers\IncidentController;
+use Modules\AdvanceRental\Http\Controllers\OthersController;
 use Modules\AdvanceRental\Http\Controllers\VehicleDefectController;
 use Modules\AdvanceRental\Http\Controllers\VehicleInspectionController;
 use Modules\AdvanceRental\Http\Controllers\VehicleReturnController;
@@ -34,6 +35,8 @@ Route::prefix('advancerental')->middleware('auth')->group(function() {
 
     Route::get('/report-incident/{id}', [IncidentController::class,'reportIncident'])->name('rental.report_incident');
     Route::post('/report-incident/store', [IncidentController::class,'store'])->name('rental.report_incident.store');
+
+    Route::get('/change-of-address/{bookingId}', [OthersController::class,'changeAddress'])->name('customer.changeAddress');
 
 });
 

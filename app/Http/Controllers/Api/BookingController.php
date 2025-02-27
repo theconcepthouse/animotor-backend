@@ -426,7 +426,7 @@ class BookingController extends Controller
             $data['payment_method'] = 'wallet';
 
             $data['payment_status'] = 'paid';
-
+            $data['company_id'] = $car->company_id;
             $booking = Booking::create($data);
 
             if($booking){

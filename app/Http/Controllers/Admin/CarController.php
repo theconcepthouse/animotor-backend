@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Models\CarExtra;
+use App\Models\Company;
 use App\Models\Region;
 use App\Models\User;
 use App\Models\VehicleMake;
@@ -33,8 +34,14 @@ class CarController extends Controller
     {
        $validatedData = $this->validateData($request);
 
+       $ani_motor = Company::where('contact_name', 'animotor')->first();
+
         if(isOwner()){
             $validatedData['company_id'] = companyId();
+        }
+
+        if(auth()->user()->hasRole('superadmin|admin')){
+            $validatedData['company_id'] = $ani_motor->id;
         }
 
         $car = Car::create($validatedData);

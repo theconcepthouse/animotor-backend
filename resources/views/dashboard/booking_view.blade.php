@@ -9,7 +9,7 @@
 
 
 
-    <section class="pt-115 pb-120 booking_view">
+    <section  class="pt-115 pb-120 booking_view">
         <div class="container ">
         <div class="row justify-content-center- text-center">
 
@@ -22,7 +22,7 @@
 {{--            </div>--}}
 
 
-            <div class="col-12 d-flex justify-content-center mb-3">
+            <div style="margin-top: 120px" class="col-12 d-flex justify-content-center mb-3">
                 <div class="vehicle p-3 d-flex align-items-center justify-content-center">
                     <div class="registration-container me-2">
                         <span class="registration-number">
@@ -55,15 +55,10 @@
                 </a>
             </div>
             <div class="col-12 mt-4 justify-content-center">
-                <a href="{{ route('booking.documents', $booking->id) }}" class="cmn__btn">
+                <a href="{{ route('customer.changeAddress', $booking->id) }}" class="cmn__btn">
                     <span>Change Of Address</span>
                 </a>
             </div>
-{{--            <div class="col-12 mt-4 justify-content-center">--}}
-{{--                <a href="#" class="cmn__btn">--}}
-{{--                    <span>Change of address</span>--}}
-{{--                </a>--}}
-{{--            </div>--}}
             <div class="col-12 mt-4 justify-content-center">
                 <a href="#" class="cmn__btn">
                     <span>PCNs</span>

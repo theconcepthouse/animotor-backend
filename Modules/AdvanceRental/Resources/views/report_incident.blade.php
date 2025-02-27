@@ -38,12 +38,12 @@
 
                 <div class="col-12 d-flex justify-content-center mb-5">
                     <div class="justify-content-center text-center">
-                        <h3>Company Name</h3>
-                        <p class="mt-2">Company address : Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur autem commodi debitis dolor doloremque ea eos eum impedit inventore nam neque nulla quaerat quisquam quo quos repellendus temporibus, ut voluptates.</p>
+                        <h3>{{ $booking->car->company->name ?? 'Not Set' }}</h3>
+                        <p class="mt-2">Company address : {{ $booking->car->company->company_address() ?? 'Not Set' }}.</p>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row overflow-auto">
                     <div class="step-form">
                         @foreach($steps as $item)
                             <div wire:key="{{ $item }}" wire:click="setStep({{ $loop->index + 1 }})"
@@ -128,25 +128,28 @@
     </section>
 
 
-    <div class="modal fade" id="termsModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header justify-content-center">
-                    <h5 class="modal-title text-center">Warning</h5>
+{{--    <div class="modal fade" id="termsModal">--}}
+{{--        <div class="modal-dialog modal-lg">--}}
+{{--            <div class="modal-content">--}}
+{{--                <div class="modal-header justify-content-center">--}}
+{{--                    <h5 class="modal-title text-center">Warning</h5>--}}
 {{--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
-                </div>
-                <div class="modal-body">
-                    <!-- Accordion -->
+{{--                </div>--}}
+{{--                <div class="modal-body">--}}
+{{--                    <!-- Accordion -->--}}
+{{--                     <iframe src="<?php echo e(url('/accident_report_warning')); ?>?app" frameborder="0" style="width: 100%; height: 70vh;"></iframe>--}}
 
-                    <iframe src="{{ url('/accident_report_warning') }}?app" frameborder="0" style="width: 100%; height: 70vh;"></iframe>
 
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-success btn-lg" data-bs-dismiss="modal">Accept</button>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                    <iframe src="{{ url('/accident_report_warning') }}?app" frameborder="0" style="width: 100%; height: 70vh;"></iframe>--}}
+
+{{--                </div>--}}
+{{--                <div class="modal-footer justify-content-center">--}}
+{{--                    <button type="button" class="btn btn-success btn-lg" data-bs-dismiss="modal">Accept</button>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+
 @endsection
 
 @section('js')

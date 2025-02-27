@@ -37,6 +37,7 @@ Route::prefix('advancerental')->middleware('auth')->group(function() {
     Route::post('/report-incident/store', [IncidentController::class,'store'])->name('rental.report_incident.store');
 
     Route::get('/change-of-address/{bookingId}', [OthersController::class,'changeAddress'])->name('customer.changeAddress');
+    Route::post('store/change-of-address/', [OthersController::class,'storeChangeAddress'])->name('storeChangeAddress');
 
 });
 

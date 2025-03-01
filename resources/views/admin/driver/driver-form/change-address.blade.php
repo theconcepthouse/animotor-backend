@@ -26,9 +26,9 @@
                                     <div class="card card-bordered h-100">
                                         <div class="card-inner">
 
-                                             <form action="{{ route('admin.submitDriverForm', $form->id) }}" method="POST" enctype="multipart/form-data">
+                                              <form action="{{ route('admin.submitDriverForm', $form->id) }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
-                                                <input type="hidden" name="driver_id" value="{{ $driver->id }}">
+                                                 <input type="hidden" name="driver_id" value="{{ $driver->id }}">
                                                 <input type="hidden" name="form_id" value="{{ $form->id }}">
 
 
@@ -41,21 +41,21 @@
                                                         <div class="form-group col-md-4" id="form-group-address_line">
                                                             <label for="address_line">Address line</label>
                                                             <input type="text" class="form-control" id="address_line"
-                                                                   name="address[address_line]"
-                                                                   value="{{ old('address.address_line', $selectedForm->address['address_line'] ?? $form->address['address_line'] ?? '') }}">
+                                                                   name="change_address[address_line]"
+                                                                   value="{{ old('change_address.address_line', $selectedForm->change_address['address_line'] ?? $form->change_address['address_line'] ?? '') }}">
                                                         </div>
 
                                                         <div class="form-group col-md-4" id="form-group-address_line_2">
                                                             <label for="address_line_2">Address line 2</label>
                                                             <input type="text" class="form-control" id="address_line_2"
-                                                                   name="address[address_line_2]"
-                                                                   value="{{ old('address.address_line_2', $selectedForm->address['address_line_2'] ?? $form->address['address_line_2'] ?? '') }}">
+                                                                   name="change_address[address_line_2]"
+                                                                   value="{{ old('change_address.address_line_2', $selectedForm->change_address['address_line_2'] ?? $form->change_address['address_line_2'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4" id="form-group-country">
                                                             <label for="country">Country</label>
-                                                            <select class="form-control" id="country" name="address[country]">
+                                                            <select class="form-control" id="country" name="change_address[country]">
                                                                 @php
-                                                                    $selectedCountry = old('address.country', $selectedForm->address['country'] ?? '');
+                                                                    $selectedCountry = old('change_address.country', $selectedForm->change_address['country'] ?? '');
                                                                 @endphp
 
                                                                 <option value="Afghanistan" {{ $selectedCountry == 'Afghanistan' ? 'selected' : '' }}>Afghanistan</option>
@@ -260,8 +260,8 @@
                                                         <div class="form-group col-md-4" id="form-group-city">
                                                             <label for="city">City</label>
                                                             <input type="text" class="form-control" id="city"
-                                                                   name="address[city]"
-                                                                   value="{{ old('address.city', $selectedForm->address['city'] ?? $form->address['city'] ?? '') }}">
+                                                                   name="change_address[city]"
+                                                                   value="{{ old('change_address.city', $selectedForm->change_address['city'] ?? $form->change_address['city'] ?? '') }}">
                                                         </div>
 
                                                        <div class="form-group col-md-4">
@@ -281,14 +281,14 @@
                                                          <div class="form-group col-md-4" id="form-group-phone">
                                                             <label for="phone">Phone Number</label>
                                                             <input type="text" class="form-control" id="phone"
-                                                                   name="personal_details[phone]"
-                                                                   value="{{ old('personal_details.phone', $selectedForm->personal_details['phone'] ?? $form->personal_details['phone'] ?? '') }}">
+                                                                   name="change_address[phone]"
+                                                                   value="{{ old('change_address.phone', $selectedForm->change_address['phone'] ?? $form->change_address['phone'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="effective_date">Effective date</label>
 
                                                             <input type="date" class="form-control" id="effective_date"
-                                                                   name="'change_address[phone_effective_date]"
+                                                                   name="change_address[phone_effective_date]"
                                                                    value="{{ old('change_address.phone_effective_date', $selectedForm->change_address['phone_effective_date'] ?? $form->change_address['phone_effective_date'] ?? '') }}" >
                                                         </div>
                                                     </div>
@@ -302,14 +302,14 @@
                                                         <div class="form-group col-md-4" id="form-group-email">
                                                             <label for="email">Email</label>
                                                             <input type="email" class="form-control" id="email"
-                                                                   name="personal_details[email]"
-                                                                   value="{{ old('personal_details.email', $selectedForm->personal_details['email'] ?? $form->personal_details['email'] ?? '') }}">
+                                                                   name="change_address[email]"
+                                                                   value="{{ old('change_address.email', $selectedForm->change_address['email'] ?? $form->change_address['email'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="effective_date">Effective date</label>
 
                                                             <input type="date" class="form-control" id="effective_date"
-                                                                   name="'change_address[email_effective_date]"
+                                                                   name="change_address[email_effective_date]"
                                                                    value="{{ old('change_address.email_effective_date', $selectedForm->change_address['email_effective_date'] ?? $form->change_address['email_effective_date'] ?? '') }}" >
                                                         </div>
                                                     </div>
@@ -361,10 +361,11 @@
 
 
 
-                                                <div class="form-group mt-3">
+                                                <div class="form-group mt-3 text-center">
                                                     <button type="submit" class="btn btn-lg btn-primary">Submit</button>
                                                 </div>
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>

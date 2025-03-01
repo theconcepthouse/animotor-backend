@@ -4,6 +4,7 @@ namespace Modules\AdvanceRental\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\DriverForm;
+use App\Models\VehicleMileage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,6 +73,73 @@ class OthersController
             // Handle the case where the DriverForm record does not exist
             return redirect()->back()->with('error', 'Driver form not found.');
         }
+    }
+
+    public function createMileage($bookingId)
+    {
+        $booking = Booking::findOrFail($bookingId);
+        $form = DriverForm::where('driver_id', $booking->customer_id)->first();
+        $user = Auth::user();
+        return view('advancerental::others.view_mileage', compact('form', 'user', 'booking'));
+    }
+
+
+    public function storeMileage(Request $request)
+    {
+        $validatedData = $this->validateData($request);
+        VehicleMileage::create($validatedData);
+        return redirect()->back()->with('success', 'Vehicle mileage successfully submitted.');
+    }
+
+    public function storeMileage2(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'mileage.last_recorded_mileage' => 'required|string|max:255',
+            'mileage.submitted_by' => 'required|string|max:255',
+            'mileage.submission_date' => 'required|date',
+            'mileage.enter_mileage' => 'required|string|max:255',
+            'mileage.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        // Find the DriverForm record for the current driver
+        $driverId = $request->input('driver_id');
+        $form = DriverForm::where('driver_id', $driverId)->first();
+
+        if ($form) {
+            // Handle image upload
+
+            if ($form) {
+                // Update the mileage fields
+                $form->mileage = [
+                    'last_recorded_mileage' => $validatedData['mileage']['last_recorded_mileage'],
+                    'submitted_by' => $validatedData['mileage']['submitted_by'],
+                    'submission_date' => $validatedData['mileage']['submission_date'],
+                    'enter_mileage' => $validatedData['mileage']['enter_mileage'],
+                    'image' => $validatedData['mileage']['image'],
+                ];
+
+                // Save the updated form
+                $form->save();
+
+                return redirect()->back()->with('success', 'Mileage details updated successfully.');
+            } else {
+                // Handle the case where the DriverForm record does not exist
+                return redirect()->back()->with('error', 'Driver form not found.');
+            }
+        }
+    }
+
+
+    function validateData(Request $request): array
+    {
+        $rules = [
+            'booking_id' => 'required',
+            'car_id' => 'required',
+            'mileage.*' => 'required',
+        ];
+
+        return $request->validate($rules);
     }
 
 }

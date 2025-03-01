@@ -54,7 +54,7 @@
                     <span>Documents</span>
                 </a>
             </div>
-            <div class="col-12 mt-4 justify-content-center">
+            <div class="col-12 mt-4 justify-content-center ">
                 <a href="{{ route('customer.changeAddress', $booking->id) }}" class="cmn__btn">
                     <span>Change Of Address</span>
                 </a>
@@ -70,7 +70,7 @@
                 </a>
             </div>
             <div class="col-12 mt-4 justify-content-center">
-                <a href="{{ route('vehicle_inspection.create',$booking->id) }}" class="cmn__btn">
+                <a href="{{ route('createMileage',$booking->id) }}" class="cmn__btn">
                     <span>Submit Mileage</span>
                 </a>
             </div>

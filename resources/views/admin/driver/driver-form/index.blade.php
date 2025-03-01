@@ -202,9 +202,9 @@
                                                             <div class="nk-tb-col nk-tb-col-tools">
                                                                  <input type="hidden" name="form_id" value="{{ $item->id }}">
                                                                 <ul style="justify-content: center" class="nk-tb-actions gx-2">
-                                                                    <li class="nk-tb-action">
-                                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalLarge" class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>
-                                                                    </li>
+{{--                                                                    <li class="nk-tb-action">--}}
+{{--                                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalLarge" class="bg-white btn btn-sm btn-outline-light btn-icon" data-bs-placement="top" aria-label="Approve" data-bs-original-title="Duplicate Form"><em class="icon ni ni-repeat"></em></a>--}}
+{{--                                                                    </li>--}}
                                                                     <li class="nk-tb-action">
                                                                         <a href="{{ route('admin.fetchDriverForm', ['driverId' => $driver->id, 'formId' => $item->id]) }}"  class="bg-white btn btn-sm btn-outline-light btn-icon btn-tooltip" aria-label="Details" data-bs-original-title="Details"><em class="icon ni ni-eye"></em></a>
                                                                     </li>

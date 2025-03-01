@@ -38,6 +38,8 @@ Route::prefix('advancerental')->middleware('auth')->group(function() {
 
     Route::get('/change-of-address/{bookingId}', [OthersController::class,'changeAddress'])->name('customer.changeAddress');
     Route::post('store/change-of-address/', [OthersController::class,'storeChangeAddress'])->name('storeChangeAddress');
+    Route::get('create/mileage/{bookingId}', [OthersController::class,'createMileage'])->name('createMileage');
+    Route::post('store/mileage', [OthersController::class,'storeMileage'])->name('storeMileage');
 
 });
 

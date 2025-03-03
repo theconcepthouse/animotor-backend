@@ -33,4 +33,8 @@ class VehicleInspectionController extends Controller
 
         return $request->validate($rules);
     }
+
+
+
+
 }

@@ -253,6 +253,13 @@
         ],
 
     ];
+
+    $menuArray[] = [
+        'text' => 'Driver Section',
+        'type' => 'heading',
+        'route' => 'cms-setup',
+    ];
+
     if (hasTrips()) {
          $menuArray[] = [
         'url' => route('admin.drivers'),
@@ -315,18 +322,7 @@
     ];
     }
 
-
-    if(hasFleet()){
-        $menuArray[] = [
-        'url' => route('admin.companies.index'),
-        'route' => 'companies-read',
-        'text' => 'Companies',
-        'icon' => 'ni ni-list-check',
-        ];
-    }
-
-
-    $menuArray[] = [
+     $menuArray[] = [
         'url' => route('admin.complains.index'),
         'route' => 'complains-read',
         'text' => 'Complaints',
@@ -338,20 +334,6 @@
         'text' => 'Car Bookings',
         'route' => 'bookings-index',
         'icon' => 'ni ni-calendar-booking',
-    ];
-
-
-//    $menuArray[] = [
-//        'url' => route('admin.fleet.index'),
-//        'text' => 'Fleet Planning',
-//        'route' => 'cars-read',
-//        'icon' => 'ni ni-calender-date',
-//    ];
-    $menuArray[] = [
-        'url' => route('admin.fleetEvent'),
-        'text' => 'Fleet Planning',
-        'route' => 'cars-read',
-        'icon' => 'ni ni-calender-date',
     ];
 
     $menuArray[] = [
@@ -367,7 +349,6 @@
         'route' => 'cars-read',
         'icon' => 'ni ni-file-docs',
     ];
-
     $menuArray[] = [
         'url' => route('admin.rental.vehicle_defects'),
         'text' => 'Vehicle Defects',
@@ -375,11 +356,43 @@
         'icon' => 'ni ni-linux-server',
     ];
     $menuArray[] = [
-        'url' => route('admin.rental.vehicle_defects'),
+        'url' => route('admin.vehicle.inspection'),
         'text' => 'Vehicle Inspection',
         'route' => 'cars-read',
         'icon' => 'ni ni-activity',
     ];
+    $menuArray[] = [
+        'url' => route('admin.vehicle.mileage'),
+        'text' => 'Vehicle Mileage',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-speed',
+    ];
+
+
+    $menuArray[] = [
+        'text' => 'Company Section',
+        'type' => 'heading',
+        'route' => 'cms-setup',
+    ];
+
+    if(hasFleet()){
+        $menuArray[] = [
+        'url' => route('admin.companies.index'),
+        'route' => 'companies-read',
+        'text' => 'Companies',
+        'icon' => 'ni ni-list-check',
+        ];
+    }
+
+
+    $menuArray[] = [
+        'url' => route('admin.fleetEvent'),
+        'text' => 'Fleet Planning',
+        'route' => 'cars-read',
+        'icon' => 'ni ni-calender-date',
+    ];
+
+
     $menuArray[] = [
         'url' => route('admin.workshop.index'),
         'text' => 'Workshops',

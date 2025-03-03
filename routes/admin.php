@@ -17,13 +17,12 @@ use App\Http\Controllers\Admin\DriverPcnController;
 use App\Http\Controllers\Admin\DriversController;
 use App\Http\Controllers\Admin\FaqsController;
 use App\Http\Controllers\Admin\FleetEventController;
-use App\Http\Controllers\Admin\FleetPlanningController;
-use App\Http\Controllers\Admin\FormController;
 use App\Http\Controllers\Admin\MailTrackerController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuItemController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\NoteController;
+use App\Http\Controllers\Admin\OtherVehicleController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PCNController;
 use App\Http\Controllers\Admin\RegionController;
@@ -261,12 +260,14 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('/update/criminal/conviction', [DriverFormController::class, 'updateCriminalConvictions'])->name('updateCriminalConvictions');
     Route::post('/save/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
 
-
     Route::get('all/pcn', [PCNController::class, 'index'])->name('pcns.index');
     Route::get('create/pcns', [PCNController::class, 'create'])->name('pcns.create');
     Route::post('store/pcns', [PCNController::class, 'store'])->name('pcns.store');
     Route::get('pcn/log/{pcnId}', [PCNController::class, 'addPcnLog'])->name('pcn.addPcnLog');
     Route::post('store/pcns/log', [PCNController::class, 'storePcnLog'])->name('pcns.storePcnLog');
+
+    Route::get('vehicle/mileage', [OtherVehicleController::class, 'mileage'])->name('vehicle.mileage');
+    Route::get('vehicle/inspection', [OtherVehicleController::class, 'vehicleInspection'])->name('vehicle.inspection');
 
 });
 

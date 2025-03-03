@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Traits\FillableTraits;
 
@@ -32,7 +33,7 @@ class Booking extends Model
     {
         return $this->belongsTo(Car::class, 'car_id');
     }
-    
+
 
     public function getDaysAttribute(): int
     {
@@ -79,5 +80,12 @@ class Booking extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function vehicle_mileage(): HasOne
+    {
+        return $this->hasOne(VehicleMileage::class);
+    }
+
+
 
 }

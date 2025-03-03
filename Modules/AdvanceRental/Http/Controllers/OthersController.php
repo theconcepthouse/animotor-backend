@@ -78,18 +78,25 @@ class OthersController
     public function createMileage($bookingId)
     {
         $booking = Booking::findOrFail($bookingId);
-        $form = DriverForm::where('driver_id', $booking->customer_id)->first();
+        $mileage = VehicleMileage::where('booking_id', $booking->id)->first();
         $user = Auth::user();
-        return view('advancerental::others.view_mileage', compact('form', 'user', 'booking'));
+        return view('advancerental::others.view_mileage', compact('mileage', 'user', 'booking'));
     }
-
 
     public function storeMileage(Request $request)
     {
         $validatedData = $this->validateData($request);
+
+        $mileage = VehicleMileage::where('booking_id', $validatedData['booking_id'])->first();
+        if ($mileage) {
+            $mileage->update($validatedData);
+            return redirect()->back()->with('success', 'Vehicle mileage successfully updated.');
+        }
+
         VehicleMileage::create($validatedData);
         return redirect()->back()->with('success', 'Vehicle mileage successfully submitted.');
     }
+
 
     public function storeMileage2(Request $request)
     {

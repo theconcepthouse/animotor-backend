@@ -15,4 +15,10 @@ class VehicleMileage extends Model
     protected $casts = [
         'mileage' => 'array'
     ];
+
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
 }

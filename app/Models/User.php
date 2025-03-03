@@ -195,6 +195,11 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->hasOne(Car::class,'driver_id');
     }
 
+    public function vehicle_mileage(): HasOne
+    {
+        return $this->hasOne(VehicleMileage::class,'user_id');
+    }
+
     public function role(){
         return $this->getRoles()[0];
     }

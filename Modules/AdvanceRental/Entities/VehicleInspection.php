@@ -2,6 +2,7 @@
 
 namespace Modules\AdvanceRental\Entities;
 
+use App\Models\Booking;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,9 +30,13 @@ class VehicleInspection extends Model
     }
 
 
-
     protected static function newFactory()
     {
         return \Modules\AdvanceRental\Database\factories\VehicleInspectionFactory::new();
+    }
+
+     public function booking()
+    {
+        return $this->belongsTo(Booking::class);
     }
 }

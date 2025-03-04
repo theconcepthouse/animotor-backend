@@ -993,12 +993,11 @@ class DriverFormController extends Controller
     }
 
 
-    public function userVehicleMileage($userId, $formId)
+    public function createUserForm($userId)
     {
-        $user = User::find($userId);
-        $data = VehicleMileage::where('user_id', $user->id)->get();
-        $form = DriverForm::find($formId);
-        return view('admin.driver.driver-form', compact('data', 'userId', 'form'));
+         $user = User::find($userId);
+         $this->createDriverForm($user->id);
+         return redirect()->back()->with('success', 'Form created successfully.');
     }
 
 

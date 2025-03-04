@@ -21,4 +21,15 @@ class VehicleMileage extends Model
         return $this->belongsTo(Booking::class);
     }
 
+    public function status()
+    {
+        if ($this->status == "pending")
+        {
+            return '<span class="badge badge-sm badge-dim bg-outline-warning ">Pending <em class="ni ni-edit"></em></span>';
+        }elseif ($this->status == "approved"){
+            return '<span class="badge badge-sm bg-success ">Approved <em class="ni ni-edit"></em></span>';
+        }
+        return '<span class="badge badge-sm bg-danger ">Not Set</span>';
+    }
+
 }

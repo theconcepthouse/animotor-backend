@@ -82,13 +82,13 @@
                                                         <div class="row">
                                                       <div class="form-group col-md-4">
                                                         <label for="last_recorded_mileage">Last recorded mileage (Total Mileage:
-{{--                                                            <span class="text-danger">{{ $form['charges']['milage_limit_value'] + $sum_mileage }}</span>)</label>--}}
+                                                            <span class="text-danger">{{ ($form['charges']['milage_limit_value'] ?? 0) + ($sum_mileage ?? 0) }}</span>)</label>
                                                         <input type="text" class="form-control" id="last_recorded_mileage"
                                                                name="mileage[last_recorded_mileage]"
                                                                value="{{ old('mileage.mileage', $mileage->mileage['mileage'] ?? '') }}" readonly>
                                                             <small class="text-info">This field will auto-fill</small>
                                                      </div>
-{{--                                                      <input type="hidden" name="mileage[total_mileage]" value="{{ optional($form['charges']['milage_limit_value'] + $sum_mileage)?? '' }}">--}}
+                                                      <input type="hidden" name="mileage[total_mileage]" value="{{ ($form['charges']['milage_limit_value'] ?? 0) + ($sum_mileage ?? 0) }}">
                                                     <div class="form-group col-md-4">
                                                         <label for="submitted_by">Submitted by</label>
                                                         <input type="text" class="form-control" id="submitted_by"
@@ -115,6 +115,7 @@
                                                             'id' => 'file' . Str::uuid(),
                                                             'title' => 'Upload Image',
                                                             'colSize' => 'col-md-8 col-sm-6',
+                                                            'required' => true,
                                                             ])
                                                     </div>
                                                 </div>

@@ -260,7 +260,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('/update/criminal/conviction', [DriverFormController::class, 'updateCriminalConvictions'])->name('updateCriminalConvictions');
     Route::post('/save/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
 
-    Route::post('/customer/mileage/{userId}/{formId}', [DriverFormController::class, 'userVehicleMileage'])->name('userVehicleMileage');
+    Route::get('/create/form/{userId}/', [DriverFormController::class, 'createUserForm'])->name('createUserForm');
 
     Route::get('all/pcn', [PCNController::class, 'index'])->name('pcns.index');
     Route::get('create/pcns', [PCNController::class, 'create'])->name('pcns.create');

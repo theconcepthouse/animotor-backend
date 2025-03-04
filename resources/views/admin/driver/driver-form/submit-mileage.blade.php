@@ -35,8 +35,8 @@
                                                     <th>Last Recorded</th>
 {{--                                                    <th>Submitted by</th>--}}
 {{--                                                    <th>Submission date</th>--}}
-                                                    <th>Mileage</th>
-                                                    <th>Total Mileage</th>
+                                                    <th>Current Mileage</th>
+{{--                                                    <th>Total Mileage</th>--}}
                                                     <th>Image</th>
                                                     <th>Status</th>
                                                     <th>Reported on</th>
@@ -49,20 +49,23 @@
 
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
-                                                        <td><a wire:navigate href="{{ route('admin.bookings.show', $item?->booking?->id) }}"> {{ $item?->booking?->booking_number }}</a></td>
+                                                        <td><a  wire:navigate href="{{ route('admin.bookings.show', $item?->booking?->id) }}"> {{ $item?->booking?->booking_number }}</a></td>
                                                         <td>
-                                                           {{  $item?->booking?->customer->fullname() }}
+                                                           {{  $item?->booking?->customer->fullname() ?? ''}}
                                                         </td>
-                                                        <td>{{ $item->mileage['last_recorded_mileage'] ?? $item->mileage['mileage']}}</td>
+                                                        <td>{{ $item->mileage['last_recorded_mileage'] ? : $item->mileage['mileage']}}</td>
 
 {{--                                                        <td>{{ $item->mileage['submitted_by'] ?? ''}}</td>--}}
 {{--                                                        <td>{{ $item->created_at->format('d-M-y') ?? ''}}</td>--}}
-                                                        <td>{{ $item->mileage['mileage'] ?? ''}}</td>
-                                                        <td>{{ $item->mileage['total_mileage']+$sumMileage ?? ''}}</td>
+{{--                                                        <td>{{ $item->mileage['mileage'] ?? ''}}</td>--}}
+                                                        <td>{{ ($item->mileage['total_mileage'] ?? 0) + ($sumMileage ?? 0) }}</td>
                                                         <td><img height="50" width="50" src="{{ asset($item->mileage['image']) }}" alt="">
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item->id }}"><em class="icon ni ni-eye"></em></a>
                                                         </td>
-                                                        <td><span class="badge badge-dim bg-warning"> {{ $item->status }}</span></td>
+                                                        <td>
+                                                        <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#modalDefaultStatus-{{ $item?->id }}">{!! $item?->status() !!}</button>
+
+                                                        </td>
 
                                                         <td>{{ $item?->created_at->format('d-M-Y') }}</td>
 
@@ -88,6 +91,39 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                             <div class="modal fade" tabindex="-1" id="modalDefaultStatus-{{ $item?->id }}"  aria-modal="true" role="dialog">
+                                                         <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title">Modal Title</h5>
+                                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <em class="icon ni ni-cross"></em>
+                                                        </a>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        <form action="{{ route('admin.updateStatus') }}" method="POST">
+                                                            @csrf
+                                                            <input type="hidden" name="form_id" value="{{ $item?->id }}">
+                                                            <div class="row">
+                                                                <div class="col-lg-10">
+                                                                    <select name="status" class="form-control" id="">
+                                                                        <option selected disabled>Select Status</option>
+                                                                        <option value="pending">Pending</option>
+                                                                        <option value="in-progress">In-Progress</option>
+                                                                        <option value="completed">Completed</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-8 mt-3">
+                                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+
                                         @endforeach
                                     </div>
                                 </div>

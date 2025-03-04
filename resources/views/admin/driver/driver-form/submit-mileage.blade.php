@@ -22,65 +22,79 @@
                             <div class="row g-gs">
 
                                 <div class="col-lg-12">
-                                    <div class="card card-bordered h-100">
-                                        <div class="card-inner">
+                                     <div class="card card-bordered card-preview">
+                                <div class="card-inner">
+                                    <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                        <div class="datatable-wrap- my-3">
+                                            <table class="datatable-init nowrap table" data-export-title="Export">
+                                                <thead>
+                                                <tr>
+                                                    <th>S/N</th>
+                                                    <th>Booking No</th>
+                                                    <th>Reported By</th>
+                                                    <th>Last Recorded</th>
+{{--                                                    <th>Submitted by</th>--}}
+{{--                                                    <th>Submission date</th>--}}
+                                                    <th>Mileage</th>
+                                                    <th>Total Mileage</th>
+                                                    <th>Image</th>
+                                                    <th>Status</th>
+                                                    <th>Reported on</th>
+                                                </tr>
 
-                                            <form action="{{ route('admin.submitDriverForm', $form->id) }}" method="POST" enctype="multipart/form-data">
-                                                @csrf
-                                                <input type="hidden" name="driver_id" value="{{ $driver->id }}">
-                                                <input type="hidden" name="form_id" value="{{ $form->id }}">
+                                                </thead>
+                                                <tbody>
+
+                                                @foreach($data as $item)
+
+                                                    <tr>
+                                                        <td>{{ $loop->index + 1 }}</td>
+                                                        <td><a wire:navigate href="{{ route('admin.bookings.show', $item?->booking?->id) }}"> {{ $item?->booking?->booking_number }}</a></td>
+                                                        <td>
+                                                           {{  $item?->booking?->customer->fullname() }}
+                                                        </td>
+                                                        <td>{{ $item->mileage['last_recorded_mileage'] ?? $item->mileage['mileage']}}</td>
+
+{{--                                                        <td>{{ $item->mileage['submitted_by'] ?? ''}}</td>--}}
+{{--                                                        <td>{{ $item->created_at->format('d-M-y') ?? ''}}</td>--}}
+                                                        <td>{{ $item->mileage['mileage'] ?? ''}}</td>
+                                                        <td>{{ $item->mileage['total_mileage']+$sumMileage ?? ''}}</td>
+                                                        <td><img height="50" width="50" src="{{ asset($item->mileage['image']) }}" alt="">
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item->id }}"><em class="icon ni ni-eye"></em></a>
+                                                        </td>
+                                                        <td><span class="badge badge-dim bg-warning"> {{ $item->status }}</span></td>
+
+                                                        <td>{{ $item?->created_at->format('d-M-Y') }}</td>
 
 
-
-                                                <div class="container mt-4">
-                                                    <div class="mb-4">
-                                                        <h4 class="title nk-block-title">Mileage Details</h4>
-                                                    </div>
-
-                                                    <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="last_recorded_mileage">Last recorded mileage</label>
-                                                        <input type="text" class="form-control" id="last_recorded_mileage"
-                                                               name="mileage[last_recorded_mileage]"
-                                                               value="{{ old('mileage.last_recorded_mileage', $selectedForm->mileage['last_recorded_mileage'] ?? $form->mileage['last_recorded_mileage'] ?? '') }}" >
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="submitted_by">Submitted by</label>
-                                                        <input type="text" class="form-control" id="submitted_by"
-                                                               name="mileage[submitted_by]"
-                                                               value="{{ old('mileage.submitted_by', $selectedForm->mileage['submitted_by'] ?? $form->mileage['submitted_by'] ?? '') }}" >
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="submission_date">Submission date</label>
-                                                        <input type="date" class="form-control" id="submission_date"
-                                                               name="mileage[submission_date]"
-                                                               value="{{ old('mileage.submission_date', $selectedForm->mileage['submission_date'] ?? $form->mileage['submission_date'] ?? '') }}" >
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="enter_mileage">Enter mileage</label>
-                                                        <input type="text" class="form-control" id="enter_mileage"
-                                                               name="mileage[enter_mileage]"
-                                                               value="{{ old('mileage.enter_mileage', $selectedForm->mileage['enter_mileage'] ?? $form->mileage['enter_mileage'] ?? '') }}" >
-                                                    </div>
-                                                    <div class="col-md-5 col-sm-6">
-                                                        @include('admin.partials.image-upload', [
-                                                            'field' => 'mileage[image]',
-                                                            'image' => $selectedForm->mileage['image'] ?? '',
-                                                            'id' => 'file' . Str::uuid(),
-                                                            'title' => 'Upload Image',
-                                                            'colSize' => 'col-md-8 col-sm-6',
-                                                            ])
-                                                    </div>
-                                                </div>
-
-                                                </div>
-
-                                                <div class="form-group mt-3">
-                                                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-                                                </div>
-                                            </form>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        @foreach($data as $item)
+                                            <div class="modal fade" tabindex="-1" id="modalDefault-{{ $item->id }}"  role="dialog">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Mileage Image</h5>
+                                                        <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <em class="icon ni ni-cross"></em>
+                                                        </a>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="{{ asset($item->mileage['image']) }}" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                     </div>
+                                </div>
+                            </div>
+
+                                    <br>
+
                                 </div>
                             </div>
                         </div>

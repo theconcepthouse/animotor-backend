@@ -13,8 +13,10 @@ use App\Models\Payment;
 use App\Models\Rate;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehicleMileage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DriverFormController extends Controller
 {
@@ -93,6 +95,15 @@ class DriverFormController extends Controller
             ->whereRaw('LOWER(item) = ?', ['road tax'])
             ->sum('price');
 
+
+         $data = VehicleMileage::where('user_id', $driver->id)->get();
+         $bookingIds = $driver->bookings->pluck('id')->toArray(); // Ensure it's an array
+
+        $sumMileage = VehicleMileage::whereIn('booking_id', $bookingIds)
+            ->whereNotNull('mileage')
+            ->sum(DB::raw("CAST(JSON_UNQUOTE(JSON_EXTRACT(mileage, '$.mileage')) AS DECIMAL(10,2))"));
+
+
         return match ($form->name) {
             'Customer Registration' => view('admin.driver.driver-form.customer-registration', compact('driver', 'form', 'selectedForm')),
             'Onboarding Form' => view('admin.driver.driver-form.onboarding-form', compact('driver', 'form', 'selectedForm', 'driverForm', 'vehicles', 'priceSum', 'rates')),
@@ -107,7 +118,7 @@ class DriverFormController extends Controller
             'Report Accident' => view('admin.driver.driver-form.report-accident', compact('driver', 'form', 'selectedForm')),
             'Change of Address' => view('admin.driver.driver-form.change-address', compact('driver', 'form', 'selectedForm')),
             'Monthly Maintenance' => view('admin.driver.driver-form.monthly-maintenance', compact('driver', 'form', 'selectedForm')),
-            'Submit Mileage' => view('admin.driver.driver-form.submit-mileage', compact('driver', 'form', 'selectedForm')),
+            'Submit Mileage' => view('admin.driver.driver-form.submit-mileage', compact('data', 'form', 'driver', 'sumMileage')),
 
             default => redirect()->back()->with('error', 'Form not found or not authorized to view this form.'),
         };
@@ -979,6 +990,15 @@ class DriverFormController extends Controller
         $driverForm->save();
 
         return redirect()->back()->with('success', 'Refusal conviction updated successfully.');
+    }
+
+
+    public function userVehicleMileage($userId, $formId)
+    {
+        $user = User::find($userId);
+        $data = VehicleMileage::where('user_id', $user->id)->get();
+        $form = DriverForm::find($formId);
+        return view('admin.driver.driver-form', compact('data', 'userId', 'form'));
     }
 
 

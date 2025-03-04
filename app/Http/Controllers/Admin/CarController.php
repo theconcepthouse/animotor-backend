@@ -34,12 +34,11 @@ class CarController extends Controller
     {
        $validatedData = $this->validateData($request);
 
-       $ani_motor = Company::where('contact_name', 'animotor')->first();
-
         if(isOwner()){
             $validatedData['company_id'] = companyId();
         }
 
+         $ani_motor = Company::where('contact_name', 'animotor')->first();
         if(auth()->user()->hasRole('superadmin|admin')){
             $validatedData['company_id'] = $ani_motor->id;
         }

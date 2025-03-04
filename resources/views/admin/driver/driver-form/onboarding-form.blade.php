@@ -201,7 +201,7 @@
                                                                    value="{{ old('charges.repossession_personal_visit_minimum', $form->charges['repossession_personal_visit_minimum'] ?? '') }}">
                                                         </div>
                                                         <div class="form-group col-md-4">
-                                                            <label for="milage_limit">Milage limit</label>
+                                                            <label for="milage_limit">Mileage limit</label>
                                                             <div class="form-check">
                                                                 <input class="form-check-input" type="radio" name="charges[milage_limit]" id="milage_limit_Yes" value="Yes"
                                                                        {{ old('charges.milage_limit', $form->charges['milage_limit'] ?? '') == 'Yes' ? 'checked' : '' }}>

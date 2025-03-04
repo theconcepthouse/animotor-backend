@@ -10,7 +10,7 @@ class VehicleMileage extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['car_id', 'booking_id', 'mileage', 'status'];
+    protected $fillable = ['user_id', 'car_id', 'booking_id', 'mileage', 'status'];
 
     protected $casts = [
         'mileage' => 'array'

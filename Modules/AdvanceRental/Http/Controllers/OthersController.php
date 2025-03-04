@@ -7,6 +7,7 @@ use App\Models\DriverForm;
 use App\Models\VehicleMileage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OthersController
 {
@@ -78,24 +79,34 @@ class OthersController
     public function createMileage($bookingId)
     {
         $booking = Booking::findOrFail($bookingId);
-        $mileage = VehicleMileage::where('booking_id', $booking->id)->first();
+        $mileage = VehicleMileage::where('booking_id', $booking->id)->latest()->first();
+
+        $form = DriverForm::where('driver_id', $booking->customer_id)->first();
         $user = Auth::user();
-        return view('advancerental::others.view_mileage', compact('mileage', 'user', 'booking'));
+        $sum_mileage = VehicleMileage::where('booking_id', $booking->id)
+                    ->sum(DB::raw("JSON_UNQUOTE(JSON_EXTRACT(mileage, '$.mileage'))"));
+
+        return view('advancerental::others.view_mileage', compact('mileage', 'user', 'booking', 'form', 'sum_mileage'));
     }
 
     public function storeMileage(Request $request)
     {
         $validatedData = $this->validateData($request);
-
-        $mileage = VehicleMileage::where('booking_id', $validatedData['booking_id'])->first();
-        if ($mileage) {
-            $mileage->update($validatedData);
-            return redirect()->back()->with('success', 'Vehicle mileage successfully updated.');
-        }
-
+        $validatedData['user_id'] = Auth::id();
         VehicleMileage::create($validatedData);
         return redirect()->back()->with('success', 'Vehicle mileage successfully submitted.');
     }
+    function validateData(Request $request): array
+    {
+        $rules = [
+            'booking_id' => 'required',
+            'car_id' => 'required',
+            'mileage.*' => 'nullable',
+        ];
+
+        return $request->validate($rules);
+    }
+
 
 
     public function storeMileage2(Request $request)
@@ -138,15 +149,6 @@ class OthersController
     }
 
 
-    function validateData(Request $request): array
-    {
-        $rules = [
-            'booking_id' => 'required',
-            'car_id' => 'required',
-            'mileage.*' => 'required',
-        ];
 
-        return $request->validate($rules);
-    }
 
 }

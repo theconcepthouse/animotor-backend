@@ -36,39 +36,77 @@
 
                                             <form action="{{ route('storeMileage') }}" method="POST" enctype="multipart/form-data">
                                                 @csrf
+
+                                                @if ($errors->any())
+                                                    <div class="alert alert-danger">
+                                                        <ul>
+                                                            @foreach ($errors->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
+
                                                 <input type="hidden" name="car_id" value="{{ $booking->car_id }}">
                                                 <input type="hidden" name="booking_id" value="{{ $booking->id }}">
 
 
                                                 <div class="container mt-4 ">
                                                     <div class="mb-4">
-                                                        <h4 class="title nk-block-title">Mileage Details</h4>
+                                                        <h4 class="title nk-block-title">Initial Mileage Details</h4>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                        <label for="last_recorded_mileage">Initial mileage</label>
+                                                        <input style="background-color: #eae7e7" type="text" class="form-control" id="last_recorded_mileage"
+                                                               value="{{ $form['charges']['milage_limit_value'] ?? '' }}" readonly>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="submitted_by">Submitted by</label>
+                                                        <input style="background-color: #eae7e7" type="text" class="form-control" id="submitted_by"
+                                                               value="ANI-Motor"  readonly>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="submission_date">Submission date</label>
+                                                        <input style="background-color: #eae7e7" type="text" class="form-control" id="submission_date"
+                                                               value="{{  $form?->updated_at->format('d-M-Y') ?? '' }}" readonly>
+                                                    </div>
+                                                    </div>
+                                                    <br>
+
+                                                    <div class="mb-4">
+                                                        <h4 class="title nk-block-title">Customer Recorded Mileage Details</h4>
                                                     </div>
 
                                                     <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="last_recorded_mileage">Last recorded mileage</label>
+                                                        <div class="row">
+                                                      <div class="form-group col-md-4">
+                                                        <label for="last_recorded_mileage">Last recorded mileage (Total Mileage:
+{{--                                                            <span class="text-danger">{{ $form['charges']['milage_limit_value'] + $sum_mileage }}</span>)</label>--}}
                                                         <input type="text" class="form-control" id="last_recorded_mileage"
                                                                name="mileage[last_recorded_mileage]"
-                                                               value="{{ old('mileage.last_recorded_mileage', $mileage->mileage['last_recorded_mileage'] ?? '') }}" >
-                                                    </div>
+                                                               value="{{ old('mileage.mileage', $mileage->mileage['mileage'] ?? '') }}" readonly>
+                                                            <small class="text-info">This field will auto-fill</small>
+                                                     </div>
+{{--                                                      <input type="hidden" name="mileage[total_mileage]" value="{{ optional($form['charges']['milage_limit_value'] + $sum_mileage)?? '' }}">--}}
                                                     <div class="form-group col-md-4">
                                                         <label for="submitted_by">Submitted by</label>
                                                         <input type="text" class="form-control" id="submitted_by"
                                                                name="mileage[submitted_by]"
-                                                               value="{{ old('mileage.submitted_by', $mileage->mileage['submitted_by'] ?? '') }}" >
+                                                               value="{{ $booking?->customer->fullname() ?? '' }}"  readonly>
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="submission_date">Submission date</label>
-                                                        <input type="date" class="form-control" id="submission_date"
-                                                               name="mileage[submission_date]"
-                                                               value="{{ old('mileage.submission_date', $mileage->mileage['submission_date'] ?? '') }}" >
+                                                        <input type="text" class="form-control" id="submission_date"
+                                                               value="{{ $mileage?->created_at->format('d-M-Y') ?? 'Not Set' }}" readonly>
+                                                        <small class="text-info">This field will auto-fill</small>
                                                     </div>
+                                                    </div>
+
                                                     <div class="form-group col-md-4">
-                                                        <label for="enter_mileage">Enter mileage</label>
+                                                        <label for="enter_mileage">Enter Current Mileage</label>
                                                         <input type="text" class="form-control" id="enter_mileage"
-                                                               name="mileage[enter_mileage]"
-                                                               value="{{ old('mileage.enter_mileage', $mileage->mileage['enter_mileage'] ?? '') }}" >
+                                                               name="mileage[mileage]" required>
                                                     </div>
                                                     <div class="col-md-5 col-sm-6">
                                                         @include('admin.partials.image-upload', [

@@ -81,9 +81,9 @@ class Booking extends Model
         return $this->belongsTo(Region::class);
     }
 
-    public function vehicle_mileage(): HasOne
+    public function vehicle_mileage(): HasMany
     {
-        return $this->hasOne(VehicleMileage::class);
+        return $this->hasMany(VehicleMileage::class);
     }
 
 

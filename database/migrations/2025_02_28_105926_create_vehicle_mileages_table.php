@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicle_mileages', function (Blueprint $table) {
             $table->uuid('id')->index();
+            $table->uuid('user_id');
             $table->uuid('car_id');
             $table->uuid('booking_id');
             $table->string('status')->default('pending');

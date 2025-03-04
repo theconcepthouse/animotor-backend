@@ -29,18 +29,19 @@
                                                     <th>S/N</th>
                                                     <th>Booking No</th>
                                                     <th>Reported By</th>
-                                                    <th>Last recorded mileage</th>
-                                                    <th>Submitted by</th>
-                                                    <th>Submission date</th>
+                                                    <th>Last Recorded</th>
+{{--                                                    <th>Submitted by</th>--}}
+{{--                                                    <th>Submission date</th>--}}
                                                     <th>Mileage</th>
+                                                    <th>Total Mileage</th>
                                                     <th>Image</th>
                                                     <th>Status</th>
                                                     <th>Reported on</th>
-{{--                                                    <th>Action</th>--}}
                                                 </tr>
 
                                                 </thead>
                                                 <tbody>
+
                                                 @foreach($data as $item)
 
                                                     <tr>
@@ -49,17 +50,18 @@
                                                         <td>
                                                            {{  $item?->booking?->customer->fullname() }}
                                                         </td>
-                                                        <td>{{ $item->mileage['last_recorded_mileage'] ?? ''}}</td>
+                                                        <td>{{ $item->mileage['last_recorded_mileage'] ?? $item->mileage['mileage']}}</td>
 
-                                                        <td>{{ $item->mileage['submitted_by'] ?? ''}}</td>
-                                                        <td>{{ $item->mileage['submission_date'] ?? ''}}</td>
-                                                        <td>{{ $item->mileage['enter_mileage'] ?? ''}}</td>
+{{--                                                        <td>{{ $item->mileage['submitted_by'] ?? ''}}</td>--}}
+{{--                                                        <td>{{ $item->created_at->format('d-M-y') ?? ''}}</td>--}}
+                                                        <td>{{ $item->mileage['mileage'] ?? ''}}</td>
+                                                        <td>{{ $item->mileage['total_mileage']+$item->mileage['mileage'] ?? ''}}</td>
                                                         <td><img height="50" width="50" src="{{ asset($item->mileage['image']) }}" alt="">
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item->id }}"><em class="icon ni ni-eye"></em></a>
                                                         </td>
                                                         <td><span class="badge badge-dim bg-warning"> {{ $item->status }}</span></td>
 
-                                                        <td>{{ $item?->created_at->format('d-m-Y') }}</td>
+                                                        <td>{{ $item?->created_at->format('d-M-Y') }}</td>
 
 
                                                     </tr>

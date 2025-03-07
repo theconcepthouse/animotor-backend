@@ -4,6 +4,8 @@ namespace Modules\AdvanceRental\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\DriverForm;
+use App\Models\MonthlyMaintenace;
+use App\Models\MonthlyRepair;
 use App\Models\VehicleMileage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,7 +86,7 @@ class OthersController
         $form = DriverForm::where('driver_id', $booking->customer_id)->first();
         $user = Auth::user();
         $sum_mileage = VehicleMileage::where('booking_id', $booking->id)
-                    ->sum(DB::raw("JSON_UNQUOTE(JSON_EXTRACT(mileage, '$.mileage'))"));
+            ->sum(DB::raw("JSON_UNQUOTE(JSON_EXTRACT(mileage, '$.mileage'))"));
 
         return view('advancerental::others.view_mileage', compact('mileage', 'user', 'booking', 'form', 'sum_mileage'));
     }
@@ -96,6 +98,8 @@ class OthersController
         VehicleMileage::create($validatedData);
         return redirect()->back()->with('success', 'Vehicle mileage successfully submitted.');
     }
+
+
     function validateData(Request $request): array
     {
         $rules = [
@@ -107,46 +111,39 @@ class OthersController
         return $request->validate($rules);
     }
 
-
-
-    public function storeMileage2(Request $request)
+    public function createMM($bookingId)
     {
-        // Validate the incoming request data
+        $booking = Booking::findOrFail($bookingId);
+        $monthly_main = MonthlyMaintenace::where('booking_id', $booking->id)->latest()->first();
+        $data = MonthlyRepair::where('monthly_maintenaces_id', $monthly_main->id)->get();
+        $user = Auth::user();
+        return view('advancerental::others.monthly_maintenance', compact('booking', 'monthly_main', 'user', 'data'));
+    }
+
+    public function storeMonthlyMaintenance(Request $request)
+    {
         $validatedData = $request->validate([
-            'mileage.last_recorded_mileage' => 'required|string|max:255',
-            'mileage.submitted_by' => 'required|string|max:255',
-            'mileage.submission_date' => 'required|date',
-            'mileage.enter_mileage' => 'required|string|max:255',
-            'mileage.image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'booking_id' => 'required',
+            'car_id' => 'required',
+            'inspection.*' => 'nullable',
         ]);
 
-        // Find the DriverForm record for the current driver
-        $driverId = $request->input('driver_id');
-        $form = DriverForm::where('driver_id', $driverId)->first();
-
-        if ($form) {
-            // Handle image upload
-
-            if ($form) {
-                // Update the mileage fields
-                $form->mileage = [
-                    'last_recorded_mileage' => $validatedData['mileage']['last_recorded_mileage'],
-                    'submitted_by' => $validatedData['mileage']['submitted_by'],
-                    'submission_date' => $validatedData['mileage']['submission_date'],
-                    'enter_mileage' => $validatedData['mileage']['enter_mileage'],
-                    'image' => $validatedData['mileage']['image'],
-                ];
-
-                // Save the updated form
-                $form->save();
-
-                return redirect()->back()->with('success', 'Mileage details updated successfully.');
-            } else {
-                // Handle the case where the DriverForm record does not exist
-                return redirect()->back()->with('error', 'Driver form not found.');
-            }
-        }
+        $validatedData['user_id'] = Auth::id();
+        MonthlyMaintenace::create($validatedData);
+        return redirect()->back()->with('success', 'Monthly maintenance successfully submitted.');
     }
+
+    public function storeMonthlyRepair(Request $request)
+    {
+        $validatedData = $request->validate([
+            'monthly_maintenaces_id' => 'required',
+            'repairs.*' => 'nullable',
+        ]);
+
+        MonthlyRepair::create($validatedData);
+        return redirect()->back()->with('success', 'Monthly maintenance successfully submitted.');
+    }
+
 
 
 

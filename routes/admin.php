@@ -270,6 +270,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
     Route::get('vehicle/mileage', [OtherVehicleController::class, 'mileage'])->name('vehicle.mileage');
     Route::get('vehicle/inspection', [OtherVehicleController::class, 'vehicleInspection'])->name('vehicle.inspection');
+    Route::post('update/mileage/status', [OtherVehicleController::class,'updateMileageStatus'])->name('updateMileageStatus');
 
 });
 

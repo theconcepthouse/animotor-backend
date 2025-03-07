@@ -81,8 +81,9 @@
                                                     <div class="row">
                                                         <div class="row">
                                                       <div class="form-group col-md-4">
-                                                        <label for="last_recorded_mileage">Last recorded mileage (Total Mileage:
-                                                            <span class="text-danger">{{ ($form['charges']['milage_limit_value'] ?? 0) + ($sum_mileage ?? 0) }}</span>)</label>
+                                                        <label for="last_recorded_mileage">Current Mileage
+{{--                                                            <span class="text-danger">{{ ($form['charges']['milage_limit_value'] ?? 0) + ($sum_mileage ?? 0) }}</span>)--}}
+                                                        </label>
                                                         <input type="text" class="form-control" id="last_recorded_mileage"
                                                                name="mileage[last_recorded_mileage]"
                                                                value="{{ old('mileage.mileage', $mileage->mileage['mileage'] ?? '') }}" readonly>
@@ -104,7 +105,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="enter_mileage">Enter Current Mileage</label>
+                                                        <label for="enter_mileage">Enter Mileage</label>
                                                         <input type="text" class="form-control" id="enter_mileage"
                                                                name="mileage[mileage]" required>
                                                     </div>

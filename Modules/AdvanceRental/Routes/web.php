@@ -40,6 +40,10 @@ Route::prefix('advancerental')->middleware('auth')->group(function() {
     Route::post('store/change-of-address/', [OthersController::class,'storeChangeAddress'])->name('storeChangeAddress');
     Route::get('create/mileage/{bookingId}', [OthersController::class,'createMileage'])->name('createMileage');
     Route::post('store/mileage', [OthersController::class,'storeMileage'])->name('storeMileage');
+    Route::get('create/monthly/maintenance/{bookingId}', [OthersController::class,'createMM'])->name('createMM');
+    Route::post('store/monthly/maintenance/', [OthersController::class,'storeMonthlyMaintenance'])->name('storeMonthlyMaintenance');
+    Route::post('store/monthly/repair/', [OthersController::class,'storeMonthlyRepair'])->name('storeMonthlyRepair');
+
 
 });
 

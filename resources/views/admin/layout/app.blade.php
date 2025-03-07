@@ -361,12 +361,7 @@
         'route' => 'cars-read',
         'icon' => 'ni ni-activity',
     ];
-    $menuArray[] = [
-        'url' => route('admin.vehicle.mileage'),
-        'text' => 'Vehicle Mileage',
-        'route' => 'cars-read',
-        'icon' => 'ni ni-speed',
-    ];
+
 
 
     $menuArray[] = [

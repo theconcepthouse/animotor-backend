@@ -9,6 +9,8 @@ use App\Models\Form;
 use App\Models\FormData;
 use App\Models\History;
 use App\Models\HistoryData;
+use App\Models\MonthlyMaintenace;
+use App\Models\MonthlyRepair;
 use App\Models\Payment;
 use App\Models\Rate;
 use App\Models\User;
@@ -96,12 +98,15 @@ class DriverFormController extends Controller
             ->sum('price');
 
 
-         $data = VehicleMileage::where('user_id', $driver->id)->get();
+         $data = VehicleMileage::where('user_id', $driver->id)->latest()->get();
          $bookingIds = $driver->bookings->pluck('id')->toArray(); // Ensure it's an array
 
         $sumMileage = VehicleMileage::whereIn('booking_id', $bookingIds)
             ->whereNotNull('mileage')
             ->sum(DB::raw("CAST(JSON_UNQUOTE(JSON_EXTRACT(mileage, '$.mileage')) AS DECIMAL(10,2))"));
+
+       $monthly_main = MonthlyMaintenace::where('user_id', $driver->id)->latest()->get();
+        $monthly_repairs = MonthlyRepair::whereIn('monthly_maintenaces_id', $monthly_main->pluck('id'))->latest()->get();
 
 
         return match ($form->name) {
@@ -117,7 +122,7 @@ class DriverFormController extends Controller
             'Report Vehicle Defect' => view('admin.driver.driver-form.report-defect', compact('driver', 'form', 'selectedForm')),
             'Report Accident' => view('admin.driver.driver-form.report-accident', compact('driver', 'form', 'selectedForm')),
             'Change of Address' => view('admin.driver.driver-form.change-address', compact('driver', 'form', 'selectedForm')),
-            'Monthly Maintenance' => view('admin.driver.driver-form.monthly-maintenance', compact('driver', 'form', 'selectedForm')),
+            'Monthly Maintenance' => view('admin.driver.driver-form.monthly-maintenance', compact('driver', 'form', 'monthly_main', 'monthly_repairs')),
             'Submit Mileage' => view('admin.driver.driver-form.submit-mileage', compact('data', 'form', 'driver', 'sumMileage')),
 
             default => redirect()->back()->with('error', 'Form not found or not authorized to view this form.'),
@@ -246,7 +251,6 @@ class DriverFormController extends Controller
 
         return redirect()->back()->with('success', 'Form submitted successfully.');
     }
-
 
     public function updateStatus(Request $request)
     {
@@ -991,7 +995,6 @@ class DriverFormController extends Controller
 
         return redirect()->back()->with('success', 'Refusal conviction updated successfully.');
     }
-
 
     public function createUserForm($userId)
     {

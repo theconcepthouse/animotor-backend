@@ -65,7 +65,7 @@
                 </a>
             </div>
             <div class="col-12 mt-4 justify-content-center">
-                <a href="{{ route('vehicle_inspection.create',$booking->id) }}" class="cmn__btn">
+                <a href="{{ route('createMM',$booking->id) }}" class="cmn__btn">
                     <span>Monthly Maintenance</span>
                 </a>
             </div>

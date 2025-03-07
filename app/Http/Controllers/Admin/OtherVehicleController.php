@@ -15,7 +15,6 @@ class OtherVehicleController extends Controller
     public function mileage()
     {
         $data = VehicleMileage::all();
-//        $form = DriverForm::where('driver_id', $data->user_id)->first();
         return view('admin.othervehicle.mileage', compact('data', ));
     }
 
@@ -24,6 +23,16 @@ class OtherVehicleController extends Controller
         $data = \Modules\AdvanceRental\Entities\VehicleInspection::all();
         return view('admin.othervehicle.vehicle-inspectioon', compact('data'));
     }
+
+    public function updateMileageStatus(Request $request)
+    {
+        $mileageId = $request->input('mileageId');
+        $milage = VehicleMileage::find($mileageId);
+        $milage->status = $request->input('status');
+        $milage->save();
+        return redirect()->back()->with('success', 'Mileage Status successfully updated.');
+    }
+
 
 
 

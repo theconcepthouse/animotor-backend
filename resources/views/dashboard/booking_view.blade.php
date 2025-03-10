@@ -60,7 +60,7 @@
                 </a>
             </div>
             <div class="col-12 mt-4 justify-content-center">
-                <a href="#" class="cmn__btn">
+                <a href="{{ route('viewPCN') }}" class="cmn__btn">
                     <span>PCNs</span>
                 </a>
             </div>

@@ -44,6 +44,7 @@ Route::prefix('advancerental')->middleware('auth')->group(function() {
     Route::post('store/monthly/maintenance/', [OthersController::class,'storeMonthlyMaintenance'])->name('storeMonthlyMaintenance');
     Route::get('create/monthly/repair/{id}/{bookingId}', [OthersController::class,'createMonthlyRepair'])->name('createMonthlyRepair');
     Route::post('store/monthly/repair/', [OthersController::class,'storeMonthlyRepair'])->name('storeMonthlyRepair');
+    Route::get('view/pcn/', [OthersController::class,'viewPCN'])->name('viewPCN');
 
 
 });

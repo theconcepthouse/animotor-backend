@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Addons\pcn;
 use App\Models\Booking;
 use App\Models\DriverForm;
+use App\Models\DriverPcn;
 use App\Models\MonthlyMaintenace;
 use App\Models\MonthlyRepair;
 use App\Models\User;
@@ -48,6 +50,7 @@ class OtherVehicleController extends Controller
         $milage->save();
         return redirect()->back()->with('success', 'Status successfully updated.');
     }
+
 
 
 

@@ -4,6 +4,7 @@ namespace Modules\AdvanceRental\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\DriverForm;
+use App\Models\DriverPcn;
 use App\Models\MonthlyMaintenace;
 use App\Models\MonthlyRepair;
 use App\Models\VehicleMileage;
@@ -132,7 +133,7 @@ class OthersController
 
         // Check if an ID is provided in the request and a record exists
         if ($request->has('id') && MonthlyMaintenace::find($request->input('id'))) {
-            // Update existing record
+
             $data = MonthlyMaintenace::find($request->input('id'));
             $data->update($validatedData);
             $message = 'Monthly maintenance successfully updated.';
@@ -164,6 +165,12 @@ class OthersController
 
         MonthlyRepair::create($validatedData);
         return redirect()->back()->with('success', 'Monthly maintenance successfully submitted.');
+    }
+
+    public function viewPCN()
+    {
+        $pcn = DriverPcn::where('driver_id', auth()->id())->latest()->get();
+        return view('advancerental::others.view-pcn', compact('pcn', ));
     }
 
 

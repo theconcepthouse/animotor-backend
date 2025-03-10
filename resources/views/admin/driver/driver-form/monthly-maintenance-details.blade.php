@@ -144,9 +144,8 @@
                     </a>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.updateMileageStatus') }}" method="POST">
+                    <form action="{{ route('admin.updateMMStatus', $data->id) }}" method="POST">
                         @csrf
-                        <input type="hidden" name="mileageId" value="{{ $data?->id }}">
                         <div class="row">
                             <div class="col-lg-10">
                                 <select name="status" class="form-control" id="">

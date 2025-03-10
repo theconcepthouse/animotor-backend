@@ -99,7 +99,7 @@
                                                         </a>
                                                         </div>
                                                         <div class="modal-body">
-                                                        <form action="{{ route('admin.updateMileageStatus') }}" method="POST">
+                                                        <form action="{{ route('admin.updateMMStatus', $item->id) }}" method="POST">
                                                             @csrf
                                                             <input type="hidden" name="mileageId" value="{{ $item?->id }}">
                                                             <div class="row">

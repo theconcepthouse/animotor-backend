@@ -996,13 +996,6 @@ class DriverFormController extends Controller
         return redirect()->back()->with('success', 'Refusal conviction updated successfully.');
     }
 
-    public function viewMonthlyRepairs($id)
-    {
-        $data = MonthlyMaintenace::findOrFail($id);
-        $repairs = MonthlyRepair::where('monthly_maintenaces_id', $data->id)->get();
-        return view('admin.driver.driver-form.monthly-maintenance-details', compact('data', 'repairs'));
-    }
-
     public function createUserForm($userId)
     {
          $user = User::find($userId);

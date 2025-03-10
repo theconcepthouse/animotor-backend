@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Admin\AdminController;
+
 //use App\Http\Controllers\Admin\Appointment;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\CancellationReasonController;
@@ -55,8 +56,7 @@ use Modules\AdvanceRental\Http\Controllers\IncidentController;
 */
 
 
-
-Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'prefix' => 'admin', 'as' => 'admin.'], function() {
+Route::group(['middleware' => ['auth', 'role:admin|superadmin|owner|manager'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('backup-manager', [AdminController::class, 'backupManager'])->name('backup-manager')->middleware('surd_core');
@@ -93,45 +93,44 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::resource('documents', DocumentController::class);
 
     Route::resource('cars', CarController::class);
-    Route::get('car/{id}/extras', [CarController::class,'extras'])->name('car.extras');
+    Route::get('car/{id}/extras', [CarController::class, 'extras'])->name('car.extras');
 
 
     Route::resource('rental', RentalController::class);
 
     Route::resource('regions', RegionController::class);
-    Route::get('region/{id}/airports', [RegionController::class,'airports'])->name('regions.airports');
-    Route::get('region/all_zones/{id?}', [RegionController::class,'getAllZoneCordinates'])->name('regions.all_coordinates');
-    Route::get('region/region/search', [RegionController::class,'search'])->name('regions.search');
+    Route::get('region/{id}/airports', [RegionController::class, 'airports'])->name('regions.airports');
+    Route::get('region/all_zones/{id?}', [RegionController::class, 'getAllZoneCordinates'])->name('regions.all_coordinates');
+    Route::get('region/region/search', [RegionController::class, 'search'])->name('regions.search');
 
 
     Route::resource('cancellation_reasons', CancellationReasonController::class);
 
-    Route::get('trips/{status}', [TripRequestController::class,'index'])->name('trips.index');
-    Route::get('trip/{id}', [TripRequestController::class,'show'])->name('trip.show');
-    Route::get('trip/delete/{id}', [TripRequestController::class,'deleteTrip'])->name('trip.delete');
-    Route::get('drivers/{status}', [DriversController::class,'index'])->name('drivers.index');
-    Route::get('drivers', [DriversController::class,'all'])->name('drivers');
-    Route::get('driver/{id}/documents', [DriversController::class,'documents'])->name('driver.documents');
+    Route::get('trips/{status}', [TripRequestController::class, 'index'])->name('trips.index');
+    Route::get('trip/{id}', [TripRequestController::class, 'show'])->name('trip.show');
+    Route::get('trip/delete/{id}', [TripRequestController::class, 'deleteTrip'])->name('trip.delete');
+    Route::get('drivers/{status}', [DriversController::class, 'index'])->name('drivers.index');
+    Route::get('drivers', [DriversController::class, 'all'])->name('drivers');
+    Route::get('driver/{id}/documents', [DriversController::class, 'documents'])->name('driver.documents');
 //    Route::post('driver/update/document', [DriversController::class,'updateDocument'])->name('driver.document.update');
 
     Route::resource('currencies', CurrencyController::class);
-    Route::resource('menus', MenuController::class)->only('store','update');
+    Route::resource('menus', MenuController::class)->only('store', 'update');
     Route::resource('menu_items', MenuItemController::class)->except('index');
-    Route::post('menu/delete', [MenuController::class,'delete'])->name('menus.delete');
-    Route::post('currency/delete/all', [CurrencyController::class,'deleteAll'])->name('currencies.delete_all');
+    Route::post('menu/delete', [MenuController::class, 'delete'])->name('menus.delete');
+    Route::post('currency/delete/all', [CurrencyController::class, 'deleteAll'])->name('currencies.delete_all');
     Route::resource('services', ServiceController::class);
     Route::resource('companies', CompanyController::class);
 
-    Route::get('bookings', [BookingController::class,'index'])->name('bookings.index');
-    Route::get('bookings/show/{id}', [BookingController::class,'show'])->name('bookings.show');
-    Route::post('bookings/update_status', [BookingController::class,'updateStatus'])->name('bookings.update_status');
-    Route::post('bookings/confirm/{id}', [BookingController::class,'confirmBooking'])->name('bookings.confirm');
+    Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::get('bookings/show/{id}', [BookingController::class, 'show'])->name('bookings.show');
+    Route::post('bookings/update_status', [BookingController::class, 'updateStatus'])->name('bookings.update_status');
+    Route::post('bookings/confirm/{id}', [BookingController::class, 'confirmBooking'])->name('bookings.confirm');
 
     Route::put('/api/toggle/{modelId}', [SettingsController::class, 'toggle']);
 
 
-
-    Route::group(['prefix' => 'settings'], function() {
+    Route::group(['prefix' => 'settings'], function () {
         Route::any('pages', [SettingsController::class, 'pages'])->name('setting.pages');
         Route::get('page/builder/{id}', [SettingsController::class, 'pageBuilder'])->name('setting.page.builder');
         Route::post('page/content/store', [SettingsController::class, 'pageContentStore'])->name('setting.page.content.store');
@@ -156,15 +155,14 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
         Route::post('permission/update/{id}', [RolesController::class, 'updatePermission'])->name('permission.update');
 
 
-
         Route::delete('/pages/{id}', [SettingsController::class, 'destroyPage'])->name('setting.page.destroy');
         Route::delete('/page/content/{id}', [SettingsController::class, 'destroyPageContent'])->name('setting.page.content.destroy');
 
     });
 
 
-    Route::group(['prefix' => 'api'], function() {
-        Route::get('get/models', [VehicleModelController::class,'getByMake'])->name('api.get.models');
+    Route::group(['prefix' => 'api'], function () {
+        Route::get('get/models', [VehicleModelController::class, 'getByMake'])->name('api.get.models');
 
 
     });
@@ -259,7 +257,6 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('/store/criminal/conviction', [DriverFormController::class, 'saveCriminalConvictions'])->name('saveCriminalConvictions');
     Route::post('/update/criminal/conviction', [DriverFormController::class, 'updateCriminalConvictions'])->name('updateCriminalConvictions');
     Route::post('/save/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
-    Route::get('/view/monthly/repairs/{id}', [DriverFormController::class, 'viewMonthlyRepairs'])->name('viewMonthlyRepairs');
 
     Route::get('/create/form/{userId}/', [DriverFormController::class, 'createUserForm'])->name('createUserForm');
 
@@ -271,7 +268,9 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
 
     Route::get('vehicle/mileage', [OtherVehicleController::class, 'mileage'])->name('vehicle.mileage');
     Route::get('vehicle/inspection', [OtherVehicleController::class, 'vehicleInspection'])->name('vehicle.inspection');
-    Route::post('update/mileage/status', [OtherVehicleController::class,'updateMileageStatus'])->name('updateMileageStatus');
+    Route::post('update/mileage/status', [OtherVehicleController::class, 'updateMileageStatus'])->name('updateMileageStatus');
+    Route::get('/view/monthly/repairs/{id}', [OtherVehicleController::class, 'viewMonthlyRepairs'])->name('viewMonthlyRepairs');
+    Route::post('/update/mm/status/{id}', [OtherVehicleController::class, 'updateMMStatus'])->name('updateMMStatus');
 
 });
 

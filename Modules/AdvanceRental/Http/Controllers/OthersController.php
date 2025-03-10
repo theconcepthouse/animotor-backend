@@ -10,6 +10,7 @@ use App\Models\VehicleMileage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function Symfony\Component\String\b;
 
 class OthersController
 {
@@ -114,10 +115,8 @@ class OthersController
     public function createMM($bookingId)
     {
         $booking = Booking::findOrFail($bookingId);
-        $monthly_main = MonthlyMaintenace::where('booking_id', $booking->id)->latest()->first();
-        $data = MonthlyRepair::where('monthly_maintenaces_id', $monthly_main->id)->get();
         $user = Auth::user();
-        return view('advancerental::others.monthly_maintenance', compact('booking', 'monthly_main', 'user', 'data'));
+        return view('advancerental::others.monthly_maintenance', compact('booking', 'user'));
     }
 
     public function storeMonthlyMaintenance(Request $request)
@@ -128,9 +127,32 @@ class OthersController
             'inspection.*' => 'nullable',
         ]);
 
+        $bookingId = $request->input('booking_id');
         $validatedData['user_id'] = Auth::id();
-        MonthlyMaintenace::create($validatedData);
-        return redirect()->back()->with('success', 'Monthly maintenance successfully submitted.');
+
+        // Check if an ID is provided in the request and a record exists
+        if ($request->has('id') && MonthlyMaintenace::find($request->input('id'))) {
+            // Update existing record
+            $data = MonthlyMaintenace::find($request->input('id'));
+            $data->update($validatedData);
+            $message = 'Monthly maintenance successfully updated.';
+        } else {
+            // Create new record
+            $data = MonthlyMaintenace::create($validatedData);
+            $message = 'Monthly maintenance successfully submitted.';
+        }
+
+        return redirect()
+            ->route('createMonthlyRepair', ['id' => $data->id, 'bookingId' => $bookingId])
+            ->with('success', $message);
+    }
+
+    public function createMonthlyRepair($id, $bookingId)
+    {
+        $booking = Booking::findOrFail($bookingId);
+        $monthly_main = MonthlyMaintenace::findOrFail($id);
+        $data = MonthlyRepair::where('monthly_maintenaces_id', $monthly_main->id)->get();
+        return view('advancerental::others.monthly_repair', compact('monthly_main', 'data', 'booking'));
     }
 
     public function storeMonthlyRepair(Request $request)
@@ -143,9 +165,6 @@ class OthersController
         MonthlyRepair::create($validatedData);
         return redirect()->back()->with('success', 'Monthly maintenance successfully submitted.');
     }
-
-
-
 
 
 }

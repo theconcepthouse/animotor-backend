@@ -259,6 +259,7 @@ Route::group(['middleware' => ['auth','role:admin|superadmin|owner|manager'], 'p
     Route::post('/store/criminal/conviction', [DriverFormController::class, 'saveCriminalConvictions'])->name('saveCriminalConvictions');
     Route::post('/update/criminal/conviction', [DriverFormController::class, 'updateCriminalConvictions'])->name('updateCriminalConvictions');
     Route::post('/save/refusal/conviction', [DriverFormController::class, 'saveRefusalConvictions'])->name('saveRefusalConvictions');
+    Route::get('/view/monthly/repairs/{id}', [DriverFormController::class, 'viewMonthlyRepairs'])->name('viewMonthlyRepairs');
 
     Route::get('/create/form/{userId}/', [DriverFormController::class, 'createUserForm'])->name('createUserForm');
 

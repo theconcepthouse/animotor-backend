@@ -36,6 +36,7 @@
                                                     <th>Last Inspection Mileage</th>
                                                     <th>Last Inspection Date</th>
                                                     <th>Last Service Mileage</th>
+                                                    <th>Action</th>
                                                     <th>Last Service Date</th>
                                                     <th>Image</th>
                                                     <th>Status</th>
@@ -46,7 +47,6 @@
                                                 <tbody>
 
                                                 @foreach($monthly_main as $item)
-
                                                     <tr>
                                                         <td>{{ $loop->index + 1 }}</td>
                                                         <td><a  wire:navigate href="{{ route('admin.bookings.show', $item?->booking?->id) }}"> {{ $item?->booking?->booking_number }}</a></td>
@@ -55,6 +55,7 @@
                                                         <td>{{ $item->inspection['last_inspection_mileage'] ?? ''}}</td>
                                                         <td>{{ $item->inspection['last_inspection_date'] ?? ''}}</td>
                                                         <td>{{ $item->inspection['last_service_mileage'] ?? ''}}</td>
+                                                        <td><a href="{{ route('admin.viewMonthlyRepairs', $item->id) }}" class="btn "><em class="ni ni-eye text-primary"></em></a></td>
                                                         <td>{{ $item->inspection['last_service_date'] ?? ''}}</td>
                                                         <td><img height="50" width="50" src="{{ asset($item->inspection['odometer_picture']) }}" alt="">
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item->id }}"><em class="icon ni ni-eye"></em></a>
@@ -65,7 +66,6 @@
                                                         </td>
 
                                                         <td>{{ $item?->created_at->format('d-M-Y') }}</td>
-
 
                                                     </tr>
                                                 @endforeach

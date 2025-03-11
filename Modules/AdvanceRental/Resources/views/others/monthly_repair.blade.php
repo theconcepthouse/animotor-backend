@@ -119,6 +119,7 @@
                                                             <th>Repair Date</th>
                                                             <th>Garage Name</th>
                                                             <th>Cost</th>
+                                                            <th>Mileage at time of repair</th>
                                                             <th>Garage/Work details</th>
                                                         </tr>
                                                         @foreach($data as $item)
@@ -126,6 +127,7 @@
                                                                 <td>{{ $item->repairs['repair_date'] ?? '' }}</td>
                                                                 <td>{{ $item->repairs['garage_name'] ?? ''}}</td>
                                                                 <td>${{ $item->repairs['cost'] ?? ''}}</td>
+                                                                <td>{{ $item->repairs['mileage_at_repair'] ?? ''}}</td>
                                                                 <td>{{ $item->repairs['garage_details'] ?? '' }}</td>
                                                             </tr>
                                                         @endforeach
@@ -150,20 +152,25 @@
                                                                         <input type="hidden" name="monthly_maintenaces_id" value="{{ $monthly_main->id }}">
 
                                                                         <div class="row">
-                                                                        <div class="form-group  col-md-4 ">
+                                                                        <div class="form-group  col-md-6 ">
                                                                             <label for="repair_date">Repair date</label>
                                                                             <input type="date" class="form-control" id="repair_date"
                                                                                    name="repairs[repair_date]">
                                                                         </div>
-                                                                        <div class="form-group  col-md-4">
+                                                                        <div class="form-group  col-md-6">
                                                                             <label for="garage_name">Garage name</label>
                                                                             <input type="text" class="form-control" id="garage_name"
                                                                                    name="repairs[garage_name]">
                                                                         </div>
-                                                                        <div class="form-group col-md-4">
+                                                                        <div class="form-group col-md-6">
                                                                             <label for="cost">Cost</label>
                                                                             <input type="text" class="form-control" id="cost"
                                                                                    name="repairs[cost]">
+                                                                        </div>
+                                                                      <div class="form-group col-md-6">
+                                                                            <label for="cost">Mileage At time of Repair</label>
+                                                                            <input type="text" class="form-control" id="cost"
+                                                                                   name="repairs[mileage_at_repair]">
                                                                         </div>
                                                                         <div class="form-group col-lg-12 col-md-4">
                                                                             <label for="garage_details">Garage/Work details</label>

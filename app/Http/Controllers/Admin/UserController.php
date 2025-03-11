@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DriverPcn;
 use App\Models\Region;
 use App\Models\Role;
 use App\Models\Service;
@@ -246,6 +247,8 @@ class UserController extends Controller
         if($user->id == auth()->id()){
             return redirect()->back()->with('failure','sorry you cant delete yourself');
         }
+
+//        DriverPcn::where('driver_id', $user->id)->delete();
         $user->delete();
         return redirect()->to($back_url)->with('success', "User successfully deactivated");
     }

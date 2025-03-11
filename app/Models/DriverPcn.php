@@ -24,9 +24,6 @@ class DriverPcn extends Model
         'status',
         'linkup_with_driver',
         'linkup_with_vehicle_registration_no',
-        'notify_to_driver',
-        'notify_to_staff_member',
-        'notify_to_other',
         'reminder',
         'type'
     ];
@@ -34,6 +31,11 @@ class DriverPcn extends Model
     public function vehicle()
     {
         return $this->belongsTo(Vehicle::class);
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo(User::class);
     }
 
 

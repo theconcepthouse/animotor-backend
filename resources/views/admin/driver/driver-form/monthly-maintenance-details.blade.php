@@ -35,6 +35,12 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <th>Car VRM</th>
+                                                    <td>
+                                                        <span class="badge bg-primary">{{ $data?->booking?->car?->registration_number }}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <th>Inspection Mileage</th>
                                                     <td>{{ $data->inspection['inspection_mileage'] ?? ''}}</td>
                                                 </tr>
@@ -91,6 +97,7 @@
                                                     <th>Garage Name</th>
                                                     <th>Repair Date</th>
                                                     <th>Garage Details</th>
+                                                    <th>Mileage at Repair</th>
                                                 </tr>
                                                 @foreach($repairs as $item)
                                                     <tr>
@@ -99,6 +106,7 @@
                                                         <td>{{ $item->repairs['garage_name'] ?? '' }}</td>
                                                         <td>{{ $item->repairs['repair_date'] ?? '' }}</td>
                                                         <td>{{ $item->repairs['garage_details'] ?? '' }}</td>
+                                                        <td>{{ $item->repairs['mileage_at_repair'] ?? '' }}</td>
                                                     </tr>
                                                 @endforeach
 

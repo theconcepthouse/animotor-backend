@@ -1,0 +1,134 @@
+<div class="row mt-3">
+
+                                    @php
+
+                                        $pcn_forms = [
+                                             'pcn_no',
+                                            'date_time',
+                                            'offence_type',
+                                            'location',
+                                            'notice_issue_date',
+                                            'payment_dead_line',
+                                            'appeal_dead_line',
+                                            'status',
+
+        ]
+                                    @endphp
+
+
+                                    <div class="col-md-4 mt-3">
+
+                                        <div class="form-group">
+                                            <label class="form-label" for="pcn_booking_id">Select Associated booking
+                                                ID</label>
+
+                                            <div class="form-control-wrap">
+                                                <select required wire:model="booking_id"
+                                                        class="form-select form-control-xl " data-ui="xl"
+                                                        id="pcn_booking_id">
+                                                    @foreach($car->bookings as $booking_item)
+                                                        <option
+                                                            value="{{ $booking_item->id }}">{{ $booking_item->booking_number }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @foreach($pcn_forms as $item)
+
+                                        @if($item == 'status')
+                                            <div class="col-md-4 mt-3">
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="pcn_status">Status</label>
+
+                                                    <div class="form-control-wrap">
+                                                        <select wire:model="{{ $item }}"
+                                                                class="form-select form-control-xl " data-ui="xl"
+                                                                id="pcn_status">
+                                                            <option value="Representation made">Representation made
+                                                            </option>
+                                                            <option value="Statuttary decelaration">Statuttary
+                                                                decelaration
+                                                            </option>
+                                                            <option value="Paid">Paid</option>
+                                                            <option value="Appealed">Appealed</option>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        @else
+                                            <div class="col-md-4 mt-3">
+                                                <div class="form-group">
+                                                    <label class="form-label"
+                                                           for="repair.booking_date">{{ convertToWord($item) }}</label>
+                                                    <div class="form-control-wrap">
+                                                        <input wire:model="{{ $item }}"
+                                                               type="{{ in_array($item,['date_time','notice_issue_date','payment_dead_line','appeal_dead_line']) ? ($item == 'date_time' ? 'datetime-local' : 'date') : 'text' }}"
+                                                               class="form-control @error($item) error @enderror  form-control-xl"
+                                                               id="{{ $item }}"/>
+                                                        @error($item) <span
+                                                            class="invalid">{{ $message }}</span>@enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+
+                                    <div class="row justify-content-center-">
+                                        <div class="col-4">
+                                            <div class="form-group mt-3 w-100">
+                                                <button wire:click="addPCN" type="button"
+                                                        class="btn btn-lg btn-primary  text-center">Add
+                                                    PCN
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                @if(count($car->pcns) > 0)
+                                    <div class="col-md-12 mt-4 mb-2">
+                                        <h5>PCN Histories</h5>
+
+                                        <table class="nowrap table">
+                                            <thead>
+                                            <tr>
+                                                <th>S/N</th>
+                                                <th>{{ __('admin.pcn_no') }}</th>
+                                                <th>{{ __('admin.date_time') }}</th>
+                                                <th>{{ __('admin.offence_type') }}</th>
+                                                <th>{{ __('admin.location') }}</th>
+                                                <th>{{ __('admin.notice_issue_date') }}</th>
+                                                <th>{{ __('admin.payment_dead_line') }}</th>
+                                                <th>{{ __('admin.appeal_dead_line') }}</th>
+                                                <th>{{ __('admin.status') }}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($car->pcns as $item)
+                                                <tr>
+                                                    <td>{{ $loop->index+1 }}</td>
+                                                    <td>{{ $item->pcn_no }}</td>
+                                                    <td>{{ $item->date_time }}</td>
+                                                    <td>{{ $item->offence_type }}</td>
+                                                    <td>{{ $item->location }}</td>
+                                                    <td>{{ $item->notice_issue_date }}</td>
+                                                    <td>{{ $item->payment_dead_line }}</td>
+                                                    <td>{{ $item->appeal_dead_line }}</td>
+                                                    <td>{{ $item->status }}</td>
+
+
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                @endif

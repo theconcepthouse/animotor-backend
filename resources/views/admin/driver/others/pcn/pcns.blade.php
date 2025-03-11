@@ -70,6 +70,7 @@
                                                                  <thead>
                                                                 <tr>
                                                                     <th>{{ __('admin.sn') }}</th>
+                                                                    <th>Created On</th>
                                                                     <th>{{ __('admin.vrm') }}</th>
                                                                     <th>{{ __('admin.pcn_no') }}</th>
                                                                     <th>Issue Date</th>
@@ -84,6 +85,7 @@
                                                                 @foreach($pcns as $item)
                                                                     <tr>
                                                                         <td>{{ $loop->index+1 }}</td>
+                                                                        <td>{{ $item->created_at->format('d M, Y') }}</td>
                                                                         <td><a href="#"> {{ $item->vrm }}</a></td>
                                                                         <td>{{ $item->pcn_no }}</td>
                                                                         <td>{{ $item?->date_of_issue }}</td>

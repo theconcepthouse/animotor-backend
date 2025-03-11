@@ -31,7 +31,7 @@
                                                     <p class="text-danger text-center">
                                                         Please add all stepped you have done  time and date of any action on this PCN
                                                         <br>
-                                                        Also: sent and email to driver PCN details .PCN Payment link.contact number for issuing authority.
+                                                        Also: sent and email to driver PCN details .PCN Payment link.contact number for issuing authority.
                                                     </p>
 
                                                    <form action="{{ route('admin.storePcnLog', ['pcnId' => $pcnId, 'driverId' => $driver->id]) }}" method="POST">
@@ -55,37 +55,14 @@
                                                             <textarea name="report" class="content form-control" id="" cols="30" rows="10"></textarea>
                                                         </div>
 
-                                                        <div class="form-group col-md-6">
-                                                            <label class="form-label" for="Linkup">Linkup with </label>
-                                                            <input type="text" class="form-control" id="Linkup" name="linkup_with_driver" >
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" name="notify_to_driver" class="custom-control-input" id="customCheck1">
-                                                                <label class="custom-control-label" for="customCheck1">Notify to Driver</label>
-                                                            </div>
-                                                        </div>
                                                          <div class="form-group col-md-6">
-                                                            <label class="form-label" for="from"></label>
-                                                            <input type="text" class="form-control" id="from" name="linkup_with_vehicle_registration_no" placeholder="Vehicle Registration No">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" name="notify_to_staff_member" class="custom-control-input" id="customCheck2">
-                                                                <label class="custom-control-label" for="customCheck2">Notify to staff member</label>
+                                                                <label class="form-label" for="from">Vehicle Reg No</label>
+                                                                <input type="text" class="form-control" id="from" name="linkup_with_vehicle_registration_no" placeholder="Vehicle Registration No">
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label class="form-label" for="dateOfContravention">Reminder</label>
-                                                            <input type="date" class="form-control" id="dateOfContravention" name="reminder" placeholder="Reminder">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" name="notify_to_other" class="custom-control-input" id="customCheck3">
-                                                                <label class="custom-control-label" for="customCheck3">Notify to Other</label>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="form-label" for="dateOfContravention">Reminder</label>
+                                                                <input type="date" class="form-control" id="dateOfContravention" name="reminder" placeholder="Reminder">
                                                             </div>
-                                                        </div>
                                                     </div>
 
                                                     <div class="m-3 text-center">

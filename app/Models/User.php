@@ -130,10 +130,15 @@ class User extends Authenticatable implements LaratrustUser, Wallet
         return $this->hasMany(Note::class);
     }
 
+    public function driver_pcn(): HasMany
+    {
+        return $this->hasMany(DriverPcn::class, 'driver_id');
+    }
+
     public function fullname()
     {
         $fullname = $this->first_name." ".$this->last_name;
-        return $fullname;
+        return $fullname ?? '';
     }
 
     public function status()

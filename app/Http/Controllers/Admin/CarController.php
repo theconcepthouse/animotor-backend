@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Car;
 use App\Models\CarExtra;
 use App\Models\Company;
+use App\Models\DriverPcn;
 use App\Models\Region;
 use App\Models\User;
 use App\Models\VehicleMake;
@@ -70,7 +71,8 @@ class CarController extends Controller
             }
             $drivers = User::whereHasRole('rider')->get();
 
-            return view('admin.cars.edit', compact('car','car_types','car_models','car_makes', 'drivers'));
+            $pcns = DriverPcn::where('vrm', $car->registration_number)->get();
+            return view('admin.cars.edit', compact('car','car_types','car_models','car_makes', 'drivers', 'pcns'));
 
     }
 

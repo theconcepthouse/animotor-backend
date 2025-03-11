@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Cars;
 
 use App\Models\Addons\pcn;
 use App\Models\Car;
+use App\Models\DriverPcn;
 use App\Models\Region;
 use App\Models\VehicleMake;
 use App\Models\VehicleModel;
@@ -19,6 +20,7 @@ class Form extends Component
 
 
     public Car $car;
+    public  $pcns;
 
     public ?string $thumbnail;
     public ?string $title;
@@ -130,7 +132,7 @@ class Form extends Component
         'Finance',
         'Damage History',
         'Add repair',
-        'PCNS Listing 15',
+        'PCN Listing',
         'Reports',
         'Subscriptions',
     ];

@@ -57,10 +57,11 @@
                                 <div class="card-inner">
                                     <div id="DataTables_Table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="datatable-wrap- my-3">
-                                            <table class="datatable-init- table-bordered- tab nowrap table" data-export-title="{{ __('admin.export_title') }}">
+                                            <table class="datatable-init-export nowrap table dataTable no-footer dtr-inline" data-export-title="{{ __('admin.export_title') }}">
                                                 <thead>
                                                 <tr>
                                                     <th>{{ __('admin.sn') }}</th>
+                                                    <th>Driver</th>
                                                     <th>{{ __('admin.vrm') }}</th>
                                                     <th>{{ __('admin.pcn_no') }}</th>
                                                     <th>{{ __('admin.offence_date') }}</th>
@@ -73,6 +74,7 @@
                                                 @foreach($pcns as $item)
                                                     <tr>
                                                         <td>#{{ $loop->index+1 }}</td>
+                                                        <td><a href="{{ route('admin.driverPcn', $item->driver->id ?? '') }}" class="btn btn-sm btn-primary">{{ $item->driver->first_name ?? '' }} {{ $item->driver->last_name ?? '' }}</a></td>
                                                         <td><a class="btn btn-warning"> {{ $item->vrm }}</a></td>
                                                         <td>{{ $item->pcn_no }}</td>
                                                         <td>{{ date('d M, Y', strtotime($item->date_of_contravention)) }}</td>

@@ -55,7 +55,8 @@
                                                         <td>{{ $item->inspection['last_inspection_mileage'] ?? ''}}</td>
                                                         <td>{{ $item->inspection['last_inspection_date'] ?? ''}}</td>
                                                         <td>{{ $item->inspection['last_service_mileage'] ?? ''}}</td>
-                                                        <td><a href="{{ route('admin.viewMonthlyRepairs', $item->id) }}" class="btn "><em class="ni ni-eye text-primary"></em></a></td>
+                                                        <td><a href="{{ route('admin.viewMonthlyRepairs', $item->id) }}" class="btn btn-sm btn-primary">
+                                                                View </a></td>
                                                         <td>{{ $item->inspection['last_service_date'] ?? ''}}</td>
                                                         <td><img height="50" width="50" src="{{ asset($item->inspection['odometer_picture']) }}" alt="">
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modalDefault-{{ $item->id }}"><em class="icon ni ni-eye"></em></a>

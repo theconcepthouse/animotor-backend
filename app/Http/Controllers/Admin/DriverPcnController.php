@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DriverPcnMail;
 use App\Models\Addons\pcn;
 use App\Models\Car;
 use App\Models\DriverPcn;
@@ -14,13 +15,14 @@ use App\Models\PCNAutority;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DriverPcnController extends Controller
 {
     public function driverPcn($driverId)
     {
         $driver = User::findOrFail($driverId);
-        $pcns = DriverPcn::where('driver_id', $driver->id)->get();
+        $pcns = DriverPcn::where('driver_id', $driver->id)->latest()->get();
         return view('admin.driver.others.pcn.pcns', compact('pcns', 'driver'));
     }
 
@@ -65,31 +67,29 @@ class DriverPcnController extends Controller
     {
         $validated = $request->validate([
             'report' => 'nullable|string',
-            'linkup_with_driver' => 'nullable|string',
             'linkup_with_vehicle_registration_no' => 'nullable|string',
-            'notify_to_driver' => 'nullable|string',
-            'notify_to_staff_member' => 'nullable|string',
-            'notify_to_other' => 'nullable|string',
             'reminder' => 'nullable|string',
         ]);
 
         $pcnId = $request->pcn_id;
         $driver = User::findOrFail($driverId);
         $pcn = DriverPcn::findOrFail($pcnId);
+
         $validated['reminder'] = Carbon::parse($request->reminder);
         $pcn->update($validated);
 
         $event = new FleetEvent();
-        $event->title = "PCN Event";
-        $event->start_date = $pcn->created_at;
+        $event->title = "PCN Event - ".$pcn->pcn_no;
+        $event->start_date = $pcn->date_of_issue;
         $event->end_date = $pcn->reminder;
-        $event->category = "PCN-events";
+        $event->category = "PCN-event";
         $event->description = implode('<br>', [
             "VRM: " . $pcn->vrm,
             'Date of Issue: ' . $pcn->date_of_issue,
             'Issuing Authority: ' . $pcn->issuing_authority,
         ]);
         $event->save();
+        Mail::to($driver->email)->send(new DriverPcnMail($pcn));
         return redirect()->route('admin.driverPcn', ['driverId' => $driver->id])->with('message', 'PCN updated successfully');
     }
 

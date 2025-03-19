@@ -17,7 +17,7 @@ class FleetEventController extends Controller
     }
     public function currentEvent()
     {
-        $events = FleetEvent::where('end_date', '>', now())->get();
+        $events = FleetEvent::where('end_date', '>', now())->latest()->get();
         return view('admin.fleet-events.current-event', compact('events'));
     }
 

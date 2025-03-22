@@ -49,6 +49,10 @@ class DriversController extends Controller
     }
 
     public function all(){
+        if(isOwner()){
+            $drivers = User::whereHasRole(['owner', 'manager'])->where('company_id', companyId())->latest()->get();
+            return view('admin.driver.index', compact('drivers'));
+        }
         $drivers = User::whereHasRole(['driver', 'rider'])->latest()->get();
         return view('admin.driver.index', compact('drivers'));
     }

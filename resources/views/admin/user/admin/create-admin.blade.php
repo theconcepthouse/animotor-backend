@@ -54,7 +54,7 @@
                                                     @include('admin.partials.form.select_array', ['attributes' => 'required', 'colSize' => 'col-md-4', 'fieldName' => 'role','title' => 'Role','options' => ['admin' => 'Admin','sales' => "Sales",'It' => "IT", 'finance' => 'Finance']])
                                                      @include('admin.partials.image-upload',['field' => 'image','id' => 'avatar','title' => 'Profile Picture'])
                                                     <br>
-                                                    <input name="role" type="hidden" value="{{ $role }}" />
+{{--                                                    <input name="role" type="hidden" value="{{ $role }}" />--}}
 
 {{--                                                    @if($role == 'driver')--}}
 {{--                                                        @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-3', 'fieldName' => 'title','title' => 'Car title'])--}}

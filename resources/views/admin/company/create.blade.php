@@ -48,7 +48,7 @@
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => old('name'), 'fieldName' => 'name','title' => 'Name'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-8', 'value' => old('address'), 'fieldName' => 'address','title' => 'Address'])
 
-                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required', 'colSize' => 'col-md-4 mb-2','value' => old('country'), 'fieldName' => 'country','title' => 'Country','options' => $countries])
+                                                    @include('admin.partials.form.select_w_object', ['attributes' => 'required',  'colSize' => 'col-md-4 mb-2','value' => old('country'), 'fieldName' => 'country','title' => 'Country','options' => $countries])
 
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => old('state'), 'fieldName' => 'state','title' => 'State'])
                                                     @include('admin.partials.form.text', ['attributes' => 'required', 'colSize' => 'col-md-4', 'value' => old('city'), 'fieldName' => 'city','title' => 'City'])

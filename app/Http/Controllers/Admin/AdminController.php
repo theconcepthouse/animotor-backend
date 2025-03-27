@@ -88,7 +88,7 @@ class AdminController extends Controller
             $users = User::whereHasRole(['manager'])
                 ->where('company_id', companyId())->latest()->paginate(100);
         }else if (isAdmin()){
-            $users = User::whereHasRole(['admin'])->latest()->paginate(100);
+            $users = User::whereHasRole(['admin', 'manager'])->latest()->paginate(100);
         }else{
             $users = [];
         }
@@ -97,8 +97,8 @@ class AdminController extends Controller
 
     public function createAdmin(Request $request)
     {
-         $role = $request->get('role') ? 'manager' : 'admin';
-        return view('admin.user.admin.create-admin', compact('role'));
+//         $role = $request->get('role') ? 'manager' : 'admin';
+        return view('admin.user.admin.create-admin');
     }
     public function storeAdmin(Request $request)
     {
@@ -114,7 +114,9 @@ class AdminController extends Controller
 
         $data = $request->validate($rules);
         $data['password'] = hash::make($data['password']);
-        User::create($data);
+        $user = User::create($data);
+
+        $user->syncRoles([$data['role']]);
         return redirect()->back()->with('success', 'Manager has been created.');
     }
 

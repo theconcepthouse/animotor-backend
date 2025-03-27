@@ -88,7 +88,7 @@ class AdminController extends Controller
             $users = User::whereHasRole(['manager'])
                 ->where('company_id', companyId())->latest()->paginate(100);
         }else if (isAdmin()){
-            $users = User::whereHasRole(['admin', 'manager'])->latest()->paginate(100);
+            $users = User::whereHasRole(['admin', 'superadmin'])->latest()->paginate(100);
         }else{
             $users = [];
         }

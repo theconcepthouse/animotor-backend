@@ -39,5 +39,18 @@ class DriverPcn extends Model
     }
 
 
+    public function event()
+    {
+        return $this->hasOne(FleetEvent::class, 'pcn_id');
+    }
+
+    // app/Models/DriverPcn.php
+    protected static function booted()
+    {
+        static::deleting(function ($pcn) {
+            $pcn->event()->delete();
+        });
+    }
+
 
 }

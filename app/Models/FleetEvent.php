@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FleetEvent extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'title', 'description', 'location', 'category', 'start_date', 'end_date'
     ];
@@ -25,12 +26,11 @@ class FleetEvent extends Model
 
     public function status()
     {
-        if ($this->status == "pending")
-        {
+        if ($this->status == "pending") {
             return '<span class="badge badge-sm badge-dim bg-outline-warning ">Pending <em class="ni ni-edit"></em></span>';
-        }elseif ($this->status == "in-progress"){
+        } elseif ($this->status == "in-progress") {
             return '<span class="badge badge-sm bg-info ">In Progress <em class="ni ni-edit"></em></span>';
-        }elseif ($this->status == "completed"){
+        } elseif ($this->status == "completed") {
             return '<span class="badge badge-sm bg-success ">Completed <em class="ni ni-edit"></em></span>';
         }
         return '<span class="badge badge-sm bg-danger ">None</span>';
@@ -52,6 +52,11 @@ class FleetEvent extends Model
             default:
                 return 'Unknown';
         }
+    }
+
+    public function pcn()
+    {
+        return $this->belongsTo(DriverPcn::class, 'pcn_id');
     }
 
 }

@@ -71,34 +71,41 @@ class DriverPcnController extends Controller
             'reminder' => 'nullable|string',
         ]);
 
-        $pcnId = $request->pcn_id;
+        $pcn = DriverPcn::findOrFail($request->pcn_id);
         $driver = User::findOrFail($driverId);
-        $pcn = DriverPcn::findOrFail($pcnId);
 
+        // update the PCN itself
         $validated['reminder'] = Carbon::parse($request->reminder);
         $pcn->update($validated);
 
-        $event = new FleetEvent();
-        $event->title = "PCN Event - ".$pcn->pcn_no;
-        $event->start_date = $pcn->date_of_issue;
-        $event->end_date = $pcn->reminder;
-        $event->category = "PCN-event";
-        $event->description = implode('<br>', [
-            "VRM: " . $pcn->vrm,
-            'Date of Issue: ' . $pcn->date_of_issue,
-            'Issuing Authority: ' . $pcn->issuing_authority,
+        // -------------- EVENT --------------
+        $event = $pcn->event()->updateOrCreate([], [       // ties via FK automatically
+            'title' => 'PCN Event - ' . $pcn->pcn_no,
+            'start_date' => $pcn->date_of_issue,
+            'end_date' => $pcn->reminder,
+            'category' => 'PCN-event',
+            'description' => implode('<br>', [
+                'VRM: ' . $pcn->vrm,
+                'Date of Issue: ' . $pcn->date_of_issue,
+                'Issuing Authority: ' . $pcn->issuing_authority,
+            ]),
         ]);
-        $event->save();
+        // -----------------------------------
+
         Mail::to($driver->email)->send(new DriverPcnMail($pcn));
-        return redirect()->route('admin.driverPcn', ['driverId' => $driver->id])->with('message', 'PCN updated successfully');
+
+        return redirect()
+            ->route('admin.driverPcn', $driver->id)
+            ->with('message', 'PCN updated successfully');
     }
+
 
     public function deleteDriverPcn($pcnId)
     {
-        $pcn = DriverPcn::findOrFail($pcnId);
-        $pcn->delete();
-        return redirect()->route('admin.addPcnLog', ['pcnId' => $pcnId]);
+        DriverPcn::findOrFail($pcnId)->delete();   // Event evaporates automatically
+        return back()->with('message', 'PCN and its event deleted');
     }
+
 
     public function editDriverPcn($pcnId, $driverId)
     {

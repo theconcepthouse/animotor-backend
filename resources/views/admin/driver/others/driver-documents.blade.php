@@ -81,17 +81,20 @@
                                                                            style="margin-right: 20px; font-size: 20px">
                                                                             <i class="ni ni-eye"></i>
                                                                         </a>
-{{--                                                                        <a href="{{ asset($documentPath) }}" download--}}
-{{--                                                                           style="font-size: 20px">--}}
-{{--                                                                            <i class="ni ni-download"></i>--}}
-{{--                                                                        </a>--}}
+                                                                        {{--                                                                        <a href="{{ asset($documentPath) }}" download--}}
+                                                                        {{--                                                                           style="font-size: 20px">--}}
+                                                                        {{--                                                                            <i class="ni ni-download"></i>--}}
+                                                                        {{--                                                                        </a>--}}
+                                                                        @php
+                                                                            $publicUrl = $documentPath && Storage::exists($documentPath)
+                                                                                ? Storage::url($documentPath)          // works for local “public” + S3
+                                                                                : asset('img/placeholder.jpg');        // fallback
+                                                                        @endphp
+
                                                                         <a href="javascript:void(0)"
                                                                            class="download-doc"
-                                                                           data-url="{{ asset($documentPath) }}"
-                                                                           {{-- full image URL --}}
-                                                                           data-name="{{ basename($documentPath) }}"
-                                                                           {{-- file name --}}
-                                                                           style="font-size:20px">
+                                                                           data-url="{{ $publicUrl }}"
+                                                                           data-name="{{ basename($documentPath) }}">
                                                                             <i class="ni ni-download"></i>
                                                                         </a>
 
@@ -212,33 +215,33 @@
     </div>
 
     <script>
-document.addEventListener('click', async e => {
-    const btn = e.target.closest('.download-doc');
-    if (!btn) return;                     // not a download click
+        document.addEventListener('click', async e => {
+            const btn = e.target.closest('.download-doc');
+            if (!btn) return;                     // not a download click
 
-    e.preventDefault();
+            e.preventDefault();
 
-    const url  = btn.dataset.url;
-    const name = btn.dataset.name || 'download';
+            const url = btn.dataset.url;
+            const name = btn.dataset.name || 'download';
 
-    try {
-        const blob = await fetch(url).then(r => r.blob());
-        const tmp  = URL.createObjectURL(blob);
+            try {
+                const blob = await fetch(url).then(r => r.blob());
+                const tmp = URL.createObjectURL(blob);
 
-        const a = Object.assign(document.createElement('a'), {
-            href: tmp,
-            download: name
+                const a = Object.assign(document.createElement('a'), {
+                    href: tmp,
+                    download: name
+                });
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(tmp);
+            } catch (err) {
+                alert('Could not download file');
+                console.error(err);
+            }
         });
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(tmp);
-    } catch (err) {
-        alert('Could not download file');
-        console.error(err);
-    }
-});
-</script>
+    </script>
 
 @endsection
 

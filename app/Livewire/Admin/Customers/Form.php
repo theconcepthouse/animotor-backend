@@ -242,7 +242,7 @@ class Form extends Component
 
     public function render()
     {
-        $subtotal = Rate::select('subtotal')->where('driver_id', $this->driverId)->sum('subtotal');
+//        $subtotal = Rate::select('subtotal')->where('driver_id', $this->driverId)->sum('subtotal');
         $rates = Rate::where('driver_id', $this->driverId)->get();
 
         $rateItems = [];
@@ -258,7 +258,7 @@ class Form extends Component
                 ];
             }
         }
-        return view('livewire.admin.customers.form', compact('rates', 'rateItems', 'subtotal'));
+        return view('livewire.admin.customers.form', compact('rates', 'rateItems', ));
     }
 
 

@@ -36,9 +36,9 @@
                                                 </li>
 
 
-                                                 <li  wire:ignore  class="nk-block-tools-opt d-none d-sm-block">
-                                                    <a class="btn btn-outline-secondary" wire:navigate href="{{ route('admin.createOnBoarding') }}"><em class="icon ni ni-file-check"></em><span>Self Onboarding</span></a>
-                                                </li>
+{{--                                                 <li  wire:ignore  class="nk-block-tools-opt d-none d-sm-block">--}}
+{{--                                                    <a class="btn btn-outline-secondary" wire:navigate href="{{ route('admin.createOnBoarding') }}"><em class="icon ni ni-file-check"></em><span>Self Onboarding</span></a>--}}
+{{--                                                </li>--}}
                                                 <li  wire:ignore  class="nk-block-tools-opt d-none d-sm-block">
                                                     <a class="btn btn-primary" wire:navigate href="{{ route('admin.addDriver') }}"><em class="icon ni ni-user-add"></em><span>Add Drivers</span></a>
                                                 </li>

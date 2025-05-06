@@ -95,7 +95,7 @@
                                                                            class="download-doc"
                                                                            data-url="{{ $publicUrl }}"
                                                                            data-name="{{ basename($documentPath) }}">
-                                                                            <i class="ni ni-download"></i>
+                                                                           <span style="font-size: 17px"> <i class="ni ni-download"></i></span>
                                                                         </a>
 
                                                                     </div>

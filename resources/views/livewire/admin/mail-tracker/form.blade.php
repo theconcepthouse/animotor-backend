@@ -31,6 +31,8 @@
                 <div class="card-inner">
 
                     <form method="post" wire:submit.prevent="saveMailTracker">
+                        <input type="hidden" wire:model="mailTrackerId" />
+
                         <div class="container">
                             <div class="row">
                                 <div style="background: transparent" class="step-form">

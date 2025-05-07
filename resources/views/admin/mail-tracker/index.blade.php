@@ -39,7 +39,7 @@
                                                 <td>
                                                     <div class="d-flex">
                                                         <a href="{{ route('admin.mailTracker.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"> <em class="icon ni ni-edit"></em></a>
-                                                        <a href="{{ route('admin.mailTracker.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"> <em class="icon ni ni-eye"></em></a>
+{{--                                                        <a href="{{ route('admin.mailTracker.edit', $item->id) }}" class="btn btn-sm btn-icon btn-outline-gray btn-round mx-1"> <em class="icon ni ni-eye"></em></a>--}}
                                                         <form method="POST" action="{{ route('admin.mailTracker.destroy', $item->id) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
                                                             @csrf
                                                             @method('DELETE')

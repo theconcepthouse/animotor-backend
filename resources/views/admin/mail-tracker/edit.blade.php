@@ -9,6 +9,8 @@
                     <div class="nk-block">
 
                             <livewire:admin.mail-tracker.form :mailTrackerId="$mailtracker->id"/>
+{{--                        <livewire:admin.mail-tracker.form :mail-tracker-id="$mailtracker->id" />--}}
+
 
 
                     </div>

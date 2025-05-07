@@ -11,7 +11,7 @@
                     </div>
                 <div class="nk-content-body">
                      <div class="container mb-3 mt-4">
-                         <h4>Driver Name: {{ $driver->name }}</h4>
+                         <h4>User: {{ $driver->name }}</h4>
 {{--                         <a href="{{ route('admin.createUserForm', $driver->id) }}">create form</a>--}}
 {{--                          <strong>Pass: {{ $driver->pass ?? 'Not set' }}</strong>--}}
                      </div>

@@ -92,7 +92,7 @@
                                                                         @endphp
 
                                                                         <a href="javascript:void(0)"
-                                                                           class="download-doc"
+                                                                           class="download-doc d-none"
                                                                            data-url="{{ $publicUrl }}"
                                                                            data-name="{{ basename($documentPath) }}">
                                                                            <span style="font-size: 21px"> <i class="ni ni-download"></i></span>

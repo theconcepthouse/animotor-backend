@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\Country;
 use App\Models\Region;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -167,22 +166,6 @@ class Booking extends Component
 
 
 
-
-//    public function setLocation($type, $id, $name){
-//
-//        if($type == 'pick_up'){
-//            $this->pickup_locations = [];
-//            $this->pick_up_location_id = $id;
-//            $this->pick_up_location = $name;
-//        }
-//        if($type == 'drop_off'){
-//            $this->drop_off_locations  = [];
-//            $this->drop_off_location_id = $id;
-//            $this->drop_off_location = $name;
-//        }
-//    }
-
-
     public function fetchPlaceDetails($placeId, $type)
     {
         $this->city = '';
@@ -212,13 +195,32 @@ class Booking extends Component
 
 //            dd($region);
 
-            if($region){
-                if($type == 'pick_up'){
+            $field = $type === 'pick_up'
+                ? 'pick_up_location'
+                : 'drop_off_location';
+
+            if ($region) {
+                // clear any previous error on this field
+                $this->resetErrorBag($field);
+
+                // set the corresponding *_location_id
+                if ($type === 'pick_up') {
                     $this->pick_up_location_id = $region->id;
-                }else{
+                } else {
                     $this->drop_off_location_id = $region->id;
                 }
+            } else {
+                // inject a validation error on the right field
+                $this->addError($field, 'Address not supported');
+                // ensure the ID is null so save() validation will also catch it
+                if ($type === 'pick_up') {
+                    $this->pick_up_location_id = null;
+                } else {
+                    $this->drop_off_location_id = null;
+                }
             }
+
+
         }
 
 
@@ -229,46 +231,35 @@ class Booking extends Component
 //        dd($this->pick_up_date);
     }
 
-//    public function updatedPickUpLocation(){
-//        if(strlen($this->pick_up_location) >= 1) {
-//            $this->pickup_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->pick_up_location . '%')
-//                ->limit(5)->get();
-//        }else{
-//            return [];
-//        }
-//    }
 
-//    public function updatedDropOffLocation(){
-//        if(strlen($this->drop_off_location) >= 1) {
-//            $this->drop_off_locations = Region::withoutAirport()->orderby('name', 'asc')->where('name', 'like', '%' . $this->drop_off_location . '%')
-//                ->limit(5)->get();
-//        }else{
-//            return [];
-//        }
-//    }
 
 
     public function save()
     {
 
-        $validatedData = $this->validate([
-            'pick_up_location_id' => 'required',
-            'drop_off_location_id' => 'required',
-            'pick_up_location' => 'required',
-            'drop_off_location' => 'required',
-            'pick_up_time' => 'required',
-            'drop_off_time' => 'required',
-            'pick_up_date' => 'required|date|after_or_equal:today',
-            'drop_off_date' => 'required|date|after_or_equal:today|after_or_equal:pick_up_date',
+        try {
+            $validatedData = $this->validate([
+                'pick_up_location_id' => 'required',
+                'drop_off_location_id' => 'required',
+                'pick_up_location' => 'required',
+                'drop_off_location' => 'required',
+                'pick_up_time' => 'required',
+                'drop_off_time' => 'required',
+                'pick_up_date' => 'required|date|after_or_equal:today',
+                'drop_off_date' => 'required|date|after_or_equal:today|after_or_equal:pick_up_date',
 
-        ]);
+            ]);
 
-        $startDate = Carbon::parse($validatedData['pick_up_date']);
-        $endDate = Carbon::parse($validatedData['drop_off_date']);
+            $startDate = Carbon::parse($validatedData['pick_up_date']);
+            $endDate = Carbon::parse($validatedData['drop_off_date']);
 
-        $validatedData['booking_day']  = $endDate->diffInDays($startDate) + 1;
+            $validatedData['booking_day']  = $endDate->diffInDays($startDate) + 1;
 
-        return redirect()->route('search', $validatedData);
+            return redirect()->route('search', $validatedData);
+        }catch (\Exception $exception){
+            $this->dispatch('booking-error', message: 'Please enter valid booking address information before proceeding');
+        }
+
 
     }
 

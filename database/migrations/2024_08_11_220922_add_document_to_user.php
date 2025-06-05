@@ -24,7 +24,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['driver_license_front', 'driver_license_back', 'proof_of_address']);
+            $table->dropColumn(['driver_license_front', 'driver_license_back',
+                'proof_of_address']);
         });
     }
 };

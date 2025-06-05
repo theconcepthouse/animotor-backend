@@ -69,6 +69,17 @@
             </li>
 
             <li class="nav-item">
+                <a wire:navigate href="/"  class="nav-link ">
+                        <span class="icon">
+                           <img src="/assets/img/svg/info-cancel.svg" alt="home">
+                        </span>
+                    <span>
+                           Home
+                        </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

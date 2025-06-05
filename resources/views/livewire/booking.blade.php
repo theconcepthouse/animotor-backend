@@ -180,3 +180,10 @@
         @endif
     </div>
 </div>
+@push('scripts')
+    <script>
+        window.addEventListener('booking-error', e => {
+            alert(e.detail.message)
+        });
+    </script>
+@endpush

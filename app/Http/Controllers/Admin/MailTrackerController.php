@@ -11,7 +11,11 @@ class MailTrackerController extends Controller
 {
     public function index()
     {
-        $mailTrackers = MailTracker::latest()->get();
+        if (isAdmin()) {
+            $mailTrackers = MailTracker::latest()->get();
+        }else{
+            $mailTrackers = MailTracker::where('user_id', auth()->id())->latest()->get();
+        }
         return view('admin.mail-tracker.index', compact('mailTrackers'));
     }
 

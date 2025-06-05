@@ -10,7 +10,7 @@ class MailTracker extends Model
     use HasFactory;
 
     protected $fillable = [
-        'mail_tracker', 'details', 'status'
+        'mail_tracker', 'details', 'status', 'user_id'
     ];
 
     protected $casts = [

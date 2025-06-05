@@ -25,7 +25,8 @@ class DriverPcn extends Model
         'linkup_with_driver',
         'linkup_with_vehicle_registration_no',
         'reminder',
-        'type'
+        'type',
+        'user_id',
     ];
 
     public function vehicle()

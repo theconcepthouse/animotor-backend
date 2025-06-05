@@ -69,6 +69,7 @@ class Form extends Component
 
         $tracker->mail_tracker = $this->mail_tracker;       // store as JSON
         $tracker->status = $this->mail_tracker['status'] ?? null;
+        $tracker->user_id = auth()->id();
         $tracker->save();
 
 

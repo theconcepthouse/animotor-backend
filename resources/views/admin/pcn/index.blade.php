@@ -83,11 +83,11 @@
                                                     </tr>
                                                 @endforeach
 
-                                                @if(count($pcns) < 1)
-                                                    <tr>
-                                                        <td class="text-center mt-5" colspan="7">{{ __('admin.table_no_data') }}</td>
-                                                    </tr>
-                                                @endif
+{{--                                                @if(count($pcns) < 1)--}}
+{{--                                                    <tr>--}}
+{{--                                                        <td class="text-center mt-5" colspan="7">{{ __('admin.table_no_data') }}</td>--}}
+{{--                                                    </tr>--}}
+{{--                                                @endif--}}
                                                 </tbody>
                                             </table>
 

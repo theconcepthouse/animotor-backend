@@ -15,7 +15,11 @@ class PCNController extends Controller
 {
     public function index()
     {
-        $pcns = DriverPcn::latest()->paginate(100);
+        if (isAdmin()) {
+            $pcns = DriverPcn::latest()->paginate(100);
+        }else{
+            $pcns = DriverPcn::where('user_id', auth()->id())->latest()->paginate(100);
+        }
         return view('admin.pcn.index', compact('pcns'));
     }
 
@@ -41,6 +45,7 @@ class PCNController extends Controller
             'type' => 'nullable|string',
         ];
         $validated = $request->validate($rules);
+        $validated['user_d'] = auth()->id();
         $pcnLog = DriverPcn::create($validated);
         return redirect()->route('admin.pcn.addPcnLog', ['pcnId' => $pcnLog->id])
             ->with('message', 'PCN added successfully.');

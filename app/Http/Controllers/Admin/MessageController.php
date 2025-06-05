@@ -52,6 +52,7 @@ class MessageController extends Controller
         ]);
 //        $validatedData['email_address'] = $emailAddresses;
         $validatedData['type'] = 1;
+        $validatedData['user_id'] = auth()->id();
         Message::create($validatedData);
         return redirect()->back()->with('success', 'Message sent successfully.');
     }

@@ -12,6 +12,7 @@ class Form extends Component
 {
 
     public $workshop;
+
     public $workshopId;
     public $workshopID;
     public $company_info = [
@@ -168,6 +169,7 @@ class Form extends Component
             $workshop->billing_info = [];
             $workshop->services_products = [];
             $workshop->commissions = [];
+            $workshop->user_id = auth()->id();
             $workshop->save();
             $this->workshopId = $workshop->id;
         }

@@ -12,26 +12,47 @@ class FleetEventController extends Controller
 {
     public function pastEvents()
     {
-        $events = FleetEvent::where('end_date', '<', now())->get();
+        if (isAdmin()) {
+            $events = FleetEvent::where('end_date', '<', now())->latest()->get();
+        }else{
+           $events = FleetEvent::where('user_id', auth()->id())->where('end_date', '<', now())->get();
+        }
         return view('admin.fleet-events.past-event', compact('events'));
     }
     public function currentEvent()
     {
-        $events = FleetEvent::where('end_date', '>', now())->latest()->get();
+        if (isAdmin()) {
+            $events = FleetEvent::where('end_date', '>', now())->latest()->get();
+        }else{
+           $events = FleetEvent::where('user_id', auth()->id())->where('end_date', '<', now())->get();
+        }
         return view('admin.fleet-events.current-event', compact('events'));
     }
 
     public function index(Request $request)
     {
-        $current_events = FleetEvent::where('end_date', '<', now())->get();
+
         $category = $request->category;
         $categories = FleetEvent::distinct('category')->pluck('category');
 
-        if ($category == '') {
-            $events = FleetEvent::all();
-        } else {
-            $events = FleetEvent::where('category', $category)->get();
-        }
+         if (isAdmin()) {
+             $current_events = FleetEvent::where('end_date', '<', now())->get();
+
+             if ($category == '') {
+                 $events = FleetEvent::all();
+             } else {
+                 $events = FleetEvent::where('category', $category)->get();
+             }
+         }
+         else{
+             $current_events = FleetEvent::where('user_id', auth()->id())->where('end_date', '<', now())->get();
+
+            if ($category == '') {
+                 $events = FleetEvent::where('user_id', auth()->id())->get();
+             } else {
+                 $events = FleetEvent::where('user_id', auth()->id())->where('category', $category)->get();
+             }
+         }
 
         $formattedEvents = $events->map(function ($event) {
             return [
@@ -61,6 +82,7 @@ class FleetEventController extends Controller
             'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
+        $validatedData['user_id'] = auth()->id();
         FleetEvent::create($validatedData);
 
         return redirect()->back()->with('success', 'Event created.');

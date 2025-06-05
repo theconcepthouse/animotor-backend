@@ -10,7 +10,11 @@ class WorkshopController extends Controller
 {
     public function index()
     {
-        $workshops = Workshop::latest()->paginate(100);
+         if (isAdmin()) {
+             $workshops = Workshop::latest()->all();
+         }else{
+             $workshops = Workshop::where('user_id', auth()->id())->latest()->get();
+         }
         return view('admin.workshop.index', compact('workshops'));
     }
 

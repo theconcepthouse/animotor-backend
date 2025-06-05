@@ -10,7 +10,7 @@ class FleetEvent extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'location', 'category', 'start_date', 'end_date'
+        'title', 'description', 'location', 'category', 'start_date', 'end_date', 'user_id'
     ];
 
     protected $dates = [

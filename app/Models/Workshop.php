@@ -17,6 +17,7 @@ class Workshop extends Model
         'billing_info',
         'services_products',
         'commissions',
+        'user_id',
     ];
 
     protected $casts = [

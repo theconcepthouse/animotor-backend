@@ -13,7 +13,7 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h4 class="nk-block-title text-capitalize">Companies List</h4>
+                                        <h4 class="nk-block-title text-capitalize">Workshop List</h4>
                                     </div>
 
 
@@ -32,7 +32,7 @@
 {{--                                                    </li>--}}
 
                                                     <li  wire:ignore  class="nk-block-tools-opt d-none d-sm-block">
-                                                        <a class="btn btn-primary" wire:navigate href="{{ route('admin.workshop.create') }}"><em class="icon ni ni-plus"></em><span>Add Company</span></a>
+                                                        <a class="btn btn-primary" wire:navigate href="{{ route('admin.workshop.create') }}"><em class="icon ni ni-plus"></em><span>Add Workshop</span></a>
                                                     </li>
 
                                                 </ul>

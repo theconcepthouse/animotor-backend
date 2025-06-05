@@ -11,10 +11,16 @@ class MessageController extends Controller
 {
    public function index()
    {
-       $inboxCount = Message::where('type', 2)->count();
-       $sentCount = Message::where('type', 1)->count();
-       $messages = Message::where('type', 2)->latest()->paginate(100);
        $drivers = User::all();
+       if (isAdmin()) {
+           $inboxCount = Message::where('type', 2)->count();
+           $sentCount = Message::where('type', 1)->count();
+           $messages = Message::where('type', 2)->latest()->paginate(100);
+       }else{
+           $inboxCount = Message::where('user_id', auth()->id())->where('type', 2)->count();
+           $sentCount = Message::where('user_id', auth()->id())->where('type', 1)->count();
+           $messages = Message::where('user_id', auth()->id())->where('type', 2)->latest()->paginate(100);
+       }
        return view('admin.message.index', compact('messages', 'inboxCount', 'drivers', 'sentCount'));
    }
 

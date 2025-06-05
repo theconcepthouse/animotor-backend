@@ -41,7 +41,11 @@ class ReportIncident extends Model
         'accident_time',
         'accident_location',
         'accident_impact_point',
-        'accident_description'
+        'accident_description',
+        'tp_vehicle_image',
+        'driver_vehicle_image',
+        'location_vehicle_image',
+        'user_id',
     ];
 
     public function status()

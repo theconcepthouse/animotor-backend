@@ -45,15 +45,18 @@ class Form extends Component
     public $accident_location;
     public $accident_impact_point;
     public $accident_description;
+    public $tp_vehicle_image;
+    public $driver_vehicle_image;
+    public $location_vehicle_image;
 
 
-     public array $steps = [
+    public array $steps = [
         'Our Driver',
         'Third Party',
         'Accident Details',
     ];
 
-     public function successMsg()
+    public function successMsg()
     {
         $this->js("NioApp.Toast('Successfully updated', 'success', {
                                 position: 'top-right'
@@ -63,8 +66,9 @@ class Form extends Component
     #[Computed]
     public int $step = 1;
 
-    public function goBack(){
-        if($this->step > 1){
+    public function goBack()
+    {
+        if ($this->step > 1) {
             $this->step--;
         }
     }
@@ -74,17 +78,17 @@ class Form extends Component
         $this->step = $step;
     }
 
-     public function saveReportClaim()
+    public function saveReportClaim()
     {
-        if ($this->step == 1){
+        if ($this->step == 1) {
             $this->saveDriver();
             return $this->step++;
         }
-        if ($this->step == 2){
+        if ($this->step == 2) {
             $this->save3rdParty();
             return $this->step++;
         }
-        if ($this->step == 3){
+        if ($this->step == 3) {
             $this->saveAccident();
             return $this->step++;
         }
@@ -95,7 +99,8 @@ class Form extends Component
     public function saveDriver()
     {
         $data = $this->validateData();
-        $data['reference_no'] = "123".Str::random(7);
+        $data['reference_no'] = "123" . Str::random(7);
+        $data['user_id'] = auth()->id();
         $incident = ReportIncident::create($data);
         $this->incidentId = $incident->id;
         $this->successMsg();
@@ -110,23 +115,32 @@ class Form extends Component
                 $incident->update($data);
             } else {
                 // If no incident is found, create a new one
-                $data['reference_no'] = "123".Str::random(7);
+                $data['reference_no'] = "123" . Str::random(7);
                 $incident = ReportIncident::create($data);
                 $this->incidentId = $incident->id;
             }
         } else {
             // If incidentId does not exist, create a new incident
-            $data['reference_no'] = "123".Str::random(7);
+            $data['reference_no'] = "123" . Str::random(7);
             $incident = ReportIncident::create($data);
             $this->incidentId = $incident->id;
         }
         $this->successMsg();
     }
+
     public function saveAccident()
     {
         $data = $this->validateData();
         $incident = ReportIncident::find($this->incidentId);
-        $incident->update($data);
+
+        if ($incident) {
+                $incident->update($data);
+            } else {
+                $incident = ReportIncident::create($data);
+                $this->incidentId = $incident->id;
+            }
+
+
         $this->successMsg();
         $this->redirectRoute('admin.incident.index');
     }
@@ -138,6 +152,7 @@ class Form extends Component
             $this->fill($report->toArray());
         }
     }
+
     public function render()
     {
         return view('livewire.admin.report-incident.form');
@@ -177,6 +192,10 @@ class Form extends Component
             'accident_location' => 'nullable|string',
             'accident_impact_point' => 'nullable|string',
             'accident_description' => 'nullable|string',
+            'driver_vehicle_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tp_vehicle_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'location_vehicle_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ];
         return $this->validate($rules);
     }

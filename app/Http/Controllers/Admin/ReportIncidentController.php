@@ -11,7 +11,12 @@ class ReportIncidentController extends Controller
 {
     public function index()
     {
-        $reports = ReportIncident::latest()->paginate(100);
+         if (isAdmin()) {
+             $reports = ReportIncident::latest()->paginate(100);
+         }else{
+              $reports = ReportIncident::where('user_id', auth()->id())->latest()->paginate(100);
+         }
+
         return view('admin.reports-incidents.index', compact('reports'));
     }
 

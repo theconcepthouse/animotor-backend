@@ -3,7 +3,7 @@
         <div class="nk-block-head-content ">
             <h4 class="title nk-block-title">{{ 'Editing ' .$car->title  }} {{ $steps[$step - 1] }}</h4>
             @if($step > 1)
-                <h4 wire:click="goBack" class="title nk-block-title" style="cursor: pointer">
+                <h4 wire:click.prevent="goBack" class="title nk-block-title" style="cursor: pointer">
                     <img src="{{ asset('assets/img/icons/arrow-left.png') }}"/>
                     {{ $steps[$step - 1] }}
                 </h4>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="step-form">
                                 @endif
-                                <div wire:key="{{ $item }}" wire:click="setStep({{ $loop->index + 1 }})"
+                                <div wire:key="{{ $item }}" wire:click.prevent="setStep({{ $loop->index + 1 }})"
                                      class="step {{ $step > $loop->index + 1 ? 'prev' : '' }} {{ $step == $loop->index + 1 ? 'active' : '' }}">
                                     @if($step > $loop->index + 1)
                                         <img class="step_img" src="{{ asset('admin/assets/images/mark.png') }}"
@@ -219,6 +219,69 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-4 mt-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="insurance_fee">Insurance Fee (For Full Protection)</label>
+
+                                            <div class="form-control-wrap">
+                                                <input wire:model="insurance_fee" type="text"
+                                                       class="form-control @error('insurance_fee') error @enderror  form-control-xl"
+                                                       id="insurance_fee">
+                                                @error("insurance_fee") <span
+                                                    class="invalid">{{ $message }}</span>@enderror
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if(floatval($insurance_fee) > 0)
+                                    <div class="col-12 mt-3">
+                                        <div class="form-group">
+                                            <h6>Insurance Coverage</h6>
+
+                                            @foreach ($car->insurance_coverage ?? [] as $index => $coverage)
+                                                <div class="row mt-2">
+                                                    <div class="col-5">
+                                                        <input disabled class="form-control form-control-lg" type="text"
+                                                               value="{{ $coverage['title'] }}"
+                                                               placeholder="Title">
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <input value="{{ $coverage['value'] }}" disabled
+                                                               class="form-control form-control-lg"
+                                                               placeholder="Value">
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button wire:key="remove-coverage-{{ $index }}" class="btn btn-warning"
+                                                                wire:click.prevent="removeInsuranceCoverage({{ $index }})">Remove
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                            <div class="row mt-2">
+                                                <div class="col-6">
+                                                    <input class="form-control form-control-lg" type="text"
+                                                           wire:model="insurance_coverage.title"
+                                                           placeholder="Title">
+                                                    @error("insurance_coverage.title") <span
+                                                        class="error">This title is required</span> @enderror
+                                                </div>
+                                                <div class="col-6">
+                                                    <input class="form-control form-control-lg" type="text"
+                                                           wire:model="insurance_coverage.value"
+                                                           placeholder="Value">
+                                                    @error("insurance_coverage.value") <span
+                                                        class="error">This value is required</span> @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mt-3">
+                                                <button type="button" wire:click.prevent="addInsuranceCoverage" class="btn btn-lg btn-success">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
 
 
                                     <div class="col-md-4 mt-3">
@@ -463,7 +526,7 @@
                                     <div class="row justify-content-center-">
                                         <div class="col-4">
                                             <div class="form-group mt-3 w-100">
-                                                <button wire:click="addMOT" type="button"
+                                                <button wire:click.prevent="addMOT" type="button"
                                                         class="btn btn-lg btn-primary  text-center">Add MOT
                                                 </button>
                                             </div>
@@ -625,7 +688,7 @@
                                     <div class="row justify-content-center-">
                                         <div class="col-4">
                                             <div class="form-group mt-3 w-100">
-                                                <button wire:click="addService" type="button"
+                                                <button wire:click.prevent="addService" type="button"
                                                         class="btn btn-lg btn-primary  text-center">Add
                                                     Service
                                                 </button>
@@ -863,7 +926,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <button wire:key="remove-{{ $index }}" class="btn btn-warning"
-                                                        wire:click="removeExtra({{ $index }})">Remove
+                                                        wire:click.prevent="removeExtra({{ $index }})">Remove
                                                 </button>
                                             </div>
                                         </div>
@@ -889,11 +952,12 @@
                                     </div>
 
                                     <div class="form-group mt-3">
-                                        <button type="button" wire:click="addExtras" class="btn btn-lg btn-success">
+                                        <button type="button" wire:click.prevent="addExtras" class="btn btn-lg btn-success">
                                             Save
                                         </button>
                                     </div>
                                 </div>
+
                             @endif
                             @if($step == 9)
                                 <div class="row mt-3">
@@ -934,6 +998,15 @@
                                             <div class="form-control-wrap">
                             <textarea class="form-control form-control-lg" id="mileage_text" wire:model="mileage_text"
                                       placeholder="Enter mileage text"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="form-group">
+                                            <label class="form-label" for="important_text">Important Text</label>
+                                            <div class="form-control-wrap">
+                            <textarea class="form-control form-control-lg" id="important_text" wire:model="important_text"
+                                      placeholder="Enter important text for booking"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1049,7 +1122,7 @@
                                     <div class="row justify-content-center-">
                                         <div class="col-4">
                                             <div class="form-group mt-3 w-100">
-                                                <button wire:click="updateDocument" type="button"
+                                                <button wire:click.prevent="updateDocument" type="button"
                                                         class="btn btn-lg btn-primary  text-center">
                                                     Add Document
                                                 </button>
@@ -1318,7 +1391,7 @@
                                     <div class="row justify-content-center-">
                                         <div class="col-4">
                                             <div class="form-group mt-3 w-100">
-                                                <button wire:click="updateDamage" type="button"
+                                                <button wire:click.prevent="updateDamage" type="button"
                                                         class="btn btn-lg btn-primary  text-center">Add
                                                     Damage History
                                                 </button>
@@ -1500,7 +1573,7 @@
                                     <div class="row justify-content-center-">
                                         <div class="col-4">
                                             <div class="form-group mt-3 w-100">
-                                                <button wire:click="updateRepair" type="button"
+                                                <button wire:click.prevent="updateRepair" type="button"
                                                         class="btn btn-lg btn-primary  text-center">Add
                                                     Repair
                                                 </button>

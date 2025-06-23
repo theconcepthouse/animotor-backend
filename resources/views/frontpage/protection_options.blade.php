@@ -91,6 +91,67 @@
 
 
 
+                                            <!-- Insurance Comparison Table -->
+                                            <div class="row border-bottom py-3">
+                                                <div class="col-4">
+                                                    <h5>What's covered</h5>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <h5>No protection</h5>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <h5 class="text-success">Collision Damage Protection</h5>
+                                                </div>
+                                            </div>
+
+                                            <!-- Row headings for the categories -->
+                                            @php
+                                                $categories = ['Damage to car', 'Theft of car', 'Drivers'];
+                                                $insurance_data = $car->insurance_coverage ?? [];
+                                            @endphp
+
+                                            @foreach($insurance_data as $index => $coverage)
+                                                <div class="row border-bottom py-4">
+                                                    <div class="col-4">
+                                                        <h6>{{ $categories[$index] ?? '' }}</h6>
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        <div class="text-center">
+                                                            <span class="text-muted">✕</span>
+                                                            <p>{{ $index < 2 ? 'Not covered' : 'Doesn\'t cover anyone' }}</p>
+                                                            @if($index < 2)
+                                                                <p class="small bg-light rounded-1 d-inline-block px-3 py-1">We don't reimburse you</p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 text-center">
+                                                        <div class="text-center">
+                                                            <span class="text-success">✓</span>
+                                                            <p><strong>{{ $coverage['title'] }}</strong></p>
+                                                            <p>{{ $coverage['value'] }}</p>
+                                                            @if($index < 2)
+                                                                <p>We reimburse you</p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                            <!-- Price -->
+                                            <div class="row py-4">
+                                                <div class="col-4"></div>
+                                                <div class="col-4 text-center">
+                                                    <p>No protection price</p>
+                                                    <h6>{{ amt(0) }}</h6>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <p>Total protection price</p>
+                                                    <h6 class="text-success">{{ amt($car->insurance_fee) }}</h6>
+                                                </div>
+                                            </div>
+
+
+
                                         </div>
 
                                     </div>

@@ -1,4 +1,4 @@
-<div class="carferrari__item mb__30 car_item d-flex-  bgwhite p-3">
+<div class="carferrari__item mb__30 car_item d-flex-  bgwhite p-3 {{ isset($is_highlighted) && $is_highlighted ? 'highlighted-car' : '' }}" style="{{ isset($is_highlighted) && $is_highlighted ? 'border: 2px solid #007bff; box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);' : '' }}">
    <div class="row d-flex p__10 align-items-center car_section">
        <div class="justify-content-center text-center thumb">
            <a href="{{ url('deal') }}?{{ http_build_query(['car_id' => $car->id] + request()->query()) }}" class=" align-items-center">
@@ -97,26 +97,19 @@
 
         <div style="border-top: 1px solid rgba(167, 164, 156, 0.59);" class="col-12 d-flex justify-content-between mt-3 p-3">
             <div>
-                <a href="#" class=" text-bold text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a href="#" class=" text-bold text-primary" data-bs-toggle="modal" data-bs-target="#importantInfoModal{{ $car->id }}">
                     <img src="assets/img/icons/info.png" class="me-3-" alt="cars" /> Important info
                 </a>
             </div>
 
             <div>
-                <p class="text-primary">
-                    <img src="assets/img/icons/route.png" class="mx-2" alt="cars">
-                    Map</p>
-            </div>
-        </div>
-
-        <div class="col-12 mt-2">
-            <div class="">
-
-                <p class="text-primary">
+                <a href="#" class="text-bold text-primary" data-bs-toggle="modal" data-bs-target="#emailQuoteModal{{ $car->id }}">
                     <img src="assets/img/icons/email.png" class="me-2" alt="cars">
-                    Email quote</p>
+                    Email quote
+                </a>
             </div>
         </div>
+
 
     </div>
 
@@ -125,3 +118,66 @@
 
 
 
+
+{{--Important text modal--}}
+<div class="modal fade" id="importantInfoModal{{ $car->id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Important Information</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if($car->important_text)
+                    {!! $car->important_text !!}
+                @else
+                    <p>No important information available for this car.</p>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{--Email Quote modal--}}
+<div class="modal fade" id="emailQuoteModal{{ $car->id }}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Email Quote</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="car-details mb-4">
+                    <h5>{{ $car->title }} or similar car</h5>
+                    <div class="row">
+                        <div class="col-6">
+                            <p><strong>Make:</strong> {{ $car->make }}</p>
+                            <p><strong>Model:</strong> {{ $car->model }}</p>
+                            <p><strong>Type:</strong> {{ $car->type }}</p>
+                            <p><strong>Seats:</strong> {{ $car->seats }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p><strong>Gear:</strong> {{ $car->gear }}</p>
+                            <p><strong>Price per day:</strong> {{ amt($car->price_per_day) }}</p>
+                            <p><strong>Total for {{ $days }} day(s):</strong> {{ amt($car->price_per_day * $days) }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="emailInput{{ $car->id }}" class="form-label">Your Email Address</label>
+                    <input type="email" class="form-control" id="emailInput{{ $car->id }}" placeholder="Enter your email">
+                </div>
+            </div>
+            <div class="modal-footer flex-column align-items-stretch">
+                <button type="button" class="btn btn-primary">Send Quote</button>
+                <p class="mt-2 small text-muted">
+                    We'll only use this to send you your quote - no spam. Our Privacy Statement explains how we use and protect your personal information.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

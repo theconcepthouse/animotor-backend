@@ -30,6 +30,7 @@ class Form extends Component
     public ?string $gear;
     public ?string $air_condition;
     public ?string $cancellation_fee;
+    public ?string $insurance_fee;
     public ?string $color;
     public ?string $year;
     public ?string $registration_number;
@@ -44,11 +45,13 @@ class Form extends Component
     public ?string $security_deposit;
     public ?string $damage_excess;
     public ?string $mileage_text;
+    public ?string $important_text;
     public ?string $fuel_type = "Diesel";
     public ?string $engine_size;
     public ?string $body_type = "convertible";
 
     public array $extras = ['title' => '', 'price' => ''];
+    public ?array $insurance_coverage = ['title' => '', 'value' => ''];
 
 
 //    TAX
@@ -135,6 +138,7 @@ class Form extends Component
         'PCN Listing',
         'Reports',
         'Subscriptions',
+        'Insurance Coverage',
     ];
 
     public array $full_types = [
@@ -294,6 +298,7 @@ class Form extends Component
             'gear' => ['required', 'string'],
 //            'air_condition' => ['required', 'string'],
             'cancellation_fee' => ['required', 'string'],
+            'insurance_fee' => ['nullable', 'string'],
 //            'color' => ['required', 'string'],
 //            'year' => ['required', 'string'],
             'registration_number' => ['required', 'string'],
@@ -344,6 +349,7 @@ class Form extends Component
             'security_deposit' => ['required', 'string'],
             'damage_excess' => ['required', 'string'],
             'mileage_text' => ['required', 'string'],
+            'important_text' => ['nullable', 'string'],
         ]);
 
         $this->car->update($validated);
@@ -677,6 +683,31 @@ class Form extends Component
 
     }
 
+    public function addInsuranceCoverage()
+    {
+        $this->validate([
+            'insurance_coverage.title' => ['required'],
+            'insurance_coverage.value' => ['required'],
+        ]);
+
+        $newData = [
+            'title' => $this->insurance_coverage['title'],
+            'value' => $this->insurance_coverage['value'],
+        ];
+
+        $data = $this->car->insurance_coverage ?? [];
+        $data[] = $newData;
+
+        $this->car->update(['insurance_coverage' => $data]);
+
+        $this->successMsg();
+
+        $this->insurance_coverage = [
+            'title' => '',
+            'value' => ''
+        ];
+    }
+
     public function addMOT()
     {
         $this->validate([
@@ -758,6 +789,22 @@ class Form extends Component
     {
         array_splice($this->car->service, $index, 1);
         $this->car->save();
+    }
+
+    public function removeExtra($index)
+    {
+        $extras = $this->car->extras;
+        array_splice($extras, $index, 1);
+        $this->car->update(['extras' => $extras]);
+        $this->successMsg();
+    }
+
+    public function removeInsuranceCoverage($index)
+    {
+        $insurance_coverage = $this->car->insurance_coverage;
+        array_splice($insurance_coverage, $index, 1);
+        $this->car->update(['insurance_coverage' => $insurance_coverage]);
+        $this->successMsg();
     }
 
     public function successMsg()

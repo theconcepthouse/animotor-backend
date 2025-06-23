@@ -56,6 +56,7 @@ trait FillableTraits
         'confirmation_no',
         'is_confirmed',
         'insurance_fee',
+        'insurance_coverage',
         'deposit_fee',
         'company_id',
     ];
@@ -113,6 +114,8 @@ trait FillableTraits
         'damage_excess',
         'insurance_fee',
         'mileage_text',
+        'insurance_coverage',
+        'important_text',
         'air_condition',
         'seats',
         'pick_up_location',

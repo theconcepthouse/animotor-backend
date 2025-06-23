@@ -149,35 +149,41 @@
                 <h4 class="modal-title">Email Quote</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="car-details mb-4">
-                    <h5>{{ $car->title }} or similar car</h5>
-                    <div class="row">
-                        <div class="col-6">
-                            <p><strong>Make:</strong> {{ $car->make }}</p>
-                            <p><strong>Model:</strong> {{ $car->model }}</p>
-                            <p><strong>Type:</strong> {{ $car->type }}</p>
-                            <p><strong>Seats:</strong> {{ $car->seats }}</p>
-                        </div>
-                        <div class="col-6">
-                            <p><strong>Gear:</strong> {{ $car->gear }}</p>
-                            <p><strong>Price per day:</strong> {{ amt($car->price_per_day) }}</p>
-                            <p><strong>Total for {{ $days }} day(s):</strong> {{ amt($car->price_per_day * $days) }}</p>
+            <form action="{{ route('send_quote') }}" method="POST">
+                @csrf
+                <input type="hidden" name="car_id" value="{{ $car->id }}">
+                <input type="hidden" name="days" value="{{ $days }}">
+
+                <div class="modal-body">
+                    <div class="car-details mb-4">
+                        <h5>{{ $car->title }} or similar car</h5>
+                        <div class="row">
+                            <div class="col-6">
+                                <p><strong>Make:</strong> {{ $car->make }}</p>
+                                <p><strong>Model:</strong> {{ $car->model }}</p>
+                                <p><strong>Type:</strong> {{ $car->type }}</p>
+                                <p><strong>Seats:</strong> {{ $car->seats }}</p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Gear:</strong> {{ $car->gear }}</p>
+                                <p><strong>Price per day:</strong> {{ amt($car->price_per_day) }}</p>
+                                <p><strong>Total for {{ $days }} day(s):</strong> {{ amt($car->price_per_day * $days) }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group mb-3">
-                    <label for="emailInput{{ $car->id }}" class="form-label">Your Email Address</label>
-                    <input type="email" class="form-control" id="emailInput{{ $car->id }}" placeholder="Enter your email">
+                    <div class="form-group mb-3">
+                        <label for="emailInput{{ $car->id }}" class="form-label">Your Email Address</label>
+                        <input type="email" class="form-control" id="emailInput{{ $car->id }}" name="email" placeholder="Enter your email" required>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer flex-column align-items-stretch">
-                <button type="button" class="btn btn-primary">Send Quote</button>
-                <p class="mt-2 small text-muted">
-                    We'll only use this to send you your quote - no spam. Our Privacy Statement explains how we use and protect your personal information.
-                </p>
-            </div>
+                <div class="modal-footer flex-column align-items-stretch">
+                    <button type="submit" class="btn btn-primary">Send Quote</button>
+                    <p class="mt-2 small text-muted">
+                        We'll only use this to send you your quote - no spam. Our Privacy Statement explains how we use and protect your personal information.
+                    </p>
+                </div>
+            </form>
         </div>
     </div>
 </div>

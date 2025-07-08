@@ -11,7 +11,7 @@
                             <div class="nk-block-head">
                                 <div class="nk-block-between">
                                     <div class="nk-block-head-content">
-                                        <h4 class="nk-block-title">Vehicle Mileage</h4>
+                                        <h4 class="nk-block-title">Vehicle Mileage (use 0 for unlimited)</h4>
                                     </div>
 
 

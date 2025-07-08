@@ -180,9 +180,9 @@ class CarListing extends Component
                 $query->where('mileage', 0);
             }
 
-//            if(in_array('limited', $this->selected_mileage)){
-//                $query->orWhere('mileage', '>', 0);
-//            }
+            if(in_array('limited', $this->selected_mileage)){
+                $query->orWhere('mileage', '>', 0);
+            }
 
         });
 

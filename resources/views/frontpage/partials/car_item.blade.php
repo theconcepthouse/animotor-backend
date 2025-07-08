@@ -31,7 +31,13 @@
 
                    <div class="col-6 mt-3">
                        <p><img src="/assets/img/icons/signpost.png" />
-                           {{ $car?->mileage }} miles per rental</p>
+
+                           @if($car->mileage < 1)
+                               Unlimited Mileage
+                           @else
+                               {{ $car->mileage }} miles per rental
+                           @endif
+                      </p>
                    </div>
 
 

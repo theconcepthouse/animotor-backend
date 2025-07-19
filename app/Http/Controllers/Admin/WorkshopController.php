@@ -11,7 +11,7 @@ class WorkshopController extends Controller
     public function index()
     {
          if (isAdmin()) {
-             $workshops = Workshop::latest()->all();
+             $workshops = Workshop::latest()->get();
          }else{
              $workshops = Workshop::where('user_id', auth()->id())->latest()->get();
          }

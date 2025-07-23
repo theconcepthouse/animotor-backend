@@ -32,6 +32,7 @@ class Car extends Model
     protected $casts = [
         'extras' => 'array',
         'driver' => 'array',
+        'insurance_coverage' => 'array',
     ];
 
     public function region(): BelongsTo
@@ -66,6 +67,23 @@ class Car extends Model
     {
         $this->attributes['extras'] = json_encode($value);
     }
+
+
+    public function getInsuranceCoverageAttribute($value)
+    {
+        if(!$value){
+            return [];
+        }
+        return json_decode($value, true);
+    }
+
+
+    public function setInsuranceCoverageAttribute($value)
+    {
+        $this->attributes['insurance_coverage'] = json_encode($value);
+    }
+
+
 
     public function company(): BelongsTo
     {

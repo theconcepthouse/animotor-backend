@@ -131,9 +131,10 @@
                             </div>
 
 
+{{--                            Important Info--}}
                             <div class="col-12 col-md-6 d-flex justify-content-end">
                                 <div class="d-flex align-items-center">
-                                    <a href="#car_info" class="d-flex mt-3">
+                                    <a href="#" class="d-flex mt-3" data-bs-toggle="modal" data-bs-target="#importantInfoModal{{ $car->id }}">
                                         <p class="text-primary mb-0">Important info</p>
                                         <img src="assets/img/icons/info.png" class="mx-3" alt="cars">
                                     </a>
@@ -194,5 +195,26 @@
 
     @include('frontpage.components.subscribe')
 
+    {{--Important text modal--}}
+    <div class="modal fade" id="importantInfoModal{{ $car->id }}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Important Information</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if($car->important_text)
+                        {!! $car->important_text !!}
+                    @else
+                        <p>No important information available for this car.</p>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

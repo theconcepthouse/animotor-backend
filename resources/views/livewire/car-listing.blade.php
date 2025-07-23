@@ -120,21 +120,46 @@
                         </div>
                         @endif
 
-                <div class="car_categories owl-theme owl-carousel">
-                    @foreach($services as $item)
-                        <div class="car_category_item text-center">
-                        <img src="{{ $item->image }}" alt="img">
-                        <p>{{ $item->name }}</p>
-                    </div>
-                    @endforeach
+{{--                    Vehicle Types Listing--}}
+                <div class="car_categories- d-flex-" style="overflow-x: auto; gap: 10px; min-height: 120px; display: flex !important; border: 1px solid #eee; padding: 10px; margin-bottom: 15px;">
+                    @if(count($vehicle_types) > 0)
+                        @foreach($vehicle_types as $item)
+                            <div class="car_category_item text-center {{ in_array($item->name, $selected_car_types) ? 'active' : '' }}"
+                                wire:click="$set('selected_car_types', ['{{ $item->name }}'])"
+                                style="cursor: pointer; {{ in_array($item->name, $selected_car_types) ? 'background-color: rgba(0, 123, 255, 0.1);' : '' }}; flex: 0 0 auto; min-width: 100px; display: block !important; padding: 5px; border-radius: 5px;">
+                                @if(!empty($item->icon))
+                                    <img src="{{ $item->icon }}" alt="{{ $item->name }}" style="max-height: 60px; display: inline-block !important;"
+                                         onerror="this.onerror=null; this.parentNode.innerHTML='<div style=\'height: 60px; display: flex !important; align-items: center; justify-content: center; background-color: #f8f9fa; border-radius: 5px;\'><span class=\'text-muted\'>{{ $item->name }}</span></div>';">
+                                @else
+                                    <div style="height: 60px; display: flex !important; align-items: center; justify-content: center; background-color: #f8f9fa; border-radius: 5px;">
+                                        <span class="text-muted">{{ $item->name }}</span>
+                                    </div>
+                                @endif
+                                <p style="margin-top: 5px; display: block !important;">{{ $item->name }}</p>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="alert alert-info w-100" style="display: block !important;">
+                            No vehicle types available
+                        </div>
+                    @endif
                 </div>
+                @if(count($selected_car_types) > 0)
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-primary" wire:click="$set('selected_car_types', [])">Clear Vehicle Type Filter</button>
+                </div>
+                @endif
             </section>
 
             @if(count($filteredCars) > 0)
             <div class="row">
                 @foreach($filteredCars as $car)
                     <div class="col-sm-12 col-md-6">
-                        @include('frontpage.partials.car_item',['car' => $car,'days' => $booking_day])
+                        @include('frontpage.partials.car_item',[
+                            'car' => $car,
+                            'days' => $booking_day,
+                            'is_highlighted' => count($selected_car_types) > 0 && in_array($car->type, $selected_car_types)
+                        ])
                     </div>
                 @endforeach
 

@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\PaymentService;
 use App\Services\WalletService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class FrontPageController extends Controller
@@ -21,6 +22,55 @@ class FrontPageController extends Controller
 //            return redirect('/admin/dashboard');
 ////        }
 //    }
+
+    public function sendQuote(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'car_id' => 'required|exists:cars,id',
+        ]);
+
+        $car = Car::findOrFail($request->car_id);
+        $email = $request->email;
+        $days = $request->days ?? 1;
+        $site_name = settings('site_name');
+
+        $data['title'] = "Your Car Quote from $site_name";
+        $data['name'] = $email;
+
+        $data['message'] = "
+            <h2>Your Car Quote</h2>
+            <p>Thank you for requesting a quote for the {$car->title}.</p>
+
+            <div style='margin: 20px 0; padding: 15px; border: 1px solid #eee;'>
+                <h3>{$car->title} or similar car</h3>
+                <table style='width: 100%;'>
+                    <tr>
+                        <td style='width: 50%; vertical-align: top;'>
+                            <p><strong>Make:</strong> {$car->make}</p>
+                            <p><strong>Model:</strong> {$car->model}</p>
+                            <p><strong>Type:</strong> {$car->type}</p>
+                            <p><strong>Seats:</strong> {$car->seats}</p>
+                        </td>
+                        <td style='width: 50%; vertical-align: top;'>
+                            <p><strong>Gear:</strong> {$car->gear}</p>
+                            <p><strong>Price per day:</strong> " . amt($car->price_per_day) . "</p>
+                            <p><strong>Total for {$days} day(s):</strong> " . amt($car->price_per_day * $days) . "</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>We hope this quote meets your requirements. If you have any questions or would like to proceed with booking, please visit our website or contact our customer service team.</p>
+
+            <p>Thank you for choosing $site_name!</p>
+        ";
+
+        Mail::to($email)->send(new \App\Mail\SendMessage($data));
+
+        return redirect()->back()->with('success', 'Quote has been sent to your email address.');
+    }
+
 
     public function home(){
         if(settings('enable_frontpage') != 'yes'){

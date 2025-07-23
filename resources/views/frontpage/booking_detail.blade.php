@@ -120,7 +120,14 @@
 
                                         <div class="col-6 mt-2">
                                             <p><img src="/assets/img/icons/signpost.png" />
-                                                {{ $booking->car->mileage }} miles per rental</p>
+                                                @if($booking->car->mileage < 1)
+                                                    Unlimited Mileage
+
+                                                @else
+                                                    {{ $booking->car->mileage }} miles per rental
+                                                @endif
+
+                                            </p>
                                         </div>
 
                                         <div class="col-6 mt-3">

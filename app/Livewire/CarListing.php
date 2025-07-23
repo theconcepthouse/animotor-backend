@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Car;
 use App\Models\Region;
 use App\Models\Service;
+use App\Models\VehicleType;
 use App\Models\VehicleMake;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -95,6 +96,37 @@ class CarListing extends Component
         return Service::where('is_active', true)->get();
     }
 
+    public function vehicleTypes(){
+        $types = VehicleType::where('is_active', true)->get();
+
+        // For debugging purposes
+        if ($types->isEmpty()) {
+            \Log::info('No active vehicle types found in the database');
+
+            // Create default vehicle types if none exist
+            $defaultTypes = [
+                ['name' => 'Sedan', 'icon' => '/assets/img/icons/car-sedan.png'],
+                ['name' => 'SUV', 'icon' => '/assets/img/icons/car-suv.png'],
+                ['name' => 'Luxury', 'icon' => '/assets/img/icons/car-luxury.png'],
+                ['name' => 'Economy', 'icon' => '/assets/img/icons/car-economy.png']
+            ];
+
+            // Return a collection of default types without saving to database
+            return collect($defaultTypes)->map(function($type) {
+                $vehicleType = new VehicleType();
+                $vehicleType->name = $type['name'];
+                $vehicleType->icon = $type['icon'];
+                return $vehicleType;
+            });
+        } else {
+            \Log::info('Found ' . $types->count() . ' active vehicle types');
+            foreach ($types as $type) {
+                \Log::info('Vehicle Type: ' . $type->name . ', Icon: ' . ($type->icon ?? 'NULL'));
+            }
+            return $types;
+        }
+    }
+
 //    public function updatedMaxPrice(){
 //        dd($this->selectedFilters);
 //    }
@@ -102,7 +134,7 @@ class CarListing extends Component
     public function render()
     {
         $services = $this->services();
-
+        $vehicle_types = $this->vehicleTypes();
 
         $this->loading = true;
 
@@ -148,9 +180,9 @@ class CarListing extends Component
                 $query->where('mileage', 0);
             }
 
-//            if(in_array('limited', $this->selected_mileage)){
-//                $query->orWhere('mileage', '>', 0);
-//            }
+            if(in_array('limited', $this->selected_mileage)){
+                $query->orWhere('mileage', '>', 0);
+            }
 
         });
 
@@ -181,7 +213,7 @@ class CarListing extends Component
 
         $this->loading = false;
 
-        return view('livewire.car-listing',  compact('filteredCars','services'));
+        return view('livewire.car-listing',  compact('filteredCars', 'services', 'vehicle_types'));
     }
 
     public function filterHeading($title): string

@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auto_login']], function () {
     Route::get('/', [FrontPageController::class, 'home']);
+    Route::post('/send_quote', [FrontPageController::class, 'sendQuote'])->name('send_quote');
     Route::get('/token', [FrontPageController::class, 'token']);
     Route::get('/manage/booking', [FrontPageController::class, 'manageBooking'])->name('manage_booking');
     Route::post('/search/booking', [FrontPageController::class, 'searchBooking'])->name('search_booking');

@@ -1,11 +1,11 @@
 <div class="nk-block nk-block-lg">
     <div class="nk-block-between g-3">
         <div class="nk-block-head-content ">
-            <h4 class="title nk-block-title">{{ 'Editing ' .$car->title  }} {{ $steps[$step - 1] }}</h4>
+            <h4 class="title nk-block-title">{{ 'Editing ' .$car->title  }} {{ $this->currentStepName }}</h4>
             @if($step > 1)
                 <h4 wire:click.prevent="goBack" class="title nk-block-title" style="cursor: pointer">
                     <img src="{{ asset('assets/img/icons/arrow-left.png') }}"/>
-                    {{ $steps[$step - 1] }}
+                    {{ $this->currentStepName }}
                 </h4>
             @endif
 

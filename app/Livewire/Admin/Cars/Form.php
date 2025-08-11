@@ -19,6 +19,8 @@ class Form extends Component
     use WithFileUploads;
 
 
+
+
     public Car $car;
     public  $pcns;
 
@@ -141,6 +143,34 @@ class Form extends Component
         'Insurance Coverage',
     ];
 
+    /**
+     * Initialize steps array if it's missing
+     */
+    private function initializeSteps()
+    {
+        if (!is_array($this->steps) || empty($this->steps)) {
+            $this->steps = [
+                'Vehicle',
+                'Transmission',
+                'Specifications',
+                'MOT',
+                'Road Tax',
+                'Service',
+                'Driver Details',
+                'Addons',
+                'Booking Information',
+                'Documents',
+                'Finance',
+                'Damage History',
+                'Add repair',
+                'PCN Listing',
+                'Reports',
+                'Subscriptions',
+                'Insurance Coverage',
+            ];
+        }
+    }
+
     public array $full_types = [
         'Diesel',
         'Petrol',
@@ -176,6 +206,71 @@ class Form extends Component
     #[Computed]
     public int $step = 1;
 
+    /**
+     * Get the current step name safely
+     */
+    public function getCurrentStepNameProperty()
+    {
+        try {
+            $this->ensureValidStep();
+            
+            // Double-check that steps array exists and has content
+            if (!is_array($this->steps) || empty($this->steps)) {
+                return 'Step ' . $this->step;
+            }
+            
+            $stepIndex = $this->step - 1;
+            
+            // Ensure step index is within bounds
+            if ($stepIndex >= 0 && $stepIndex < count($this->steps)) {
+                return $this->steps[$stepIndex];
+            }
+            
+            return 'Step ' . $this->step;
+        } catch (Exception $e) {
+            // If there's any error, return a safe fallback
+            return 'Step ' . $this->step;
+        }
+    }
+
+    /**
+     * Ensure step is within valid range
+     */
+    public function ensureValidStep()
+    {
+        $this->initializeSteps(); // Ensure steps array is initialized
+        $maxStep = count($this->steps);
+        if ($this->step < 1 || $this->step > $maxStep) {
+            $this->step = min(max(1, $this->step), $maxStep);
+        }
+    }
+
+    /**
+     * Reset step to a safe value
+     */
+    public function resetStep()
+    {
+        $this->step = 1;
+    }
+
+    /**
+     * Called when component is hydrated
+     */
+    public function hydrate()
+    {
+        $this->ensureValidStep();
+    }
+
+    /**
+     * Called when any property is updated
+     */
+    public function updated($property)
+    {
+        if ($property === 'step') {
+            $this->ensureValidStep();
+        }
+    }
+
 
     public function updatedMake()
     {
@@ -189,7 +284,10 @@ class Form extends Component
     public function goBack(){
         if($this->step > 1){
             $this->step--;
+        } else {
+            $this->step = 1; // Ensure step doesn't go below 1
         }
+        $this->ensureValidStep(); // Additional validation
     }
 
     public function updatedGear()
@@ -238,10 +336,21 @@ class Form extends Component
                 $this->tax_expiry_date = $carExtra->tax_expiry_date;
             }
         }
+        
+        // Ensure step is valid when component mounts
+        $this->ensureValidStep();
     }
 
     public function render()
     {
+        // Ensure step is valid before rendering
+        $this->ensureValidStep();
+        
+        // Additional safety check - if step is still invalid, force it to 1
+        if ($this->step < 1 || $this->step > count($this->steps)) {
+            $this->step = 1;
+        }
+        
         return view('livewire.admin.cars.form');
     }
 
@@ -249,10 +358,29 @@ class Form extends Component
     public function saveUpdate()
     {
 
-//        if($this->step == 6){
-//            return $this->addService();
-//        }
-//
+        // Check if this is the final step (step 17)
+        if ($this->step == 17) {
+            // Save the final step data and redirect to car index
+            $this->updateInsuranceCoverage();
+            $this->successMsg();
+            session()->flash('success', 'Car updated successfully!');
+            $this->redirect(route('admin.cars.index'));
+            return;
+        }
+
+        if ($this->step == 6) {
+            // Service step - just move to next step without validation
+            $this->step++;
+            $this->successMsg();
+            return;
+        }
+
+        if ($this->step == 4) {
+            // MOT step - just move to next step without validation
+            $this->step++;
+            $this->successMsg();
+            return;
+        }
 
         if ($this->step == 5) {
             $this->saveTax();
@@ -264,7 +392,10 @@ class Form extends Component
         }
 
         if ($this->step == 16) {
-           return $this->updateSubscription();
+           // Subscriptions step - just move to next step without validation
+           $this->step++;
+           $this->successMsg();
+           return;
         }
 
 
@@ -287,7 +418,45 @@ class Form extends Component
         }
 
         if ($this->step == 9) {
-            return $this->updateBookingInfo();
+            // Booking Information step - just move to next step without validation
+            $this->step++;
+            $this->successMsg();
+            return;
+        }
+
+        if ($this->step == 10) {
+            // Documents step - just move to next step without validation
+            $this->step++;
+            $this->successMsg();
+            return;
+        }
+
+        if ($this->step == 12) {
+            // Damage History step - just move to next step without validation
+            $this->step++;
+            $this->successMsg();
+            return;
+        }
+
+        if ($this->step == 13) {
+            // Add repair step - just move to next step without validation
+            $this->step++;
+            $this->successMsg();
+            return;
+        }
+
+        if ($this->step == 14) {
+            // PCN Listing step - just move to next step without validation
+            $this->step++;
+            $this->successMsg();
+            return;
+        }
+
+        if ($this->step == 15) {
+            // Reports step - just increment step for now
+            $this->step++;
+            $this->successMsg();
+            return;
         }
 
         $validated = $this->validate([
@@ -339,7 +508,14 @@ class Form extends Component
 
     public function setStep($step)
     {
-        $this->step = $step;
+        // Ensure step is within valid range (1 to number of steps)
+        $maxStep = count($this->steps);
+        if ($step >= 1 && $step <= $maxStep) {
+            $this->step = $step;
+        } else {
+            // If step is out of range, set to last valid step
+            $this->step = $maxStep;
+        }
     }
 
     public function updateBookingInfo(): bool
@@ -706,6 +882,14 @@ class Form extends Component
             'title' => '',
             'value' => ''
         ];
+    }
+
+    public function updateInsuranceCoverage()
+    {
+        // For the final step, save insurance coverage if provided
+        if (isset($this->insurance_coverage['title']) && !empty($this->insurance_coverage['title'])) {
+            $this->addInsuranceCoverage();
+        }
     }
 
     public function addMOT()

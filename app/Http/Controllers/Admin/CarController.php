@@ -39,8 +39,8 @@ class CarController extends Controller
             $validatedData['company_id'] = companyId();
         }
 
-         $ani_motor = Company::where('contact_name', 'animotor')->first();
         if(auth()->user()->hasRole('superadmin|admin')){
+            $ani_motor = $this->getOrCreateAnimotorCompany();
             $validatedData['company_id'] = $ani_motor->id;
         }
 
@@ -51,6 +51,33 @@ class CarController extends Controller
             return redirect()->route('admin.cars.edit', $car->id)->with('success', $message );
         }
         return redirect()->route('admin.cars.index')->with('success', $message);
+    }
+
+    /**
+     * Get or create the Animotor company for admin users
+     */
+    private function getOrCreateAnimotorCompany()
+    {
+        $ani_motor = Company::where('contact_name', 'animotor')->first();
+        
+        if (!$ani_motor) {
+            $admin = auth()->user();
+            $ani_motor = Company::create([
+                'name' => 'Animotor',
+                'contact_name' => 'animotor',
+                'contact_email' => $admin->email,
+                'contact_phone' => '0' . rand(100000000, 999999999), // Random 10-digit number starting with 0
+                'address' => null,
+                'postal_code' => null,
+                'city' => null,
+                'state' => null,
+                'country' => null,
+                'tin' => null,
+                'logo' => null,
+            ]);
+        }
+        
+        return $ani_motor;
     }
 
     public function edit($id){

@@ -201,7 +201,7 @@
                                             <div class="form-control-wrap">
                                                 <input wire:model="mileage" type="text"
                                                        class="form-control @error('mileage') error @enderror  form-control-xl"
-                                                       id="mileage">
+                                                       id="mileage" step="any">
                                                 @error("mileage") <span class="invalid">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
@@ -213,7 +213,7 @@
                                             <div class="form-control-wrap">
                                                 <input wire:model="cancellation_fee" type="text"
                                                        class="form-control @error('cancellation_fee') error @enderror  form-control-xl"
-                                                       id="cancellation_fee">
+                                                       id="cancellation_fee" step="any">
                                                 @error("cancellation_fee") <span
                                                     class="invalid">{{ $message }}</span>@enderror
                                             </div>
